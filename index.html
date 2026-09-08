@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>buddy; a digital intern still on the job next week</title>
+<title>buddy: a digital intern still on the job next week</title>
 <meta name="description" content="buddy works on a real computer and browser, with a persistent filesystem that survives between runs. workflows can span days, and it asks before anything leaves your account.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -267,7 +267,7 @@
 </div>
 
 <script>
-/* waitlist ; posts to /api/waitlist; honeypot silently drops bots */
+/* waitlist : posts to /api/waitlist; honeypot silently drops bots */
 function handleSignup(e){
 e.preventDefault();
 const form=e.target;
@@ -293,7 +293,7 @@ fetch('/api/waitlist',{
 return false;
 }
 
-/* plan card ; proposed / revising / running, per the design's landing state */
+/* plan card : proposed / revising / running, per the design's landing state */
 let lpV=2;
 function lpShow(state){
 document.getElementById('lp-proposed').hidden=state!=='proposed';
@@ -326,7 +326,7 @@ document.getElementById('lp-ask').value='';
 lpShow('proposed');
 }
 
-/* computer ; take over / hand back, double-click takes over */
+/* computer : take over / hand back, double-click takes over */
 let lcControl=false;
 const WORK='oklch(0.66 0.085 75)',WORK_LINE='oklch(0.66 0.085 75 / 0.35)',WORK_FILL='oklch(0.66 0.085 75 / 0.12)';
 const ACC='oklch(0.55 0.075 150)',ACC_LINE='oklch(0.55 0.075 150 / 0.35)',ACC_FILL='oklch(0.55 0.075 150 / 0.12)';
@@ -350,7 +350,7 @@ document.getElementById('lc-say').textContent=lcControl?'leave buddy a note for 
 function lcToggle(){lcControl=!lcControl;lcRender();}
 function lcTake(){if(!lcControl){lcControl=true;lcRender();}}
 
-/* filesystem ; folders open and close */
+/* filesystem : folders open and close */
 function lfToggle(dir){
 const body=document.getElementById('lf-'+dir);
 const open=body.hidden;
@@ -358,7 +358,7 @@ body.hidden=!open;
 document.getElementById('lf-'+dir+'-chev').style.transform='rotate('+(open?'90deg':'0deg')+')';
 }
 
-/* tool budget ; per the design's ltRows: toggle, meter, cap refusal */
+/* tool budget : per the design's ltRows: toggle, meter, cap refusal */
 const LT_CAP=52;
 const LT=[
 {name:'Gmail',n:12,on:true},
@@ -391,7 +391,7 @@ LT.forEach(function(t,i){
 }
 ltRender();
 
-/* approvals ; approve / decline resolve the card */
+/* approvals : approve / decline resolve the card */
 function laResolve(yes){
 document.getElementById('la-pending').hidden=true;
 const done=document.getElementById('la-done');
