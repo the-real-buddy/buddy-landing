@@ -1,10 +1,8 @@
 /**
- * Public waitlist intake for trybuddynow.com — Vercel serverless port of
- * landing/steps/service/waitlist.py (which ran behind Caddy on ark.mit.edu).
+ * Public waitlist intake for trybuddynow.com.
  *
  * Writes straight to Supabase Postgres as the insert-only `waitlist_writer`
- * role (waitlist-setup/002), restoring the original least-privilege design.
- * Keeps the original guarantees: credentials never reach the browser, the
+ * role, keeping the least-privilege design: credentials never reach the browser, the
  * endpoint never reads back (204 on success AND duplicate, so there is no
  * email-enumeration signal), and there is no GET.
  *

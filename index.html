@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>buddy: a sandboxed ai agent for the long boring tasks</title>
+<title>buddy — a digital intern still on the job next week</title>
+<meta name="description" content="buddy works on a real computer and browser, with a persistent filesystem that survives between runs. workflows can span days, and it asks before anything leaves your account.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -12,7 +13,8 @@
 --ink:#1c1b18;--ink-soft:#54524b;--ink-mute:#97948a;--ink-faint:#c4c1b6;
 --paper:#f7f6f1;--surface:#fdfcf9;--surface-2:#f1efe8;--line:#e6e3da;--line-soft:#efece4;
 --accent:oklch(0.55 0.075 150);--accent-soft:oklch(0.55 0.075 150 / 0.12);--accent-line:oklch(0.55 0.075 150 / 0.35);
---work:oklch(0.66 0.085 75);--stop:oklch(0.58 0.10 28);
+--work:oklch(0.66 0.085 75);--work-soft:oklch(0.66 0.085 75 / 0.12);--work-line:oklch(0.66 0.085 75 / 0.35);
+--stop:oklch(0.58 0.10 28);
 --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
 --r:7px;--shadow:0 1px 2px rgba(28,27,24,.03),0 12px 32px -20px rgba(28,27,24,.18);
 --shadow-lift:0 1px 2px rgba(28,27,24,.04),0 40px 90px -36px rgba(28,27,24,.32);
@@ -22,7 +24,8 @@
 --ink:#ecebe6;--ink-soft:#b6b3aa;--ink-mute:#797668;--ink-faint:#46443d;
 --paper:#121210;--surface:#1a1815;--surface-2:#201f1b;--line:#2a2823;--line-soft:#221f1b;
 --accent:oklch(0.74 0.105 150);--accent-soft:oklch(0.74 0.105 150 / 0.16);--accent-line:oklch(0.74 0.105 150 / 0.40);
---work:oklch(0.78 0.10 78);--stop:oklch(0.70 0.12 28);
+--work:oklch(0.78 0.10 78);--work-soft:oklch(0.78 0.10 78 / 0.16);--work-line:oklch(0.78 0.10 78 / 0.40);
+--stop:oklch(0.70 0.12 28);
 --shadow:0 1px 2px rgba(0,0,0,.4),0 16px 40px -24px rgba(0,0,0,.7);
 --shadow-lift:0 1px 2px rgba(0,0,0,.5),0 50px 100px -40px rgba(0,0,0,.85);
 }
@@ -30,9 +33,8 @@
 html{scroll-behavior:smooth}
 body{margin:0;font-family:var(--mono);background:var(--paper);color:var(--ink);font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased;transition:background .4s var(--ease),color .4s var(--ease);overflow-x:hidden}
 ::selection{background:var(--accent-soft)}
-a{color:var(--accent)}
+a{color:var(--accent);text-decoration:none}
 a:hover{color:var(--ink)}
-.wrap{max-width:1080px;margin:0 auto;padding:0 40px}
 
 /* nav */
 .nav{display:flex;align-items:center;justify-content:space-between;padding:26px 40px;max-width:1080px;margin:0 auto}
@@ -44,119 +46,180 @@ a:hover{color:var(--ink)}
 .theme-btn:hover{color:var(--ink);border-color:var(--ink-faint)}
 
 /* hero */
-.hero{padding:70px 40px 30px;max-width:1080px;margin:0 auto;text-align:center}
+.hero{padding:74px 40px 26px;max-width:1080px;margin:0 auto;text-align:center}
 .kicker{font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-mute);font-weight:500;display:inline-flex;align-items:center;gap:8px;margin-bottom:22px}
 .kicker::before,.kicker::after{content:"";width:22px;height:1px;background:var(--line)}
-h1{font-size:44px;font-weight:500;letter-spacing:-.03em;line-height:1.15;margin:0 auto 20px;max-width:760px;text-wrap:pretty}
+h1{font-size:44px;font-weight:500;letter-spacing:-.03em;line-height:1.16;margin:0 auto 20px;max-width:720px;text-wrap:pretty}
 h1 .accent{color:var(--accent)}
-.sub{font-size:14.5px;color:var(--ink-soft);max-width:480px;margin:0 auto 36px;line-height:1.7;text-wrap:pretty}
+.sub{font-size:14.5px;color:var(--ink-soft);max-width:520px;margin:0 auto 36px;line-height:1.7;text-wrap:pretty}
 
-/* signup */
-.signup{display:flex;justify-content:center;gap:10px;max-width:420px;margin:0 auto}
-.signup input{flex:1;font-family:var(--mono);font-size:13px;padding:13px 16px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);color:var(--ink);outline:none;transition:border-color .2s var(--ease)}
+/* waitlist signup */
+.signup{display:flex;justify-content:center;gap:10px;max-width:420px;margin:0 auto;position:relative}
+.signup input[type=email]{flex:1;font-family:var(--mono);font-size:13px;padding:13px 16px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);color:var(--ink);outline:none;transition:border-color .2s var(--ease)}
 .signup input::placeholder{color:var(--ink-mute)}
-.signup input:focus{border-color:var(--accent-line)}
+.signup input[type=email]:focus{border-color:var(--accent-line)}
 .signup button{font-family:var(--mono);font-size:13px;padding:13px 20px;border-radius:var(--r);border:1px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer;white-space:nowrap;transition:all .18s var(--ease)}
 .signup button:hover{background:var(--accent);border-color:var(--accent)}
-.signup-note{font-size:11px;color:var(--ink-mute);margin-top:14px}
 .signup.done input,.signup.done button{display:none}
-.signup-thanks{display:none;font-size:13px;color:var(--accent);text-align:center}
-.signup.done + .signup-note{display:none}
+.signup-thanks{display:none;font-size:13px;color:var(--accent);text-align:center;margin-top:6px}
 .signup.done ~ .signup-thanks{display:block}
-/* Failure keeps the inputs on screen — the whole point is that they can retry. */
-.signup-error{display:none;font-size:13px;color:var(--accent);text-align:center;margin-top:14px}
+.signup-error{display:none;font-size:13px;color:var(--stop);text-align:center;margin-top:14px}
 .signup.failed ~ .signup-error{display:block}
 .signup.sending button{opacity:.55;cursor:default}
 
-/* mockup frame */
-.mock-stage{padding:50px 40px 100px;max-width:1080px;margin:0 auto}
-.mock-frame{border:1px solid var(--line);border-radius:14px;background:var(--surface);box-shadow:var(--shadow-lift);overflow:hidden}
-.mock-bar{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--line)}
-.mock-dot{width:8px;height:8px;border-radius:50%;background:var(--line)}
-.mock-bar .url{margin-left:14px;font-size:10.5px;color:var(--ink-mute)}
-.mock-body{display:grid;grid-template-columns:44px 1fr;font-size:11px}
-.mock-rail{border-right:1px solid var(--line);display:flex;flex-direction:column;align-items:center;padding:16px 0;gap:16px}
-.mock-rail .m{font-weight:700;font-size:13px}
-.mock-rail .n{writing-mode:vertical-rl;rotate:180deg;color:var(--ink-faint);font-size:9px;letter-spacing:.12em;flex:1}
-.mock-main{padding:26px 30px}
-.mock-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:26px}
-.mock-head .t{font-size:16px;color:var(--ink)}
-.mock-head .t .accent{color:var(--accent)}
-.mock-head .l{font-size:10px;color:var(--ink-mute);max-width:200px;text-align:right}
-.mock-cols{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:0}
-.mock-col{padding:0 20px}
-.mock-col:first-child{padding-left:0}
-.mock-col+.mock-col{border-left:1px solid var(--line)}
-.mock-col .k{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:14px;display:block}
-.mock-card{border:1px solid var(--line);border-radius:6px;padding:10px 11px;margin-bottom:9px;background:var(--surface)}
-.mock-card.lead{background:var(--accent-soft);border-color:var(--accent-line)}
-.mock-col-lead .k{color:var(--ink-soft)}
-.mock-card .top{display:flex;justify-content:space-between;font-size:9px;color:var(--ink-mute);margin-bottom:6px}
-.mock-card .top .a{color:var(--accent)}
-.mock-card .title{font-size:10.5px;color:var(--ink)}
-.mock-card .body{font-size:9.5px;color:var(--ink-soft);margin-top:5px;line-height:1.5}
-.mock-actions{display:flex;gap:6px;justify-content:flex-end;margin-top:10px}
-.mbtn{font-size:9px;padding:5px 10px;border-radius:5px;border:1px solid var(--line);color:var(--ink-soft);background:var(--surface)}
-.mbtn.primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.mock-row{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:6px;padding:9px 11px;margin-bottom:8px;font-size:10px;color:var(--ink-soft)}
-.mock-dotstat{width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0}
-.mock-dotstat.mute{background:var(--ink-faint)}
+/* feature rows */
+.features{max-width:1080px;margin:0 auto;padding:56px 40px 20px;display:flex;flex-direction:column;gap:84px}
+.feature{display:grid;grid-template-columns:.8fr 1.25fr;gap:56px;align-items:center;opacity:0;transform:translateY(14px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.feature.in{opacity:1;transform:translateY(0)}
+.feature.flip .f-copy{order:2}
+.feature.flip .f-art{order:1}
+.f-copy .num{font-size:10px;color:var(--ink-faint);font-variant-numeric:tabular-nums;display:block;margin-bottom:16px}
+.f-copy h3{font-size:20px;font-weight:500;letter-spacing:-.02em;margin:0 0 10px}
+.f-copy p{font-size:13px;color:var(--ink-mute);margin:0;line-height:1.7;max-width:300px}
 
-/* capability grid */
-.capabilities{padding:20px 40px 90px;max-width:1080px;margin:0 auto}
-.cap-head{text-align:center;margin-bottom:56px}
-.cap-head h2{font-size:24px;font-weight:500;letter-spacing:-.02em;margin:0 0 12px}
-.cap-head p{font-size:13px;color:var(--ink-mute);max-width:440px;margin:0 auto}
-.cap-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
-.cap{background:var(--surface);padding:30px 24px;opacity:0;transform:translateY(14px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
-.cap.in{opacity:1;transform:translateY(0)}
-.cap .num{font-size:10px;color:var(--ink-faint);margin-bottom:16px;font-variant-numeric:tabular-nums}
-.cap h3{font-size:13.5px;font-weight:500;margin:0 0 8px;color:var(--ink)}
-.cap p{font-size:11.5px;color:var(--ink-mute);margin:0;line-height:1.6}
+/* shared card chrome */
+.card{border:1px solid var(--line);border-radius:12px;background:var(--surface);box-shadow:var(--shadow-lift);overflow:hidden;font-size:12px}
+.card-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line);font-size:11px;color:var(--ink-mute)}
+.tag{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line);border-radius:100px;padding:3px 9px;color:var(--ink-soft);transition:all .25s var(--ease)}
+.tag.ok{border-color:var(--accent-line);color:var(--accent);background:var(--accent-soft)}
+.tag.work{border-color:var(--work-line);color:var(--work);background:var(--work-soft)}
+.dot{width:6px;height:6px;border-radius:50%;display:inline-block;flex-shrink:0;transition:background .25s var(--ease)}
+.dot.acc{background:var(--accent)}
+.dot.work{background:var(--work)}
+.reset-link{font-size:10px;color:var(--ink-mute);cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+.reset-link:hover{color:var(--ink)}
 
-/* closing cta */
-.closing{padding:80px 40px 90px;text-align:center;border-top:1px solid var(--line)}
-.closing h2{font-size:26px;font-weight:500;letter-spacing:-.02em;margin:0 0 14px}
+/* 01 autopilot: the plan card */
+.plan-body{padding:16px}
+.plan-row{display:grid;grid-template-columns:74px 1fr;gap:12px;padding:9px 0;border-bottom:1px solid var(--line-soft);font-size:11.5px}
+.plan-row:last-child{border-bottom:none}
+.plan-row .k{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute);padding-top:2px}
+.plan-row .v{color:var(--ink-soft);line-height:1.6}
+.plan-row.miss .v{color:var(--ink)}
+.plan-row.miss .q{display:inline-flex;width:15px;height:15px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-size:10px;align-items:center;justify-content:center;margin-right:7px}
+.plan-foot{display:flex;align-items:center;gap:8px;padding:12px 16px;border-top:1px solid var(--line);background:var(--surface-2)}
+.plan-foot input{flex:1;min-width:0;font-family:var(--mono);font-size:11px;padding:7px 11px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);outline:none}
+.plan-foot input::placeholder{color:var(--ink-mute)}
+.plan-foot input:focus{border-color:var(--accent-line)}
+.btn{font-family:var(--mono);font-size:11px;padding:7px 13px;border-radius:6px;border:1px solid var(--line);background:var(--surface);color:var(--ink-soft);cursor:pointer;white-space:nowrap;transition:all .18s var(--ease)}
+.btn:hover{border-color:var(--ink-faint);color:var(--ink)}
+.btn.primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn.primary:hover{background:var(--accent);border-color:var(--accent);color:var(--paper)}
+#plan-card.revising .plan-body,#plan-card.revising .plan-foot .btn{opacity:.5;pointer-events:none}
+.plan-running{display:none;align-items:center;gap:10px;padding:12px 16px;border-top:1px solid var(--line);background:var(--surface-2);font-size:11px;color:var(--ink-soft)}
+#plan-card.running .plan-foot{display:none}
+#plan-card.running .plan-running{display:flex}
+.plan-running .grow{flex:1}
+
+/* 02 computer pane */
+.pane-head-l{display:flex;align-items:center;gap:8px;min-width:0}
+.pane-head-l .u{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.browser{margin:14px 16px 0;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--paper);transition:box-shadow .25s var(--ease);cursor:default}
+#pane.controlled .browser{box-shadow:inset 0 0 0 2px var(--work-line);cursor:crosshair}
+.b-bar{display:flex;align-items:center;gap:7px;padding:8px 12px;border-bottom:1px solid var(--line);background:var(--surface)}
+.b-dot{width:7px;height:7px;border-radius:50%;background:var(--line)}
+.b-url{flex:1;font-size:10px;color:var(--ink-mute);background:var(--surface-2);border-radius:5px;padding:4px 10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.b-page{padding:16px 18px 18px}
+.b-subject{font-size:12.5px;color:var(--ink);margin-bottom:12px}
+.sk{height:7px;border-radius:4px;background:var(--surface-2);margin:8px 0}
+.sk.w80{width:80%}.sk.w60{width:60%}.sk.w90{width:90%}.sk.w40{width:40%}
+.b-reply{display:inline-block;font-size:10px;border:1px solid var(--line);border-radius:100px;padding:4px 12px;color:var(--ink-soft);margin-top:10px}
+.say{display:flex;align-items:center;gap:8px;margin:14px 16px;border:1px solid var(--accent-line);background:var(--accent-soft);border-radius:8px;padding:10px 13px;font-size:11px}
+.say .p{color:var(--accent);font-weight:600}
+.say .t{color:var(--ink-soft)}
+.pane-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 16px;border-top:1px solid var(--line);background:var(--surface-2);font-size:10.5px;color:var(--ink-mute)}
+#pane .btn.takeover{border-color:var(--ink);background:var(--ink);color:var(--paper)}
+#pane.controlled .btn.takeover{border-color:var(--work-line);background:var(--work-soft);color:var(--work)}
+
+/* 03 filesystem */
+.fs-body{padding:10px 16px 14px}
+.fs-row{display:flex;align-items:center;gap:9px;padding:7px 4px;font-size:11.5px;color:var(--ink-soft);border-bottom:1px solid var(--line-soft)}
+.fs-row:last-of-type{border-bottom:none}
+.fs-row.dir{cursor:pointer}
+.fs-row.dir:hover .nm{color:var(--accent)}
+.fs-row .tw{color:var(--ink-mute);width:12px;text-align:center;flex-shrink:0;display:inline-block;transition:transform .18s var(--ease)}
+.fs-row.open .tw{transform:rotate(90deg)}
+.fs-row .nm{color:var(--ink)}
+.fs-row.child{padding-left:22px}
+.fs-row.hidden{display:none}
+.fs-row .sz{margin-left:auto;font-size:10px;color:var(--ink-mute)}
+.fs-row .n{margin-left:auto;font-size:10px;color:var(--ink-mute)}
+.fs-drop{margin:12px 4px 2px;border:1px dashed var(--line);border-radius:8px;padding:13px;text-align:center;font-size:10.5px;color:var(--ink-mute);font-style:italic}
+
+/* 04 tool budget */
+.tools-body{padding:14px 16px 16px}
+.meter{height:6px;border-radius:100px;background:var(--surface-2);overflow:hidden;margin:10px 0 16px}
+.meter .fill{height:100%;border-radius:100px;background:var(--accent);transition:width .3s var(--ease),background .3s var(--ease)}
+.tool-row{display:flex;align-items:center;gap:10px;padding:8px 4px;font-size:11.5px;border-bottom:1px solid var(--line-soft);cursor:pointer;transition:opacity .2s var(--ease)}
+.tool-row:last-child{border-bottom:none}
+.tool-row .chk{width:15px;height:15px;border-radius:4px;border:1px solid var(--ink-faint);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:var(--paper);flex-shrink:0;transition:all .18s var(--ease)}
+.tool-row.on .chk{background:var(--accent);border-color:var(--accent)}
+.tool-row .nm{color:var(--ink-soft)}
+.tool-row.on .nm{color:var(--ink)}
+.tool-row.capped{opacity:.5;cursor:default}
+.tool-row .ct{margin-left:auto;font-size:10px;color:var(--ink-mute)}
+.tool-row.on .ct{color:var(--accent)}
+
+/* 05 approvals */
+.appr-body{padding:16px}
+.appr-top{display:flex;justify-content:space-between;align-items:center;font-size:10.5px;color:var(--ink-mute);margin-bottom:10px}
+.appr-top .a{color:var(--accent)}
+.appr-title{font-size:13px;color:var(--ink);margin-bottom:7px}
+.appr-text{font-size:11.5px;color:var(--ink-soft);line-height:1.65}
+.appr-actions{display:flex;gap:8px;justify-content:flex-end;padding:12px 16px;border-top:1px solid var(--line);background:var(--surface-2)}
+.appr-done{display:none;padding:26px 16px;text-align:center}
+.appr-done .mark{font-size:20px;display:block;margin-bottom:8px}
+.appr-done .note{font-size:11.5px;color:var(--ink-soft);max-width:320px;margin:0 auto 12px;line-height:1.65}
+#appr.resolved .appr-body,#appr.resolved .appr-actions{display:none}
+#appr.resolved .appr-done{display:block}
+
+/* closing */
+.closing{padding:96px 40px 72px;text-align:center;border-top:1px solid var(--line);margin-top:80px}
+.closing h2{font-size:26px;font-weight:500;letter-spacing:-.02em;margin:0 0 12px}
 .closing p{font-size:13px;color:var(--ink-mute);margin:0 0 34px}
+.pillars{display:flex;justify-content:center;gap:28px;margin-top:44px;font-size:11px;color:var(--ink-mute);flex-wrap:wrap}
+.pillars span{display:inline-flex;align-items:center;gap:8px}
 
 footer{padding:30px 40px;text-align:center;font-size:10.5px;color:var(--ink-mute);border-top:1px solid var(--line)}
+footer a{color:var(--ink-mute)}
+footer a:hover{color:var(--ink)}
 
-@media (max-width:760px){
+@media (max-width:820px){
 .nav{padding:20px 22px}
 .brand{font-size:14px}
 .nav-right{gap:12px;font-size:11px}
-.hero{padding:48px 22px 20px}
-h1{font-size:28px}
+.hero{padding:50px 22px 18px}
+h1{font-size:29px}
 .sub{font-size:13.5px;margin-bottom:28px}
 .signup{flex-direction:column;max-width:340px}
 .signup button{width:100%}
-.mock-stage{padding:34px 22px 60px}
-.mock-body{grid-template-columns:1fr}
-.mock-rail{display:none}
-.mock-main{padding:20px 20px}
-.mock-cols{grid-template-columns:1fr;gap:22px}
-.mock-col{padding:0}
-.mock-col+.mock-col{border-left:none;border-top:1px solid var(--line);padding-top:20px}
-.mock-bar .url{display:none}
-.capabilities{padding:10px 22px 60px}
-.cap-head{margin-bottom:36px}
-.cap-head h2{font-size:20px}
-.cap-grid{grid-template-columns:1fr}
-.cap{padding:24px 22px}
-.closing{padding:56px 22px 64px}
+.features{padding:40px 22px 10px;gap:56px}
+.feature,.feature.flip{grid-template-columns:1fr;gap:22px}
+.feature.flip .f-copy{order:1}
+.feature.flip .f-art{order:2}
+.f-copy p{max-width:none}
+.plan-foot{flex-wrap:wrap}
+.plan-foot input{flex-basis:100%}
+.closing{padding:64px 22px 56px;margin-top:56px}
 .closing h2{font-size:21px}
+.pillars{gap:16px}
 footer{padding:24px 22px}
 }
 @media (max-width:380px){
-h1{font-size:24px}
+h1{font-size:25px}
 .kicker{font-size:9.5px;letter-spacing:.18em}
+}
+@media (prefers-reduced-motion:reduce){
+.brand .pip{animation:none}
+.feature{opacity:1;transform:none;transition:none}
+html{scroll-behavior:auto}
 }
 </style>
 </head>
 <body>
 
 <div class="nav">
-<div class="brand"><span>a</span><span class="pip"></span><span>buddy</span></div>
+<div class="brand"><span>b</span><span class="pip"></span><span>buddy</span></div>
 <div class="nav-right">
 <span>launching fall 2026</span>
 <button class="theme-btn" onclick="toggleTheme()">dark</button>
@@ -164,67 +227,9 @@ h1{font-size:24px}
 </div>
 
 <div class="hero">
-<span class="kicker">sandboxed ai agent</span>
-<h1>buddy runs your browser and computer tasks.</h1>
-<p class="sub">it drafts the reply, files the form, triages the board, then waits for your <span class="accent">ok</span>.</p>
-<form class="signup" id="signup-form" onsubmit="return handleSignup(event)">
-<input type="email" placeholder="you@company.com" required>
-<button type="submit">join the waitlist</button>
-<input type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0"></form>
-<div class="signup-note">no spam. one email, when we launch.</div>
-<div class="signup-thanks">you're on the list. we'll be in touch.</div>
-<div class="signup-error">something went wrong. please try again later.</div>
-</div>
-
-<div class="mock-stage">
-<div class="mock-frame">
-<div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="url">ark.mit.edu/desk</span></div>
-<div class="mock-body">
-<div class="mock-rail"><span class="m">a</span><span class="n">desk · watching · approvals · computer</span></div>
-<div class="mock-main">
-<div class="mock-head">
-<span class="t">buddy's <span class="accent">desk</span></span>
-<span class="l">your computer work, handled in the background.</span>
-</div>
-<div class="mock-cols">
-<div class="mock-col mock-col-lead">
-<span class="k">pending approvals</span>
-<div class="mock-card lead"><div class="top"><span>mail.google.com</span><span class="a">draft reply</span></div><div class="title">reply to priya re: q3 roadmap review</div><div class="body">draft: "thursday 2pm works," with roadmap-metrics.pdf linked from drive.</div><div class="mock-actions"><span class="mbtn">decline</span><span class="mbtn primary">approve →</span></div></div>
-<div class="mock-card"><div class="top"><span>linear.app</span><span class="a">triage</span></div><div class="title">close 6 stale issues in team ark</div></div>
-</div>
-<div class="mock-col">
-<span class="k">active tasks</span>
-<div class="mock-row"><span class="mock-dotstat"></span>drafting the q3 metrics summary</div>
-<div class="mock-row"><span class="mock-dotstat"></span>comparing vendor pricing in the browser</div>
-</div>
-<div class="mock-col">
-<span class="k">watching</span>
-<div class="mock-row"><span class="mock-dotstat"></span>mail.google.com / inbox</div>
-<div class="mock-row"><span class="mock-dotstat"></span>linear.app / team ark</div>
-<div class="mock-row"><span class="mock-dotstat mute"></span>calendar / this week</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-<div class="capabilities">
-<div class="cap-head">
-<h2>what it does while you're away</h2>
-<p>quiet, sandboxed, and always waiting on your ok before anything leaves the desk.</p>
-</div>
-<div class="cap-grid">
-<div class="cap"><span class="num">01</span><h3>browses and computes for you</h3><p>reads pages, fills forms, and runs real tasks on its own sandboxed computer.</p></div>
-<div class="cap"><span class="num">02</span><h3>sends when you say so</h3><p>writes the reply, the plan, the summary, and sends once you approve.</p></div>
-<div class="cap"><span class="num">03</span><h3>watches quietly</h3><p>keeps an eye on your inbox, board, and calendar, and only surfaces what needs you.</p></div>
-<div class="cap"><span class="num">04</span><h3>learns how you work</h3><p>picks up how you like things done from the way you correct it, and applies it to the next task. you stop repeating yourself.</p></div>
-</div>
-</div>
-
-<div class="closing">
-<h2>be first to try buddy</h2>
-<p>we're onboarding a small group ahead of launch.</p>
+<span class="kicker">a digital intern</span>
+<h1>still on the job <span class="accent">next week</span>.</h1>
+<p class="sub">buddy works on a real computer and browser, with a persistent filesystem that survives between runs. workflows can span days, and it asks before anything leaves your account.</p>
 <form class="signup" onsubmit="return handleSignup(event)">
 <input type="email" placeholder="you@company.com" required>
 <button type="submit">join the waitlist</button>
@@ -233,7 +238,143 @@ h1{font-size:24px}
 <div class="signup-error">something went wrong. please try again later.</div>
 </div>
 
-<footer>ark. a sandboxed ai agent</footer>
+<div class="features">
+
+<div class="feature">
+<div class="f-copy">
+<span class="num">01</span>
+<h3>autopilot</h3>
+<p>it plans. you approve. then it runs.</p>
+</div>
+<div class="f-art">
+<div class="card" id="plan-card">
+<div class="card-head"><span>plan · <span id="plan-v">v2</span></span><span class="tag ok" id="plan-chip">nothing runs until you approve</span></div>
+<div class="plan-body">
+<div class="plan-row"><span class="k">goal</span><span class="v">answer the weekend's mail, drafting replies for your approval rather than sending them.</span></div>
+<div class="plan-row"><span class="k">done when</span><span class="v">every thread is answered, filed, or waiting in approvals with a draft attached.</span></div>
+<div class="plan-row miss" id="plan-miss"><span class="k">missing</span><span class="v"><span class="q">?</span><span id="plan-miss-t">is there a deadline i should work against?</span></span></div>
+</div>
+<div class="plan-foot">
+<input id="plan-ask" placeholder="answer a question or ask for a change" onkeydown="if(event.key==='Enter')planRevise()">
+<span class="btn" onclick="planRevise()">update the plan</span>
+<span class="btn primary" onclick="planApprove()">approve and run</span>
+</div>
+<div class="plan-running"><span class="dot work"></span><span>buddy is running the plan. drafts land in approvals, nothing sends without you.</span><span class="grow"></span><span class="reset-link" onclick="planReset()">reset</span></div>
+</div>
+</div>
+</div>
+
+<div class="feature flip">
+<div class="f-copy">
+<span class="num">02</span>
+<h3>a real computer</h3>
+<p>watch the screen live. take the keys anytime.</p>
+</div>
+<div class="f-art">
+<div class="card" id="pane">
+<div class="card-head">
+<span class="pane-head-l"><span class="dot acc" id="pane-dot"></span><span class="u">buddy's computer · mail.google.com/…/thread/pilot-terms</span></span>
+<span class="tag ok" id="pane-chip">buddy has control</span>
+</div>
+<div class="browser" ondblclick="paneTake()" title="double-click to take over">
+<div class="b-bar"><span class="b-dot"></span><span class="b-dot"></span><span class="b-dot"></span><span class="b-url">mail.google.com/mail/u/0/#inbox/pilot-terms</span></div>
+<div class="b-page">
+<div class="b-subject">re: pilot terms</div>
+<div class="sk w90"></div>
+<div class="sk w80"></div>
+<div class="sk w60"></div>
+<div class="sk w40"></div>
+<span class="b-reply">reply</span>
+</div>
+</div>
+<div class="say"><span class="p">buddy&gt;</span><span class="t" id="pane-say">tell buddy what to do on this screen…</span></div>
+<div class="pane-foot"><span id="pane-foot-t">view only. take over to interact.</span><span class="btn takeover" id="pane-btn" onclick="paneToggle()">take over</span></div>
+</div>
+</div>
+</div>
+
+<div class="feature">
+<div class="f-copy">
+<span class="num">03</span>
+<h3>a filesystem that survives</h3>
+<p>the work is still there next week.</p>
+</div>
+<div class="f-art">
+<div class="card">
+<div class="card-head"><span>working files</span><span class="tag">durable storage</span></div>
+<div class="fs-body">
+<div class="fs-row dir open" onclick="fsToggle('triage',this)"><span class="tw">▸</span><span class="nm">triage/</span><span class="n">4</span></div>
+<div class="fs-row child" data-dir="triage"><span class="tw">·</span><span class="nm">plan.md</span><span class="sz">1.2 kb</span></div>
+<div class="fs-row child" data-dir="triage"><span class="tw">·</span><span class="nm">backlog.md</span><span class="sz">4.1 kb</span></div>
+<div class="fs-row child" data-dir="triage"><span class="tw">·</span><span class="nm">drafts/rachel.txt</span><span class="sz">812 b</span></div>
+<div class="fs-row dir" onclick="fsToggle('notes',this)"><span class="tw">▸</span><span class="nm">notes/</span><span class="n">2</span></div>
+<div class="fs-row child hidden" data-dir="notes"><span class="tw">·</span><span class="nm">weekend.md</span><span class="sz">2.2 kb</span></div>
+<div class="fs-row child hidden" data-dir="notes"><span class="tw">·</span><span class="nm">people/rachel.md</span><span class="sz">1.1 kb</span></div>
+<div class="fs-drop">drop files into a linked folder</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="feature flip">
+<div class="f-copy">
+<span class="num">04</span>
+<h3>your apps, on a budget</h3>
+<p>click through the apps buddy can touch.</p>
+</div>
+<div class="f-art">
+<div class="card">
+<div class="card-head"><span>tools in this session</span><span><span id="tools-used">32</span>/52</span></div>
+<div class="tools-body">
+<div class="meter"><div class="fill" id="tools-fill" style="width:62%"></div></div>
+<div id="tool-rows"></div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="feature">
+<div class="f-copy">
+<span class="num">05</span>
+<h3>approvals first</h3>
+<p>nothing leaves your account without a yes.</p>
+</div>
+<div class="f-art">
+<div class="card" id="appr">
+<div class="appr-body">
+<div class="appr-top"><span>gmail · rachel@lumen.co</span><span class="a">send</span></div>
+<div class="appr-title">send the reply about pilot terms?</div>
+<div class="appr-text">she asked for a number by tuesday. i drafted the seat-count hold through the quarter.</div>
+</div>
+<div class="appr-actions"><span class="btn" onclick="apprResolve(false)">decline</span><span class="btn primary" onclick="apprResolve(true)">approve</span></div>
+<div class="appr-done">
+<span class="mark" id="appr-mark">✓</span>
+<div class="note" id="appr-note"></div>
+<span class="reset-link" onclick="apprReset()">reset</span>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="closing">
+<h2>give buddy the job.</h2>
+<p>it will still be at the desk when you check back.</p>
+<form class="signup" onsubmit="return handleSignup(event)">
+<input type="email" placeholder="you@company.com" required>
+<button type="submit">join the waitlist</button>
+<input type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0"></form>
+<div class="signup-thanks">you're on the list. we'll be in touch.</div>
+<div class="signup-error">something went wrong. please try again later.</div>
+<div class="pillars">
+<span><span class="dot acc"></span>approvals first</span>
+<span><span class="dot acc"></span>disposable compute</span>
+<span><span class="dot acc"></span>durable storage</span>
+</div>
+</div>
+
+<footer>© 2026 buddy · <a href="mailto:hello@trybuddynow.com">hello@trybuddynow.com</a></footer>
 
 <script>
 function toggleTheme(){
@@ -242,14 +383,15 @@ const next=html.getAttribute('data-theme')==='dark'?null:'dark';
 if(next){html.setAttribute('data-theme','dark');document.querySelector('.theme-btn').textContent='light';}
 else{html.removeAttribute('data-theme');document.querySelector('.theme-btn').textContent='dark';}
 }
+
+/* waitlist — posts to /api/waitlist; honeypot silently drops bots */
 function handleSignup(e){
 e.preventDefault();
 const form=e.target;
-if(form.classList.contains('sending'))return false; // ignore double-submits
+if(form.classList.contains('sending'))return false;
 const hp=form.querySelector('input[name="company_website"]');
 const emailEl=form.querySelector('input[type=email]');
 const email=(emailEl?emailEl.value:'').trim().toLowerCase();
-// Bots that fill the honeypot: pretend success, send nothing.
 if(hp&&hp.value){form.classList.add('done');return false;}
 form.classList.remove('failed');
 form.classList.add('sending');
@@ -259,22 +401,128 @@ fetch('/api/waitlist',{
   body:JSON.stringify({email:email})
 }).then(function(r){
   form.classList.remove('sending');
-  // 204 stored, 409/400 would be a client problem; anything not-ok is a retry.
-  // A duplicate signup returns 204 too, so a repeat visitor still sees success
-  // and we still leak no signal about who is already on the list.
+  // A duplicate signup returns 204 too — no signal about who is on the list.
   if(r.ok){form.classList.add('done');}
   else{form.classList.add('failed');}
 }).catch(function(){
-  // Network failure / offline.
   form.classList.remove('sending');
   form.classList.add('failed');
 });
 return false;
 }
-const io=new IntersectionObserver((entries)=>{
-entries.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});
-},{threshold:.2});
-document.querySelectorAll('.cap').forEach((c,i)=>{c.style.transitionDelay=(i*80)+'ms';io.observe(c);});
+
+/* 01 · the plan card: ask, revise, approve — matching the design's states */
+let planV=2;
+function planRevise(){
+const card=document.getElementById('plan-card');
+if(card.classList.contains('running')||card.classList.contains('revising'))return;
+const askEl=document.getElementById('plan-ask');
+const ask=(askEl.value||'').trim();
+askEl.value='';
+const chip=document.getElementById('plan-chip');
+card.classList.add('revising');
+chip.textContent='revising the plan…';
+setTimeout(function(){
+  card.classList.remove('revising');
+  planV=Math.min(planV+1,3);
+  document.getElementById('plan-v').textContent='v'+planV;
+  chip.textContent='nothing runs until you approve';
+  if(ask){
+    const miss=document.getElementById('plan-miss');
+    miss.querySelector('.q').textContent='✓';
+    document.getElementById('plan-miss-t').textContent='noted: '+ask;
+  }
+},900);
+}
+function planApprove(){
+const card=document.getElementById('plan-card');
+if(card.classList.contains('revising'))return;
+card.classList.add('running');
+const chip=document.getElementById('plan-chip');
+chip.textContent='approved · running';
+chip.classList.remove('ok');chip.classList.add('work');
+}
+function planReset(){
+const card=document.getElementById('plan-card');
+card.classList.remove('running','revising');
+planV=2;
+document.getElementById('plan-v').textContent='v2';
+const chip=document.getElementById('plan-chip');
+chip.textContent='nothing runs until you approve';
+chip.classList.remove('work');chip.classList.add('ok');
+const miss=document.getElementById('plan-miss');
+miss.querySelector('.q').textContent='?';
+document.getElementById('plan-miss-t').textContent='is there a deadline i should work against?';
+}
+
+/* 02 · the computer pane: take over / hand back, double-click takes over */
+let paneControl=false;
+function paneRender(){
+const pane=document.getElementById('pane');
+const chip=document.getElementById('pane-chip');
+pane.classList.toggle('controlled',paneControl);
+document.getElementById('pane-dot').className='dot '+(paneControl?'work':'acc');
+chip.textContent=paneControl?'you have control':'buddy has control';
+chip.className='tag '+(paneControl?'work':'ok');
+document.getElementById('pane-foot-t').textContent=paneControl?'your clicks and keys go to the box. buddy watches.':'view only. take over to interact.';
+document.getElementById('pane-btn').textContent=paneControl?'hand back':'take over';
+document.getElementById('pane-say').textContent=paneControl?'leave buddy a note for when you hand back…':'tell buddy what to do on this screen…';
+}
+function paneToggle(){paneControl=!paneControl;paneRender();}
+function paneTake(){if(!paneControl){paneControl=true;paneRender();}}
+
+/* 03 · the filesystem: folders open and close */
+function fsToggle(dir,row){
+row.classList.toggle('open');
+const open=row.classList.contains('open');
+document.querySelectorAll('.fs-row[data-dir="'+dir+'"]').forEach(function(r){r.classList.toggle('hidden',!open);});
+}
+
+/* 04 · the tool budget: toggles recompute the meter; over-cap refuses */
+const TOOL_CAP=52;
+const TOOLS=[
+{name:'gmail',n:12,on:true},
+{name:'slack',n:9,on:true},
+{name:'linear',n:11,on:true},
+{name:'github',n:14,on:false},
+{name:'notion',n:10,on:false}
+];
+function toolsRender(){
+const used=TOOLS.reduce(function(a,t){return a+(t.on?t.n:0);},0);
+document.getElementById('tools-used').textContent=used;
+const fill=document.getElementById('tools-fill');
+const ratio=used/TOOL_CAP;
+fill.style.width=Math.min(100,Math.round(ratio*100))+'%';
+fill.style.background=ratio>0.8?'var(--work)':'var(--accent)';
+const host=document.getElementById('tool-rows');
+host.innerHTML='';
+TOOLS.forEach(function(t,i){
+  const fits=t.on||t.n<=TOOL_CAP-used;
+  const row=document.createElement('div');
+  row.className='tool-row'+(t.on?' on':'')+(fits?'':' capped');
+  row.innerHTML='<span class="chk">'+(t.on?'✓':'')+'</span><span class="nm">'+t.name+'</span><span class="ct">'+(fits?t.n+' tools':'would exceed the cap')+'</span>';
+  if(fits){row.onclick=function(){TOOLS[i].on=!TOOLS[i].on;toolsRender();};}
+  host.appendChild(row);
+});
+}
+toolsRender();
+
+/* 05 · approvals: approve / decline resolve the card */
+function apprResolve(yes){
+const card=document.getElementById('appr');
+card.classList.add('resolved');
+const mark=document.getElementById('appr-mark');
+mark.textContent=yes?'✓':'✕';
+mark.style.color=yes?'var(--accent)':'var(--stop)';
+document.getElementById('appr-note').textContent=yes?'approved. buddy sends it from your address and files the thread.':'declined. buddy keeps the draft and moves on.';
+}
+function apprReset(){document.getElementById('appr').classList.remove('resolved');}
+
+/* scroll reveal */
+const io=new IntersectionObserver(function(entries){
+entries.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});
+},{threshold:.18});
+document.querySelectorAll('.feature').forEach(function(c){io.observe(c);});
 </script>
 </body>
 </html>
