@@ -9,381 +9,264 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-:root{
---ink:#1c1b18;--ink-soft:#54524b;--ink-mute:#97948a;--ink-faint:#c4c1b6;
---paper:#f7f6f1;--surface:#fdfcf9;--surface-2:#f1efe8;--line:#e6e3da;--line-soft:#efece4;
---accent:oklch(0.55 0.075 150);--accent-soft:oklch(0.55 0.075 150 / 0.12);--accent-line:oklch(0.55 0.075 150 / 0.35);
---work:oklch(0.66 0.085 75);--work-soft:oklch(0.66 0.085 75 / 0.12);--work-line:oklch(0.66 0.085 75 / 0.35);
---stop:oklch(0.58 0.10 28);
---mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
---r:7px;--shadow:0 1px 2px rgba(28,27,24,.03),0 12px 32px -20px rgba(28,27,24,.18);
---shadow-lift:0 1px 2px rgba(28,27,24,.04),0 40px 90px -36px rgba(28,27,24,.32);
---ease:cubic-bezier(.4,0,.2,1);
-}
-[data-theme="dark"]{
---ink:#ecebe6;--ink-soft:#b6b3aa;--ink-mute:#797668;--ink-faint:#46443d;
---paper:#121210;--surface:#1a1815;--surface-2:#201f1b;--line:#2a2823;--line-soft:#221f1b;
---accent:oklch(0.74 0.105 150);--accent-soft:oklch(0.74 0.105 150 / 0.16);--accent-line:oklch(0.74 0.105 150 / 0.40);
---work:oklch(0.78 0.10 78);--work-soft:oklch(0.78 0.10 78 / 0.16);--work-line:oklch(0.78 0.10 78 / 0.40);
---stop:oklch(0.70 0.12 28);
---shadow:0 1px 2px rgba(0,0,0,.4),0 16px 40px -24px rgba(0,0,0,.7);
---shadow-lift:0 1px 2px rgba(0,0,0,.5),0 50px 100px -40px rgba(0,0,0,.85);
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;font-family:var(--mono);background:var(--paper);color:var(--ink);font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased;transition:background .4s var(--ease),color .4s var(--ease);overflow-x:hidden}
-::selection{background:var(--accent-soft)}
-a{color:var(--accent);text-decoration:none}
-a:hover{color:var(--ink)}
-
-/* nav */
-.nav{display:flex;align-items:center;justify-content:space-between;padding:26px 40px;max-width:1080px;margin:0 auto}
-.brand{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600;letter-spacing:-.02em}
-.brand .pip{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:ping 2.4s var(--ease) infinite}
-@keyframes ping{0%{box-shadow:0 0 0 0 var(--accent-soft)}70%{box-shadow:0 0 0 7px transparent}100%{box-shadow:0 0 0 0 transparent}}
-.nav-right{display:flex;align-items:center;gap:22px;font-size:12px;color:var(--ink-mute)}
-.theme-btn{background:none;border:1px solid var(--line);color:var(--ink-mute);font-family:var(--mono);font-size:11px;padding:6px 12px;border-radius:100px;cursor:pointer;transition:all .2s var(--ease)}
-.theme-btn:hover{color:var(--ink);border-color:var(--ink-faint)}
-
-/* hero */
-.hero{padding:74px 40px 26px;max-width:1080px;margin:0 auto;text-align:center}
-.kicker{font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-mute);font-weight:500;display:inline-flex;align-items:center;gap:8px;margin-bottom:22px}
-.kicker::before,.kicker::after{content:"";width:22px;height:1px;background:var(--line)}
-h1{font-size:44px;font-weight:500;letter-spacing:-.03em;line-height:1.16;margin:0 auto 20px;max-width:720px;text-wrap:pretty}
-h1 .accent{color:var(--accent)}
-.sub{font-size:14.5px;color:var(--ink-soft);max-width:520px;margin:0 auto 36px;line-height:1.7;text-wrap:pretty}
-
-/* waitlist signup */
-.signup{display:flex;justify-content:center;gap:10px;max-width:420px;margin:0 auto;position:relative}
-.signup input[type=email]{flex:1;font-family:var(--mono);font-size:13px;padding:13px 16px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);color:var(--ink);outline:none;transition:border-color .2s var(--ease)}
-.signup input::placeholder{color:var(--ink-mute)}
-.signup input[type=email]:focus{border-color:var(--accent-line)}
-.signup button{font-family:var(--mono);font-size:13px;padding:13px 20px;border-radius:var(--r);border:1px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer;white-space:nowrap;transition:all .18s var(--ease)}
-.signup button:hover{background:var(--accent);border-color:var(--accent)}
-.signup.done input,.signup.done button{display:none}
-.signup-thanks{display:none;font-size:13px;color:var(--accent);text-align:center;margin-top:6px}
-.signup.done ~ .signup-thanks{display:block}
-.signup-error{display:none;font-size:13px;color:var(--stop);text-align:center;margin-top:14px}
-.signup.failed ~ .signup-error{display:block}
-.signup.sending button{opacity:.55;cursor:default}
-
-/* feature rows */
-.features{max-width:1080px;margin:0 auto;padding:56px 40px 20px;display:flex;flex-direction:column;gap:84px}
-.feature{display:grid;grid-template-columns:.8fr 1.25fr;gap:56px;align-items:center;opacity:0;transform:translateY(14px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
-.feature.in{opacity:1;transform:translateY(0)}
-.feature.flip .f-copy{order:2}
-.feature.flip .f-art{order:1}
-.f-copy .num{font-size:10px;color:var(--ink-faint);font-variant-numeric:tabular-nums;display:block;margin-bottom:16px}
-.f-copy h3{font-size:20px;font-weight:500;letter-spacing:-.02em;margin:0 0 10px}
-.f-copy p{font-size:13px;color:var(--ink-mute);margin:0;line-height:1.7;max-width:300px}
-
-/* shared card chrome */
-.card{border:1px solid var(--line);border-radius:12px;background:var(--surface);box-shadow:var(--shadow-lift);overflow:hidden;font-size:12px}
-.card-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line);font-size:11px;color:var(--ink-mute)}
-.tag{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line);border-radius:100px;padding:3px 9px;color:var(--ink-soft);transition:all .25s var(--ease)}
-.tag.ok{border-color:var(--accent-line);color:var(--accent);background:var(--accent-soft)}
-.tag.work{border-color:var(--work-line);color:var(--work);background:var(--work-soft)}
-.dot{width:6px;height:6px;border-radius:50%;display:inline-block;flex-shrink:0;transition:background .25s var(--ease)}
-.dot.acc{background:var(--accent)}
-.dot.work{background:var(--work)}
-.reset-link{font-size:10px;color:var(--ink-mute);cursor:pointer;text-decoration:underline;text-underline-offset:2px}
-.reset-link:hover{color:var(--ink)}
-
-/* 01 autopilot: the plan card */
-.plan-body{padding:16px}
-.plan-row{display:grid;grid-template-columns:74px 1fr;gap:12px;padding:9px 0;border-bottom:1px solid var(--line-soft);font-size:11.5px}
-.plan-row:last-child{border-bottom:none}
-.plan-row .k{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute);padding-top:2px}
-.plan-row .v{color:var(--ink-soft);line-height:1.6}
-.plan-row.miss .v{color:var(--ink)}
-.plan-row.miss .q{display:inline-flex;width:15px;height:15px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-size:10px;align-items:center;justify-content:center;margin-right:7px}
-.plan-foot{display:flex;align-items:center;gap:8px;padding:12px 16px;border-top:1px solid var(--line);background:var(--surface-2)}
-.plan-foot input{flex:1;min-width:0;font-family:var(--mono);font-size:11px;padding:7px 11px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);outline:none}
-.plan-foot input::placeholder{color:var(--ink-mute)}
-.plan-foot input:focus{border-color:var(--accent-line)}
-.btn{font-family:var(--mono);font-size:11px;padding:7px 13px;border-radius:6px;border:1px solid var(--line);background:var(--surface);color:var(--ink-soft);cursor:pointer;white-space:nowrap;transition:all .18s var(--ease)}
-.btn:hover{border-color:var(--ink-faint);color:var(--ink)}
-.btn.primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.btn.primary:hover{background:var(--accent);border-color:var(--accent);color:var(--paper)}
-#plan-card.revising .plan-body,#plan-card.revising .plan-foot .btn{opacity:.5;pointer-events:none}
-.plan-running{display:none;align-items:center;gap:10px;padding:12px 16px;border-top:1px solid var(--line);background:var(--surface-2);font-size:11px;color:var(--ink-soft)}
-#plan-card.running .plan-foot{display:none}
-#plan-card.running .plan-running{display:flex}
-.plan-running .grow{flex:1}
-
-/* 02 computer pane */
-.pane-head-l{display:flex;align-items:center;gap:8px;min-width:0}
-.pane-head-l .u{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.browser{margin:14px 16px 0;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--paper);transition:box-shadow .25s var(--ease);cursor:default}
-#pane.controlled .browser{box-shadow:inset 0 0 0 2px var(--work-line);cursor:crosshair}
-.b-bar{display:flex;align-items:center;gap:7px;padding:8px 12px;border-bottom:1px solid var(--line);background:var(--surface)}
-.b-dot{width:7px;height:7px;border-radius:50%;background:var(--line)}
-.b-url{flex:1;font-size:10px;color:var(--ink-mute);background:var(--surface-2);border-radius:5px;padding:4px 10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.b-page{padding:16px 18px 18px}
-.b-subject{font-size:12.5px;color:var(--ink);margin-bottom:12px}
-.sk{height:7px;border-radius:4px;background:var(--surface-2);margin:8px 0}
-.sk.w80{width:80%}.sk.w60{width:60%}.sk.w90{width:90%}.sk.w40{width:40%}
-.b-reply{display:inline-block;font-size:10px;border:1px solid var(--line);border-radius:100px;padding:4px 12px;color:var(--ink-soft);margin-top:10px}
-.say{display:flex;align-items:center;gap:8px;margin:14px 16px;border:1px solid var(--accent-line);background:var(--accent-soft);border-radius:8px;padding:10px 13px;font-size:11px}
-.say .p{color:var(--accent);font-weight:600}
-.say .t{color:var(--ink-soft)}
-.pane-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 16px;border-top:1px solid var(--line);background:var(--surface-2);font-size:10.5px;color:var(--ink-mute)}
-#pane .btn.takeover{border-color:var(--ink);background:var(--ink);color:var(--paper)}
-#pane.controlled .btn.takeover{border-color:var(--work-line);background:var(--work-soft);color:var(--work)}
-
-/* 03 filesystem */
-.fs-body{padding:10px 16px 14px}
-.fs-row{display:flex;align-items:center;gap:9px;padding:7px 4px;font-size:11.5px;color:var(--ink-soft);border-bottom:1px solid var(--line-soft)}
-.fs-row:last-of-type{border-bottom:none}
-.fs-row.dir{cursor:pointer}
-.fs-row.dir:hover .nm{color:var(--accent)}
-.fs-row .tw{color:var(--ink-mute);width:12px;text-align:center;flex-shrink:0;display:inline-block;transition:transform .18s var(--ease)}
-.fs-row.open .tw{transform:rotate(90deg)}
-.fs-row .nm{color:var(--ink)}
-.fs-row.child{padding-left:22px}
-.fs-row.hidden{display:none}
-.fs-row .sz{margin-left:auto;font-size:10px;color:var(--ink-mute)}
-.fs-row .n{margin-left:auto;font-size:10px;color:var(--ink-mute)}
-.fs-drop{margin:12px 4px 2px;border:1px dashed var(--line);border-radius:8px;padding:13px;text-align:center;font-size:10.5px;color:var(--ink-mute);font-style:italic}
-
-/* 04 tool budget */
-.tools-body{padding:14px 16px 16px}
-.meter{height:6px;border-radius:100px;background:var(--surface-2);overflow:hidden;margin:10px 0 16px}
-.meter .fill{height:100%;border-radius:100px;background:var(--accent);transition:width .3s var(--ease),background .3s var(--ease)}
-.tool-row{display:flex;align-items:center;gap:10px;padding:8px 4px;font-size:11.5px;border-bottom:1px solid var(--line-soft);cursor:pointer;transition:opacity .2s var(--ease)}
-.tool-row:last-child{border-bottom:none}
-.tool-row .chk{width:15px;height:15px;border-radius:4px;border:1px solid var(--ink-faint);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:var(--paper);flex-shrink:0;transition:all .18s var(--ease)}
-.tool-row.on .chk{background:var(--accent);border-color:var(--accent)}
-.tool-row .nm{color:var(--ink-soft)}
-.tool-row.on .nm{color:var(--ink)}
-.tool-row.capped{opacity:.5;cursor:default}
-.tool-row .ct{margin-left:auto;font-size:10px;color:var(--ink-mute)}
-.tool-row.on .ct{color:var(--accent)}
-
-/* 05 approvals */
-.appr-body{padding:16px}
-.appr-top{display:flex;justify-content:space-between;align-items:center;font-size:10.5px;color:var(--ink-mute);margin-bottom:10px}
-.appr-top .a{color:var(--accent)}
-.appr-title{font-size:13px;color:var(--ink);margin-bottom:7px}
-.appr-text{font-size:11.5px;color:var(--ink-soft);line-height:1.65}
-.appr-actions{display:flex;gap:8px;justify-content:flex-end;padding:12px 16px;border-top:1px solid var(--line);background:var(--surface-2)}
-.appr-done{display:none;padding:26px 16px;text-align:center}
-.appr-done .mark{font-size:20px;display:block;margin-bottom:8px}
-.appr-done .note{font-size:11.5px;color:var(--ink-soft);max-width:320px;margin:0 auto 12px;line-height:1.65}
-#appr.resolved .appr-body,#appr.resolved .appr-actions{display:none}
-#appr.resolved .appr-done{display:block}
-
-/* closing */
-.closing{padding:96px 40px 72px;text-align:center;border-top:1px solid var(--line);margin-top:80px}
-.closing h2{font-size:26px;font-weight:500;letter-spacing:-.02em;margin:0 0 12px}
-.closing p{font-size:13px;color:var(--ink-mute);margin:0 0 34px}
-.pillars{display:flex;justify-content:center;gap:28px;margin-top:44px;font-size:11px;color:var(--ink-mute);flex-wrap:wrap}
-.pillars span{display:inline-flex;align-items:center;gap:8px}
-
-footer{padding:30px 40px;text-align:center;font-size:10.5px;color:var(--ink-mute);border-top:1px solid var(--line)}
-footer a{color:var(--ink-mute)}
-footer a:hover{color:var(--ink)}
-
-@media (max-width:820px){
-.nav{padding:20px 22px}
-.brand{font-size:14px}
-.nav-right{gap:12px;font-size:11px}
-.hero{padding:50px 22px 18px}
-h1{font-size:29px}
-.sub{font-size:13.5px;margin-bottom:28px}
-.signup{flex-direction:column;max-width:340px}
-.signup button{width:100%}
-.features{padding:40px 22px 10px;gap:56px}
-.feature,.feature.flip{grid-template-columns:1fr;gap:22px}
-.feature.flip .f-copy{order:1}
-.feature.flip .f-art{order:2}
-.f-copy p{max-width:none}
-.plan-foot{flex-wrap:wrap}
-.plan-foot input{flex-basis:100%}
-.closing{padding:64px 22px 56px;margin-top:56px}
-.closing h2{font-size:21px}
-.pillars{gap:16px}
-footer{padding:24px 22px}
-}
-@media (max-width:380px){
-h1{font-size:25px}
-.kicker{font-size:9.5px;letter-spacing:.18em}
-}
-@media (prefers-reduced-motion:reduce){
-.brand .pip{animation:none}
-.feature{opacity:1;transform:none;transition:none}
-html{scroll-behavior:auto}
-}
+  html, body { height: 100%; margin: 0; background: #f7f6f1; color: #1c1b18; font-family: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace; font-size: 13px; line-height: 1.55; -webkit-font-smoothing: antialiased; overflow: hidden; }
+  a { color: oklch(0.55 0.075 150); text-decoration: none; }
+  a:hover { color: #1c1b18; }
+  ::selection { background: oklch(0.55 0.075 150 / 0.12); }
+  @keyframes ping { 0% { box-shadow: 0 0 0 0 oklch(0.55 0.075 150 / 0.12); } 70% { box-shadow: 0 0 0 7px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+  @keyframes pop { from { opacity: 0; transform: translateY(6px); } }
+  @keyframes blink { 50% { opacity: 0; } }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  * { scrollbar-width: thin; scrollbar-color: #d8d5ca transparent; }
+  *::-webkit-scrollbar { width: 8px; height: 8px; }
+  *::-webkit-scrollbar-track { background: transparent; }
+  *::-webkit-scrollbar-thumb { background: #d8d5ca; border-radius: 100px; border: 2px solid transparent; background-clip: padding-box; }
+  *::-webkit-scrollbar-thumb:hover { background: #c4c1b6; border: 2px solid transparent; background-clip: padding-box; }
+  @keyframes sectin { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+  .landsect { animation: sectin .6s cubic-bezier(.3,.9,.2,1) both; animation-timeline: view(); animation-range: entry 0% entry 42%; }
+  .landcard { transition: transform .22s cubic-bezier(.3,.9,.2,1), box-shadow .22s; }
+  .landcard:hover { transform: translateY(-3px); box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 28px 60px -32px rgba(28,27,24,.32) !important; }
+  .chev { display: inline-block; transition: transform .18s cubic-bezier(.3,.9,.2,1); }
+  @keyframes viewin { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+  .viewin { animation: viewin .18s cubic-bezier(.3,.9,.2,1) both; }
+  .hpill:hover { border-color: #c4c1b6 !important; color: #1c1b18 !important; }
+  .hcta:hover { background: #1c1b18 !important; border-color: #1c1b18 !important; }
+  .hprim:hover { background: oklch(0.55 0.075 150) !important; border-color: oklch(0.55 0.075 150) !important; }
+  .hdec:hover { border-color: #e6e3da !important; background: #fdfcf9 !important; }
+  .hrow:hover { background: #f1efe8 !important; }
+  .fin:focus { border-color: oklch(0.55 0.075 150 / 0.35) !important; }
+  .signup.done .su-in, .signup.done .su-btn { display: none; }
+  .su-thanks { display: none; font-size: 12px; color: oklch(0.55 0.075 150); margin-top: 10px; }
+  .signup.done ~ .su-thanks { display: block; }
+  .su-error { display: none; font-size: 12px; color: oklch(0.58 0.10 28); margin-top: 10px; }
+  .signup.failed ~ .su-error { display: block; }
+  .signup.sending .su-btn { opacity: .55; cursor: default; }
+  [hidden] { display: none !important; }
+  @media (max-width: 760px) {
+    .landsect { grid-template-columns: 1fr !important; gap: 26px !important; padding: 48px 0 !important; }
+    .lwrap { padding: 0 22px !important; }
+    .lbar { padding: 12px 22px !important; }
+    .lhero { padding: 60px 0 52px !important; }
+    .lhero h1 { font-size: 31px !important; }
+    .signup { flex-wrap: wrap; }
+    .su-btn { width: 100%; justify-content: center; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .landsect, .viewin { animation: none !important; }
+    [style*="animation"] { animation: none !important; }
+  }
 </style>
 </head>
 <body>
+<div style="height: 100vh; overflow-y: auto; background: #f7f6f1">
 
-<div class="nav">
-<div class="brand"><span>b</span><span class="pip"></span><span>buddy</span></div>
-<div class="nav-right">
-<span>launching fall 2026</span>
-<button class="theme-btn" onclick="toggleTheme()">dark</button>
-</div>
-</div>
+  <div style="position: sticky; top: 0; z-index: 50; background: color-mix(in oklch, oklch(0.55 0.075 150) 7%, #f7f6f1 86%); backdrop-filter: blur(8px); border-bottom: 1px solid #e6e3da">
+    <div class="lbar" style="max-width: 1060px; margin: 0 auto; padding: 14px 48px; display: flex; align-items: center; justify-content: space-between">
+      <span style="display: flex; align-items: center; gap: 10px">
+        <span style="position: relative; display: inline-grid; place-items: center; width: 26px; height: 26px"><span style="font-weight: 700; font-size: 18px; letter-spacing: -0.04em">b</span><span style="position: absolute; top: -1px; right: -4px; width: 5px; height: 5px; border-radius: 50%; background: oklch(0.55 0.075 150); animation: ping 2.4s cubic-bezier(.4,0,.2,1) infinite"></span></span>
+        <span style="font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: #97948a">buddy</span>
+      </span>
+      <a href="#join" class="hpill" style="font-size: 12px; color: #54524b; cursor: pointer; border: 1px solid #e6e3da; background: #fdfcf9; padding: 6px 15px; border-radius: 100px">join the waitlist</a>
+    </div>
+  </div>
 
-<div class="hero">
-<span class="kicker">a digital intern</span>
-<h1>still on the job <span class="accent">next week</span>.</h1>
-<p class="sub">buddy works on a real computer and browser, with a persistent filesystem that survives between runs. workflows can span days, and it asks before anything leaves your account.</p>
-<form class="signup" onsubmit="return handleSignup(event)">
-<input type="email" placeholder="you@company.com" required>
-<button type="submit">join the waitlist</button>
-<input type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0"></form>
-<div class="signup-thanks">you're on the list. we'll be in touch.</div>
-<div class="signup-error">something went wrong. please try again later.</div>
-</div>
+  <div class="lwrap" style="max-width: 1060px; margin: 0 auto; padding: 0 48px">
 
-<div class="features">
+    <div class="viewin lhero" id="join" style="padding: 104px 0 88px">
+      <h1 style="margin: 0 0 20px; font-weight: 500; font-size: 48px; line-height: 1.08; letter-spacing: -0.03em; max-width: 660px; text-wrap: pretty">a digital intern<br />still on the job next week.<span style="display: inline-block; width: 11px; height: 0.88em; vertical-align: -0.06em; background: oklch(0.55 0.075 150); margin-left: 7px; animation: blink 1.2s steps(1) infinite"></span></h1>
+      <p style="margin: 0 0 30px; font-size: 14px; line-height: 1.8; color: #54524b; max-width: 520px; text-wrap: pretty">buddy works on a real computer and browser, with a persistent filesystem that survives between runs. workflows can span days, and it asks before anything leaves your account.</p>
+      <form class="signup" onsubmit="return handleSignup(event)" style="display: flex; align-items: center; gap: 10px; max-width: 440px; position: relative">
+        <input class="su-in fin" type="email" required placeholder="you@company.com" spellcheck="false" style="flex: 1; min-width: 0; background: #fdfcf9; border: 1px solid #e6e3da; border-radius: 100px; padding: 10px 16px; font-family: inherit; font-size: 13px; color: #1c1b18; outline: none">
+        <button class="su-btn hcta" type="submit" style="display: inline-flex; align-items: center; gap: 9px; font-size: 13px; font-family: inherit; border: 1px solid oklch(0.55 0.075 150); background: oklch(0.55 0.075 150); color: #fdfcf9; padding: 11px 24px; border-radius: 100px; cursor: pointer; box-shadow: 0 1px 2px rgba(28,27,24,.06), 0 8px 22px -12px oklch(0.55 0.075 150 / 0.55)"><span style="font-size: 9px">▶</span>join the waitlist</button>
+        <input type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      </form>
+      <div class="su-thanks">you're on the list. we'll be in touch.</div>
+      <div class="su-error">something went wrong. please try again later.</div>
+    </div>
 
-<div class="feature">
-<div class="f-copy">
-<span class="num">01</span>
-<h3>autopilot</h3>
-<p>it plans. you approve. then it runs.</p>
-</div>
-<div class="f-art">
-<div class="card" id="plan-card">
-<div class="card-head"><span>plan · <span id="plan-v">v2</span></span><span class="tag ok" id="plan-chip">nothing runs until you approve</span></div>
-<div class="plan-body">
-<div class="plan-row"><span class="k">goal</span><span class="v">answer the weekend's mail, drafting replies for your approval rather than sending them.</span></div>
-<div class="plan-row"><span class="k">done when</span><span class="v">every thread is answered, filed, or waiting in approvals with a draft attached.</span></div>
-<div class="plan-row miss" id="plan-miss"><span class="k">missing</span><span class="v"><span class="q">?</span><span id="plan-miss-t">is there a deadline i should work against?</span></span></div>
-</div>
-<div class="plan-foot">
-<input id="plan-ask" placeholder="answer a question or ask for a change" onkeydown="if(event.key==='Enter')planRevise()">
-<span class="btn" onclick="planRevise()">update the plan</span>
-<span class="btn primary" onclick="planApprove()">approve and run</span>
-</div>
-<div class="plan-running"><span class="dot work"></span><span>buddy is running the plan. drafts land in approvals, nothing sends without you.</span><span class="grow"></span><span class="reset-link" onclick="planReset()">reset</span></div>
-</div>
-</div>
-</div>
+    <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
+      <div>
+        <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">autopilot</span>
+        <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">it plans. you approve. then it runs.</h2>
+        <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">press autopilot and buddy drafts a plan first: the goal, what done looks like, the inputs it has, and the questions it still needs answered. ask for changes over as many rounds as you like. nothing runs until you say so, and the approved plan is saved to your project as plan.md.</p>
+      </div>
+      <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
+        <div id="lp-proposed">
+          <div style="display: flex; align-items: center; gap: 11px; padding: 11px 16px; border-bottom: 1px solid #efece4">
+            <span style="font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; color: #97948a">plan</span>
+            <span style="font-size: 10px; color: #54524b; border: 1px solid #e6e3da; background: #f1efe8; padding: 2px 8px; border-radius: 100px">v<span id="lp-v">2</span></span>
+            <span style="flex: 1"></span>
+            <span style="font-size: 10px; color: #97948a">nothing runs until you approve</span>
+          </div>
+          <div id="lp-revised" hidden style="padding: 10px 16px; border-bottom: 1px solid #efece4; background: oklch(0.55 0.075 150 / 0.12); animation: pop .2s cubic-bezier(.4,0,.2,1) both">
+            <span style="display: block; font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 4px">changed since v<span id="lp-prev">2</span></span>
+            <span style="font-size: 11px; color: #54524b; line-height: 1.6">nothing goes out without your approval. you asked: <span id="lp-ask-echo"></span></span>
+          </div>
+          <div style="padding: 20px 22px; display: flex; flex-direction: column; gap: 17px">
+            <div><span style="display: block; font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a; margin-bottom: 6px">goal</span><span style="font-size: 13px; color: #1c1b18; line-height: 1.55">answer the weekend's mail, drafting replies for your approval rather than sending them.</span></div>
+            <div><span style="display: block; font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a; margin-bottom: 6px">done when</span><span style="font-size: 12px; color: #54524b; line-height: 1.6">every thread is answered, filed, or waiting in approvals with a draft attached.</span></div>
+            <div><span style="display: block; font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a; margin-bottom: 6px">missing</span><span style="display: flex; gap: 8px; font-size: 12px; color: #54524b"><span style="color: oklch(0.66 0.085 75)">?</span>is there a deadline i should work against?</span></div>
+          </div>
+          <div style="border-top: 1px solid #efece4; background: #f1efe8; padding: 12px 20px; display: flex; flex-wrap: wrap; align-items: center; gap: 9px">
+            <input id="lp-ask" class="fin" spellcheck="false" placeholder="answer a question or ask for a change" onkeydown="if(event.key==='Enter')lpUpdate()" style="flex: 1 1 100%; background: #fdfcf9; border: 1px solid #e6e3da; border-radius: 6px; padding: 7px 11px; font-family: inherit; font-size: 11px; color: #1c1b18; outline: none">
+            <span onclick="lpUpdate()" class="hpill" style="margin-left: auto; font-size: 11px; border: 1px solid #e6e3da; background: #fdfcf9; color: #54524b; padding: 6px 13px; border-radius: 6px; cursor: pointer">update the plan</span>
+            <span onclick="lpApprove()" class="hprim" style="font-size: 11px; border: 1px solid #1c1b18; background: #1c1b18; color: #f7f6f1; padding: 6px 14px; border-radius: 6px; cursor: pointer">approve and run</span>
+          </div>
+        </div>
+        <div id="lp-revising" hidden>
+          <div style="padding: 22px 20px; display: flex; align-items: center; gap: 12px">
+            <span style="width: 12px; height: 12px; border: 1.5px solid oklch(0.55 0.075 150 / 0.35); border-top-color: oklch(0.55 0.075 150); border-radius: 50%; animation: spin 1s linear infinite"></span>
+            <span style="font-size: 12px; color: #54524b">revising: <span id="lp-ask-live"></span></span>
+          </div>
+        </div>
+        <div id="lp-running" hidden>
+          <div style="padding: 18px 20px; display: flex; align-items: center; gap: 12px; animation: pop .22s cubic-bezier(.4,0,.2,1) both">
+            <span style="width: 7px; height: 7px; border-radius: 50%; background: oklch(0.55 0.075 150); animation: ping 2.4s cubic-bezier(.4,0,.2,1) infinite; flex-shrink: 0"></span>
+            <span style="min-width: 0; flex: 1; font-size: 12px; color: #1c1b18">running from plan.md v<span id="lp-v-run">2</span> · hop 1/18</span>
+            <span onclick="lpReset()" style="flex-shrink: 0; font-size: 10px; color: #97948a; cursor: pointer; text-decoration: underline; text-underline-offset: 2px">try again</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<div class="feature flip">
-<div class="f-copy">
-<span class="num">02</span>
-<h3>a real computer</h3>
-<p>watch the screen live. take the keys anytime.</p>
-</div>
-<div class="f-art">
-<div class="card" id="pane">
-<div class="card-head">
-<span class="pane-head-l"><span class="dot acc" id="pane-dot"></span><span class="u">buddy's computer · mail.google.com/…/thread/pilot-terms</span></span>
-<span class="tag ok" id="pane-chip">buddy has control</span>
-</div>
-<div class="browser" ondblclick="paneTake()" title="double-click to take over">
-<div class="b-bar"><span class="b-dot"></span><span class="b-dot"></span><span class="b-dot"></span><span class="b-url">mail.google.com/mail/u/0/#inbox/pilot-terms</span></div>
-<div class="b-page">
-<div class="b-subject">re: pilot terms</div>
-<div class="sk w90"></div>
-<div class="sk w80"></div>
-<div class="sk w60"></div>
-<div class="sk w40"></div>
-<span class="b-reply">reply</span>
-</div>
-</div>
-<div class="say"><span class="p">buddy&gt;</span><span class="t" id="pane-say">tell buddy what to do on this screen…</span></div>
-<div class="pane-foot"><span id="pane-foot-t">view only. take over to interact.</span><span class="btn takeover" id="pane-btn" onclick="paneToggle()">take over</span></div>
-</div>
-</div>
-</div>
+    <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
+      <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
+        <div style="display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid #efece4; background: #f1efe8">
+          <span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.55 0.075 150); animation: ping 2.4s cubic-bezier(.4,0,.2,1) infinite"></span>
+          <span style="flex: 1; min-width: 0; font-size: 10px; color: #54524b; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">buddy's computer · mail.google.com/…/thread/pilot-terms</span>
+          <span id="lc-chip" style="font-size: 9px; letter-spacing: .1em; text-transform: uppercase; padding: 2px 8px; border-radius: 100px; border: 1px solid oklch(0.55 0.075 150 / 0.35); color: oklch(0.55 0.075 150); background: oklch(0.55 0.075 150 / 0.12); transition: color .2s, border-color .2s, background .2s">buddy has control</span>
+        </div>
+        <div id="lc-screen" ondblclick="lcTake()" style="aspect-ratio: 16 / 9; position: relative; overflow: hidden; background: #fdfcf9; box-shadow: none; cursor: default; transition: box-shadow .2s">
+          <div style="position: absolute; inset: 0; display: flex; flex-direction: column; padding: 10px 12px; gap: 8px">
+            <div style="display: flex; align-items: center; gap: 8px">
+              <span style="display: flex; gap: 4px"><span style="width: 7px; height: 7px; border-radius: 50%; background: #e6e3da"></span><span style="width: 7px; height: 7px; border-radius: 50%; background: #e6e3da"></span><span style="width: 7px; height: 7px; border-radius: 50%; background: #e6e3da"></span></span>
+              <span style="flex: 1; height: 16px; border-radius: 100px; background: #f1efe8; display: flex; align-items: center; padding: 0 10px; font-size: 8px; color: #97948a">mail.google.com/mail/u/0/#inbox/pilot-terms</span>
+            </div>
+            <div style="flex: 1; display: flex; gap: 10px; min-height: 0">
+              <div style="width: 74px; flex-shrink: 0; display: flex; flex-direction: column; gap: 5px; padding-top: 2px">
+                <span style="height: 14px; border-radius: 100px; background: oklch(0.55 0.075 150 / 0.2); width: 60px"></span>
+                <span style="height: 7px; border-radius: 100px; background: #f1efe8; width: 52px"></span>
+                <span style="height: 7px; border-radius: 100px; background: #f1efe8; width: 64px"></span>
+                <span style="height: 7px; border-radius: 100px; background: #f1efe8; width: 44px"></span>
+              </div>
+              <div style="flex: 1; min-width: 0; border: 1px solid #efece4; border-radius: 7px; padding: 9px 11px; display: flex; flex-direction: column; gap: 7px">
+                <span style="font-size: 10px; color: #1c1b18">re: pilot terms</span>
+                <span style="display: flex; align-items: center; gap: 6px"><span style="width: 14px; height: 14px; border-radius: 50%; background: #e6e3da; flex-shrink: 0"></span><span style="height: 7px; border-radius: 100px; background: #f1efe8; width: 96px"></span></span>
+                <span style="height: 6px; border-radius: 100px; background: #f1efe8; width: 92%"></span>
+                <span style="height: 6px; border-radius: 100px; background: #f1efe8; width: 84%"></span>
+                <span style="height: 6px; border-radius: 100px; background: #f1efe8; width: 60%"></span>
+                <span style="margin-top: 2px; display: flex; align-items: center; gap: 6px"><span style="width: 14px; height: 14px; border-radius: 50%; background: oklch(0.55 0.075 150 / 0.25); flex-shrink: 0"></span><span style="height: 7px; border-radius: 100px; background: #f1efe8; width: 74px"></span></span>
+                <span style="height: 6px; border-radius: 100px; background: #f1efe8; width: 88%"></span>
+                <span style="height: 6px; border-radius: 100px; background: #f1efe8; width: 40%"></span>
+                <span style="margin-top: auto; align-self: flex-start; font-size: 8.5px; color: #fdfcf9; background: oklch(0.55 0.075 150); border-radius: 4px; padding: 3px 9px">reply</span>
+              </div>
+            </div>
+          </div>
+          <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(28,27,24,.05), transparent 40%)"></div>
+          <div style="position: absolute; left: 12px; right: 12px; bottom: 12px; display: flex; justify-content: center">
+            <span style="display: inline-flex; align-items: center; gap: 8px; background: #fdfcf9; border: 1px solid #c4c1b6; border-radius: 100px; padding: 6px 13px; font-size: 11px; color: #97948a; box-shadow: 0 10px 26px -16px rgba(28,27,24,.3)"><span style="color: oklch(0.55 0.075 150)">buddy&gt;</span><span id="lc-say">tell buddy what to do on this screen…</span></span>
+          </div>
+        </div>
+        <div style="padding: 8px 14px; border-top: 1px solid #efece4; display: flex; align-items: center; gap: 10px; font-size: 10px; color: #97948a">
+          <span id="lc-foot" style="flex: 1">view only. take over to interact.</span>
+          <span id="lc-btn" onclick="lcToggle()" style="font-size: 10.5px; border: 1px solid #1c1b18; background: #1c1b18; color: #f7f6f1; padding: 4px 11px; border-radius: 6px; cursor: pointer; transition: color .2s, border-color .2s, background .2s">take over</span>
+        </div>
+      </div>
+      <div>
+        <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">a real computer</span>
+        <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">watch the screen live. take the keys anytime.</h2>
+        <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">buddy drives a full desktop and browser, not an api shim. watch every click as it happens, expand the screen to half or full width, double-click to take over, and hand back when you're done. type into the bubble to steer without touching anything.</p>
+      </div>
+    </div>
 
-<div class="feature">
-<div class="f-copy">
-<span class="num">03</span>
-<h3>a filesystem that survives</h3>
-<p>the work is still there next week.</p>
-</div>
-<div class="f-art">
-<div class="card">
-<div class="card-head"><span>working files</span><span class="tag">durable storage</span></div>
-<div class="fs-body">
-<div class="fs-row dir open" onclick="fsToggle('triage',this)"><span class="tw">▸</span><span class="nm">triage/</span><span class="n">4</span></div>
-<div class="fs-row child" data-dir="triage"><span class="tw">·</span><span class="nm">plan.md</span><span class="sz">1.2 kb</span></div>
-<div class="fs-row child" data-dir="triage"><span class="tw">·</span><span class="nm">backlog.md</span><span class="sz">4.1 kb</span></div>
-<div class="fs-row child" data-dir="triage"><span class="tw">·</span><span class="nm">drafts/rachel.txt</span><span class="sz">812 b</span></div>
-<div class="fs-row dir" onclick="fsToggle('notes',this)"><span class="tw">▸</span><span class="nm">notes/</span><span class="n">2</span></div>
-<div class="fs-row child hidden" data-dir="notes"><span class="tw">·</span><span class="nm">weekend.md</span><span class="sz">2.2 kb</span></div>
-<div class="fs-row child hidden" data-dir="notes"><span class="tw">·</span><span class="nm">people/rachel.md</span><span class="sz">1.1 kb</span></div>
-<div class="fs-drop">drop files into a linked folder</div>
-</div>
-</div>
-</div>
-</div>
+    <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
+      <div>
+        <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">a filesystem that survives</span>
+        <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">the work is still there next week.</h2>
+        <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">files live in a store that outlasts any session. projects link the folders they need, drafts and notes accumulate, and the next run picks up exactly where the last one held. drag files in, rename, edit, and read everything buddy writes.</p>
+      </div>
+      <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; padding: 12px 0; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25); font-size: 12px">
+        <div onclick="lfToggle('triage')" class="hrow" style="display: flex; align-items: center; gap: 9px; padding: 6px 18px; color: #1c1b18; cursor: pointer"><span class="chev" id="lf-triage-chev" style="color: #97948a; width: 12px; transform: rotate(90deg)">▸</span>triage/<span style="flex: 1"></span><span style="font-size: 10px; color: #97948a">4</span></div>
+        <div id="lf-triage">
+          <div style="display: flex; align-items: center; gap: 9px; padding: 6px 18px 6px 31px; color: #54524b; background: oklch(0.55 0.075 150 / 0.12)"><span style="color: #97948a; width: 12px">·</span>plan.md<span style="flex: 1"></span><span style="font-size: 10px; color: #97948a">1.2 kb</span></div>
+          <div style="display: flex; align-items: center; gap: 9px; padding: 6px 18px 6px 31px; color: #54524b"><span style="color: #97948a; width: 12px">·</span>backlog.md<span style="flex: 1"></span><span style="font-size: 10px; color: #97948a">4.1 kb</span></div>
+          <div style="display: flex; align-items: center; gap: 9px; padding: 6px 18px 6px 31px; color: #54524b"><span style="color: #97948a; width: 12px">·</span>drafts/rachel.txt<span style="flex: 1"></span><span style="font-size: 10px; color: #97948a">812 b</span></div>
+        </div>
+        <div onclick="lfToggle('notes')" class="hrow" style="display: flex; align-items: center; gap: 9px; padding: 6px 18px; color: #1c1b18; cursor: pointer"><span class="chev" id="lf-notes-chev" style="color: #97948a; width: 12px; transform: rotate(0deg)">▸</span>notes/<span style="flex: 1"></span><span style="font-size: 10px; color: #97948a">2</span></div>
+        <div id="lf-notes" hidden>
+          <div style="display: flex; align-items: center; gap: 9px; padding: 6px 18px 6px 31px; color: #54524b"><span style="color: #97948a; width: 12px">·</span>weekend.md<span style="flex: 1"></span><span style="font-size: 10px; color: #97948a">2.2 kb</span></div>
+          <div style="display: flex; align-items: center; gap: 9px; padding: 6px 18px 6px 31px; color: #54524b"><span style="color: #97948a; width: 12px">·</span>people/rachel.md<span style="flex: 1"></span><span style="font-size: 10px; color: #97948a">1.1 kb</span></div>
+        </div>
+        <div style="margin: 10px 18px 0; border: 1px dashed #e6e3da; border-radius: 7px; padding: 13px 12px; text-align: center; font-size: 10.5px; color: #97948a; font-style: italic">drop files into a linked folder</div>
+      </div>
+    </div>
 
-<div class="feature flip">
-<div class="f-copy">
-<span class="num">04</span>
-<h3>your apps, on a budget</h3>
-<p>click through the apps buddy can touch.</p>
-</div>
-<div class="f-art">
-<div class="card">
-<div class="card-head"><span>tools in this session</span><span><span id="tools-used">32</span>/52</span></div>
-<div class="tools-body">
-<div class="meter"><div class="fill" id="tools-fill" style="width:62%"></div></div>
-<div id="tool-rows"></div>
-</div>
-</div>
-</div>
-</div>
+    <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
+      <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
+        <div style="display: flex; align-items: baseline; justify-content: space-between; padding: 13px 16px 9px">
+          <span style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #97948a">tools in this session</span>
+          <span style="font-size: 11px; color: #1c1b18; font-variant-numeric: tabular-nums"><span id="lt-used">32</span><span style="color: #97948a">/52</span></span>
+        </div>
+        <div style="margin: 0 16px 10px; height: 3px; border-radius: 100px; background: #f1efe8; overflow: hidden"><div id="lt-fill" style="height: 100%; width: 62%; border-radius: 100px; background: oklch(0.55 0.075 150); transition: width .3s cubic-bezier(.3,.9,.2,1), background .3s"></div></div>
+        <div id="lt-rows" style="padding: 2px 0 8px"></div>
+      </div>
+      <div>
+        <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">your apps, on a budget</span>
+        <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">click through the apps buddy can touch.</h2>
+        <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">gmail, slack, linear, github, notion and more connect as mcp servers. toggle them per session from the chat bar, watch the tool meter fill, and anything that would blow the budget simply won't fit. connections that need your login authorize once in settings.</p>
+      </div>
+    </div>
 
-<div class="feature">
-<div class="f-copy">
-<span class="num">05</span>
-<h3>approvals first</h3>
-<p>nothing leaves your account without a yes.</p>
-</div>
-<div class="f-art">
-<div class="card" id="appr">
-<div class="appr-body">
-<div class="appr-top"><span>gmail · rachel@lumen.co</span><span class="a">send</span></div>
-<div class="appr-title">send the reply about pilot terms?</div>
-<div class="appr-text">she asked for a number by tuesday. i drafted the seat-count hold through the quarter.</div>
-</div>
-<div class="appr-actions"><span class="btn" onclick="apprResolve(false)">decline</span><span class="btn primary" onclick="apprResolve(true)">approve</span></div>
-<div class="appr-done">
-<span class="mark" id="appr-mark">✓</span>
-<div class="note" id="appr-note"></div>
-<span class="reset-link" onclick="apprReset()">reset</span>
-</div>
-</div>
-</div>
-</div>
+    <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
+      <div>
+        <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">approvals first</span>
+        <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">nothing leaves your account without a yes.</h2>
+        <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">sends, posts, and payments stop and wait for you, with the exact plan and tools on the card. stop a run mid-flight and it holds at the boundary. resume with a note, or cancel for good. asking is always free.</p>
+      </div>
+      <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
+        <div id="la-pending">
+          <div style="padding: 14px 16px 12px">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 9px">
+              <span style="display: flex; align-items: center; gap: 8px; font-size: 10.5px; color: #54524b"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.66 0.085 75)"></span>gmail · rachel@lumen.co</span>
+              <span style="font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(0.55 0.075 150); border: 1px solid oklch(0.55 0.075 150 / 0.35); padding: 1px 7px; border-radius: 100px">send</span>
+            </div>
+            <span style="display: block; font-size: 12.5px; color: #1c1b18; margin-bottom: 3px">send the reply about pilot terms?</span>
+            <span style="display: block; font-size: 11px; color: #54524b; line-height: 1.6">she asked for a number by tuesday. i drafted the seat-count hold through the quarter.</span>
+          </div>
+          <div style="border-top: 1px solid #efece4; background: #f1efe8; padding: 10px 16px; display: flex; gap: 8px; justify-content: flex-end">
+            <span onclick="laResolve(false)" class="hdec" style="font-size: 10.5px; color: #54524b; padding: 5px 11px; cursor: pointer; border: 1px solid transparent; border-radius: 6px">decline</span>
+            <span onclick="laResolve(true)" class="hprim" style="font-size: 10.5px; border: 1px solid #1c1b18; background: #1c1b18; color: #f7f6f1; padding: 5px 12px; border-radius: 6px; cursor: pointer">approve</span>
+          </div>
+        </div>
+        <div id="la-done" hidden>
+          <div style="padding: 20px 18px; display: flex; align-items: center; gap: 11px; animation: pop .22s cubic-bezier(.4,0,.2,1) both">
+            <span id="la-mark" style="flex-shrink: 0; font-size: 13px; color: oklch(0.55 0.075 150)">✓</span>
+            <span id="la-note" style="min-width: 0; flex: 1; font-size: 11.5px; color: #54524b"></span>
+            <span onclick="laReset()" style="flex-shrink: 0; font-size: 10px; color: #97948a; cursor: pointer; text-decoration: underline; text-underline-offset: 2px">undo</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
-</div>
+    <div class="landsect" style="border-top: 1px solid #e6e3da; padding: 88px 0 96px; text-align: center">
+      <h2 style="margin: 0 0 12px; font-weight: 500; font-size: 30px; letter-spacing: -0.025em; text-wrap: pretty">give buddy the job.</h2>
+      <p style="margin: 0 0 26px; font-size: 12.5px; color: #97948a">it will still be at the desk when you check back.</p>
+      <form class="signup" onsubmit="return handleSignup(event)" style="display: flex; align-items: center; justify-content: center; gap: 10px; max-width: 440px; margin: 0 auto; position: relative">
+        <input class="su-in fin" type="email" required placeholder="you@company.com" spellcheck="false" style="flex: 1; min-width: 0; background: #fdfcf9; border: 1px solid #e6e3da; border-radius: 100px; padding: 10px 16px; font-family: inherit; font-size: 13px; color: #1c1b18; outline: none">
+        <button class="su-btn hcta" type="submit" style="display: inline-flex; align-items: center; gap: 9px; font-size: 13px; font-family: inherit; border: 1px solid oklch(0.55 0.075 150); background: oklch(0.55 0.075 150); color: #fdfcf9; padding: 11px 24px; border-radius: 100px; cursor: pointer; box-shadow: 0 1px 2px rgba(28,27,24,.06), 0 8px 22px -12px oklch(0.55 0.075 150 / 0.55)"><span style="font-size: 9px">▶</span>join the waitlist</button>
+        <input type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      </form>
+      <div class="su-thanks">you're on the list. we'll be in touch.</div>
+      <div class="su-error">something went wrong. please try again later.</div>
+      <div style="display: flex; gap: 26px; justify-content: center; padding-top: 64px; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">
+        <span>approvals first</span><span>disposable compute</span><span>durable storage</span>
+      </div>
+    </div>
 
-<div class="closing">
-<h2>give buddy the job.</h2>
-<p>it will still be at the desk when you check back.</p>
-<form class="signup" onsubmit="return handleSignup(event)">
-<input type="email" placeholder="you@company.com" required>
-<button type="submit">join the waitlist</button>
-<input type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0"></form>
-<div class="signup-thanks">you're on the list. we'll be in touch.</div>
-<div class="signup-error">something went wrong. please try again later.</div>
-<div class="pillars">
-<span><span class="dot acc"></span>approvals first</span>
-<span><span class="dot acc"></span>disposable compute</span>
-<span><span class="dot acc"></span>durable storage</span>
+  </div>
 </div>
-</div>
-
-<footer>© 2026 buddy · <a href="mailto:hello@trybuddynow.com">hello@trybuddynow.com</a></footer>
 
 <script>
-function toggleTheme(){
-const html=document.documentElement;
-const next=html.getAttribute('data-theme')==='dark'?null:'dark';
-if(next){html.setAttribute('data-theme','dark');document.querySelector('.theme-btn').textContent='light';}
-else{html.removeAttribute('data-theme');document.querySelector('.theme-btn').textContent='dark';}
-}
-
 /* waitlist — posts to /api/waitlist; honeypot silently drops bots */
 function handleSignup(e){
 e.preventDefault();
@@ -401,7 +284,6 @@ fetch('/api/waitlist',{
   body:JSON.stringify({email:email})
 }).then(function(r){
   form.classList.remove('sending');
-  // A duplicate signup returns 204 too — no signal about who is on the list.
   if(r.ok){form.classList.add('done');}
   else{form.classList.add('failed');}
 }).catch(function(){
@@ -411,118 +293,118 @@ fetch('/api/waitlist',{
 return false;
 }
 
-/* 01 · the plan card: ask, revise, approve — matching the design's states */
-let planV=2;
-function planRevise(){
-const card=document.getElementById('plan-card');
-if(card.classList.contains('running')||card.classList.contains('revising'))return;
-const askEl=document.getElementById('plan-ask');
-const ask=(askEl.value||'').trim();
+/* plan card — proposed / revising / running, per the design's landing state */
+let lpV=2;
+function lpShow(state){
+document.getElementById('lp-proposed').hidden=state!=='proposed';
+document.getElementById('lp-revising').hidden=state!=='revising';
+document.getElementById('lp-running').hidden=state!=='running';
+}
+function lpUpdate(){
+const askEl=document.getElementById('lp-ask');
+const ask=(askEl.value||'').trim()||'make it safer';
 askEl.value='';
-const chip=document.getElementById('plan-chip');
-card.classList.add('revising');
-chip.textContent='revising the plan…';
+document.getElementById('lp-ask-live').textContent=ask;
+lpShow('revising');
 setTimeout(function(){
-  card.classList.remove('revising');
-  planV=Math.min(planV+1,3);
-  document.getElementById('plan-v').textContent='v'+planV;
-  chip.textContent='nothing runs until you approve';
-  if(ask){
-    const miss=document.getElementById('plan-miss');
-    miss.querySelector('.q').textContent='✓';
-    document.getElementById('plan-miss-t').textContent='noted: '+ask;
-  }
+  const prev=lpV;
+  lpV=Math.min(lpV+1,3);
+  document.getElementById('lp-v').textContent=lpV;
+  document.getElementById('lp-v-run').textContent=lpV;
+  document.getElementById('lp-prev').textContent=prev;
+  document.getElementById('lp-ask-echo').textContent=ask;
+  document.getElementById('lp-revised').hidden=false;
+  lpShow('proposed');
 },900);
 }
-function planApprove(){
-const card=document.getElementById('plan-card');
-if(card.classList.contains('revising'))return;
-card.classList.add('running');
-const chip=document.getElementById('plan-chip');
-chip.textContent='approved · running';
-chip.classList.remove('ok');chip.classList.add('work');
-}
-function planReset(){
-const card=document.getElementById('plan-card');
-card.classList.remove('running','revising');
-planV=2;
-document.getElementById('plan-v').textContent='v2';
-const chip=document.getElementById('plan-chip');
-chip.textContent='nothing runs until you approve';
-chip.classList.remove('work');chip.classList.add('ok');
-const miss=document.getElementById('plan-miss');
-miss.querySelector('.q').textContent='?';
-document.getElementById('plan-miss-t').textContent='is there a deadline i should work against?';
+function lpApprove(){document.getElementById('lp-v-run').textContent=lpV;lpShow('running');}
+function lpReset(){
+lpV=2;
+document.getElementById('lp-v').textContent=2;
+document.getElementById('lp-revised').hidden=true;
+document.getElementById('lp-ask').value='';
+lpShow('proposed');
 }
 
-/* 02 · the computer pane: take over / hand back, double-click takes over */
-let paneControl=false;
-function paneRender(){
-const pane=document.getElementById('pane');
-const chip=document.getElementById('pane-chip');
-pane.classList.toggle('controlled',paneControl);
-document.getElementById('pane-dot').className='dot '+(paneControl?'work':'acc');
-chip.textContent=paneControl?'you have control':'buddy has control';
-chip.className='tag '+(paneControl?'work':'ok');
-document.getElementById('pane-foot-t').textContent=paneControl?'your clicks and keys go to the box. buddy watches.':'view only. take over to interact.';
-document.getElementById('pane-btn').textContent=paneControl?'hand back':'take over';
-document.getElementById('pane-say').textContent=paneControl?'leave buddy a note for when you hand back…':'tell buddy what to do on this screen…';
+/* computer — take over / hand back, double-click takes over */
+let lcControl=false;
+const WORK='oklch(0.66 0.085 75)',WORK_LINE='oklch(0.66 0.085 75 / 0.35)',WORK_FILL='oklch(0.66 0.085 75 / 0.12)';
+const ACC='oklch(0.55 0.075 150)',ACC_LINE='oklch(0.55 0.075 150 / 0.35)',ACC_FILL='oklch(0.55 0.075 150 / 0.12)';
+function lcRender(){
+const chip=document.getElementById('lc-chip');
+chip.textContent=lcControl?'you have control':'buddy has control';
+chip.style.borderColor=lcControl?WORK_LINE:ACC_LINE;
+chip.style.color=lcControl?WORK:ACC;
+chip.style.background=lcControl?WORK_FILL:ACC_FILL;
+const screen=document.getElementById('lc-screen');
+screen.style.boxShadow=lcControl?'inset 0 0 0 2px oklch(0.66 0.085 75 / 0.5)':'none';
+screen.style.cursor=lcControl?'crosshair':'default';
+document.getElementById('lc-foot').textContent=lcControl?'your clicks and keys go to the box. buddy watches.':'view only. take over to interact.';
+const btn=document.getElementById('lc-btn');
+btn.textContent=lcControl?'hand back':'take over';
+btn.style.borderColor=lcControl?WORK:'#1c1b18';
+btn.style.background=lcControl?WORK_FILL:'#1c1b18';
+btn.style.color=lcControl?WORK:'#f7f6f1';
+document.getElementById('lc-say').textContent=lcControl?'leave buddy a note for when you hand back…':'tell buddy what to do on this screen…';
 }
-function paneToggle(){paneControl=!paneControl;paneRender();}
-function paneTake(){if(!paneControl){paneControl=true;paneRender();}}
+function lcToggle(){lcControl=!lcControl;lcRender();}
+function lcTake(){if(!lcControl){lcControl=true;lcRender();}}
 
-/* 03 · the filesystem: folders open and close */
-function fsToggle(dir,row){
-row.classList.toggle('open');
-const open=row.classList.contains('open');
-document.querySelectorAll('.fs-row[data-dir="'+dir+'"]').forEach(function(r){r.classList.toggle('hidden',!open);});
+/* filesystem — folders open and close */
+function lfToggle(dir){
+const body=document.getElementById('lf-'+dir);
+const open=body.hidden;
+body.hidden=!open;
+document.getElementById('lf-'+dir+'-chev').style.transform='rotate('+(open?'90deg':'0deg')+')';
 }
 
-/* 04 · the tool budget: toggles recompute the meter; over-cap refuses */
-const TOOL_CAP=52;
-const TOOLS=[
-{name:'gmail',n:12,on:true},
-{name:'slack',n:9,on:true},
-{name:'linear',n:11,on:true},
-{name:'github',n:14,on:false},
-{name:'notion',n:10,on:false}
+/* tool budget — per the design's ltRows: toggle, meter, cap refusal */
+const LT_CAP=52;
+const LT=[
+{name:'Gmail',n:12,on:true},
+{name:'Slack',n:9,on:true},
+{name:'Linear',n:11,on:true},
+{name:'GitHub',n:14,on:false},
+{name:'Notion',n:10,on:false}
 ];
-function toolsRender(){
-const used=TOOLS.reduce(function(a,t){return a+(t.on?t.n:0);},0);
-document.getElementById('tools-used').textContent=used;
-const fill=document.getElementById('tools-fill');
-const ratio=used/TOOL_CAP;
+function ltRender(){
+const used=LT.reduce(function(a,t){return a+(t.on?t.n:0);},0);
+const ratio=used/LT_CAP;
+document.getElementById('lt-used').textContent=used;
+const fill=document.getElementById('lt-fill');
 fill.style.width=Math.min(100,Math.round(ratio*100))+'%';
-fill.style.background=ratio>0.8?'var(--work)':'var(--accent)';
-const host=document.getElementById('tool-rows');
+fill.style.background=ratio>0.8?WORK:ACC;
+const host=document.getElementById('lt-rows');
 host.innerHTML='';
-TOOLS.forEach(function(t,i){
-  const fits=t.on||t.n<=TOOL_CAP-used;
+LT.forEach(function(t,i){
+  const on=t.on;
+  const fits=on||t.n<=LT_CAP-used;
   const row=document.createElement('div');
-  row.className='tool-row'+(t.on?' on':'')+(fits?'':' capped');
-  row.innerHTML='<span class="chk">'+(t.on?'✓':'')+'</span><span class="nm">'+t.name+'</span><span class="ct">'+(fits?t.n+' tools':'would exceed the cap')+'</span>';
-  if(fits){row.onclick=function(){TOOLS[i].on=!TOOLS[i].on;toolsRender();};}
+  row.className='hrow';
+  row.style.cssText='display: flex; align-items: center; gap: 10px; padding: 7px 16px; cursor: '+(fits?'pointer':'default')+'; opacity: '+(fits?1:0.5);
+  row.innerHTML='<span style="width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; display: grid; place-items: center; font-size: 8px; color: #fdfcf9; border: 1px solid '+(on?ACC:'#c4c1b6')+'; background: '+(on?ACC:'#fdfcf9')+'; transition: background .15s, border-color .15s">'+(on?'✓':'')+'</span>'
+    +'<span style="font-size: 12px; flex: 1; color: '+(on?'#1c1b18':'#54524b')+'">'+t.name+'</span>'
+    +'<span style="font-size: 10px; color: '+(on?ACC:'#97948a')+'">'+(fits?t.n+' tools':'would exceed the cap')+'</span>';
+  if(fits){row.onclick=function(){LT[i].on=!LT[i].on;ltRender();};}
   host.appendChild(row);
 });
 }
-toolsRender();
+ltRender();
 
-/* 05 · approvals: approve / decline resolve the card */
-function apprResolve(yes){
-const card=document.getElementById('appr');
-card.classList.add('resolved');
-const mark=document.getElementById('appr-mark');
+/* approvals — approve / decline resolve the card */
+function laResolve(yes){
+document.getElementById('la-pending').hidden=true;
+const done=document.getElementById('la-done');
+done.hidden=false;
+const mark=document.getElementById('la-mark');
 mark.textContent=yes?'✓':'✕';
-mark.style.color=yes?'var(--accent)':'var(--stop)';
-document.getElementById('appr-note').textContent=yes?'approved. buddy sends it from your address and files the thread.':'declined. buddy keeps the draft and moves on.';
+mark.style.color=yes?ACC:'oklch(0.58 0.10 28)';
+document.getElementById('la-note').textContent=yes?'approved. buddy sends it from your address and files the thread.':'declined. buddy keeps the draft and moves on.';
 }
-function apprReset(){document.getElementById('appr').classList.remove('resolved');}
-
-/* scroll reveal */
-const io=new IntersectionObserver(function(entries){
-entries.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});
-},{threshold:.18});
-document.querySelectorAll('.feature').forEach(function(c){io.observe(c);});
+function laReset(){
+document.getElementById('la-done').hidden=true;
+document.getElementById('la-pending').hidden=false;
+}
 </script>
 </body>
 </html>
