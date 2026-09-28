@@ -1,7 +1,5 @@
 # Terms of Service
 
-**DRAFT, 2026-09-21. Not yet reviewed by counsel. Bracketed items must be filled in before publication.**
-
 Effective date: [date]
 
 These terms are an agreement between you and [Company legal name] ("we", "us") for the use of buddy. By creating an account you agree to them. If you do not agree, do not use buddy.
