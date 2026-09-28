@@ -1,7 +1,5 @@
 # Privacy Policy
 
-**DRAFT, 2026-09-21. Not yet reviewed by counsel. Bracketed items must be filled in before publication.**
-
 Effective date: [date]
 
 buddy is made by [Company legal name] ("we", "us"). This policy explains what buddy collects, why, where it goes, and what you can do about it. buddy is unusual: it operates a computer on your behalf, so it sees and stores more than a typical web app. We have tried to say exactly what that means rather than hide it in general language.

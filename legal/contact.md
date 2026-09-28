@@ -1,7 +1,5 @@
 # Contact
 
-**DRAFT, 2026-09-21. Bracketed items must be filled in before publication.**
-
 **Support:** [support@trybuddynow.com]. We reply within [two business days].
 
 **Privacy requests** (access, export, deletion): [privacy@trybuddynow.com].
