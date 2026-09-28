@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>buddy: a digital intern still on the job next week</title>
 <meta name="description" content="buddy works on a real computer and browser, with a persistent filesystem that survives between runs. workflows can span days, and it asks before anything leaves your account.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin" />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
 <style>
   html, body { height: 100%; margin: 0; background: #f7f6f1; color: #1c1b18; font-family: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace; font-size: 13px; line-height: 1.55; -webkit-font-smoothing: antialiased; overflow: hidden; }
   a { color: oklch(0.55 0.075 150); text-decoration: none; }
@@ -27,29 +27,22 @@
   .landcard { transition: transform .22s cubic-bezier(.3,.9,.2,1), box-shadow .22s; }
   .landcard:hover { transform: translateY(-3px); box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 28px 60px -32px rgba(28,27,24,.32) !important; }
   .chev { display: inline-block; transition: transform .18s cubic-bezier(.3,.9,.2,1); }
+  @keyframes barin { from { transform: scaleY(0); } }
+  .barin { transform-origin: bottom; animation: barin .5s cubic-bezier(.3,.9,.2,1) both; }
   @keyframes viewin { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
   .viewin { animation: viewin .18s cubic-bezier(.3,.9,.2,1) both; }
-  .hpill:hover { border-color: #c4c1b6 !important; color: #1c1b18 !important; }
-  .hcta:hover { background: #1c1b18 !important; border-color: #1c1b18 !important; }
-  .hprim:hover { background: oklch(0.55 0.075 150) !important; border-color: oklch(0.55 0.075 150) !important; }
-  .hdec:hover { border-color: #e6e3da !important; background: #fdfcf9 !important; }
-  .hrow:hover { background: #f1efe8 !important; }
-  .fin:focus { border-color: oklch(0.55 0.075 150 / 0.35) !important; }
-  .signup.done .su-in, .signup.done .su-btn { display: none; }
-  .su-thanks { display: none; font-size: 12px; color: oklch(0.55 0.075 150); margin-top: 10px; }
-  .signup.done ~ .su-thanks { display: block; }
-  .su-error { display: none; font-size: 12px; color: oklch(0.58 0.10 28); margin-top: 10px; }
-  .signup.failed ~ .su-error { display: block; }
-  .signup.sending .su-btn { opacity: .55; cursor: default; }
-  [hidden] { display: none !important; }
+  .feed { overflow-x: hidden; }
+  .feed * { overflow-wrap: anywhere; }
+  .fsrow .fsdel { opacity: 0; transition: opacity .12s; }
+  .fsrow:hover .fsdel, .fsrow .fsdel[data-armed="true"] { opacity: 1; }
+</style>
+<style>
   @media (max-width: 760px) {
     .landsect { grid-template-columns: 1fr !important; gap: 26px !important; padding: 48px 0 !important; }
-    .lwrap { padding: 0 22px !important; }
-    .lbar { padding: 12px 22px !important; }
-    .lhero { padding: 60px 0 52px !important; }
-    .lhero h1 { font-size: 31px !important; }
-    .signup { flex-wrap: wrap; }
-    .su-btn { width: 100%; justify-content: center; }
+    [style*="padding: 0 48px"] { padding: 0 22px !important; }
+    [style*="padding: 14px 48px"] { padding: 12px 22px !important; }
+    .viewin[style*="padding: 104px 0 88px"] { padding: 60px 0 52px !important; }
+    h1 { font-size: 31px !important; }
   }
   @media (prefers-reduced-motion: reduce) {
     .landsect, .viewin { animation: none !important; }
@@ -58,353 +51,900 @@
 </style>
 </head>
 <body>
-<div style="height: 100vh; overflow-y: auto; background: #f7f6f1">
+<!-- Rendered from the template below at its initial state, so the page reads before the script runs. -->
+<div id="root">
+<!--sc-if-->
+  <div style="height: 100vh; overflow-y: auto; background: #f7f6f1">
 
-  <div style="position: sticky; top: 0; z-index: 50; background: color-mix(in oklch, #f7f6f1 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid #e6e3da">
-    <div class="lbar" style="max-width: 1060px; margin: 0 auto; padding: 14px 48px; display: flex; align-items: center; justify-content: space-between">
-      <span style="display: flex; align-items: center; gap: 10px">
-        <span style="position: relative; display: inline-grid; place-items: center; width: 26px; height: 26px"><span style="font-weight: 700; font-size: 18px; letter-spacing: -0.04em">b</span><span style="position: absolute; top: -1px; right: -4px; width: 5px; height: 5px; border-radius: 50%; background: oklch(0.55 0.075 150); animation: ping 2.4s cubic-bezier(.4,0,.2,1) infinite"></span></span>
-        <span style="font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: #97948a">buddy</span>
-      </span>
-      <span style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">coming fall 2026</span>
+    <div style="position: sticky; top: 0; z-index: 50; background: color-mix(in oklch, #f7f6f1 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid #e6e3da">
+      <div style="max-width: 1060px; margin: 0 auto; padding: 14px 48px; display: flex; align-items: center; justify-content: space-between">
+        <span style="display: flex; align-items: center; gap: 10px">
+          <span style="position: relative; display: inline-grid; place-items: center; width: 26px; height: 26px"><span style="font-weight: 700; font-size: 18px; letter-spacing: -0.04em">b</span><span style="position: absolute; top: -1px; right: -4px; width: 5px; height: 5px; border-radius: 50%; background: oklch(0.55 0.075 150); animation: ping 2.4s cubic-bezier(.4,0,.2,1) infinite"></span></span>
+          <span style="font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: #97948a">buddy</span>
+        </span>
+        <a href="https://dev.trybuddynow.com" style="font-size: 12px; color: #54524b; cursor: pointer; border: 1px solid #e6e3da; background: #fdfcf9; padding: 6px 15px; border-radius: 100px">sign in</a>
+      </div>
+    </div>
+
+    <div style="max-width: 1060px; margin: 0 auto; padding: 0 48px">
+
+      <div class="viewin" style="padding: 104px 0 88px">
+        <h1 style="margin: 0 0 20px; font-weight: 500; font-size: 48px; line-height: 1.08; letter-spacing: -0.03em; max-width: 820px; text-wrap: pretty">a digital intern<br>still on the job next week.<span style="display: inline-block; width: 11px; height: 0.88em; vertical-align: -0.06em; background: oklch(0.55 0.075 150); margin-left: 7px; animation: blink 1.2s steps(1) infinite"></span></h1>
+        <p style="margin: 0 0 30px; font-size: 14px; line-height: 1.8; color: #54524b; max-width: 520px; text-wrap: pretty">buddy works on a real computer, learns how your team does things, asks before anything leaves your account, and asks when it's stuck.</p>
+        <div style="display: flex; align-items: center; gap: 14px">
+          <a href="https://dev.trybuddynow.com" style="display: inline-flex; align-items: center; gap: 9px; font-size: 13px; border: 1px solid oklch(0.55 0.075 150); background: oklch(0.55 0.075 150); color: #fdfcf9; padding: 11px 24px; border-radius: 100px; cursor: pointer; box-shadow: 0 1px 2px rgba(28,27,24,.06), 0 8px 22px -12px oklch(0.55 0.075 150 / 0.55)"><span style="font-size: 9px">▶</span>get started</a>
+                  </div>
+      </div>
+
+      <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
+        <div>
+          <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">show it once</span>
+          <h2 style="margin: 0 0 10px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">teach it the way the team does it.</h2>
+          <p style="margin: 0 0 14px; font-size: 14px; line-height: 1.6; color: #1c1b18; text-wrap: pretty">take over, do the task, hand back.</p>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">do it yourself, say what matters as you go, hand back. buddy writes it down and does it that way next time. everything it learns, anyone on the team can read, edit or throw out.</p>
+        </div>
+        <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
+          <div style="display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid #efece4; background: #f1efe8">
+            <span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.66 0.085 75)"></span>
+            <span style="flex: 1; font-size: 10px; color: #54524b">teaching · netsuite</span>
+            <span style="font-size: 9px; letter-spacing: .1em; text-transform: uppercase; padding: 2px 8px; border-radius: 100px; border: 1px solid oklch(0.66 0.085 75); color: oklch(0.50 0.09 70)">you have the keys</span>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr">
+            <div style="padding: 14px; border-right: 1px solid #efece4; display: flex; flex-direction: column; gap: 9px">
+              <div style="aspect-ratio: 4 / 3; border: 1px solid #efece4; border-radius: 6px; background: repeating-linear-gradient(135deg, #f1efe8 0 8px, #ebe8df 8px 16px); display: flex; align-items: flex-end; padding: 6px"><span style="font-size: 8.5px; color: #97948a; background: #fdfcf9; border: 1px solid #e6e3da; padding: 2px 7px; border-radius: 100px">reports · saved searches</span></div>
+              <div style="display: flex; flex-direction: column; gap: 6px; border-top: 1px solid #efece4; padding-top: 9px">
+                <span style="font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a">you said</span>
+                <span style="display: grid; grid-template-columns: 12px 1fr; font-size: 10.5px; line-height: 1.5; color: #54524b"><span style="color: oklch(0.66 0.085 75)">›</span>not the invoice list. it stops at 1,000 rows.</span>
+                <span style="display: grid; grid-template-columns: 12px 1fr; font-size: 10.5px; line-height: 1.5; color: #54524b"><span style="color: oklch(0.66 0.085 75)">›</span>csv, always. priya's import hates excel.</span>
+                <span style="display: grid; grid-template-columns: 12px 1fr; font-size: 10.5px; line-height: 1.5; color: #54524b"><span style="color: oklch(0.66 0.085 75)">›</span><span><span style="color: #97948a">(edited draft)</span> seat counts before price when writing to rachel.</span></span>
+              </div>
+            </div>
+            <div style="padding: 14px 16px; display: flex; flex-direction: column; gap: 8px">
+              <span style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap"><span style="font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a">buddy wrote</span><span style="font-size: 9px; color: oklch(0.55 0.075 150); border: 1px solid oklch(0.55 0.075 150 / 0.35); padding: 1px 7px; border-radius: 100px">learned from your edit</span></span>
+              <span style="font-size: 12px; color: #1c1b18">export invoices from netsuite</span>
+              <div style="display: flex; flex-direction: column; gap: 5px; font-size: 10.5px; line-height: 1.55; color: #54524b">
+                <span style="display: grid; grid-template-columns: 14px 1fr"><span style="color: #97948a">1</span>reports → saved searches</span>
+                <span style="display: grid; grid-template-columns: 14px 1fr; padding-left: 14px; color: #97948a"><span>·</span><span><i>gotcha:</i> not the invoice list, it caps at 1,000 rows</span></span>
+                <span style="display: grid; grid-template-columns: 14px 1fr"><span style="color: #97948a">2</span>last month, first to last day</span>
+                <span style="display: grid; grid-template-columns: 14px 1fr"><span style="color: #97948a">3</span>export as csv</span>
+                <span style="display: grid; grid-template-columns: 14px 1fr"><span style="color: #97948a">4</span>email priya the row count</span>
+              </div>
+              <span style="margin-top: auto; font-size: 9.5px; color: oklch(0.55 0.075 150)">saved to memory</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
+        <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
+          <div style="display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid #efece4; background: #f1efe8">
+            <span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.55 0.075 150); animation: ping 2.4s cubic-bezier(.4,0,.2,1) infinite"></span>
+            <span style="flex: 1; min-width: 0; font-size: 10px; color: #54524b; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">buddy's computer · mail.google.com/…/thread/pilot-terms</span>
+            <span style="font-size: 9px; letter-spacing: .1em; text-transform: uppercase; padding: 2px 8px; border-radius: 100px; border: 1px solid oklch(0.55 0.075 150 / 0.35); color: oklch(0.55 0.075 150); background: oklch(0.55 0.075 150 / 0.12); transition: color .2s, border-color .2s, background .2s">buddy has control</span>
+          </div>
+          <div style="aspect-ratio: 16 / 9; position: relative; overflow: hidden; background: #fdfcf9; box-shadow: none; cursor: default; transition: box-shadow .2s">
+            <div style="position: absolute; inset: 0; display: flex; flex-direction: column; padding: 10px 12px; gap: 8px">
+              <div style="display: flex; align-items: center; gap: 8px">
+                <span style="display: flex; gap: 4px"><span style="width: 7px; height: 7px; border-radius: 50%; background: #e6e3da"></span><span style="width: 7px; height: 7px; border-radius: 50%; background: #e6e3da"></span><span style="width: 7px; height: 7px; border-radius: 50%; background: #e6e3da"></span></span>
+                <span style="flex: 1; height: 16px; border-radius: 100px; background: #f1efe8; display: flex; align-items: center; padding: 0 10px; font-size: 8px; color: #97948a">mail.google.com/mail/u/0/#inbox/pilot-terms</span>
+              </div>
+              <div style="flex: 1; display: flex; gap: 10px; min-height: 0">
+                <div style="width: 74px; flex-shrink: 0; display: flex; flex-direction: column; gap: 5px; padding-top: 2px">
+                  <span style="height: 14px; border-radius: 100px; background: oklch(0.55 0.075 150 / 0.2); width: 60px"></span>
+                  <span style="height: 7px; border-radius: 100px; background: #f1efe8; width: 52px"></span>
+                  <span style="height: 7px; border-radius: 100px; background: #f1efe8; width: 64px"></span>
+                  <span style="height: 7px; border-radius: 100px; background: #f1efe8; width: 44px"></span>
+                </div>
+                <div style="flex: 1; min-width: 0; border: 1px solid #efece4; border-radius: 7px; padding: 9px 11px; display: flex; flex-direction: column; gap: 7px">
+                  <span style="font-size: 10px; color: #1c1b18">re: pilot terms</span>
+                  <span style="display: flex; align-items: center; gap: 6px"><span style="width: 14px; height: 14px; border-radius: 50%; background: #e6e3da; flex-shrink: 0"></span><span style="height: 7px; border-radius: 100px; background: #f1efe8; width: 96px"></span></span>
+                  <span style="height: 6px; border-radius: 100px; background: #f1efe8; width: 92%"></span>
+                  <span style="height: 6px; border-radius: 100px; background: #f1efe8; width: 84%"></span>
+                  <span style="height: 6px; border-radius: 100px; background: #f1efe8; width: 60%"></span>
+                  <span style="margin-top: 2px; display: flex; align-items: center; gap: 6px"><span style="width: 14px; height: 14px; border-radius: 50%; background: oklch(0.55 0.075 150 / 0.25); flex-shrink: 0"></span><span style="height: 7px; border-radius: 100px; background: #f1efe8; width: 74px"></span></span>
+                  <span style="height: 6px; border-radius: 100px; background: #f1efe8; width: 88%"></span>
+                  <span style="height: 6px; border-radius: 100px; background: #f1efe8; width: 40%"></span>
+                  <span style="margin-top: auto; align-self: flex-start; font-size: 8.5px; color: #fdfcf9; background: oklch(0.55 0.075 150); border-radius: 4px; padding: 3px 9px">reply</span>
+                </div>
+              </div>
+            </div>
+            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(28,27,24,.05), transparent 40%)"></div>
+            <div style="position: absolute; left: 12px; right: 12px; bottom: 12px; display: flex; justify-content: center">
+              <span style="display: inline-flex; align-items: center; gap: 8px; background: #fdfcf9; border: 1px solid #c4c1b6; border-radius: 100px; padding: 6px 13px; font-size: 11px; color: #97948a; box-shadow: 0 10px 26px -16px rgba(28,27,24,.3)"><span style="color: oklch(0.55 0.075 150)">buddy&gt;</span>tell buddy what to do on this screen…</span>
+            </div>
+          </div>
+          <div style="padding: 8px 14px; border-top: 1px solid #efece4; display: flex; align-items: center; gap: 10px; font-size: 10px; color: #97948a">
+            <span style="flex: 1">view only. take over to interact.</span>
+            <span style="font-size: 10.5px; border: 1px solid #1c1b18; background: #1c1b18; color: #f7f6f1; padding: 4px 11px; border-radius: 6px; cursor: pointer; transition: color .2s, border-color .2s, background .2s">take over</span>
+          </div>
+        </div>
+        <div>
+          <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">a real computer</span>
+          <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">watch the screen live. take the keys anytime.</h2>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">buddy drives a full desktop and browser, not an api shim. watch every click as it happens, expand the screen to half or full width, double-click to take over, and hand back when you're done. hand back and buddy knows what you did while you had the keys. type into the bubble to steer without touching anything.</p>
+        </div>
+      </div>
+
+      <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
+        <div>
+          <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">it knows the job</span>
+          <h2 style="margin: 0 0 10px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">its own notes on the work.</h2>
+          <p style="margin: 0 0 14px; font-size: 14px; line-height: 1.6; color: #1c1b18; text-wrap: pretty">people, how things are done here, and what's going on.</p>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">who knows what and how they like things done. how this team does each thing. what buddy is on right now. all of it in settings, all of it editable, and you see it write every time.</p>
+        </div>
+        <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; padding: 12px 16px 8px"><span style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #97948a">memory · people</span><span style="font-size: 10px; color: #97948a">6</span></div>
+          <div style="border-top: 1px solid #efece4">
+            <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 10px; padding: 7px 16px; border-bottom: 1px solid #f1efe8"><span style="display: flex; flex-direction: column; gap: 1px; min-width: 0"><span style="font-size: 11.5px; color: #1c1b18">rachel okafor</span><span style="font-size: 9.5px; color: #97948a">client · halden health</span></span><span style="font-size: 10.5px; line-height: 1.5; color: #54524b">pilot terms, seat counts. signs off over $10k.</span></div>
+            <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 10px; padding: 7px 16px; border-bottom: 1px solid #f1efe8"><span style="display: flex; flex-direction: column; gap: 1px; min-width: 0"><span style="font-size: 11.5px; color: #1c1b18">priya nair</span><span style="font-size: 9.5px; color: #97948a">vendor · ledgerline</span></span><span style="font-size: 10.5px; line-height: 1.5; color: #54524b">quickbooks, the monthly close. out fridays.</span></div>
+            <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 10px; padding: 7px 16px; border-bottom: 1px solid #f1efe8"><span style="display: flex; flex-direction: column; gap: 1px; min-width: 0"><span style="font-size: 11.5px; color: #1c1b18">dev mehta</span><span style="font-size: 9.5px; color: #97948a">manager</span></span><span style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-size: 10.5px; line-height: 1.5; color: #54524b">the board deck, final say on pricing.</span><span style="font-size: 10.5px; line-height: 1.5; color: #54524b">daily update.</span></span></div>
+          </div>
+          <div style="margin: 12px 14px 14px; border: 1px solid #e6e3da; border-radius: 8px; background: #f7f6f1; padding: 11px 13px">
+            <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 7px"><span style="font-size: 11.5px; color: #1c1b18">reconcile invoices against quickbooks</span><span style="flex: 1"></span><span style="font-size: 9.5px; color: #97948a">step 2 of 3</span></div>
+            <div style="display: flex; flex-direction: column; gap: 4px; font-size: 10.5px; line-height: 1.5; color: #54524b">
+              <span style="display: grid; grid-template-columns: 14px 1fr"><span style="color: #97948a">1</span>import the month's csv</span>
+              <span style="display: grid; grid-template-columns: 14px 1fr"><span style="color: #97948a">2</span>match on amount and date, within 3 days</span>
+              <span style="display: grid; grid-template-columns: 14px 1fr; padding-left: 14px; color: #97948a"><span>·</span><span><i>gotcha:</i> partial payments come in as two lines</span></span>
+            </div>
+            <div style="margin-top: 9px; padding-top: 8px; border-top: 1px solid #efece4; font-size: 9.5px; color: #97948a">v2 · edited by buddy, sep 24</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
+        <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; padding: 12px 16px 8px"><span style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #97948a">books &amp; invoicing · per month</span><span style="font-size: 10px; color: #97948a">$25 / working hr</span></div>
+          <div style="border-top: 1px solid #efece4">
+            <div style="display: grid; grid-template-columns: 44px 1fr auto auto; gap: 4px 14px; align-items: baseline; padding: 10px 16px; border-bottom: 1px solid #f1efe8">
+              <span style="font-size: 11.5px; color: #1c1b18">may</span>
+              <span style="font-size: 10.5px; color: oklch(0.55 0.075 150); font-variant-numeric: tabular-nums">6 procedures saved</span>
+              <span style="font-size: 10.5px; color: #97948a; font-variant-numeric: tabular-nums; text-align: right">176 h</span>
+              <span style="font-size: 11.5px; color: #1c1b18; font-variant-numeric: tabular-nums; text-align: right; min-width: 52px">$4,400</span>
+            </div>
+            <div style="display: grid; grid-template-columns: 44px 1fr auto auto; gap: 4px 14px; align-items: baseline; padding: 10px 16px; border-bottom: 1px solid #f1efe8">
+              <span style="font-size: 11.5px; color: #1c1b18">jun</span>
+              <span style="font-size: 10.5px; color: oklch(0.55 0.075 150); font-variant-numeric: tabular-nums">19 procedures saved</span>
+              <span style="font-size: 10.5px; color: #97948a; font-variant-numeric: tabular-nums; text-align: right">158 h</span>
+              <span style="font-size: 11.5px; color: #1c1b18; font-variant-numeric: tabular-nums; text-align: right; min-width: 52px">$3,950</span>
+            </div>
+            <div style="display: grid; grid-template-columns: 44px 1fr auto auto; gap: 4px 14px; align-items: baseline; padding: 10px 16px; border-bottom: 1px solid #f1efe8">
+              <span style="font-size: 11.5px; color: #1c1b18">jul</span>
+              <span style="font-size: 10.5px; color: oklch(0.55 0.075 150); font-variant-numeric: tabular-nums">31 procedures saved</span>
+              <span style="font-size: 10.5px; color: #97948a; font-variant-numeric: tabular-nums; text-align: right">141 h</span>
+              <span style="font-size: 11.5px; color: #1c1b18; font-variant-numeric: tabular-nums; text-align: right; min-width: 52px">$3,525</span>
+            </div>
+            <div style="display: grid; grid-template-columns: 44px 1fr auto auto; gap: 4px 14px; align-items: baseline; padding: 10px 16px; background: oklch(0.55 0.075 150 / 0.06)">
+              <span style="font-size: 11.5px; color: #1c1b18">sep</span>
+              <span style="font-size: 10.5px; color: oklch(0.55 0.075 150); font-variant-numeric: tabular-nums">44 procedures saved</span>
+              <span style="font-size: 10.5px; color: #97948a; font-variant-numeric: tabular-nums; text-align: right">122 h</span>
+              <span style="font-size: 11.5px; color: #1c1b18; font-variant-numeric: tabular-nums; text-align: right; min-width: 52px">$3,050</span>
+              <span style="grid-column: 2 / -1; display: flex; align-items: center; gap: 7px; font-size: 10.5px; color: oklch(0.55 0.075 150)"><span style="width: 5px; height: 5px; border-radius: 50%; background: oklch(0.55 0.075 150)"></span>same workload as may, $1,350 less</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">it gets faster</span>
+          <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">the fifth time isn't the first.</h2>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">the first time, it asks. every answer and every edit becomes a saved procedure, so the list of things it already knows how to do keeps growing and the same work takes fewer hours. same job, less of you.</p>
+        </div>
+      </div>
+
+      <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
+        <div>
+          <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">autopilot</span>
+          <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">it plans. you approve. then it runs.</h2>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">press autopilot and buddy drafts a plan first: the goal, what done looks like, the inputs it has, and the questions it still needs answered. ask for changes over as many rounds as you like. nothing runs until you say so, and the approved plan is saved to your project as plan.md.</p>
+        </div>
+        <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
+          <!--sc-if-->
+            <div style="display: flex; align-items: center; gap: 11px; padding: 11px 16px; border-bottom: 1px solid #efece4">
+              <span style="font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; color: #97948a">plan</span>
+              <span style="font-size: 10px; color: #54524b; border: 1px solid #e6e3da; background: #f1efe8; padding: 2px 8px; border-radius: 100px">v2</span>
+            </div>
+            <!--sc-if-->
+            <div style="padding: 20px 22px; display: flex; flex-direction: column; gap: 17px">
+              <div><span style="display: block; font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a; margin-bottom: 6px">goal</span><span style="font-size: 13px; color: #1c1b18; line-height: 1.55">answer the weekend's mail, drafting replies for your approval rather than sending them.</span></div>
+              <div><span style="display: block; font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a; margin-bottom: 6px">done when</span><span style="font-size: 12px; color: #54524b; line-height: 1.6">every thread is answered, filed, or waiting in approvals with a draft attached.</span></div>
+              <div><span style="display: block; font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a; margin-bottom: 6px">missing</span><span style="display: flex; gap: 8px; font-size: 12px; color: #54524b"><span style="color: oklch(0.66 0.085 75)">?</span>is there a deadline i should work against?</span></div>
+            </div>
+            <div style="border-top: 1px solid #efece4; background: #f1efe8; padding: 12px 20px; display: flex; flex-wrap: wrap; align-items: center; gap: 9px">
+              <input spellcheck="false" placeholder="answer a question or ask for a change" style-focus="border-color: oklch(0.55 0.075 150 / 0.35)" style="flex: 1 1 100%; background: #fdfcf9; border: 1px solid #e6e3da; border-radius: 6px; padding: 7px 11px; font-family: inherit; font-size: 11px; color: #1c1b18; outline: none">
+              <span style="margin-left: auto; font-size: 11px; border: 1px solid #e6e3da; background: #fdfcf9; color: #54524b; padding: 6px 13px; border-radius: 6px; cursor: pointer">update the plan</span>
+              <span style="font-size: 11px; border: 1px solid #1c1b18; background: #1c1b18; color: #f7f6f1; padding: 6px 14px; border-radius: 6px; cursor: pointer">approve and run</span>
+            </div>
+          
+          <!--sc-if-->
+          <!--sc-if-->
+        </div>
+      </div>
+
+      <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
+        <div style="display: flex; flex-direction: column; gap: 12px">
+          <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
+            <div style="padding: 14px 16px 12px">
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 9px"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.66 0.085 75)"></span><span style="font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: oklch(0.50 0.09 70)">needs you</span><span style="flex: 1"></span><span style="font-size: 10px; color: #97948a">waiting 2h</span></div>
+              <span style="display: block; font-size: 12.5px; color: #1c1b18; line-height: 1.5">stuck on the vendor export. i need you to log in.</span>
+            </div>
+            <div style="border-top: 1px solid #efece4; background: #f1efe8; padding: 9px 16px; display: flex; align-items: center; gap: 8px"><span style="font-size: 10px; color: #97948a; flex: 1">computer paused at the sign-in screen</span><span style="font-size: 10.5px; border: 1px solid #1c1b18; background: #1c1b18; color: #f7f6f1; padding: 5px 12px; border-radius: 6px">take the keys</span></div>
+          </div>
+          <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
+            <!--sc-if-->
+              <div style="padding: 13px 16px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap">
+                <span style="flex: 1; min-width: 180px; font-size: 12px; color: #1c1b18; line-height: 1.5">the quote to rachel is still open. want me to send it?</span>
+                <span style="font-size: 10.5px; color: #54524b; padding: 5px 10px; cursor: pointer; border: 1px solid transparent; border-radius: 6px">not now</span>
+                <span style="font-size: 10.5px; border: 1px solid #e6e3da; background: #fdfcf9; color: #1c1b18; padding: 5px 12px; border-radius: 6px; cursor: pointer">yes, take it</span>
+              </div>
+            
+            <!--sc-if-->
+          </div>
+        </div>
+        <div>
+          <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">stuck means ask</span>
+          <h2 style="margin: 0 0 10px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">it doesn't quit.</h2>
+          <p style="margin: 0 0 14px; font-size: 14px; line-height: 1.6; color: #1c1b18; text-wrap: pretty">when it's stuck, it tells you what it needs and waits.</p>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">minutes or days, the computer stays paused. and when the desk is quiet it looks at what's open and asks if you want it to take the next thing.</p>
+        </div>
+      </div>
+
+      <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
+        <div>
+          <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">approvals first</span>
+          <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">nothing leaves your account without a yes.</h2>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">sends, posts, and payments stop and wait for you, with the exact plan and tools on the card. stop a run mid-flight and it holds at the boundary. resume with a note, or cancel for good.</p>
+        </div>
+        <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
+          <!--sc-if-->
+            <div style="padding: 14px 16px 12px">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 9px">
+                <span style="display: flex; align-items: center; gap: 8px; font-size: 10.5px; color: #54524b"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.66 0.085 75)"></span>gmail · rachel@lumen.co</span>
+                <span style="font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(0.55 0.075 150); border: 1px solid oklch(0.55 0.075 150 / 0.35); padding: 1px 7px; border-radius: 100px">send</span>
+              </div>
+              <span style="display: block; font-size: 12.5px; color: #1c1b18; margin-bottom: 3px">send the reply about pilot terms?</span>
+              <span style="display: block; font-size: 11px; color: #54524b; line-height: 1.6">she asked for a number by tuesday. i drafted the seat-count hold through the quarter.</span>
+            </div>
+            <div style="border-top: 1px solid #efece4; background: #f1efe8; padding: 10px 16px; display: flex; gap: 8px; justify-content: flex-end">
+              <span style="font-size: 10.5px; color: #54524b; padding: 5px 11px; cursor: pointer; border: 1px solid transparent; border-radius: 6px">decline</span>
+              <span style="font-size: 10.5px; border: 1px solid #1c1b18; background: #1c1b18; color: #f7f6f1; padding: 5px 12px; border-radius: 6px; cursor: pointer">approve</span>
+            </div>
+          
+          <!--sc-if-->
+        </div>
+      </div>
+
+      <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
+        <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; padding: 12px 0; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25); font-size: 12px">
+          <div style="display: flex; align-items: center; gap: 9px; padding: 6px 18px; color: #1c1b18; cursor: pointer"><span class="chev" style="color: #97948a; width: 12px; transform: rotate(90deg)">▸</span>triage/<span style="flex: 1"></span><span style="font-size: 10px; color: #97948a">4</span></div>
+          <!--sc-if-->
+            <div style="display: flex; align-items: center; gap: 9px; padding: 6px 18px 6px 31px; color: #54524b; background: oklch(0.55 0.075 150 / 0.12)"><span style="color: #97948a; width: 12px">·</span>plan.md<span style="flex: 1"></span><span style="font-size: 10px; color: #97948a">1.2 kb</span></div>
+            <div style="display: flex; align-items: center; gap: 9px; padding: 6px 18px 6px 31px; color: #54524b"><span style="color: #97948a; width: 12px">·</span>backlog.md<span style="flex: 1"></span><span style="font-size: 10px; color: #97948a">4.1 kb</span></div>
+            <div style="display: flex; align-items: center; gap: 9px; padding: 6px 18px 6px 31px; color: #54524b"><span style="color: #97948a; width: 12px">·</span>drafts/rachel.txt<span style="flex: 1"></span><span style="font-size: 10px; color: #97948a">812 b</span></div>
+          
+          <div style="display: flex; align-items: center; gap: 9px; padding: 6px 18px; color: #1c1b18; cursor: pointer"><span class="chev" style="color: #97948a; width: 12px; transform: rotate(0deg)">▸</span>notes/<span style="flex: 1"></span><span style="font-size: 10px; color: #97948a">2</span></div>
+          <!--sc-if-->
+          <div style="margin: 10px 18px 0; border: 1px dashed #e6e3da; border-radius: 7px; padding: 13px 12px; text-align: center; font-size: 10.5px; color: #97948a; font-style: italic">drop files into a linked folder</div>
+        </div>
+        <div>
+          <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">a filesystem that survives</span>
+          <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">the work is still there next week.</h2>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">files live in a store that outlasts any session. projects link the folders they need, drafts and notes accumulate, and the next run picks up exactly where the last one held. drag files in, rename, edit, and read everything buddy writes.</p>
+        </div>
+      </div>
+
+      <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
+        <div>
+          <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">your apps, connected</span>
+          <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">click through the apps buddy can touch.</h2>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">gmail, slack, linear, github, notion and more. turn them on per session from the chat bar. apps that need your login authorize once in settings.</p>
+        </div>
+        <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; padding: 13px 16px 9px">
+            <span style="font-size: 11px; color: #97948a">connected: <span style="color: #1c1b18">gmail, slack, linear</span></span>
+          </div>
+          <div style="margin: 0 16px 10px; height: 3px; border-radius: 100px; background: #f1efe8; overflow: hidden"><div style="height: 100%; width: 62%; border-radius: 100px; background: oklch(0.55 0.075 150); transition: width .3s cubic-bezier(.3,.9,.2,1), background .3s"></div></div>
+          <div style="padding: 2px 0 8px">
+            <!--sc-for-->
+              <div style="display: flex; align-items: center; gap: 10px; padding: 7px 16px; cursor: pointer; opacity: 1">
+                <span style="width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; display: grid; place-items: center; font-size: 8px; color: #fdfcf9; border: 1px solid oklch(0.55 0.075 150); background: oklch(0.55 0.075 150); transition: background .15s, border-color .15s">✓</span>
+                <span style="font-size: 12px; flex: 1; color: #1c1b18">Gmail</span>
+                <span style="font-size: 10px; color: oklch(0.55 0.075 150)">12 tools</span>
+              </div>
+            
+              <div style="display: flex; align-items: center; gap: 10px; padding: 7px 16px; cursor: pointer; opacity: 1">
+                <span style="width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; display: grid; place-items: center; font-size: 8px; color: #fdfcf9; border: 1px solid oklch(0.55 0.075 150); background: oklch(0.55 0.075 150); transition: background .15s, border-color .15s">✓</span>
+                <span style="font-size: 12px; flex: 1; color: #1c1b18">Slack</span>
+                <span style="font-size: 10px; color: oklch(0.55 0.075 150)">9 tools</span>
+              </div>
+            
+              <div style="display: flex; align-items: center; gap: 10px; padding: 7px 16px; cursor: pointer; opacity: 1">
+                <span style="width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; display: grid; place-items: center; font-size: 8px; color: #fdfcf9; border: 1px solid oklch(0.55 0.075 150); background: oklch(0.55 0.075 150); transition: background .15s, border-color .15s">✓</span>
+                <span style="font-size: 12px; flex: 1; color: #1c1b18">Linear</span>
+                <span style="font-size: 10px; color: oklch(0.55 0.075 150)">11 tools</span>
+              </div>
+            
+              <div style="display: flex; align-items: center; gap: 10px; padding: 7px 16px; cursor: pointer; opacity: 1">
+                <span style="width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; display: grid; place-items: center; font-size: 8px; color: #fdfcf9; border: 1px solid #c4c1b6; background: #fdfcf9; transition: background .15s, border-color .15s"></span>
+                <span style="font-size: 12px; flex: 1; color: #54524b">GitHub</span>
+                <span style="font-size: 10px; color: #97948a">14 tools</span>
+              </div>
+            
+              <div style="display: flex; align-items: center; gap: 10px; padding: 7px 16px; cursor: pointer; opacity: 1">
+                <span style="width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; display: grid; place-items: center; font-size: 8px; color: #fdfcf9; border: 1px solid #c4c1b6; background: #fdfcf9; transition: background .15s, border-color .15s"></span>
+                <span style="font-size: 12px; flex: 1; color: #54524b">Notion</span>
+                <span style="font-size: 10px; color: #97948a">10 tools</span>
+              </div>
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="landsect" style="border-top: 1px solid #e6e3da; padding: 88px 0 96px; text-align: center">
+        <div data-slot="pricing" style="min-height: 20px; margin-bottom: 14px; font-size: 12.5px; line-height: 20px; color: #97948a"></div>
+        <h2 style="margin: 0 0 12px; font-weight: 500; font-size: 30px; letter-spacing: -0.025em; text-wrap: pretty">give buddy the job.</h2>
+        <p style="margin: 0 0 26px; font-size: 12.5px; line-height: 1.8; color: #97948a">it will still be at the desk when you check back.<br>and it'll know the job better than it did yesterday.</p>
+        <a href="https://dev.trybuddynow.com" style="display: inline-flex; align-items: center; gap: 9px; font-size: 13px; border: 1px solid oklch(0.55 0.075 150); background: oklch(0.55 0.075 150); color: #fdfcf9; padding: 11px 24px; border-radius: 100px; cursor: pointer; box-shadow: 0 1px 2px rgba(28,27,24,.06), 0 8px 22px -12px oklch(0.55 0.075 150 / 0.55)"><span style="font-size: 9px">▶</span>get started</a>
+        <div style="display: flex; gap: 26px; justify-content: center; padding-top: 64px; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">
+          <span>approvals first</span><span>disposable compute</span><span>durable storage</span>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 10px; justify-content: center; padding: 0 0 40px; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a"><a href="/legal/privacy.html" style="color: #97948a">privacy</a><span>·</span><a href="/legal/terms.html" style="color: #97948a">terms</a><span>·</span><a href="/legal/contact.html" style="color: #97948a">contact us</a></div>
     </div>
   </div>
 
-  <div class="lwrap" style="max-width: 1060px; margin: 0 auto; padding: 0 48px">
-
-    <div class="viewin lhero" id="join" style="padding: 104px 0 88px">
-      <h1 style="margin: 0 0 20px; font-weight: 500; font-size: 48px; line-height: 1.08; letter-spacing: -0.03em; max-width: 660px; text-wrap: pretty">a digital intern<br />still on the job next week.<span style="display: inline-block; width: 11px; height: 0.88em; vertical-align: -0.06em; background: oklch(0.55 0.075 150); margin-left: 7px; animation: blink 1.2s steps(1) infinite"></span></h1>
-      <p style="margin: 0 0 30px; font-size: 14px; line-height: 1.8; color: #54524b; max-width: 520px; text-wrap: pretty">buddy works on a real computer and browser, with a persistent filesystem that survives between runs. workflows can span days, and it asks before anything leaves your account.</p>
-      <form class="signup" onsubmit="return handleSignup(event)" style="display: flex; align-items: center; gap: 10px; max-width: 440px; position: relative">
-        <input class="su-in fin" type="email" required placeholder="you@company.com" spellcheck="false" style="flex: 1; min-width: 0; background: #fdfcf9; border: 1px solid #e6e3da; border-radius: 100px; padding: 10px 16px; font-family: inherit; font-size: 13px; color: #1c1b18; outline: none">
-        <button class="su-btn hcta" type="submit" style="display: inline-flex; align-items: center; gap: 9px; font-size: 13px; font-family: inherit; border: 1px solid oklch(0.55 0.075 150); background: oklch(0.55 0.075 150); color: #fdfcf9; padding: 11px 24px; border-radius: 100px; cursor: pointer; box-shadow: 0 1px 2px rgba(28,27,24,.06), 0 8px 22px -12px oklch(0.55 0.075 150 / 0.55)"><span style="font-size: 9px">▶</span>join the waitlist</button>
-        <input type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
-      </form>
-      <div class="su-thanks">you're on the list. we'll be in touch.</div>
-      <div class="su-error">something went wrong. please try again later.</div>
-    </div>
-
-    <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
-      <div>
-        <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">autopilot</span>
-        <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">it plans. you approve. then it runs.</h2>
-        <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">press autopilot and buddy drafts a plan first: the goal, what done looks like, the inputs it has, and the questions it still needs answered. ask for changes over as many rounds as you like. nothing runs until you say so, and the approved plan is saved to your project as plan.md.</p>
-      </div>
-      <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
-        <div id="lp-proposed">
-          <div style="display: flex; align-items: center; gap: 11px; padding: 11px 16px; border-bottom: 1px solid #efece4">
-            <span style="font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; color: #97948a">plan</span>
-            <span style="font-size: 10px; color: #54524b; border: 1px solid #e6e3da; background: #f1efe8; padding: 2px 8px; border-radius: 100px">v<span id="lp-v">2</span></span>
-            <span style="flex: 1"></span>
-            <span style="font-size: 10px; color: #97948a">nothing runs until you approve</span>
-          </div>
-          <div id="lp-revised" hidden style="padding: 10px 16px; border-bottom: 1px solid #efece4; background: oklch(0.55 0.075 150 / 0.12); animation: pop .2s cubic-bezier(.4,0,.2,1) both">
-            <span style="display: block; font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 4px">changed since v<span id="lp-prev">2</span></span>
-            <span style="font-size: 11px; color: #54524b; line-height: 1.6">nothing goes out without your approval. you asked: <span id="lp-ask-echo"></span></span>
-          </div>
-          <div style="padding: 20px 22px; display: flex; flex-direction: column; gap: 17px">
-            <div><span style="display: block; font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a; margin-bottom: 6px">goal</span><span style="font-size: 13px; color: #1c1b18; line-height: 1.55">answer the weekend's mail, drafting replies for your approval rather than sending them.</span></div>
-            <div><span style="display: block; font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a; margin-bottom: 6px">done when</span><span style="font-size: 12px; color: #54524b; line-height: 1.6">every thread is answered, filed, or waiting in approvals with a draft attached.</span></div>
-            <div><span style="display: block; font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a; margin-bottom: 6px">missing</span><span style="display: flex; gap: 8px; font-size: 12px; color: #54524b"><span style="color: oklch(0.66 0.085 75)">?</span>is there a deadline i should work against?</span></div>
-          </div>
-          <div style="border-top: 1px solid #efece4; background: #f1efe8; padding: 12px 20px; display: flex; flex-wrap: wrap; align-items: center; gap: 9px">
-            <input id="lp-ask" class="fin" spellcheck="false" placeholder="answer a question or ask for a change" onkeydown="if(event.key==='Enter')lpUpdate()" style="flex: 1 1 100%; background: #fdfcf9; border: 1px solid #e6e3da; border-radius: 6px; padding: 7px 11px; font-family: inherit; font-size: 11px; color: #1c1b18; outline: none">
-            <span onclick="lpUpdate()" class="hpill" style="margin-left: auto; font-size: 11px; border: 1px solid #e6e3da; background: #fdfcf9; color: #54524b; padding: 6px 13px; border-radius: 6px; cursor: pointer">update the plan</span>
-            <span onclick="lpApprove()" class="hprim" style="font-size: 11px; border: 1px solid #1c1b18; background: #1c1b18; color: #f7f6f1; padding: 6px 14px; border-radius: 6px; cursor: pointer">approve and run</span>
-          </div>
-        </div>
-        <div id="lp-revising" hidden>
-          <div style="padding: 22px 20px; display: flex; align-items: center; gap: 12px">
-            <span style="width: 12px; height: 12px; border: 1.5px solid oklch(0.55 0.075 150 / 0.35); border-top-color: oklch(0.55 0.075 150); border-radius: 50%; animation: spin 1s linear infinite"></span>
-            <span style="font-size: 12px; color: #54524b">revising: <span id="lp-ask-live"></span></span>
-          </div>
-        </div>
-        <div id="lp-running" hidden>
-          <div style="padding: 18px 20px; display: flex; align-items: center; gap: 12px; animation: pop .22s cubic-bezier(.4,0,.2,1) both">
-            <span style="width: 7px; height: 7px; border-radius: 50%; background: oklch(0.55 0.075 150); animation: ping 2.4s cubic-bezier(.4,0,.2,1) infinite; flex-shrink: 0"></span>
-            <span style="min-width: 0; flex: 1; font-size: 12px; color: #1c1b18">running from plan.md v<span id="lp-v-run">2</span> · hop 1/18</span>
-            <span onclick="lpReset()" style="flex-shrink: 0; font-size: 10px; color: #97948a; cursor: pointer; text-decoration: underline; text-underline-offset: 2px">try again</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
-      <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
-        <div style="display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid #efece4; background: #f1efe8">
-          <span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.55 0.075 150); animation: ping 2.4s cubic-bezier(.4,0,.2,1) infinite"></span>
-          <span style="flex: 1; min-width: 0; font-size: 10px; color: #54524b; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">buddy's computer · mail.google.com/…/thread/pilot-terms</span>
-          <span id="lc-chip" style="font-size: 9px; letter-spacing: .1em; text-transform: uppercase; padding: 2px 8px; border-radius: 100px; border: 1px solid oklch(0.55 0.075 150 / 0.35); color: oklch(0.55 0.075 150); background: oklch(0.55 0.075 150 / 0.12); transition: color .2s, border-color .2s, background .2s">buddy has control</span>
-        </div>
-        <div id="lc-screen" ondblclick="lcTake()" style="aspect-ratio: 16 / 9; position: relative; overflow: hidden; background: #fdfcf9; box-shadow: none; cursor: default; transition: box-shadow .2s">
-          <div style="position: absolute; inset: 0; display: flex; flex-direction: column; padding: 10px 12px; gap: 8px">
-            <div style="display: flex; align-items: center; gap: 8px">
-              <span style="display: flex; gap: 4px"><span style="width: 7px; height: 7px; border-radius: 50%; background: #e6e3da"></span><span style="width: 7px; height: 7px; border-radius: 50%; background: #e6e3da"></span><span style="width: 7px; height: 7px; border-radius: 50%; background: #e6e3da"></span></span>
-              <span style="flex: 1; height: 16px; border-radius: 100px; background: #f1efe8; display: flex; align-items: center; padding: 0 10px; font-size: 8px; color: #97948a">mail.google.com/mail/u/0/#inbox/pilot-terms</span>
-            </div>
-            <div style="flex: 1; display: flex; gap: 10px; min-height: 0">
-              <div style="width: 74px; flex-shrink: 0; display: flex; flex-direction: column; gap: 5px; padding-top: 2px">
-                <span style="height: 14px; border-radius: 100px; background: oklch(0.55 0.075 150 / 0.2); width: 60px"></span>
-                <span style="height: 7px; border-radius: 100px; background: #f1efe8; width: 52px"></span>
-                <span style="height: 7px; border-radius: 100px; background: #f1efe8; width: 64px"></span>
-                <span style="height: 7px; border-radius: 100px; background: #f1efe8; width: 44px"></span>
-              </div>
-              <div style="flex: 1; min-width: 0; border: 1px solid #efece4; border-radius: 7px; padding: 9px 11px; display: flex; flex-direction: column; gap: 7px">
-                <span style="font-size: 10px; color: #1c1b18">re: pilot terms</span>
-                <span style="display: flex; align-items: center; gap: 6px"><span style="width: 14px; height: 14px; border-radius: 50%; background: #e6e3da; flex-shrink: 0"></span><span style="height: 7px; border-radius: 100px; background: #f1efe8; width: 96px"></span></span>
-                <span style="height: 6px; border-radius: 100px; background: #f1efe8; width: 92%"></span>
-                <span style="height: 6px; border-radius: 100px; background: #f1efe8; width: 84%"></span>
-                <span style="height: 6px; border-radius: 100px; background: #f1efe8; width: 60%"></span>
-                <span style="margin-top: 2px; display: flex; align-items: center; gap: 6px"><span style="width: 14px; height: 14px; border-radius: 50%; background: oklch(0.55 0.075 150 / 0.25); flex-shrink: 0"></span><span style="height: 7px; border-radius: 100px; background: #f1efe8; width: 74px"></span></span>
-                <span style="height: 6px; border-radius: 100px; background: #f1efe8; width: 88%"></span>
-                <span style="height: 6px; border-radius: 100px; background: #f1efe8; width: 40%"></span>
-                <span style="margin-top: auto; align-self: flex-start; font-size: 8.5px; color: #fdfcf9; background: oklch(0.55 0.075 150); border-radius: 4px; padding: 3px 9px">reply</span>
-              </div>
-            </div>
-          </div>
-          <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(28,27,24,.05), transparent 40%)"></div>
-          <div style="position: absolute; left: 12px; right: 12px; bottom: 12px; display: flex; justify-content: center">
-            <span style="display: inline-flex; align-items: center; gap: 8px; background: #fdfcf9; border: 1px solid #c4c1b6; border-radius: 100px; padding: 6px 13px; font-size: 11px; color: #97948a; box-shadow: 0 10px 26px -16px rgba(28,27,24,.3)"><span style="color: oklch(0.55 0.075 150)">buddy&gt;</span><span id="lc-say">tell buddy what to do on this screen…</span></span>
-          </div>
-        </div>
-        <div style="padding: 8px 14px; border-top: 1px solid #efece4; display: flex; align-items: center; gap: 10px; font-size: 10px; color: #97948a">
-          <span id="lc-foot" style="flex: 1">view only. take over to interact.</span>
-          <span id="lc-btn" onclick="lcToggle()" style="font-size: 10.5px; border: 1px solid #1c1b18; background: #1c1b18; color: #f7f6f1; padding: 4px 11px; border-radius: 6px; cursor: pointer; transition: color .2s, border-color .2s, background .2s">take over</span>
-        </div>
-      </div>
-      <div>
-        <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">a real computer</span>
-        <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">watch the screen live. take the keys anytime.</h2>
-        <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">buddy drives a full desktop and browser, not an api shim. watch every click as it happens, expand the screen to half or full width, double-click to take over, and hand back when you're done. type into the bubble to steer without touching anything.</p>
-      </div>
-    </div>
-
-    <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
-      <div>
-        <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">a filesystem that survives</span>
-        <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">the work is still there next week.</h2>
-        <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">files live in a store that outlasts any session. projects link the folders they need, drafts and notes accumulate, and the next run picks up exactly where the last one held. drag files in, rename, edit, and read everything buddy writes.</p>
-      </div>
-      <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; padding: 12px 0; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25); font-size: 12px">
-        <div onclick="lfToggle('triage')" class="hrow" style="display: flex; align-items: center; gap: 9px; padding: 6px 18px; color: #1c1b18; cursor: pointer"><span class="chev" id="lf-triage-chev" style="color: #97948a; width: 12px; transform: rotate(90deg)">▸</span>triage/<span style="flex: 1"></span><span style="font-size: 10px; color: #97948a">4</span></div>
-        <div id="lf-triage">
-          <div style="display: flex; align-items: center; gap: 9px; padding: 6px 18px 6px 31px; color: #54524b; background: oklch(0.55 0.075 150 / 0.12)"><span style="color: #97948a; width: 12px">·</span>plan.md<span style="flex: 1"></span><span style="font-size: 10px; color: #97948a">1.2 kb</span></div>
-          <div style="display: flex; align-items: center; gap: 9px; padding: 6px 18px 6px 31px; color: #54524b"><span style="color: #97948a; width: 12px">·</span>backlog.md<span style="flex: 1"></span><span style="font-size: 10px; color: #97948a">4.1 kb</span></div>
-          <div style="display: flex; align-items: center; gap: 9px; padding: 6px 18px 6px 31px; color: #54524b"><span style="color: #97948a; width: 12px">·</span>drafts/maya.txt<span style="flex: 1"></span><span style="font-size: 10px; color: #97948a">812 b</span></div>
-        </div>
-        <div onclick="lfToggle('notes')" class="hrow" style="display: flex; align-items: center; gap: 9px; padding: 6px 18px; color: #1c1b18; cursor: pointer"><span class="chev" id="lf-notes-chev" style="color: #97948a; width: 12px; transform: rotate(0deg)">▸</span>notes/<span style="flex: 1"></span><span style="font-size: 10px; color: #97948a">2</span></div>
-        <div id="lf-notes" hidden>
-          <div style="display: flex; align-items: center; gap: 9px; padding: 6px 18px 6px 31px; color: #54524b"><span style="color: #97948a; width: 12px">·</span>weekend.md<span style="flex: 1"></span><span style="font-size: 10px; color: #97948a">2.2 kb</span></div>
-          <div style="display: flex; align-items: center; gap: 9px; padding: 6px 18px 6px 31px; color: #54524b"><span style="color: #97948a; width: 12px">·</span>people/maya.md<span style="flex: 1"></span><span style="font-size: 10px; color: #97948a">1.1 kb</span></div>
-        </div>
-        <div style="margin: 10px 18px 0; border: 1px dashed #e6e3da; border-radius: 7px; padding: 13px 12px; text-align: center; font-size: 10.5px; color: #97948a; font-style: italic">drop files into a linked folder</div>
-      </div>
-    </div>
-
-    <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
-      <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
-        <div style="display: flex; align-items: baseline; justify-content: space-between; padding: 13px 16px 9px">
-          <span style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #97948a">tools in this session</span>
-          <span style="font-size: 11px; color: #1c1b18; font-variant-numeric: tabular-nums"><span id="lt-used">32</span><span style="color: #97948a">/52</span></span>
-        </div>
-        <div style="margin: 0 16px 10px; height: 3px; border-radius: 100px; background: #f1efe8; overflow: hidden"><div id="lt-fill" style="height: 100%; width: 62%; border-radius: 100px; background: oklch(0.55 0.075 150); transition: width .3s cubic-bezier(.3,.9,.2,1), background .3s"></div></div>
-        <div id="lt-rows" style="padding: 2px 0 8px"></div>
-      </div>
-      <div>
-        <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">your apps, on a budget</span>
-        <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">click through the apps buddy can touch.</h2>
-        <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">gmail, slack, linear, github, notion and more connect as mcp servers. toggle them per session from the chat bar, watch the tool meter fill, and anything that would blow the budget simply won't fit. connections that need your login authorize once in settings.</p>
-      </div>
-    </div>
-
-    <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
-      <div>
-        <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">approvals first</span>
-        <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">nothing leaves your account without a yes.</h2>
-        <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">sends, posts, and payments stop and wait for you, with the exact plan and tools on the card. stop a run mid-flight and it holds at the boundary. resume with a note, or cancel for good. asking is always free.</p>
-      </div>
-      <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
-        <div id="la-pending">
-          <div style="padding: 14px 16px 12px">
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 9px">
-              <span style="display: flex; align-items: center; gap: 8px; font-size: 10.5px; color: #54524b"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.66 0.085 75)"></span>gmail · maya@lumen.co</span>
-              <span style="font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(0.55 0.075 150); border: 1px solid oklch(0.55 0.075 150 / 0.35); padding: 1px 7px; border-radius: 100px">send</span>
-            </div>
-            <span style="display: block; font-size: 12.5px; color: #1c1b18; margin-bottom: 3px">send the reply about pilot terms?</span>
-            <span style="display: block; font-size: 11px; color: #54524b; line-height: 1.6">she asked for a number by tuesday. i drafted the seat-count hold through the quarter.</span>
-          </div>
-          <div style="border-top: 1px solid #efece4; background: #f1efe8; padding: 10px 16px; display: flex; gap: 8px; justify-content: flex-end">
-            <span onclick="laResolve(false)" class="hdec" style="font-size: 10.5px; color: #54524b; padding: 5px 11px; cursor: pointer; border: 1px solid transparent; border-radius: 6px">decline</span>
-            <span onclick="laResolve(true)" class="hprim" style="font-size: 10.5px; border: 1px solid #1c1b18; background: #1c1b18; color: #f7f6f1; padding: 5px 12px; border-radius: 6px; cursor: pointer">approve</span>
-          </div>
-        </div>
-        <div id="la-done" hidden>
-          <div style="padding: 20px 18px; display: flex; align-items: center; gap: 11px; animation: pop .22s cubic-bezier(.4,0,.2,1) both">
-            <span id="la-mark" style="flex-shrink: 0; font-size: 13px; color: oklch(0.55 0.075 150)">✓</span>
-            <span id="la-note" style="min-width: 0; flex: 1; font-size: 11.5px; color: #54524b"></span>
-            <span onclick="laReset()" style="flex-shrink: 0; font-size: 10px; color: #97948a; cursor: pointer; text-decoration: underline; text-underline-offset: 2px">undo</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="landsect" style="border-top: 1px solid #e6e3da; padding: 88px 0 96px; text-align: center">
-      <h2 style="margin: 0 0 12px; font-weight: 500; font-size: 30px; letter-spacing: -0.025em; text-wrap: pretty">give buddy the job.</h2>
-      <p style="margin: 0 0 26px; font-size: 12.5px; color: #97948a">it will still be at the desk when you check back.</p>
-      <form class="signup" onsubmit="return handleSignup(event)" style="display: flex; align-items: center; justify-content: center; gap: 10px; max-width: 440px; margin: 0 auto; position: relative">
-        <input class="su-in fin" type="email" required placeholder="you@company.com" spellcheck="false" style="flex: 1; min-width: 0; background: #fdfcf9; border: 1px solid #e6e3da; border-radius: 100px; padding: 10px 16px; font-family: inherit; font-size: 13px; color: #1c1b18; outline: none">
-        <button class="su-btn hcta" type="submit" style="display: inline-flex; align-items: center; gap: 9px; font-size: 13px; font-family: inherit; border: 1px solid oklch(0.55 0.075 150); background: oklch(0.55 0.075 150); color: #fdfcf9; padding: 11px 24px; border-radius: 100px; cursor: pointer; box-shadow: 0 1px 2px rgba(28,27,24,.06), 0 8px 22px -12px oklch(0.55 0.075 150 / 0.55)"><span style="font-size: 9px">▶</span>join the waitlist</button>
-        <input type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
-      </form>
-      <div class="su-thanks">you're on the list. we'll be in touch.</div>
-      <div class="su-error">something went wrong. please try again later.</div>
-      <div style="display: flex; gap: 26px; justify-content: center; padding-top: 64px; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">
-        <span>approvals first</span><span>disposable compute</span><span>durable storage</span>
-      </div>
-    </div>
-
-  </div>
 </div>
+<!-- designs: "design (new_landing)/Looking Glass - Tool Budget.dc.html", landingView, verbatim but for the CTAs. -->
+<template id="landing">
+<sc-if value="{{ landingView }}" hint-placeholder-val="{{ true }}">
+  <div style="height: 100vh; overflow-y: auto; background: #f7f6f1">
 
+    <div style="position: sticky; top: 0; z-index: 50; background: color-mix(in oklch, #f7f6f1 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid #e6e3da">
+      <div style="max-width: 1060px; margin: 0 auto; padding: 14px 48px; display: flex; align-items: center; justify-content: space-between">
+        <span style="display: flex; align-items: center; gap: 10px">
+          <span style="position: relative; display: inline-grid; place-items: center; width: 26px; height: 26px"><span style="font-weight: 700; font-size: 18px; letter-spacing: -0.04em">b</span><span style="position: absolute; top: -1px; right: -4px; width: 5px; height: 5px; border-radius: 50%; background: oklch(0.55 0.075 150); animation: ping 2.4s cubic-bezier(.4,0,.2,1) infinite"></span></span>
+          <span style="font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: #97948a">buddy</span>
+        </span>
+        <a href="https://dev.trybuddynow.com" style="font-size: 12px; color: #54524b; cursor: pointer; border: 1px solid #e6e3da; background: #fdfcf9; padding: 6px 15px; border-radius: 100px" style-hover="border-color: #c4c1b6; color: #1c1b18">sign in</a>
+      </div>
+    </div>
+
+    <div style="max-width: 1060px; margin: 0 auto; padding: 0 48px">
+
+      <div class="viewin" style="padding: 104px 0 88px">
+        <h1 style="margin: 0 0 20px; font-weight: 500; font-size: 48px; line-height: 1.08; letter-spacing: -0.03em; max-width: 820px; text-wrap: pretty">a digital intern<br />still on the job next week.<span style="display: inline-block; width: 11px; height: 0.88em; vertical-align: -0.06em; background: oklch(0.55 0.075 150); margin-left: 7px; animation: blink 1.2s steps(1) infinite"></span></h1>
+        <p style="margin: 0 0 30px; font-size: 14px; line-height: 1.8; color: #54524b; max-width: 520px; text-wrap: pretty">buddy works on a real computer, learns how your team does things, asks before anything leaves your account, and asks when it's stuck.</p>
+        <div style="display: flex; align-items: center; gap: 14px">
+          <a href="https://dev.trybuddynow.com" style="display: inline-flex; align-items: center; gap: 9px; font-size: 13px; border: 1px solid oklch(0.55 0.075 150); background: oklch(0.55 0.075 150); color: #fdfcf9; padding: 11px 24px; border-radius: 100px; cursor: pointer; box-shadow: 0 1px 2px rgba(28,27,24,.06), 0 8px 22px -12px oklch(0.55 0.075 150 / 0.55)" style-hover="background: #1c1b18; border-color: #1c1b18"><span style="font-size: 9px">▶</span>get started</a>
+                  </div>
+      </div>
+
+      <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
+        <div>
+          <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">show it once</span>
+          <h2 style="margin: 0 0 10px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">teach it the way the team does it.</h2>
+          <p style="margin: 0 0 14px; font-size: 14px; line-height: 1.6; color: #1c1b18; text-wrap: pretty">take over, do the task, hand back.</p>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">do it yourself, say what matters as you go, hand back. buddy writes it down and does it that way next time. everything it learns, anyone on the team can read, edit or throw out.</p>
+        </div>
+        <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
+          <div style="display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid #efece4; background: #f1efe8">
+            <span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.66 0.085 75)"></span>
+            <span style="flex: 1; font-size: 10px; color: #54524b">teaching · netsuite</span>
+            <span style="font-size: 9px; letter-spacing: .1em; text-transform: uppercase; padding: 2px 8px; border-radius: 100px; border: 1px solid oklch(0.66 0.085 75); color: oklch(0.50 0.09 70)">you have the keys</span>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr">
+            <div style="padding: 14px; border-right: 1px solid #efece4; display: flex; flex-direction: column; gap: 9px">
+              <div style="aspect-ratio: 4 / 3; border: 1px solid #efece4; border-radius: 6px; background: repeating-linear-gradient(135deg, #f1efe8 0 8px, #ebe8df 8px 16px); display: flex; align-items: flex-end; padding: 6px"><span style="font-size: 8.5px; color: #97948a; background: #fdfcf9; border: 1px solid #e6e3da; padding: 2px 7px; border-radius: 100px">reports · saved searches</span></div>
+              <div style="display: flex; flex-direction: column; gap: 6px; border-top: 1px solid #efece4; padding-top: 9px">
+                <span style="font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a">you said</span>
+                <span style="display: grid; grid-template-columns: 12px 1fr; font-size: 10.5px; line-height: 1.5; color: #54524b"><span style="color: oklch(0.66 0.085 75)">›</span>not the invoice list. it stops at 1,000 rows.</span>
+                <span style="display: grid; grid-template-columns: 12px 1fr; font-size: 10.5px; line-height: 1.5; color: #54524b"><span style="color: oklch(0.66 0.085 75)">›</span>csv, always. priya's import hates excel.</span>
+                <span style="display: grid; grid-template-columns: 12px 1fr; font-size: 10.5px; line-height: 1.5; color: #54524b"><span style="color: oklch(0.66 0.085 75)">›</span><span><span style="color: #97948a">(edited draft)</span> seat counts before price when writing to rachel.</span></span>
+              </div>
+            </div>
+            <div style="padding: 14px 16px; display: flex; flex-direction: column; gap: 8px">
+              <span style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap"><span style="font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a">buddy wrote</span><span style="font-size: 9px; color: oklch(0.55 0.075 150); border: 1px solid oklch(0.55 0.075 150 / 0.35); padding: 1px 7px; border-radius: 100px">learned from your edit</span></span>
+              <span style="font-size: 12px; color: #1c1b18">export invoices from netsuite</span>
+              <div style="display: flex; flex-direction: column; gap: 5px; font-size: 10.5px; line-height: 1.55; color: #54524b">
+                <span style="display: grid; grid-template-columns: 14px 1fr"><span style="color: #97948a">1</span>reports → saved searches</span>
+                <span style="display: grid; grid-template-columns: 14px 1fr; padding-left: 14px; color: #97948a"><span>·</span><span><i>gotcha:</i> not the invoice list, it caps at 1,000 rows</span></span>
+                <span style="display: grid; grid-template-columns: 14px 1fr"><span style="color: #97948a">2</span>last month, first to last day</span>
+                <span style="display: grid; grid-template-columns: 14px 1fr"><span style="color: #97948a">3</span>export as csv</span>
+                <span style="display: grid; grid-template-columns: 14px 1fr"><span style="color: #97948a">4</span>email priya the row count</span>
+              </div>
+              <span style="margin-top: auto; font-size: 9.5px; color: oklch(0.55 0.075 150)">saved to memory</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
+        <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
+          <div style="display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid #efece4; background: #f1efe8">
+            <span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.55 0.075 150); animation: ping 2.4s cubic-bezier(.4,0,.2,1) infinite"></span>
+            <span style="flex: 1; min-width: 0; font-size: 10px; color: #54524b; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">buddy's computer · mail.google.com/…/thread/pilot-terms</span>
+            <span style="font-size: 9px; letter-spacing: .1em; text-transform: uppercase; padding: 2px 8px; border-radius: 100px; border: 1px solid {{ lcChipLine }}; color: {{ lcChipColor }}; background: {{ lcChipFill }}; transition: color .2s, border-color .2s, background .2s">{{ lcChip }}</span>
+          </div>
+          <div onDoubleClick="{{ lcTake }}" style="aspect-ratio: 16 / 9; position: relative; overflow: hidden; background: #fdfcf9; box-shadow: {{ lcRing }}; cursor: {{ lcCursor }}; transition: box-shadow .2s">
+            <div style="position: absolute; inset: 0; display: flex; flex-direction: column; padding: 10px 12px; gap: 8px">
+              <div style="display: flex; align-items: center; gap: 8px">
+                <span style="display: flex; gap: 4px"><span style="width: 7px; height: 7px; border-radius: 50%; background: #e6e3da"></span><span style="width: 7px; height: 7px; border-radius: 50%; background: #e6e3da"></span><span style="width: 7px; height: 7px; border-radius: 50%; background: #e6e3da"></span></span>
+                <span style="flex: 1; height: 16px; border-radius: 100px; background: #f1efe8; display: flex; align-items: center; padding: 0 10px; font-size: 8px; color: #97948a">mail.google.com/mail/u/0/#inbox/pilot-terms</span>
+              </div>
+              <div style="flex: 1; display: flex; gap: 10px; min-height: 0">
+                <div style="width: 74px; flex-shrink: 0; display: flex; flex-direction: column; gap: 5px; padding-top: 2px">
+                  <span style="height: 14px; border-radius: 100px; background: oklch(0.55 0.075 150 / 0.2); width: 60px"></span>
+                  <span style="height: 7px; border-radius: 100px; background: #f1efe8; width: 52px"></span>
+                  <span style="height: 7px; border-radius: 100px; background: #f1efe8; width: 64px"></span>
+                  <span style="height: 7px; border-radius: 100px; background: #f1efe8; width: 44px"></span>
+                </div>
+                <div style="flex: 1; min-width: 0; border: 1px solid #efece4; border-radius: 7px; padding: 9px 11px; display: flex; flex-direction: column; gap: 7px">
+                  <span style="font-size: 10px; color: #1c1b18">re: pilot terms</span>
+                  <span style="display: flex; align-items: center; gap: 6px"><span style="width: 14px; height: 14px; border-radius: 50%; background: #e6e3da; flex-shrink: 0"></span><span style="height: 7px; border-radius: 100px; background: #f1efe8; width: 96px"></span></span>
+                  <span style="height: 6px; border-radius: 100px; background: #f1efe8; width: 92%"></span>
+                  <span style="height: 6px; border-radius: 100px; background: #f1efe8; width: 84%"></span>
+                  <span style="height: 6px; border-radius: 100px; background: #f1efe8; width: 60%"></span>
+                  <span style="margin-top: 2px; display: flex; align-items: center; gap: 6px"><span style="width: 14px; height: 14px; border-radius: 50%; background: oklch(0.55 0.075 150 / 0.25); flex-shrink: 0"></span><span style="height: 7px; border-radius: 100px; background: #f1efe8; width: 74px"></span></span>
+                  <span style="height: 6px; border-radius: 100px; background: #f1efe8; width: 88%"></span>
+                  <span style="height: 6px; border-radius: 100px; background: #f1efe8; width: 40%"></span>
+                  <span style="margin-top: auto; align-self: flex-start; font-size: 8.5px; color: #fdfcf9; background: oklch(0.55 0.075 150); border-radius: 4px; padding: 3px 9px">reply</span>
+                </div>
+              </div>
+            </div>
+            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(28,27,24,.05), transparent 40%)"></div>
+            <div style="position: absolute; left: 12px; right: 12px; bottom: 12px; display: flex; justify-content: center">
+              <span style="display: inline-flex; align-items: center; gap: 8px; background: #fdfcf9; border: 1px solid #c4c1b6; border-radius: 100px; padding: 6px 13px; font-size: 11px; color: #97948a; box-shadow: 0 10px 26px -16px rgba(28,27,24,.3)"><span style="color: oklch(0.55 0.075 150)">buddy&gt;</span>tell buddy what to do on this screen…</span>
+            </div>
+          </div>
+          <div style="padding: 8px 14px; border-top: 1px solid #efece4; display: flex; align-items: center; gap: 10px; font-size: 10px; color: #97948a">
+            <span style="flex: 1">{{ lcFoot }}</span>
+            <span onClick="{{ lcToggle }}" style="font-size: 10.5px; border: 1px solid {{ lcBtnLine }}; background: {{ lcBtnFill }}; color: {{ lcBtnColor }}; padding: 4px 11px; border-radius: 6px; cursor: pointer; transition: color .2s, border-color .2s, background .2s">{{ lcBtn }}</span>
+          </div>
+        </div>
+        <div>
+          <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">a real computer</span>
+          <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">watch the screen live. take the keys anytime.</h2>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">buddy drives a full desktop and browser, not an api shim. watch every click as it happens, expand the screen to half or full width, double-click to take over, and hand back when you're done. hand back and buddy knows what you did while you had the keys. type into the bubble to steer without touching anything.</p>
+        </div>
+      </div>
+
+      <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
+        <div>
+          <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">it knows the job</span>
+          <h2 style="margin: 0 0 10px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">its own notes on the work.</h2>
+          <p style="margin: 0 0 14px; font-size: 14px; line-height: 1.6; color: #1c1b18; text-wrap: pretty">people, how things are done here, and what's going on.</p>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">who knows what and how they like things done. how this team does each thing. what buddy is on right now. all of it in settings, all of it editable, and you see it write every time.</p>
+        </div>
+        <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; padding: 12px 16px 8px"><span style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #97948a">memory · people</span><span style="font-size: 10px; color: #97948a">6</span></div>
+          <div style="border-top: 1px solid #efece4">
+            <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 10px; padding: 7px 16px; border-bottom: 1px solid #f1efe8"><span style="display: flex; flex-direction: column; gap: 1px; min-width: 0"><span style="font-size: 11.5px; color: #1c1b18">rachel okafor</span><span style="font-size: 9.5px; color: #97948a">client · halden health</span></span><span style="font-size: 10.5px; line-height: 1.5; color: #54524b">pilot terms, seat counts. signs off over $10k.</span></div>
+            <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 10px; padding: 7px 16px; border-bottom: 1px solid #f1efe8"><span style="display: flex; flex-direction: column; gap: 1px; min-width: 0"><span style="font-size: 11.5px; color: #1c1b18">priya nair</span><span style="font-size: 9.5px; color: #97948a">vendor · ledgerline</span></span><span style="font-size: 10.5px; line-height: 1.5; color: #54524b">quickbooks, the monthly close. out fridays.</span></div>
+            <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 10px; padding: 7px 16px; border-bottom: 1px solid #f1efe8"><span style="display: flex; flex-direction: column; gap: 1px; min-width: 0"><span style="font-size: 11.5px; color: #1c1b18">dev mehta</span><span style="font-size: 9.5px; color: #97948a">manager</span></span><span style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-size: 10.5px; line-height: 1.5; color: #54524b">the board deck, final say on pricing.</span><span style="font-size: 10.5px; line-height: 1.5; color: #54524b">daily update.</span></span></div>
+          </div>
+          <div style="margin: 12px 14px 14px; border: 1px solid #e6e3da; border-radius: 8px; background: #f7f6f1; padding: 11px 13px">
+            <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 7px"><span style="font-size: 11.5px; color: #1c1b18">reconcile invoices against quickbooks</span><span style="flex: 1"></span><span style="font-size: 9.5px; color: #97948a">step 2 of 3</span></div>
+            <div style="display: flex; flex-direction: column; gap: 4px; font-size: 10.5px; line-height: 1.5; color: #54524b">
+              <span style="display: grid; grid-template-columns: 14px 1fr"><span style="color: #97948a">1</span>import the month's csv</span>
+              <span style="display: grid; grid-template-columns: 14px 1fr"><span style="color: #97948a">2</span>match on amount and date, within 3 days</span>
+              <span style="display: grid; grid-template-columns: 14px 1fr; padding-left: 14px; color: #97948a"><span>·</span><span><i>gotcha:</i> partial payments come in as two lines</span></span>
+            </div>
+            <div style="margin-top: 9px; padding-top: 8px; border-top: 1px solid #efece4; font-size: 9.5px; color: #97948a">v2 · edited by buddy, sep 24</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
+        <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; padding: 12px 16px 8px"><span style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #97948a">books &amp; invoicing · per month</span><span style="font-size: 10px; color: #97948a">$25 / working hr</span></div>
+          <div style="border-top: 1px solid #efece4">
+            <div style="display: grid; grid-template-columns: 44px 1fr auto auto; gap: 4px 14px; align-items: baseline; padding: 10px 16px; border-bottom: 1px solid #f1efe8">
+              <span style="font-size: 11.5px; color: #1c1b18">may</span>
+              <span style="font-size: 10.5px; color: oklch(0.55 0.075 150); font-variant-numeric: tabular-nums">6 procedures saved</span>
+              <span style="font-size: 10.5px; color: #97948a; font-variant-numeric: tabular-nums; text-align: right">176 h</span>
+              <span style="font-size: 11.5px; color: #1c1b18; font-variant-numeric: tabular-nums; text-align: right; min-width: 52px">$4,400</span>
+            </div>
+            <div style="display: grid; grid-template-columns: 44px 1fr auto auto; gap: 4px 14px; align-items: baseline; padding: 10px 16px; border-bottom: 1px solid #f1efe8">
+              <span style="font-size: 11.5px; color: #1c1b18">jun</span>
+              <span style="font-size: 10.5px; color: oklch(0.55 0.075 150); font-variant-numeric: tabular-nums">19 procedures saved</span>
+              <span style="font-size: 10.5px; color: #97948a; font-variant-numeric: tabular-nums; text-align: right">158 h</span>
+              <span style="font-size: 11.5px; color: #1c1b18; font-variant-numeric: tabular-nums; text-align: right; min-width: 52px">$3,950</span>
+            </div>
+            <div style="display: grid; grid-template-columns: 44px 1fr auto auto; gap: 4px 14px; align-items: baseline; padding: 10px 16px; border-bottom: 1px solid #f1efe8">
+              <span style="font-size: 11.5px; color: #1c1b18">jul</span>
+              <span style="font-size: 10.5px; color: oklch(0.55 0.075 150); font-variant-numeric: tabular-nums">31 procedures saved</span>
+              <span style="font-size: 10.5px; color: #97948a; font-variant-numeric: tabular-nums; text-align: right">141 h</span>
+              <span style="font-size: 11.5px; color: #1c1b18; font-variant-numeric: tabular-nums; text-align: right; min-width: 52px">$3,525</span>
+            </div>
+            <div style="display: grid; grid-template-columns: 44px 1fr auto auto; gap: 4px 14px; align-items: baseline; padding: 10px 16px; background: oklch(0.55 0.075 150 / 0.06)">
+              <span style="font-size: 11.5px; color: #1c1b18">sep</span>
+              <span style="font-size: 10.5px; color: oklch(0.55 0.075 150); font-variant-numeric: tabular-nums">44 procedures saved</span>
+              <span style="font-size: 10.5px; color: #97948a; font-variant-numeric: tabular-nums; text-align: right">122 h</span>
+              <span style="font-size: 11.5px; color: #1c1b18; font-variant-numeric: tabular-nums; text-align: right; min-width: 52px">$3,050</span>
+              <span style="grid-column: 2 / -1; display: flex; align-items: center; gap: 7px; font-size: 10.5px; color: oklch(0.55 0.075 150)"><span style="width: 5px; height: 5px; border-radius: 50%; background: oklch(0.55 0.075 150)"></span>same workload as may, $1,350 less</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">it gets faster</span>
+          <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">the fifth time isn't the first.</h2>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">the first time, it asks. every answer and every edit becomes a saved procedure, so the list of things it already knows how to do keeps growing and the same work takes fewer hours. same job, less of you.</p>
+        </div>
+      </div>
+
+      <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
+        <div>
+          <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">autopilot</span>
+          <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">it plans. you approve. then it runs.</h2>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">press autopilot and buddy drafts a plan first: the goal, what done looks like, the inputs it has, and the questions it still needs answered. ask for changes over as many rounds as you like. nothing runs until you say so, and the approved plan is saved to your project as plan.md.</p>
+        </div>
+        <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
+          <sc-if value="{{ lpProposed }}" hint-placeholder-val="{{ true }}">
+            <div style="display: flex; align-items: center; gap: 11px; padding: 11px 16px; border-bottom: 1px solid #efece4">
+              <span style="font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; color: #97948a">plan</span>
+              <span style="font-size: 10px; color: #54524b; border: 1px solid #e6e3da; background: #f1efe8; padding: 2px 8px; border-radius: 100px">v{{ lpV }}</span>
+            </div>
+            <sc-if value="{{ lpRevised }}" hint-placeholder-val="{{ false }}">
+              <div style="padding: 10px 16px; border-bottom: 1px solid #efece4; background: oklch(0.55 0.075 150 / 0.12); animation: pop .2s cubic-bezier(.4,0,.2,1) both">
+                <span style="display: block; font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 4px">changed since v{{ lpPrev }}</span>
+                <span style="font-size: 11px; color: #54524b; line-height: 1.6">nothing goes out without your approval. you asked: {{ lpAsk }}</span>
+              </div>
+            </sc-if>
+            <div style="padding: 20px 22px; display: flex; flex-direction: column; gap: 17px">
+              <div><span style="display: block; font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a; margin-bottom: 6px">goal</span><span style="font-size: 13px; color: #1c1b18; line-height: 1.55">answer the weekend's mail, drafting replies for your approval rather than sending them.</span></div>
+              <div><span style="display: block; font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a; margin-bottom: 6px">done when</span><span style="font-size: 12px; color: #54524b; line-height: 1.6">every thread is answered, filed, or waiting in approvals with a draft attached.</span></div>
+              <div><span style="display: block; font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a; margin-bottom: 6px">missing</span><span style="display: flex; gap: 8px; font-size: 12px; color: #54524b"><span style="color: oklch(0.66 0.085 75)">?</span>is there a deadline i should work against?</span></div>
+            </div>
+            <div style="border-top: 1px solid #efece4; background: #f1efe8; padding: 12px 20px; display: flex; flex-wrap: wrap; align-items: center; gap: 9px">
+              <input value="{{ lpAskText }}" onChange="{{ onLpAsk }}" onKeyDown="{{ onLpAskKey }}" spellCheck="{{ false }}" placeholder="answer a question or ask for a change" style="flex: 1 1 100%; background: #fdfcf9; border: 1px solid #e6e3da; border-radius: 6px; padding: 7px 11px; font-family: inherit; font-size: 11px; color: #1c1b18; outline: none" style-focus="border-color: oklch(0.55 0.075 150 / 0.35)" />
+              <span onClick="{{ lpUpdate }}" style="margin-left: auto; font-size: 11px; border: 1px solid #e6e3da; background: #fdfcf9; color: #54524b; padding: 6px 13px; border-radius: 6px; cursor: pointer" style-hover="border-color: #c4c1b6; color: #1c1b18">update the plan</span>
+              <span onClick="{{ lpApprove }}" style="font-size: 11px; border: 1px solid #1c1b18; background: #1c1b18; color: #f7f6f1; padding: 6px 14px; border-radius: 6px; cursor: pointer" style-hover="background: oklch(0.55 0.075 150); border-color: oklch(0.55 0.075 150)">approve and run</span>
+            </div>
+          </sc-if>
+          <sc-if value="{{ lpRevising }}" hint-placeholder-val="{{ false }}">
+            <div style="padding: 22px 20px; display: flex; align-items: center; gap: 12px">
+              <span style="width: 12px; height: 12px; border: 1.5px solid oklch(0.55 0.075 150 / 0.35); border-top-color: oklch(0.55 0.075 150); border-radius: 50%; animation: spin 1s linear infinite"></span>
+              <span style="font-size: 12px; color: #54524b">revising: {{ lpAsk }}</span>
+            </div>
+          </sc-if>
+          <sc-if value="{{ lpRunning }}" hint-placeholder-val="{{ false }}">
+            <div style="padding: 18px 20px; display: flex; align-items: center; gap: 12px; animation: pop .22s cubic-bezier(.4,0,.2,1) both">
+              <span style="width: 7px; height: 7px; border-radius: 50%; background: oklch(0.55 0.075 150); animation: ping 2.4s cubic-bezier(.4,0,.2,1) infinite; flex-shrink: 0"></span>
+              <span style="min-width: 0; flex: 1; font-size: 12px; color: #1c1b18">running from plan.md v{{ lpV }} · hop 1/18</span>
+              <span onClick="{{ lpReset }}" style="flex-shrink: 0; font-size: 10px; color: #97948a; cursor: pointer; text-decoration: underline; text-underline-offset: 2px">try again</span>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+
+      <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
+        <div style="display: flex; flex-direction: column; gap: 12px">
+          <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
+            <div style="padding: 14px 16px 12px">
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 9px"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.66 0.085 75)"></span><span style="font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: oklch(0.50 0.09 70)">needs you</span><span style="flex: 1"></span><span style="font-size: 10px; color: #97948a">waiting 2h</span></div>
+              <span style="display: block; font-size: 12.5px; color: #1c1b18; line-height: 1.5">stuck on the vendor export. i need you to log in.</span>
+            </div>
+            <div style="border-top: 1px solid #efece4; background: #f1efe8; padding: 9px 16px; display: flex; align-items: center; gap: 8px"><span style="font-size: 10px; color: #97948a; flex: 1">computer paused at the sign-in screen</span><span style="font-size: 10.5px; border: 1px solid #1c1b18; background: #1c1b18; color: #f7f6f1; padding: 5px 12px; border-radius: 6px">take the keys</span></div>
+          </div>
+          <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
+            <sc-if value="{{ lsAsk }}" hint-placeholder-val="{{ true }}">
+              <div style="padding: 13px 16px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap">
+                <span style="flex: 1; min-width: 180px; font-size: 12px; color: #1c1b18; line-height: 1.5">the quote to rachel is still open. want me to send it?</span>
+                <span onClick="{{ lsNo }}" style="font-size: 10.5px; color: #54524b; padding: 5px 10px; cursor: pointer; border: 1px solid transparent; border-radius: 6px" style-hover="border-color: #e6e3da; background: #f7f6f1">not now</span>
+                <span onClick="{{ lsYes }}" style="font-size: 10.5px; border: 1px solid #e6e3da; background: #fdfcf9; color: #1c1b18; padding: 5px 12px; border-radius: 6px; cursor: pointer" style-hover="border-color: #c4c1b6">yes, take it</span>
+              </div>
+            </sc-if>
+            <sc-if value="{{ lsDone }}" hint-placeholder-val="{{ false }}">
+              <div style="padding: 13px 16px; display: flex; align-items: center; gap: 11px; animation: pop .22s cubic-bezier(.4,0,.2,1) both">
+                <span style="flex: 1; font-size: 11.5px; color: #54524b">{{ lsNote }}</span>
+                <span onClick="{{ lsReset }}" style="font-size: 10px; color: #97948a; cursor: pointer; text-decoration: underline; text-underline-offset: 2px">undo</span>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+        <div>
+          <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">stuck means ask</span>
+          <h2 style="margin: 0 0 10px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">it doesn't quit.</h2>
+          <p style="margin: 0 0 14px; font-size: 14px; line-height: 1.6; color: #1c1b18; text-wrap: pretty">when it's stuck, it tells you what it needs and waits.</p>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">minutes or days, the computer stays paused. and when the desk is quiet it looks at what's open and asks if you want it to take the next thing.</p>
+        </div>
+      </div>
+
+      <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
+        <div>
+          <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">approvals first</span>
+          <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">nothing leaves your account without a yes.</h2>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">sends, posts, and payments stop and wait for you, with the exact plan and tools on the card. stop a run mid-flight and it holds at the boundary. resume with a note, or cancel for good.</p>
+        </div>
+        <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
+          <sc-if value="{{ laPending }}" hint-placeholder-val="{{ true }}">
+            <div style="padding: 14px 16px 12px">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 9px">
+                <span style="display: flex; align-items: center; gap: 8px; font-size: 10.5px; color: #54524b"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.66 0.085 75)"></span>gmail · rachel@lumen.co</span>
+                <span style="font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(0.55 0.075 150); border: 1px solid oklch(0.55 0.075 150 / 0.35); padding: 1px 7px; border-radius: 100px">send</span>
+              </div>
+              <span style="display: block; font-size: 12.5px; color: #1c1b18; margin-bottom: 3px">send the reply about pilot terms?</span>
+              <span style="display: block; font-size: 11px; color: #54524b; line-height: 1.6">she asked for a number by tuesday. i drafted the seat-count hold through the quarter.</span>
+            </div>
+            <div style="border-top: 1px solid #efece4; background: #f1efe8; padding: 10px 16px; display: flex; gap: 8px; justify-content: flex-end">
+              <span onClick="{{ laDecline }}" style="font-size: 10.5px; color: #54524b; padding: 5px 11px; cursor: pointer; border: 1px solid transparent; border-radius: 6px" style-hover="border-color: #e6e3da; background: #fdfcf9">decline</span>
+              <span onClick="{{ laApprove }}" style="font-size: 10.5px; border: 1px solid #1c1b18; background: #1c1b18; color: #f7f6f1; padding: 5px 12px; border-radius: 6px; cursor: pointer" style-hover="background: oklch(0.55 0.075 150); border-color: oklch(0.55 0.075 150)">approve</span>
+            </div>
+          </sc-if>
+          <sc-if value="{{ laDone }}" hint-placeholder-val="{{ false }}">
+            <div style="padding: 20px 18px; display: flex; align-items: center; gap: 11px; animation: pop .22s cubic-bezier(.4,0,.2,1) both">
+              <span style="flex-shrink: 0; font-size: 13px; color: {{ laMarkColor }}">{{ laMark }}</span>
+              <span style="min-width: 0; flex: 1; font-size: 11.5px; color: #54524b">{{ laNote }}</span>
+              <span onClick="{{ laReset }}" style="flex-shrink: 0; font-size: 10px; color: #97948a; cursor: pointer; text-decoration: underline; text-underline-offset: 2px">undo</span>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+
+      <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
+        <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; padding: 12px 0; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25); font-size: 12px">
+          <div onClick="{{ lfToggleTriage }}" style="display: flex; align-items: center; gap: 9px; padding: 6px 18px; color: #1c1b18; cursor: pointer" style-hover="background: #f1efe8"><span class="chev" style="color: #97948a; width: 12px; transform: rotate({{ lfTriageRot }})">▸</span>triage/<span style="flex: 1"></span><span style="font-size: 10px; color: #97948a">4</span></div>
+          <sc-if value="{{ lfTriageOpen }}" hint-placeholder-val="{{ true }}">
+            <div style="display: flex; align-items: center; gap: 9px; padding: 6px 18px 6px 31px; color: #54524b; background: oklch(0.55 0.075 150 / 0.12)"><span style="color: #97948a; width: 12px">·</span>plan.md<span style="flex: 1"></span><span style="font-size: 10px; color: #97948a">1.2 kb</span></div>
+            <div style="display: flex; align-items: center; gap: 9px; padding: 6px 18px 6px 31px; color: #54524b"><span style="color: #97948a; width: 12px">·</span>backlog.md<span style="flex: 1"></span><span style="font-size: 10px; color: #97948a">4.1 kb</span></div>
+            <div style="display: flex; align-items: center; gap: 9px; padding: 6px 18px 6px 31px; color: #54524b"><span style="color: #97948a; width: 12px">·</span>drafts/rachel.txt<span style="flex: 1"></span><span style="font-size: 10px; color: #97948a">812 b</span></div>
+          </sc-if>
+          <div onClick="{{ lfToggleNotes }}" style="display: flex; align-items: center; gap: 9px; padding: 6px 18px; color: #1c1b18; cursor: pointer" style-hover="background: #f1efe8"><span class="chev" style="color: #97948a; width: 12px; transform: rotate({{ lfNotesRot }})">▸</span>notes/<span style="flex: 1"></span><span style="font-size: 10px; color: #97948a">2</span></div>
+          <sc-if value="{{ lfNotesOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; align-items: center; gap: 9px; padding: 6px 18px 6px 31px; color: #54524b"><span style="color: #97948a; width: 12px">·</span>weekend.md<span style="flex: 1"></span><span style="font-size: 10px; color: #97948a">2.2 kb</span></div>
+            <div style="display: flex; align-items: center; gap: 9px; padding: 6px 18px 6px 31px; color: #54524b"><span style="color: #97948a; width: 12px">·</span>people/rachel.md<span style="flex: 1"></span><span style="font-size: 10px; color: #97948a">1.1 kb</span></div>
+          </sc-if>
+          <div style="margin: 10px 18px 0; border: 1px dashed #e6e3da; border-radius: 7px; padding: 13px 12px; text-align: center; font-size: 10.5px; color: #97948a; font-style: italic">drop files into a linked folder</div>
+        </div>
+        <div>
+          <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">a filesystem that survives</span>
+          <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">the work is still there next week.</h2>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">files live in a store that outlasts any session. projects link the folders they need, drafts and notes accumulate, and the next run picks up exactly where the last one held. drag files in, rename, edit, and read everything buddy writes.</p>
+        </div>
+      </div>
+
+      <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
+        <div>
+          <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">your apps, connected</span>
+          <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">click through the apps buddy can touch.</h2>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">gmail, slack, linear, github, notion and more. turn them on per session from the chat bar. apps that need your login authorize once in settings.</p>
+        </div>
+        <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; padding: 13px 16px 9px">
+            <span style="font-size: 11px; color: #97948a">connected: <span style="color: #1c1b18">gmail, slack, linear</span></span>
+          </div>
+          <div style="margin: 0 16px 10px; height: 3px; border-radius: 100px; background: #f1efe8; overflow: hidden"><div style="height: 100%; width: {{ ltPct }}; border-radius: 100px; background: {{ ltColor }}; transition: width .3s cubic-bezier(.3,.9,.2,1), background .3s"></div></div>
+          <div style="padding: 2px 0 8px">
+            <sc-for list="{{ ltRows }}" as="t" hint-placeholder-count="5">
+              <div onClick="{{ t.toggle }}" style="display: flex; align-items: center; gap: 10px; padding: 7px 16px; cursor: {{ t.cursor }}; opacity: {{ t.opacity }}" style-hover="background: #f1efe8">
+                <span style="width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; display: grid; place-items: center; font-size: 8px; color: #fdfcf9; border: 1px solid {{ t.line }}; background: {{ t.fill }}; transition: background .15s, border-color .15s">{{ t.check }}</span>
+                <span style="font-size: 12px; flex: 1; color: {{ t.color }}">{{ t.name }}</span>
+                <span style="font-size: 10px; color: {{ t.noteColor }}">{{ t.note }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <div class="landsect" style="border-top: 1px solid #e6e3da; padding: 88px 0 96px; text-align: center">
+        <div data-slot="pricing" style="min-height: 20px; margin-bottom: 14px; font-size: 12.5px; line-height: 20px; color: #97948a"></div>
+        <h2 style="margin: 0 0 12px; font-weight: 500; font-size: 30px; letter-spacing: -0.025em; text-wrap: pretty">give buddy the job.</h2>
+        <p style="margin: 0 0 26px; font-size: 12.5px; line-height: 1.8; color: #97948a">it will still be at the desk when you check back.<br />and it'll know the job better than it did yesterday.</p>
+        <a href="https://dev.trybuddynow.com" style="display: inline-flex; align-items: center; gap: 9px; font-size: 13px; border: 1px solid oklch(0.55 0.075 150); background: oklch(0.55 0.075 150); color: #fdfcf9; padding: 11px 24px; border-radius: 100px; cursor: pointer; box-shadow: 0 1px 2px rgba(28,27,24,.06), 0 8px 22px -12px oklch(0.55 0.075 150 / 0.55)" style-hover="background: #1c1b18; border-color: #1c1b18"><span style="font-size: 9px">▶</span>get started</a>
+        <div style="display: flex; gap: 26px; justify-content: center; padding-top: 64px; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">
+          <span>approvals first</span><span>disposable compute</span><span>durable storage</span>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 10px; justify-content: center; padding: 0 0 40px; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a"><a href="/legal/privacy.html" style="color: #97948a">privacy</a><span>·</span><a href="/legal/terms.html" style="color: #97948a">terms</a><span>·</span><a href="/legal/contact.html" style="color: #97948a">contact us</a></div>
+    </div>
+  </div>
+</sc-if>
+</template>
 <script>
-/* waitlist : posts to /api/waitlist; honeypot silently drops bots */
-function handleSignup(e){
-e.preventDefault();
-const form=e.target;
-if(form.classList.contains('sending'))return false;
-const hp=form.querySelector('input[name="company_website"]');
-const emailEl=form.querySelector('input[type=email]');
-const email=(emailEl?emailEl.value:'').trim().toLowerCase();
-if(hp&&hp.value){form.classList.add('done');return false;}
-form.classList.remove('failed');
-form.classList.add('sending');
-fetch('/api/waitlist',{
-  method:'POST',
-  headers:{'Content-Type':'application/json'},
-  body:JSON.stringify({email:email})
-}).then(function(r){
-  form.classList.remove('sending');
-  if(r.ok){form.classList.add('done');}
-  else{form.classList.add('failed');}
-}).catch(function(){
-  form.classList.remove('sending');
-  form.classList.add('failed');
-});
-return false;
-}
+/* The canvas's own markup, kept verbatim in <template id="landing">, rendered
+   live: {{ name }} bindings, <sc-if>, <sc-for>, style-hover and on* handlers,
+   with landingVals() ported from the canvas. No eval: a binding is a name
+   looked up in the values, or the literal true / false. */
+(() => {
+  const EVENTS = { onclick: "click", ondoubleclick: "dblclick", onchange: "input", onkeydown: "keydown" };
+  const ONE = /^\{\{\s*([^}]+?)\s*\}\}$/;
+  const ANY = /\{\{\s*([^}]+?)\s*\}\}/g;
 
-/* plan card : proposed / revising / running, per the design's landing state */
-let lpV=2;
-function lpShow(state){
-document.getElementById('lp-proposed').hidden=state!=='proposed';
-document.getElementById('lp-revising').hidden=state!=='revising';
-document.getElementById('lp-running').hidden=state!=='running';
-}
-function lpUpdate(){
-const askEl=document.getElementById('lp-ask');
-const ask=(askEl.value||'').trim()||'make it safer';
-askEl.value='';
-document.getElementById('lp-ask-live').textContent=ask;
-lpShow('revising');
-setTimeout(function(){
-  const prev=lpV;
-  lpV=Math.min(lpV+1,3);
-  document.getElementById('lp-v').textContent=lpV;
-  document.getElementById('lp-v-run').textContent=lpV;
-  document.getElementById('lp-prev').textContent=prev;
-  document.getElementById('lp-ask-echo').textContent=ask;
-  document.getElementById('lp-revised').hidden=false;
-  lpShow('proposed');
-},900);
-}
-function lpApprove(){document.getElementById('lp-v-run').textContent=lpV;lpShow('running');}
-function lpReset(){
-lpV=2;
-document.getElementById('lp-v').textContent=2;
-document.getElementById('lp-revised').hidden=true;
-document.getElementById('lp-ask').value='';
-lpShow('proposed');
-}
+  function look(expr, scope) {
+    if (expr === "true") return true;
+    if (expr === "false") return false;
+    const [head, ...rest] = expr.split(".");
+    let v = head in scope.local ? scope.local[head] : scope.vals()[head];
+    for (const k of rest) v = v == null ? v : v[k];
+    return v;
+  }
+  const text = (s, scope) => s.replace(ANY, (_, e) => { const v = look(e, scope); return v == null ? "" : String(v); });
 
-/* computer : take over / hand back, double-click takes over */
-let lcControl=false;
-const WORK='oklch(0.66 0.085 75)',WORK_LINE='oklch(0.66 0.085 75 / 0.35)',WORK_FILL='oklch(0.66 0.085 75 / 0.12)';
-const ACC='oklch(0.55 0.075 150)',ACC_LINE='oklch(0.55 0.075 150 / 0.35)',ACC_FILL='oklch(0.55 0.075 150 / 0.12)';
-function lcRender(){
-const chip=document.getElementById('lc-chip');
-chip.textContent=lcControl?'you have control':'buddy has control';
-chip.style.borderColor=lcControl?WORK_LINE:ACC_LINE;
-chip.style.color=lcControl?WORK:ACC;
-chip.style.background=lcControl?WORK_FILL:ACC_FILL;
-const screen=document.getElementById('lc-screen');
-screen.style.boxShadow=lcControl?'inset 0 0 0 2px oklch(0.66 0.085 75 / 0.5)':'none';
-screen.style.cursor=lcControl?'crosshair':'default';
-document.getElementById('lc-foot').textContent=lcControl?'your clicks and keys go to the box. buddy watches.':'view only. take over to interact.';
-const btn=document.getElementById('lc-btn');
-btn.textContent=lcControl?'hand back':'take over';
-btn.style.borderColor=lcControl?WORK:'#1c1b18';
-btn.style.background=lcControl?WORK_FILL:'#1c1b18';
-btn.style.color=lcControl?WORK:'#f7f6f1';
-document.getElementById('lc-say').textContent=lcControl?'leave buddy a note for when you hand back…':'tell buddy what to do on this screen…';
-}
-function lcToggle(){lcControl=!lcControl;lcRender();}
-function lcTake(){if(!lcControl){lcControl=true;lcRender();}}
+  // Render one template node; returns { nodes, update }.
+  function render(node, scope) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      const raw = node.nodeValue;
+      const t = document.createTextNode(text(raw, scope));
+      if (!raw.includes("{{")) return { nodes: [t], update() {} };
+      return { nodes: [t], update() { const v = text(raw, scope); if (t.nodeValue !== v) t.nodeValue = v; } };
+    }
+    if (node.nodeType !== Node.ELEMENT_NODE) return { nodes: [], update() {} };
+    const tag = node.localName;
+    if (tag === "sc-if") return renderIf(node, scope);
+    if (tag === "sc-for") return renderFor(node, scope);
 
-/* filesystem : folders open and close */
-function lfToggle(dir){
-const body=document.getElementById('lf-'+dir);
-const open=body.hidden;
-body.hidden=!open;
-document.getElementById('lf-'+dir+'-chev').style.transform='rotate('+(open?'90deg':'0deg')+')';
-}
+    const el = document.createElement(tag);
+    const updates = [];
+    let hover = null, hovered = false, style = null;
+    for (const { name, value } of Array.from(node.attributes)) {
+      if (name.startsWith("hint-")) continue;
+      if (name === "style-hover") { hover = value; continue; }
+      if (name in EVENTS) {
+        const fn = value.match(ONE)[1];
+        el.addEventListener(EVENTS[name], (e) => { const f = look(fn, scope); if (typeof f === "function") f(e); });
+        continue;
+      }
+      if (name === "style") { style = value; continue; }
+      if (name === "value" && tag === "input") {
+        const set = () => { const v = text(value, scope); if (el.value !== v) el.value = v; };
+        set(); updates.push(set); continue;
+      }
+      const set = () => el.setAttribute(name, text(value, scope));
+      set(); if (value.includes("{{")) updates.push(set);
+    }
+    if (style !== null || hover !== null) {
+      const paint = () => el.setAttribute("style", text(style || "", scope) + (hovered && hover ? "; " + hover : ""));
+      paint(); updates.push(paint);
+      if (hover) {
+        el.addEventListener("mouseenter", () => { hovered = true; paint(); });
+        el.addEventListener("mouseleave", () => { hovered = false; paint(); });
+      }
+    }
+    const kids = renderChildren(node, scope);
+    el.append(...kids.nodes);
+    return { nodes: [el], update() { updates.forEach((u) => u()); kids.update(); } };
+  }
 
-/* tool budget : per the design's ltRows: toggle, meter, cap refusal */
-const LT_CAP=52;
-const LT=[
-{name:'Gmail',n:12,on:true},
-{name:'Slack',n:9,on:true},
-{name:'Linear',n:11,on:true},
-{name:'GitHub',n:14,on:false},
-{name:'Notion',n:10,on:false}
-];
-function ltRender(){
-const used=LT.reduce(function(a,t){return a+(t.on?t.n:0);},0);
-const ratio=used/LT_CAP;
-document.getElementById('lt-used').textContent=used;
-const fill=document.getElementById('lt-fill');
-fill.style.width=Math.min(100,Math.round(ratio*100))+'%';
-fill.style.background=ratio>0.8?WORK:ACC;
-const host=document.getElementById('lt-rows');
-host.innerHTML='';
-LT.forEach(function(t,i){
-  const on=t.on;
-  const fits=on||t.n<=LT_CAP-used;
-  const row=document.createElement('div');
-  row.className='hrow';
-  row.style.cssText='display: flex; align-items: center; gap: 10px; padding: 7px 16px; cursor: '+(fits?'pointer':'default')+'; opacity: '+(fits?1:0.5);
-  row.innerHTML='<span style="width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; display: grid; place-items: center; font-size: 8px; color: #fdfcf9; border: 1px solid '+(on?ACC:'#c4c1b6')+'; background: '+(on?ACC:'#fdfcf9')+'; transition: background .15s, border-color .15s">'+(on?'✓':'')+'</span>'
-    +'<span style="font-size: 12px; flex: 1; color: '+(on?'#1c1b18':'#54524b')+'">'+t.name+'</span>'
-    +'<span style="font-size: 10px; color: '+(on?ACC:'#97948a')+'">'+(fits?t.n+' tools':'would exceed the cap')+'</span>';
-  if(fits){row.onclick=function(){LT[i].on=!LT[i].on;ltRender();};}
-  host.appendChild(row);
-});
-}
-ltRender();
+  function renderChildren(node, scope) {
+    const parts = Array.from(node.childNodes).map((c) => render(c, scope));
+    return { nodes: parts.flatMap((p) => p.nodes), update() { parts.forEach((p) => p.update()); } };
+  }
 
-/* approvals : approve / decline resolve the card */
-function laResolve(yes){
-document.getElementById('la-pending').hidden=true;
-const done=document.getElementById('la-done');
-done.hidden=false;
-const mark=document.getElementById('la-mark');
-mark.textContent=yes?'✓':'✕';
-mark.style.color=yes?ACC:'oklch(0.58 0.10 28)';
-document.getElementById('la-note').textContent=yes?'approved. buddy sends it from your address and files the thread.':'declined. buddy keeps the draft and moves on.';
-}
-function laReset(){
-document.getElementById('la-done').hidden=true;
-document.getElementById('la-pending').hidden=false;
-}
+  // A conditional block: its subtree is built when it turns true and removed when false.
+  function renderIf(node, scope) {
+    const expr = node.getAttribute("value").match(ONE)[1];
+    const anchor = document.createComment("sc-if");
+    let shown = null, on = false;
+    const build = () => { shown = renderChildren(node, scope); anchor.after(...shown.nodes); };
+    const holder = { nodes: [anchor], update() {
+      const now = !!look(expr, scope);
+      if (now && on) shown.update();
+      else if (now && !on) build();
+      else if (!now && on) { shown.nodes.forEach((n) => n.remove()); shown = null; }
+      on = now;
+    } };
+    on = !!look(expr, scope);
+    if (on) { shown = renderChildren(node, scope); holder.nodes.push(...shown.nodes); }
+    return holder;
+  }
+
+  // A loop: one rendering per item; rebuilt only when the length changes.
+  function renderFor(node, scope) {
+    const expr = node.getAttribute("list").match(ONE)[1];
+    const as = node.getAttribute("as");
+    const anchor = document.createComment("sc-for");
+    let items = [];
+    const make = (list) => list.map((_, i) => renderChildren(node, { vals: scope.vals, local: { ...scope.local, get [as]() { return look(expr, scope)[i]; } } }));
+    items = make(look(expr, scope) || []);
+    return { nodes: [anchor, ...items.flatMap((p) => p.nodes)], update() {
+      const list = look(expr, scope) || [];
+      if (list.length === items.length) { items.forEach((p) => p.update()); return; }
+      items.forEach((p) => p.nodes.forEach((n) => n.remove()));
+      items = make(list);
+      anchor.after(...items.flatMap((p) => p.nodes));
+    } };
+  }
+
+  // --- the canvas's state and values (landingVals, landRevise), ported ---
+  const app = {
+    state: { land: { plan: "proposed", v: 2, ask: "", askText: "", control: false, triage: true, notes: false, tools: { Gmail: true, Slack: true, Linear: true }, appr: null } },
+    setState(patch) { Object.assign(this.state, typeof patch === "function" ? patch(this.state) : patch); refresh(); },
+    setLand(patch) { this.setState((st) => ({ land: { ...st.land, ...patch } })); },
+    landingVals() {
+    const L = this.state.land;
+    const ls = this.state.lsOffer || "ask";
+    const TOOLS = [
+      { name: "Gmail", n: 12 },
+      { name: "Slack", n: 9 },
+      { name: "Linear", n: 11 },
+      { name: "GitHub", n: 14 },
+      { name: "Notion", n: 10 },
+    ];
+    const used = TOOLS.reduce((a, t) => a + (L.tools[t.name] ? t.n : 0), 0);
+    const ratio = used / 52;
+    return {
+      lsAsk: ls === "ask", lsDone: ls !== "ask",
+      lsNote: ls === "yes" ? "on it. the send will wait in approvals for your yes." : "okay. i'll leave it and ask again tomorrow.",
+      lsYes: () => this.setState({ lsOffer: "yes" }), lsNo: () => this.setState({ lsOffer: "no" }), lsReset: () => this.setState({ lsOffer: "ask" }),
+      lpProposed: L.plan === "proposed",
+      lpRevising: L.plan === "revising",
+      lpRunning: L.plan === "running",
+      lpRevised: L.plan === "proposed" && L.v > 2,
+      lpV: L.v,
+      lpPrev: L.v - 1,
+      lpAsk: L.ask,
+      lpAskText: L.askText,
+      onLpAsk: (e) => this.setLand({ askText: e.target.value }),
+      onLpAskKey: (e) => { if (e.key === "Enter") this.landRevise(); },
+      lpUpdate: () => this.landRevise(),
+      lpApprove: () => this.setLand({ plan: "running" }),
+      lpReset: () => this.setLand({ plan: "proposed", v: 2, ask: "" }),
+      lcChip: L.control ? "you have control" : "buddy has control",
+      lcChipColor: L.control ? "oklch(0.66 0.085 75)" : "oklch(0.55 0.075 150)",
+      lcChipLine: L.control ? "oklch(0.66 0.085 75 / 0.35)" : "oklch(0.55 0.075 150 / 0.35)",
+      lcChipFill: L.control ? "oklch(0.66 0.085 75 / 0.12)" : "oklch(0.55 0.075 150 / 0.12)",
+      lcFoot: L.control ? "your clicks and keys go to the box. buddy watches." : "view only. take over to interact.",
+      lcBtn: L.control ? "hand back" : "take over",
+      lcBtnLine: L.control ? "oklch(0.66 0.085 75)" : "#1c1b18",
+      lcBtnFill: L.control ? "oklch(0.66 0.085 75 / 0.12)" : "#1c1b18",
+      lcBtnColor: L.control ? "oklch(0.66 0.085 75)" : "#f7f6f1",
+      lcToggle: () => this.setLand({ control: !L.control }),
+      lcTake: () => this.setLand({ control: true }),
+      lcRing: L.control ? "inset 0 0 0 2px oklch(0.66 0.085 75 / 0.5)" : "none",
+      lcCursor: L.control ? "crosshair" : "default",
+      lfTriageOpen: L.triage,
+      lfNotesOpen: L.notes,
+      lfTriageRot: L.triage ? "90deg" : "0deg",
+      lfNotesRot: L.notes ? "90deg" : "0deg",
+      lfToggleTriage: () => this.setLand({ triage: !L.triage }),
+      lfToggleNotes: () => this.setLand({ notes: !L.notes }),
+      ltUsed: used,
+      ltPct: Math.min(100, Math.round(ratio * 100)) + "%",
+      ltColor: ratio > 0.8 ? "oklch(0.66 0.085 75)" : "oklch(0.55 0.075 150)",
+      ltRows: TOOLS.map((t) => {
+        const on = !!L.tools[t.name];
+        const fits = on || t.n <= 52 - used;
+        return {
+          name: t.name,
+          check: on ? "✓" : "",
+          fill: on ? "oklch(0.55 0.075 150)" : "#fdfcf9",
+          line: on ? "oklch(0.55 0.075 150)" : "#c4c1b6",
+          color: on ? "#1c1b18" : "#54524b",
+          note: !fits ? "would exceed the cap" : t.n + " tools",
+          noteColor: on ? "oklch(0.55 0.075 150)" : "#97948a",
+          opacity: fits ? 1 : 0.5,
+          cursor: fits ? "pointer" : "default",
+          toggle: fits ? () => this.setLand({ tools: { ...L.tools, [t.name]: !on } }) : () => {},
+        };
+      }),
+      laPending: !L.appr,
+      laDone: !!L.appr,
+      laMark: L.appr === "approved" ? "✓" : "✕",
+      laMarkColor: L.appr === "approved" ? "oklch(0.55 0.075 150)" : "oklch(0.58 0.10 28)",
+      laNote: L.appr === "approved" ? "approved. buddy sends it from your address and files the thread." : "declined. buddy keeps the draft and moves on.",
+      laApprove: () => this.setLand({ appr: "approved" }),
+      laDecline: () => this.setLand({ appr: "declined" }),
+      laReset: () => this.setLand({ appr: null }),
+    };
+  },
+    landRevise() {
+    const ask = (this.state.land.askText || "").trim() || "make it safer";
+    this.setLand({ plan: "revising", ask, askText: "" });
+    setTimeout(() => {
+      if (this.state.land.plan === "revising") this.setLand({ plan: "proposed", v: Math.min(this.state.land.v + 1, 3) });
+    }, 900);
+  },
+  };
+  let current = null;
+  const values = () => current;
+  function refresh() { current = { ...app.landingVals(), landingView: true }; if (page) page.update(); }
+
+  let page = null;
+  current = { ...app.landingVals(), landingView: true };
+  const root = document.getElementById("root");
+  page = renderChildren(document.getElementById("landing").content, { vals: values, local: {} });
+  root.replaceChildren(...page.nodes);
+})();
+
 </script>
 </body>
 </html>
