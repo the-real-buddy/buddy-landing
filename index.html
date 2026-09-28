@@ -43,6 +43,8 @@
     [style*="padding: 14px 48px"] { padding: 12px 22px !important; }
     .viewin[style*="padding: 104px 0 88px"] { padding: 60px 0 52px !important; }
     h1 { font-size: 31px !important; }
+    [style*="grid-template-columns: 200px minmax(0, 1fr)"] { grid-template-columns: 1fr !important; gap: 24px !important; padding: 40px 22px 24px !important; }
+    [style*="grid-template-columns: 200px minmax(0, 1fr)"] > nav { position: static !important; }
   }
   @media (prefers-reduced-motion: reduce) {
     .landsect, .viewin { animation: none !important; }
@@ -53,6 +55,8 @@
 <body>
 <!-- Rendered from the template below at its initial state, so the page reads before the script runs. -->
 <div id="root">
+<!--sc-if-->
+
 <!--sc-if-->
   <div style="height: 100vh; overflow-y: auto; background: #f7f6f1">
 
@@ -386,14 +390,67 @@
           <span>approvals first</span><span>disposable compute</span><span>durable storage</span>
         </div>
       </div>
+      <footer style="border-top: 1px solid #e6e3da; padding: 22px 0 34px; display: flex; align-items: center; gap: 22px; flex-wrap: wrap; font-size: 11px; color: #97948a">
+        <span>© 2026 buddy</span>
+        <span style="flex: 1"></span>
+        <span style="color: #97948a; text-decoration: none; cursor: pointer">privacy</span>
+        <span style="color: #97948a; text-decoration: none; cursor: pointer">terms</span>
+        <a href="mailto:trybuddynow@gmail.com" style="color: #97948a; text-decoration: none; cursor: pointer">contact us</a>
+      </footer>
 
-      <div style="display: flex; gap: 10px; justify-content: center; padding: 0 0 40px; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a"><a href="/legal/privacy.html" style="color: #97948a">privacy</a><span>·</span><a href="/legal/terms.html" style="color: #97948a">terms</a><span>·</span><a href="/legal/contact.html" style="color: #97948a">contact us</a></div>
     </div>
   </div>
 
 </div>
-<!-- designs: "design (new_landing)/Looking Glass - Tool Budget.dc.html", landingView, verbatim but for the CTAs. -->
+<!-- design_NEWEST/Looking Glass - Tool Budget.dc.html: legalView and landingView, verbatim but for the owner rulings. -->
 <template id="landing">
+<sc-if value="{{ legalView }}" hint-placeholder-val="{{ false }}">
+  <div data-legalscroll="1" style="height: 100vh; overflow-y: auto; background: #f7f6f1">
+    <div style="position: sticky; top: 0; z-index: 50; background: color-mix(in oklch, #f7f6f1 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid #e6e3da">
+      <div style="max-width: 1060px; margin: 0 auto; padding: 14px 48px; display: flex; align-items: center; gap: 18px">
+        <span onClick="{{ closeLegal }}" style="display: flex; align-items: center; gap: 10px; cursor: pointer">
+          <span style="font-size: 13px; color: #97948a">←</span>
+          <span style="font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: #97948a">buddy</span>
+        </span>
+        <span style="flex: 1"></span>
+        <sc-for list="{{ legalTabs }}" as="t" hint-placeholder-count="2"><span onClick="{{ t.go }}" style="font-size: 11.5px; cursor: pointer; color: {{ t.color }}" style-hover="color: #1c1b18">{{ t.name }}</span></sc-for>
+      </div>
+    </div>
+    <div class="viewin" style="max-width: 1060px; margin: 0 auto; padding: 72px 48px 40px; display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 64px; align-items: start">
+      <nav style="position: sticky; top: 96px; display: flex; flex-direction: column; gap: 9px">
+        <span style="font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #97948a; margin-bottom: 4px">contents</span>
+        <sc-for list="{{ legalSecs }}" as="c" hint-placeholder-count="6"><span onClick="{{ c.jump }}" style="display: grid; grid-template-columns: 22px 1fr; font-size: 11.5px; line-height: 1.5; color: #54524b; cursor: pointer" style-hover="color: #1c1b18"><span style="color: #97948a; font-variant-numeric: tabular-nums">{{ c.n }}</span>{{ c.h }}</span></sc-for>
+      </nav>
+      <article style="max-width: 640px">
+        <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">legal</span>
+        <h1 style="margin: 0 0 12px; font-weight: 500; font-size: 34px; letter-spacing: -0.025em; line-height: 1.1">{{ legalTitle }}</h1>
+        <div style="display: flex; gap: 14px; flex-wrap: wrap; font-size: 11px; color: #97948a; margin-bottom: 20px"><span>last updated [month day, year]</span><span>·</span><span>effective [month day, year]</span></div>
+        <p style="margin: 0 0 44px; font-size: 13px; line-height: 1.8; color: #54524b; text-wrap: pretty">{{ legalIntro }}</p>
+        <sc-for list="{{ legalSecs }}" as="c" hint-placeholder-count="6">
+          <section id="{{ c.id }}" style="padding: 28px 0; border-top: 1px solid #e6e3da">
+            <h2 style="margin: 0 0 12px; display: flex; gap: 12px; align-items: baseline; font-weight: 500; font-size: 17px; letter-spacing: -0.01em"><span style="font-size: 11px; color: #97948a; font-variant-numeric: tabular-nums">{{ c.n }}</span>{{ c.h }}</h2>
+            <sc-for list="{{ c.ps }}" as="p" hint-placeholder-count="2"><p style="margin: 0 0 10px; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">{{ p }}</p></sc-for>
+            <sc-if value="{{ c.hasList }}" hint-placeholder-val="{{ false }}"><div style="display: flex; flex-direction: column; gap: 6px; margin-top: 4px"><sc-for list="{{ c.list }}" as="li" hint-placeholder-count="3"><span style="display: grid; grid-template-columns: 16px 1fr; font-size: 12.5px; line-height: 1.7; color: #54524b"><span style="color: #97948a">·</span>{{ li }}</span></sc-for></div></sc-if>
+          </section>
+        </sc-for>
+        <section style="padding: 28px 0; border-top: 1px solid #e6e3da">
+          <h2 style="margin: 0 0 12px; font-weight: 500; font-size: 17px; letter-spacing: -0.01em">questions</h2>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b">write to <a href="mailto:trybuddynow@gmail.com" style="color: oklch(0.55 0.075 150)">trybuddynow@gmail.com</a> or [company legal name], [street address], [city, region, postal code], [country].</p>
+        </section>
+      </article>
+    </div>
+    <div style="max-width: 1060px; margin: 0 auto; padding: 0 48px">
+      <footer style="border-top: 1px solid #e6e3da; padding: 22px 0 34px; display: flex; align-items: center; gap: 22px; flex-wrap: wrap; font-size: 11px; color: #97948a">
+        <span>© 2026 buddy</span>
+        <span style="flex: 1"></span>
+        <span onClick="{{ goPrivacy }}" style="color: #97948a; text-decoration: none; cursor: pointer" style-hover="color: #1c1b18">privacy</span>
+        <span onClick="{{ goTerms }}" style="color: #97948a; text-decoration: none; cursor: pointer" style-hover="color: #1c1b18">terms</span>
+        <a href="mailto:trybuddynow@gmail.com" style="color: #97948a; text-decoration: none; cursor: pointer" style-hover="color: #1c1b18">contact us</a>
+      </footer>
+    </div>
+  </div>
+</sc-if>
+
 <sc-if value="{{ landingView }}" hint-placeholder-val="{{ true }}">
   <div style="height: 100vh; overflow-y: auto; background: #f7f6f1">
 
@@ -733,8 +790,14 @@
           <span>approvals first</span><span>disposable compute</span><span>durable storage</span>
         </div>
       </div>
+      <footer style="border-top: 1px solid #e6e3da; padding: 22px 0 34px; display: flex; align-items: center; gap: 22px; flex-wrap: wrap; font-size: 11px; color: #97948a">
+        <span>© 2026 buddy</span>
+        <span style="flex: 1"></span>
+        <span onClick="{{ goPrivacy }}" style="color: #97948a; text-decoration: none; cursor: pointer" style-hover="color: #1c1b18">privacy</span>
+        <span onClick="{{ goTerms }}" style="color: #97948a; text-decoration: none; cursor: pointer" style-hover="color: #1c1b18">terms</span>
+        <a href="mailto:trybuddynow@gmail.com" style="color: #97948a; text-decoration: none; cursor: pointer" style-hover="color: #1c1b18">contact us</a>
+      </footer>
 
-      <div style="display: flex; gap: 10px; justify-content: center; padding: 0 0 40px; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a"><a href="/legal/privacy.html" style="color: #97948a">privacy</a><span>·</span><a href="/legal/terms.html" style="color: #97948a">terms</a><span>·</span><a href="/legal/contact.html" style="color: #97948a">contact us</a></div>
     </div>
   </div>
 </sc-if>
@@ -844,9 +907,41 @@
     } };
   }
 
-  // --- the canvas's state and values (landingVals, landRevise), ported ---
+  // --- the canvas's state and values (landingVals, landRevise, the legal view), ported ---
+  const LEGAL = {
+  privacy: {
+    title: "privacy policy",
+    intro: "this policy explains what [company legal name] (\"buddy\", \"we\") collects when you use buddy, why, and the choices you have. buddy works on a computer on your behalf, so we are specific about what that computer sees and keeps.",
+    secs: [
+      { h: "what we collect", ps: ["we collect what you give us and what buddy needs to do the work you assign."], list: ["account details: name, email, [billing details via payment processor]", "workspace content: files, projects, memory, plans and transcripts you or buddy create", "computer session data: screen frames, actions and logs from buddy's computer, kept for [retention period]", "connected app data: only what an app you turn on returns to buddy during a session", "usage data: working hours, computer hours, storage and device information"] },
+      { h: "how we use it", ps: ["to run buddy for you, bill you for working time, keep the service secure, and improve it. we do not sell your data. [state whether workspace content is used to train models, and how to opt out.]"] },
+      { h: "what buddy remembers", ps: ["memory, procedures and notes are stored in your workspace. anyone on your team can read, edit or delete them from settings. deleting an item removes it from buddy's working memory within [time period]."] },
+      { h: "connected apps", ps: ["when you connect an app, you authorize buddy to act in it within the scopes you grant. sends, posts and payments wait for your approval. you can disconnect an app at any time in settings; [describe what happens to previously fetched data]."] },
+      { h: "who we share it with", ps: ["we share data only with providers that help us run buddy, under contract, and when the law requires it."], list: ["[cloud hosting provider]", "[model provider(s)]", "[payment processor]", "[analytics / support tools]"] },
+      { h: "retention and deletion", ps: ["we keep workspace content while your account is active. computer session evidence clears after [retention period]. you can export or delete your workspace at any time; deletion completes within [time period], except where we must keep records by law."] },
+      { h: "security", ps: ["each teammate gets its own computer, never shared. secrets are not stored on the machine. every action replays from the log. [describe encryption at rest and in transit, access controls, and incident notification.]"] },
+      { h: "your rights", ps: ["depending on where you live, you may have the right to access, correct, export, delete or restrict use of your data, and to object to processing. write to us to exercise them. [add region-specific sections, e.g. gdpr, ccpa, as needed.]"] },
+      { h: "changes", ps: ["if we change this policy in a way that matters, we will tell you by email or in the app at least [number] days before it takes effect."] },
+    ],
+  },
+  terms: {
+    title: "terms of service",
+    intro: "these terms govern your use of buddy, provided by [company legal name]. by creating an account you agree to them on behalf of yourself or the organization you represent.",
+    secs: [
+      { h: "the service", ps: ["buddy is a digital teammate that works on a dedicated computer and browser, with persistent storage, connected apps, plans and approvals. features may change as we improve the service."] },
+      { h: "your account", ps: ["you must be [minimum age] or older and give accurate information. you are responsible for activity under your account, including instructions you give buddy and approvals you grant."] },
+      { h: "what buddy does for you", ps: ["buddy acts on your instructions and within the apps and permissions you enable. you remain responsible for reviewing plans and approving sends, posts and payments. buddy can make mistakes; check important work."] },
+      { h: "acceptable use", ps: ["you agree not to use buddy to:"], list: ["break the law or the terms of apps you connect", "access systems or accounts you are not authorized to use", "send spam, malware or deceptive content", "attempt to extract secrets, bypass approvals or interfere with the service", "[add further restrictions]"] },
+      { h: "your content", ps: ["you own the files, memory and output in your workspace. you grant us a limited license to host and process it only to provide buddy to you."] },
+      { h: "billing", ps: ["plans include a set number of working hours per cycle. beyond-plan hours are prepaid blocks at the rate shown in settings. [describe renewal, cancellation, refunds and taxes.]"] },
+      { h: "suspension and termination", ps: ["you can cancel at any time in settings. we may pause or suspend an account that breaks these terms or puts others at risk, and will tell you why where we can. [describe data export window after termination.]"] },
+      { h: "disclaimers and liability", ps: ["buddy is provided \"as is\". to the extent the law allows, [company legal name] is not liable for indirect or consequential losses, and our total liability is limited to [amount or fees paid in the prior period]. [have counsel draft this section.]"] },
+      { h: "changes and governing law", ps: ["we will notify you of material changes at least [number] days in advance. these terms are governed by the laws of [jurisdiction], with disputes resolved in [venue]."] },
+    ],
+  },
+};
   const app = {
-    state: { land: { plan: "proposed", v: 2, ask: "", askText: "", control: false, triage: true, notes: false, tools: { Gmail: true, Slack: true, Linear: true }, appr: null } },
+    state: { legal: null, land: { plan: "proposed", v: 2, ask: "", askText: "", control: false, triage: true, notes: false, tools: { Gmail: true, Slack: true, Linear: true }, appr: null } },
     setState(patch) { Object.assign(this.state, typeof patch === "function" ? patch(this.state) : patch); refresh(); },
     setLand(patch) { this.setState((st) => ({ land: { ...st.land, ...patch } })); },
     landingVals() {
@@ -933,13 +1028,45 @@
       if (this.state.land.plan === "revising") this.setLand({ plan: "proposed", v: Math.min(this.state.land.v + 1, 3) });
     }, 900);
   },
+    legalVals() {
+      return {
+      goPrivacy: () => { this.setState({ legal: "privacy" }); requestAnimationFrame(() => { const el = document.querySelector("[data-legalscroll]"); if (el) el.scrollTop = 0; }); },
+      goTerms: () => { this.setState({ legal: "terms" }); requestAnimationFrame(() => { const el = document.querySelector("[data-legalscroll]"); if (el) el.scrollTop = 0; }); },
+      closeLegal: () => this.setState({ legal: null }),
+      ...(() => {
+        const d = LEGAL[this.state.legal || "privacy"];
+        return {
+          legalTitle: d.title, legalIntro: d.intro,
+          legalTabs: [["privacy", "privacy"], ["terms", "terms"]].map(([k, name]) => ({ name, color: (this.state.legal || "privacy") === k ? "#1c1b18" : "#97948a", go: () => this.setState({ legal: k }) })),
+          legalSecs: d.secs.map((x, i) => ({ ...x, n: String(i + 1).padStart(2, "0"), id: "lg-" + i, hasList: !!(x.list && x.list.length), list: x.list || [],
+            jump: () => { const el = document.getElementById("lg-" + i); const sc = document.querySelector("[data-legalscroll]"); if (el && sc) sc.scrollTo({ top: el.offsetTop - 80, behavior: "smooth" }); } })),
+        };
+      })(),
+      };
+    },
   };
   let current = null;
   const values = () => current;
-  function refresh() { current = { ...app.landingVals(), landingView: true }; if (page) page.update(); }
+  // The one addition to the canvas: #privacy and #terms open the legal view,
+  // so the app can link to them, and the address follows the view.
+  const HASHES = { "#privacy": "privacy", "#terms": "terms" };
+  function compute() {
+    current = { ...app.landingVals(), ...app.legalVals(), landingView: !app.state.legal, legalView: !!app.state.legal };
+  }
+  function refresh() {
+    compute();
+    if (page) page.update();
+    const want = app.state.legal ? "#" + app.state.legal : "";
+    if (location.hash !== want) history.replaceState(null, "", want || location.pathname + location.search);
+  }
 
   let page = null;
-  current = { ...app.landingVals(), landingView: true };
+  app.state.legal = HASHES[location.hash] || null;
+  compute();
+  window.addEventListener("hashchange", () => {
+    const legal = HASHES[location.hash] || null;
+    if (legal !== app.state.legal) app.setState({ legal });
+  });
   const root = document.getElementById("root");
   page = renderChildren(document.getElementById("landing").content, { vals: values, local: {} });
   root.replaceChildren(...page.nodes);
