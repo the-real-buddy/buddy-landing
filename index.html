@@ -35,6 +35,16 @@
   .feed * { overflow-wrap: anywhere; }
   .fsrow .fsdel { opacity: 0; transition: opacity .12s; }
   .fsrow:hover .fsdel, .fsrow .fsdel[data-armed="true"] { opacity: 1; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+  @keyframes ccgate { 0% { left: 0; opacity: 0; } 15% { opacity: 1; } 70% { left: calc(50% - 52px); opacity: 1; } 100% { left: calc(50% - 52px); opacity: 0; } }
+  @keyframes ccflow { 0% { left: 0; opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { left: calc(100% - 7px); opacity: 0; } }
+  @container (max-width: 760px) {
+    .landsect { grid-template-columns: minmax(0, 1fr) !important; gap: 28px !important; }
+    .landsect > * { order: 0 !important; }
+    .cchead { grid-template-columns: minmax(0, 1fr) !important; gap: 14px !important; }
+    .ccpanes { grid-template-columns: minmax(0, 1fr) !important; }
+    .ccleft { border-right: none !important; border-bottom: 1px solid #efece4; }
+  }
 </style>
 <style>
   @media (max-width: 760px) {
@@ -60,6 +70,7 @@
 
 <!--sc-if-->
   <div style="height: 100vh; overflow-y: auto; background: #f7f6f1">
+  <div class="lpwrap" style="container-type: inline-size; background: #f7f6f1; margin: 0 auto; max-width: none; min-height: 100%; border-left: none; border-right: none">
 
     <div style="position: sticky; top: 0; z-index: 50; background: color-mix(in oklch, #f7f6f1 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid #e6e3da">
       <div style="max-width: 1060px; margin: 0 auto; padding: 14px 48px; position: relative; display: flex; align-items: center; justify-content: space-between">
@@ -82,8 +93,60 @@
                   </div>
       </div>
 
+      <div class="landsect" style="padding: 0 0 96px">
+        <div class="cchead" style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 72px; align-items: end; margin-bottom: 32px">
+          <div>
+            <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">its own inbox</span>
+            <h2 style="margin: 0; font-weight: 500; font-size: 30px; letter-spacing: -0.025em; line-height: 1.15">cc it like anyone else.</h2>
+          </div>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">it has its own email and slack. clients, vendors and your team write to it like a coworker. your team can hand it work directly. anything going to someone outside waits for the right person to say yes.</p>
+        </div>
+        <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden">
+          <div style="display: flex; gap: 24px; padding: 0 22px; border-bottom: 1px solid #e6e3da; overflow-x: auto">
+            <!--sc-for--><span style="flex-shrink: 0; font-size: 12px; padding: 13px 0 12px; cursor: pointer; white-space: nowrap; color: #1c1b18; border-bottom: 1.5px solid #1c1b18; margin-bottom: -1px">client question</span><span style="flex-shrink: 0; font-size: 12px; padding: 13px 0 12px; cursor: pointer; white-space: nowrap; color: #97948a; border-bottom: 1.5px solid transparent; margin-bottom: -1px">team request</span><span style="flex-shrink: 0; font-size: 12px; padding: 13px 0 12px; cursor: pointer; white-space: nowrap; color: #97948a; border-bottom: 1.5px solid transparent; margin-bottom: -1px">new lead</span><span style="flex-shrink: 0; font-size: 12px; padding: 13px 0 12px; cursor: pointer; white-space: nowrap; color: #97948a; border-bottom: 1.5px solid transparent; margin-bottom: -1px">contract to sign</span>
+          </div>
+          <div class="ccpanes" style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: 300px">
+            <div class="ccleft" style="padding: 20px 24px 24px; border-right: 1px solid #efece4; display: flex; flex-direction: column; gap: 14px; min-width: 0">
+              <span style="font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a">came in · email</span>
+              <div style="display: flex; flex-direction: column; gap: 5px">
+                <!--sc-for-->
+                  <div style="display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 10px; font-size: 11.5px; line-height: 1.6"><span style="color: #97948a">from</span><span style="min-width: 0; overflow-wrap: anywhere"><span style="color: #1c1b18; background: transparent; padding: 0; border-radius: 4px">rachel okafor · haldenhealth.com</span></span></div>
+                
+                  <div style="display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 10px; font-size: 11.5px; line-height: 1.6"><span style="color: #97948a">to</span><span style="min-width: 0; overflow-wrap: anywhere"><span style="color: #1c1b18; background: transparent; padding: 0; border-radius: 4px">you</span></span></div>
+                
+                  <div style="display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 10px; font-size: 11.5px; line-height: 1.6"><span style="color: #97948a">cc</span><span style="min-width: 0; overflow-wrap: anywhere"><span style="color: oklch(0.42 0.07 150); background: oklch(0.55 0.075 150 / 0.12); padding: 1px 5px; border-radius: 4px">[teammate]@[company].trybuddynow.com</span></span></div>
+                
+              </div>
+              <div style="font-size: 13px; color: #1c1b18">re: pilot terms and seat counts</div>
+              <p style="margin: 0; font-size: 12px; line-height: 1.75; color: #54524b; text-wrap: pretty">before we sign, can you confirm seats through q1 and what happens if we add a fourth clinic?</p>
+              <!--sc-if-->
+            </div>
+            <div style="padding: 20px 24px 24px; background: #f7f6f1; display: flex; flex-direction: column; gap: 14px; min-width: 0">
+              <span style="font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a">what it did</span>
+              <p style="margin: 0; font-size: 12px; line-height: 1.7; color: #54524b; text-wrap: pretty">pulled the seat numbers and the pricing sheet, and drafted the reply. seat counts touch pricing, so it goes to dev first.</p>
+              <!--sc-if-->
+                <div style="border: 1px solid #e6e3da; background: #fdfcf9; border-radius: 8px; overflow: hidden">
+                  <div style="padding: 9px 14px; border-bottom: 1px solid #efece4; font-size: 11px; color: #97948a">to rachel okafor · cc you</div>
+                  <p style="margin: 0; padding: 12px 14px; font-size: 12px; line-height: 1.7; color: #1c1b18; text-wrap: pretty">42 seats today, and we'll hold 50 through march at the current rate. a fourth clinic would add 12 seats on the same terms. the updated order form is attached.</p>
+                  <div style="display: flex; align-items: center; gap: 8px; padding: 9px 14px; border-top: 1px solid #efece4; background: #f1efe8; flex-wrap: wrap">
+                    <!--sc-if-->
+                      <span style="flex: 1; font-size: 11px; color: oklch(0.50 0.09 70)">waiting on dev's yes</span>
+                      <span style="font-size: 11px; color: #97948a; cursor: pointer; border: 1px solid #e6e3da; background: #fdfcf9; padding: 3px 10px; border-radius: 5px">decline</span>
+                      <span style="font-size: 11px; color: #f7f6f1; cursor: pointer; border: 1px solid #1c1b18; background: #1c1b18; padding: 3px 10px; border-radius: 5px">approve</span>
+                    
+                    <!--sc-if-->
+                  </div>
+                </div>
+              
+              <!--sc-if-->
+              <!--sc-if-->
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
-        <div>
+        <div style="order: 2">
           <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">show it once</span>
           <h2 style="margin: 0 0 10px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">teach it the way the team does it.</h2>
           <p style="margin: 0 0 14px; font-size: 14px; line-height: 1.6; color: #1c1b18; text-wrap: pretty">take over, do the task, hand back.</p>
@@ -122,7 +185,7 @@
       </div>
 
       <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
-        <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
+        <div class="landcard" style="order: 2; border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
           <div style="display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid #efece4; background: #f1efe8">
             <span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.55 0.075 150); animation: ping 2.4s cubic-bezier(.4,0,.2,1) infinite"></span>
             <span style="flex: 1; min-width: 0; font-size: 10px; color: #54524b; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">buddy's computer · mail.google.com/…/thread/pilot-terms</span>
@@ -168,6 +231,43 @@
           <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">a real computer</span>
           <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">watch the screen live. take the keys anytime.</h2>
           <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">buddy drives a full desktop and browser, not an api shim. watch every click as it happens, expand the screen to half or full width, double-click to take over, and hand back when you're done. hand back and buddy knows what you did while you had the keys. type into the bubble to steer without touching anything.</p>
+        </div>
+      </div>
+
+      <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
+        <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
+          <div style="padding: 11px 16px; border-bottom: 1px solid #efece4; display: flex; align-items: center; justify-content: space-between"><span style="font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a">memory · people</span><span style="font-size: 10px; color: #97948a">assigns</span></div>
+          <!--sc-for-->
+            <div style="display: flex; align-items: center; gap: 12px; padding: 11px 16px; border-bottom: 1px solid #f1efe8; cursor: pointer">
+              <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12px; color: #1c1b18">dev mehta</span><span style="font-size: 10.5px; color: #97948a">ceo · northloop</span></span>
+              <span style="font-size: 10px; color: oklch(0.55 0.075 150); white-space: nowrap">picks up on its own</span>
+              <span style="position: relative; width: 24px; height: 14px; border-radius: 100px; flex-shrink: 0; background: oklch(0.55 0.075 150); transition: background .18s"><span style="position: absolute; top: 2px; left: 12px; width: 10px; height: 10px; border-radius: 50%; background: #fdfcf9; box-shadow: 0 1px 2px rgba(28,27,24,.2); transition: left .18s"></span></span>
+            </div>
+          
+            <div style="display: flex; align-items: center; gap: 12px; padding: 11px 16px; border-bottom: 1px solid #f1efe8; cursor: pointer">
+              <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12px; color: #1c1b18">sam ortiz</span><span style="font-size: 10.5px; color: #97948a">ops lead · northloop</span></span>
+              <span style="font-size: 10px; color: oklch(0.55 0.075 150); white-space: nowrap">picks up on its own</span>
+              <span style="position: relative; width: 24px; height: 14px; border-radius: 100px; flex-shrink: 0; background: oklch(0.55 0.075 150); transition: background .18s"><span style="position: absolute; top: 2px; left: 12px; width: 10px; height: 10px; border-radius: 50%; background: #fdfcf9; box-shadow: 0 1px 2px rgba(28,27,24,.2); transition: left .18s"></span></span>
+            </div>
+          
+            <div style="display: flex; align-items: center; gap: 12px; padding: 11px 16px; border-bottom: 1px solid #f1efe8; cursor: pointer">
+              <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12px; color: #1c1b18">rachel okafor</span><span style="font-size: 10.5px; color: #97948a">procurement · halden health</span></span>
+              <span style="font-size: 10px; color: #97948a; white-space: nowrap">asks you first</span>
+              <span style="position: relative; width: 24px; height: 14px; border-radius: 100px; flex-shrink: 0; background: #d9d6cc; transition: background .18s"><span style="position: absolute; top: 2px; left: 2px; width: 10px; height: 10px; border-radius: 50%; background: #fdfcf9; box-shadow: 0 1px 2px rgba(28,27,24,.2); transition: left .18s"></span></span>
+            </div>
+          
+            <div style="display: flex; align-items: center; gap: 12px; padding: 11px 16px; border-bottom: 1px solid #f1efe8; cursor: pointer">
+              <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12px; color: #1c1b18">mara lindqvist</span><span style="font-size: 10.5px; color: #97948a">partner · fjord legal</span></span>
+              <span style="font-size: 10px; color: #97948a; white-space: nowrap">asks you first</span>
+              <span style="position: relative; width: 24px; height: 14px; border-radius: 100px; flex-shrink: 0; background: #d9d6cc; transition: background .18s"><span style="position: absolute; top: 2px; left: 2px; width: 10px; height: 10px; border-radius: 50%; background: #fdfcf9; box-shadow: 0 1px 2px rgba(28,27,24,.2); transition: left .18s"></span></span>
+            </div>
+          
+          <div style="background: #f1efe8; padding: 9px 16px; font-size: 10px; color: #97948a">tap a row to switch it</div>
+        </div>
+        <div>
+          <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">in or out</span>
+          <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">your team hands it work directly.</h2>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">switch assigns on for the people you trust. their emails and mentions become work buddy picks up on its own, no one has to open the app. for everyone else, it reads the message and asks you first. sends and payments still wait for a yes either way.</p>
         </div>
       </div>
 
@@ -237,9 +337,9 @@
 
       <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
         <div>
-          <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">autopilot</span>
+          <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">plan</span>
           <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">it plans. you approve. then it runs.</h2>
-          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">press autopilot and buddy drafts a plan first: the goal, what done looks like, the inputs it has, and the questions it still needs answered. ask for changes over as many rounds as you like. nothing runs until you say so, and the approved plan is saved to your project as plan.md.</p>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">press plan and buddy drafts a plan first: the goal, what done looks like, the inputs it has, and the questions it still needs answered. ask for changes over as many rounds as you like. nothing runs until you say so, and the approved plan is saved to your project as plan.md.</p>
         </div>
         <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
           <!--sc-if-->
@@ -387,7 +487,10 @@
         <div data-slot="pricing" style="min-height: 20px; margin-bottom: 14px; font-size: 12.5px; line-height: 20px; color: #97948a"></div>
         <h2 style="margin: 0 0 12px; font-weight: 500; font-size: 30px; letter-spacing: -0.025em; text-wrap: pretty">give buddy the job.</h2>
         <p style="margin: 0 0 26px; font-size: 12.5px; line-height: 1.8; color: #97948a">it will still be at the desk when you check back.<br>and it'll know the job better than it did yesterday.</p>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 22px">
         <a href="https://app.trybuddynow.com/app/" style="display: inline-flex; align-items: center; gap: 9px; font-size: 13px; border: 1px solid oklch(0.55 0.075 150); background: oklch(0.55 0.075 150); color: #fdfcf9; padding: 11px 24px; border-radius: 100px; cursor: pointer; box-shadow: 0 1px 2px rgba(28,27,24,.06), 0 8px 22px -12px oklch(0.55 0.075 150 / 0.55)"><span style="font-size: 9px">▶</span>get started</a>
+        <div style="font-size: 11.5px; line-height: 1.6; color: #97948a">need it for a larger team? <a href="mailto:trybuddynow@gmail.com?subject=enterprise" style="color: oklch(0.55 0.075 150); text-decoration: underline; text-underline-offset: 2px">contact us</a> about enterprise plans.</div>
+        </div>
         <div style="display: flex; gap: 26px; justify-content: center; padding-top: 64px; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">
           <span>approvals first</span><span>disposable compute</span><span>durable storage</span>
         </div>
@@ -402,9 +505,11 @@
 
     </div>
   </div>
+  </div>
+
 
 </div>
-<!-- design_NEWEST/Looking Glass - Tool Budget.dc.html: legalView and landingView, verbatim but for the owner rulings. -->
+<!-- design_NEWEST/Looking Glass - Tool Budget.dc.html (buddy-core designs/new-landing, 2026-10-03): legalView and landingView, verbatim but for the owner rulings. -->
 <template id="landing">
 <sc-if value="{{ legalView }}" hint-placeholder-val="{{ false }}">
   <div data-legalscroll="1" style="height: 100vh; overflow-y: auto; background: #f7f6f1">
@@ -454,7 +559,8 @@
 </sc-if>
 
 <sc-if value="{{ landingView }}" hint-placeholder-val="{{ true }}">
-  <div style="height: 100vh; overflow-y: auto; background: #f7f6f1">
+  <div style="height: 100vh; overflow-y: auto; background: {{ lpOuterBg }}">
+  <div class="lpwrap" style="container-type: inline-size; background: #f7f6f1; margin: 0 auto; max-width: {{ lpMax }}; min-height: 100%; border-left: {{ lpEdge }}; border-right: {{ lpEdge }}">
 
     <div style="position: sticky; top: 0; z-index: 50; background: color-mix(in oklch, #f7f6f1 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid #e6e3da">
       <div style="max-width: 1060px; margin: 0 auto; padding: 14px 48px; position: relative; display: flex; align-items: center; justify-content: space-between">
@@ -477,8 +583,73 @@
                   </div>
       </div>
 
+      <div class="landsect" style="padding: 0 0 96px">
+        <div class="cchead" style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 72px; align-items: end; margin-bottom: 32px">
+          <div>
+            <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">its own inbox</span>
+            <h2 style="margin: 0; font-weight: 500; font-size: 30px; letter-spacing: -0.025em; line-height: 1.15">cc it like anyone else.</h2>
+          </div>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">it has its own email and slack. clients, vendors and your team write to it like a coworker. your team can hand it work directly. anything going to someone outside waits for the right person to say yes.</p>
+        </div>
+        <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden">
+          <div style="display: flex; gap: 24px; padding: 0 22px; border-bottom: 1px solid #e6e3da; overflow-x: auto">
+            <sc-for list="{{ ccTabs }}" as="t" hint-placeholder-count="4"><span onClick="{{ t.go }}" style="flex-shrink: 0; font-size: 12px; padding: 13px 0 12px; cursor: pointer; white-space: nowrap; color: {{ t.color }}; border-bottom: 1.5px solid {{ t.line }}; margin-bottom: -1px" style-hover="color: #1c1b18">{{ t.name }}</span></sc-for>
+          </div>
+          <div class="ccpanes" style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: 300px">
+            <div class="ccleft" style="padding: 20px 24px 24px; border-right: 1px solid #efece4; display: flex; flex-direction: column; gap: 14px; min-width: 0">
+              <span style="font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a">came in · {{ cs.via }}</span>
+              <div style="display: flex; flex-direction: column; gap: 5px">
+                <sc-for list="{{ cs.head }}" as="h" hint-placeholder-count="3">
+                  <div style="display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 10px; font-size: 11.5px; line-height: 1.6"><span style="color: #97948a">{{ h.k }}</span><span style="min-width: 0; overflow-wrap: anywhere"><span style="color: {{ h.color }}; background: {{ h.bg }}; padding: {{ h.pad }}; border-radius: 4px">{{ h.v }}</span></span></div>
+                </sc-for>
+              </div>
+              <div style="font-size: 13px; color: #1c1b18">{{ cs.subject }}</div>
+              <p style="margin: 0; font-size: 12px; line-height: 1.75; color: #54524b; text-wrap: pretty">{{ cs.body }}</p>
+              <sc-if value="{{ cs.hasFile }}" hint-placeholder-val="{{ false }}"><span style="align-self: flex-start; display: inline-flex; align-items: center; gap: 7px; font-size: 11px; color: #54524b; border: 1px solid #e6e3da; padding: 4px 9px; border-radius: 6px">▤ {{ cs.file }}</span></sc-if>
+            </div>
+            <div style="padding: 20px 24px 24px; background: #f7f6f1; display: flex; flex-direction: column; gap: 14px; min-width: 0">
+              <span style="font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a">what it did</span>
+              <p style="margin: 0; font-size: 12px; line-height: 1.7; color: #54524b; text-wrap: pretty">{{ cs.note }}</p>
+              <sc-if value="{{ cs.isDraft }}" hint-placeholder-val="{{ true }}">
+                <div style="border: 1px solid #e6e3da; background: #fdfcf9; border-radius: 8px; overflow: hidden">
+                  <div style="padding: 9px 14px; border-bottom: 1px solid #efece4; font-size: 11px; color: #97948a">{{ cs.draftTo }}</div>
+                  <p style="margin: 0; padding: 12px 14px; font-size: 12px; line-height: 1.7; color: #1c1b18; text-wrap: pretty">{{ cs.draft }}</p>
+                  <div style="display: flex; align-items: center; gap: 8px; padding: 9px 14px; border-top: 1px solid #efece4; background: #f1efe8; flex-wrap: wrap">
+                    <sc-if value="{{ cs.pending }}" hint-placeholder-val="{{ true }}">
+                      <span style="flex: 1; font-size: 11px; color: oklch(0.50 0.09 70)">{{ cs.waitText }}</span>
+                      <span onClick="{{ cs.decline }}" style="font-size: 11px; color: #97948a; cursor: pointer; border: 1px solid #e6e3da; background: #fdfcf9; padding: 3px 10px; border-radius: 5px" style-hover="color: oklch(0.58 0.10 28); border-color: #c4c1b6">decline</span>
+                      <span onClick="{{ cs.approve }}" style="font-size: 11px; color: #f7f6f1; cursor: pointer; border: 1px solid #1c1b18; background: #1c1b18; padding: 3px 10px; border-radius: 5px" style-hover="background: oklch(0.55 0.075 150); border-color: oklch(0.55 0.075 150)">approve</span>
+                    </sc-if>
+                    <sc-if value="{{ cs.decided }}" hint-placeholder-val="{{ false }}"><span onClick="{{ cs.reset }}" title="reset" style="flex: 1; font-size: 11px; cursor: pointer; color: {{ cs.doneColor }}">{{ cs.doneText }}</span></sc-if>
+                  </div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ cs.isRecur }}" hint-placeholder-val="{{ false }}">
+                <div style="border: 1px solid #e6e3da; background: #fdfcf9; border-radius: 8px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px">
+                  <span style="font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a">added to desk · recurring</span>
+                  <div style="display: flex; justify-content: space-between; gap: 12px; font-size: 12.5px; color: #1c1b18"><span>pipeline summary to dev</span><span style="color: #54524b">mondays 9:00</span></div>
+                  <span style="font-size: 11px; color: #97948a">first one mon oct 6 · project: sales</span>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 4px">
+                  <span style="font-size: 10.5px; color: #97948a">replied in #ops</span>
+                  <div style="align-self: flex-start; background: #fdfcf9; border: 1px solid #e6e3da; border-radius: 8px; padding: 8px 12px; font-size: 12px; color: #1c1b18">on it. first one goes out monday at 9.</div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ cs.isContract }}" hint-placeholder-val="{{ false }}">
+                <div style="display: flex; align-items: center; gap: 8px; font-size: 11.5px; color: #54524b"><span style="border: 1px solid #e6e3da; background: #fdfcf9; padding: 4px 9px; border-radius: 6px">▤ msa-v3.pdf</span><span style="color: #97948a">→</span><span>files / legal /</span></div>
+                <div style="border: 1px solid oklch(0.66 0.085 75 / 0.45); background: #fdfcf9; border-radius: 8px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px">
+                  <span style="font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: oklch(0.50 0.09 70)">on your desk · needs you</span>
+                  <span style="font-size: 12.5px; color: #1c1b18">sign the updated msa from fjord legal</span>
+                  <span style="font-size: 11px; line-height: 1.6; color: #54524b">clause 7 changed from net 30 to net 45. everything else matches v2.</span>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
-        <div>
+        <div style="order: 2">
           <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">show it once</span>
           <h2 style="margin: 0 0 10px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">teach it the way the team does it.</h2>
           <p style="margin: 0 0 14px; font-size: 14px; line-height: 1.6; color: #1c1b18; text-wrap: pretty">take over, do the task, hand back.</p>
@@ -517,7 +688,7 @@
       </div>
 
       <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
-        <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
+        <div class="landcard" style="order: 2; border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
           <div style="display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid #efece4; background: #f1efe8">
             <span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.55 0.075 150); animation: ping 2.4s cubic-bezier(.4,0,.2,1) infinite"></span>
             <span style="flex: 1; min-width: 0; font-size: 10px; color: #54524b; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">buddy's computer · mail.google.com/…/thread/pilot-terms</span>
@@ -563,6 +734,25 @@
           <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">a real computer</span>
           <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">watch the screen live. take the keys anytime.</h2>
           <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">buddy drives a full desktop and browser, not an api shim. watch every click as it happens, expand the screen to half or full width, double-click to take over, and hand back when you're done. hand back and buddy knows what you did while you had the keys. type into the bubble to steer without touching anything.</p>
+        </div>
+      </div>
+
+      <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
+        <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
+          <div style="padding: 11px 16px; border-bottom: 1px solid #efece4; display: flex; align-items: center; justify-content: space-between"><span style="font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a">memory · people</span><span style="font-size: 10px; color: #97948a">assigns</span></div>
+          <sc-for list="{{ laPeople }}" as="p" hint-placeholder-count="4">
+            <div onClick="{{ p.toggle }}" style="display: flex; align-items: center; gap: 12px; padding: 11px 16px; border-bottom: 1px solid #f1efe8; cursor: pointer" style-hover="background: #f7f6f1">
+              <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12px; color: #1c1b18">{{ p.name }}</span><span style="font-size: 10.5px; color: #97948a">{{ p.role }}</span></span>
+              <span style="font-size: 10px; color: {{ p.noteColor }}; white-space: nowrap">{{ p.note }}</span>
+              <span style="position: relative; width: 24px; height: 14px; border-radius: 100px; flex-shrink: 0; background: {{ p.track }}; transition: background .18s"><span style="position: absolute; top: 2px; left: {{ p.knob }}; width: 10px; height: 10px; border-radius: 50%; background: #fdfcf9; box-shadow: 0 1px 2px rgba(28,27,24,.2); transition: left .18s"></span></span>
+            </div>
+          </sc-for>
+          <div style="background: #f1efe8; padding: 9px 16px; font-size: 10px; color: #97948a">tap a row to switch it</div>
+        </div>
+        <div>
+          <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">in or out</span>
+          <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">your team hands it work directly.</h2>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">switch assigns on for the people you trust. their emails and mentions become work buddy picks up on its own, no one has to open the app. for everyone else, it reads the message and asks you first. sends and payments still wait for a yes either way.</p>
         </div>
       </div>
 
@@ -632,9 +822,9 @@
 
       <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
         <div>
-          <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">autopilot</span>
+          <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">plan</span>
           <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">it plans. you approve. then it runs.</h2>
-          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">press autopilot and buddy drafts a plan first: the goal, what done looks like, the inputs it has, and the questions it still needs answered. ask for changes over as many rounds as you like. nothing runs until you say so, and the approved plan is saved to your project as plan.md.</p>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">press plan and buddy drafts a plan first: the goal, what done looks like, the inputs it has, and the questions it still needs answered. ask for changes over as many rounds as you like. nothing runs until you say so, and the approved plan is saved to your project as plan.md.</p>
         </div>
         <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
           <sc-if value="{{ lpProposed }}" hint-placeholder-val="{{ true }}">
@@ -788,7 +978,10 @@
         <div data-slot="pricing" style="min-height: 20px; margin-bottom: 14px; font-size: 12.5px; line-height: 20px; color: #97948a"></div>
         <h2 style="margin: 0 0 12px; font-weight: 500; font-size: 30px; letter-spacing: -0.025em; text-wrap: pretty">give buddy the job.</h2>
         <p style="margin: 0 0 26px; font-size: 12.5px; line-height: 1.8; color: #97948a">it will still be at the desk when you check back.<br />and it'll know the job better than it did yesterday.</p>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 22px">
         <a href="https://app.trybuddynow.com/app/" style="display: inline-flex; align-items: center; gap: 9px; font-size: 13px; border: 1px solid oklch(0.55 0.075 150); background: oklch(0.55 0.075 150); color: #fdfcf9; padding: 11px 24px; border-radius: 100px; cursor: pointer; box-shadow: 0 1px 2px rgba(28,27,24,.06), 0 8px 22px -12px oklch(0.55 0.075 150 / 0.55)" style-hover="background: #1c1b18; border-color: #1c1b18"><span style="font-size: 9px">▶</span>get started</a>
+        <div style="font-size: 11.5px; line-height: 1.6; color: #97948a">need it for a larger team? <a href="mailto:trybuddynow@gmail.com?subject=enterprise" style="color: oklch(0.55 0.075 150); text-decoration: underline; text-underline-offset: 2px">contact us</a> about enterprise plans.</div>
+        </div>
         <div style="display: flex; gap: 26px; justify-content: center; padding-top: 64px; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">
           <span>approvals first</span><span>disposable compute</span><span>durable storage</span>
         </div>
@@ -802,6 +995,7 @@
       </footer>
 
     </div>
+  </div>
   </div>
 </sc-if>
 </template>
@@ -947,6 +1141,48 @@
     state: { legal: null, land: { plan: "proposed", v: 2, ask: "", askText: "", control: false, triage: true, notes: false, tools: { Gmail: true, Slack: true, Linear: true }, appr: null } },
     setState(patch) { Object.assign(this.state, typeof patch === "function" ? patch(this.state) : patch); refresh(); },
     setLand(patch) { this.setState((st) => ({ land: { ...st.land, ...patch } })); },
+    ccVals() {
+      // The canvas's cc tabs, people and frame values, verbatim (mobilePreview is false here).
+      return {
+      ...(() => {
+        const k = this.state.ccS || 0, dec = this.state.ccDec || {};
+        const hl = (v) => ({ k: "cc", v, color: "oklch(0.42 0.07 150)", bg: "oklch(0.55 0.075 150 / 0.12)", pad: "1px 5px" });
+        const pl = (k2, v) => ({ k: k2, v, color: "#1c1b18", bg: "transparent", pad: "0" });
+        const S = [
+          { name: "client question", via: "email", head: [pl("from", "rachel okafor · haldenhealth.com"), pl("to", "you"), hl("[teammate]@[company].trybuddynow.com")], subject: "re: pilot terms and seat counts", body: "before we sign, can you confirm seats through q1 and what happens if we add a fourth clinic?",
+            note: "pulled the seat numbers and the pricing sheet, and drafted the reply. seat counts touch pricing, so it goes to dev first.", kind: "draft", draftTo: "to rachel okafor · cc you", draft: "42 seats today, and we'll hold 50 through march at the current rate. a fourth clinic would add 12 seats on the same terms. the updated order form is attached.", gate: "dev" },
+          { name: "team request", via: "slack · #ops", head: [pl("from", "dev mehta"), pl("in", "#ops"), hl("@[teammate]")], subject: "every monday, send me the pipeline", body: "deals over 10k, what moved last week, and anything stuck more than two weeks.",
+            note: "dev can assign work, so it set this up right away. nothing goes outside the company, so there's nothing to approve.", kind: "recur" },
+          { name: "new lead", via: "email", head: [pl("from", "jordan lee · acmeclinics.com"), pl("to", "hello@northloop.io"), hl("[teammate]@[company].trybuddynow.com")], subject: "demo for our three clinics", body: "we run three clinics in porto and are looking at scheduling tools. could we see a demo next week?",
+            note: "sam runs demos, so it checked sam's calendar and drafted a reply with three open times. it goes to sam to approve.", kind: "draft", draftTo: "to jordan lee · cc sam", draft: "thanks for reaching out. sam from our team would love to show you around. would tue 10:00, wed 14:30 or thu 11:00 work?", gate: "sam" },
+          { name: "contract to sign", via: "email", head: [pl("from", "mara lindqvist · fjordlegal.se"), pl("to", "you"), hl("[teammate]@[company].trybuddynow.com")], subject: "updated msa, needs a signature", body: "attached is v3 with the payment terms we discussed. let me know if anything else needs changing.", file: "msa-v3.pdf",
+            note: "filed the contract, compared it against v2, and put it on your desk. signing is yours, so it didn't reply.", kind: "contract" },
+        ];
+        const c = S[k], d = dec[k];
+        return {
+          ccTabs: S.map((x, i) => ({ name: x.name, color: i === k ? "#1c1b18" : "#97948a", line: i === k ? "#1c1b18" : "transparent", go: () => this.setState({ ccS: i }) })),
+          cs: { ...c, hasFile: !!c.file, isDraft: c.kind === "draft", isRecur: c.kind === "recur", isContract: c.kind === "contract",
+            pending: c.kind === "draft" && !d, decided: c.kind === "draft" && !!d, waitText: "waiting on " + (c.gate || "") + "'s yes",
+            doneText: d === "yes" ? c.gate + " approved · sent" : c.gate + " declined · not sent", doneColor: d === "yes" ? "oklch(0.55 0.075 150)" : "#97948a",
+            approve: () => this.setState({ ccDec: { ...dec, [k]: "yes" } }), decline: () => this.setState({ ccDec: { ...dec, [k]: "no" } }), reset: () => this.setState({ ccDec: { ...dec, [k]: null } }) },
+        };
+      })(),
+      lpMax: false ? "390px" : "none",
+      lpEdge: false ? "1px solid #e6e3da" : "none",
+      lpOuterBg: false ? "#e6e3da" : "#f7f6f1",
+      ccRPending: !this.state.ccR, ccRDone: !!this.state.ccR,
+      ccRText: this.state.ccR === "yes" ? "dev said yes, sent" : "declined, not sent",
+      ccRColor: this.state.ccR === "yes" ? "oklch(0.55 0.075 150)" : "#97948a",
+      ccRApprove: () => this.setState({ ccR: "yes" }), ccRDecline: () => this.setState({ ccR: "no" }), ccRReset: () => this.setState({ ccR: null }),
+      laPeople: [
+        { id: "dev", name: "dev mehta", role: "ceo · northloop", on: true },
+        { id: "sam", name: "sam ortiz", role: "ops lead · northloop", on: true },
+        { id: "rachel", name: "rachel okafor", role: "procurement · halden health", on: false },
+        { id: "mara", name: "mara lindqvist", role: "partner · fjord legal", on: false },
+      ].map((p) => { const on = (this.state.laAssign || {})[p.id] ?? p.on; return { ...p, track: on ? "oklch(0.55 0.075 150)" : "#d9d6cc", knob: on ? "12px" : "2px", note: on ? "picks up on its own" : "asks you first", noteColor: on ? "oklch(0.55 0.075 150)" : "#97948a",
+        toggle: () => this.setState((st) => ({ laAssign: { ...(st.laAssign || {}), [p.id]: !on } })) }; }),
+      };
+    },
     landingVals() {
     const L = this.state.land;
     const ls = this.state.lsOffer || "ask";
@@ -977,17 +1213,17 @@
       lpApprove: () => this.setLand({ plan: "running" }),
       lpReset: () => this.setLand({ plan: "proposed", v: 2, ask: "" }),
       lcChip: L.control ? "you have control" : "buddy has control",
-      lcChipColor: L.control ? "oklch(0.66 0.085 75)" : "oklch(0.55 0.075 150)",
-      lcChipLine: L.control ? "oklch(0.66 0.085 75 / 0.35)" : "oklch(0.55 0.075 150 / 0.35)",
-      lcChipFill: L.control ? "oklch(0.66 0.085 75 / 0.12)" : "oklch(0.55 0.075 150 / 0.12)",
+      lcChipColor: L.control ? "oklch(0.55 0.075 250)" : "oklch(0.55 0.075 150)",
+      lcChipLine: L.control ? "oklch(0.55 0.075 250 / 0.35)" : "oklch(0.55 0.075 150 / 0.35)",
+      lcChipFill: L.control ? "oklch(0.55 0.075 250 / 0.12)" : "oklch(0.55 0.075 150 / 0.12)",
       lcFoot: L.control ? "your clicks and keys go to the box. buddy watches." : "view only. take over to interact.",
       lcBtn: L.control ? "hand back" : "take over",
-      lcBtnLine: L.control ? "oklch(0.66 0.085 75)" : "#1c1b18",
-      lcBtnFill: L.control ? "oklch(0.66 0.085 75 / 0.12)" : "#1c1b18",
-      lcBtnColor: L.control ? "oklch(0.66 0.085 75)" : "#f7f6f1",
+      lcBtnLine: L.control ? "oklch(0.55 0.075 250)" : "#1c1b18",
+      lcBtnFill: L.control ? "oklch(0.55 0.075 250 / 0.12)" : "#1c1b18",
+      lcBtnColor: L.control ? "oklch(0.55 0.075 250)" : "#f7f6f1",
       lcToggle: () => this.setLand({ control: !L.control }),
       lcTake: () => this.setLand({ control: true }),
-      lcRing: L.control ? "inset 0 0 0 2px oklch(0.66 0.085 75 / 0.5)" : "none",
+      lcRing: L.control ? "inset 0 0 0 2px oklch(0.55 0.075 250 / 0.5)" : "none",
       lcCursor: L.control ? "crosshair" : "default",
       lfTriageOpen: L.triage,
       lfNotesOpen: L.notes,
@@ -1054,7 +1290,7 @@
   // so the app can link to them, and the address follows the view.
   const HASHES = { "#privacy": "privacy", "#terms": "terms" };
   function compute() {
-    current = { ...app.landingVals(), ...app.legalVals(), landingView: !app.state.legal, legalView: !!app.state.legal };
+    current = { ...app.landingVals(), ...app.ccVals(), ...app.legalVals(), landingView: !app.state.legal, legalView: !!app.state.legal };
   }
   function refresh() {
     compute();
