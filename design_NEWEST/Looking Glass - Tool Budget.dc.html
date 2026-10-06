@@ -8,6 +8,7 @@
 <body>
 <x-dc>
 <helmet>
+<title>buddy: a digital intern for the whole team</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin" />
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
@@ -20,6 +21,7 @@
   @keyframes ping { 0% { box-shadow: 0 0 0 0 oklch(0.55 0.075 150 / 0.12); } 70% { box-shadow: 0 0 0 7px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
   @keyframes pop { from { opacity: 0; transform: translateY(6px); } }
   @keyframes blink { 50% { opacity: 0; } }
+  .nosb::-webkit-scrollbar { display: none; }
   @keyframes spin { to { transform: rotate(360deg); } }
   @keyframes ccgate { 0% { left: 0; opacity: 0; } 15% { opacity: 1; } 70% { left: calc(50% - 52px); opacity: 1; } 100% { left: calc(50% - 52px); opacity: 0; } }
   @keyframes ccflow { 0% { left: 0; opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { left: calc(100% - 7px); opacity: 0; } }
@@ -100,10 +102,8 @@
 </sc-if>
 
 <sc-if value="{{ landingView }}" hint-placeholder-val="{{ true }}">
-  <div style="height: 100vh; overflow-y: auto; background: {{ lpOuterBg }}">
-  <div class="lpwrap" style="container-type: inline-size; background: #f7f6f1; margin: 0 auto; max-width: {{ lpMax }}; min-height: 100%; border-left: {{ lpEdge }}; border-right: {{ lpEdge }}">
-
-    <div style="position: sticky; top: 0; z-index: 50; background: color-mix(in oklch, #f7f6f1 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid #e6e3da">
+  <div style="height: 100vh; display: flex; flex-direction: column; background: {{ lpOuterBg }}">
+    <div style="flex-shrink: 0; background: #f7f6f1; margin: 0 auto; width: 100%; max-width: {{ lpMax }}; border-left: {{ lpEdge }}; border-right: {{ lpEdge }}; box-sizing: border-box; border-bottom: 1px solid #e6e3da">
       <div style="max-width: 1060px; margin: 0 auto; padding: 14px 48px; display: flex; align-items: center; justify-content: space-between">
         <span style="display: flex; align-items: center; gap: 10px">
           <span style="position: relative; display: inline-grid; place-items: center; width: 26px; height: 26px"><span style="font-weight: 700; font-size: 18px; letter-spacing: -0.04em">b</span><span style="position: absolute; top: -1px; right: -4px; width: 5px; height: 5px; border-radius: 50%; background: oklch(0.55 0.075 150); animation: ping 2.4s cubic-bezier(.4,0,.2,1) infinite"></span></span>
@@ -112,18 +112,49 @@
         <span onClick="{{ enterApp }}" style="font-size: 12px; color: #54524b; cursor: pointer; border: 1px solid #e6e3da; background: #fdfcf9; padding: 6px 15px; border-radius: 100px" style-hover="border-color: #c4c1b6; color: #1c1b18">sign in</span>
       </div>
     </div>
+  <div data-lpscroll="1" style="flex: 1; min-height: 0; overflow-y: auto">
+  <div class="lpwrap" style="container-type: inline-size; background: #f7f6f1; margin: 0 auto; max-width: {{ lpMax }}; min-height: 100%; border-left: {{ lpEdge }}; border-right: {{ lpEdge }}">
+
 
     <div style="max-width: 1060px; margin: 0 auto; padding: 0 48px">
 
       <div class="viewin" style="padding: 104px 0 88px">
-        <h1 style="margin: 0 0 20px; font-weight: 500; font-size: 48px; line-height: 1.08; letter-spacing: -0.03em; max-width: 820px; text-wrap: pretty">a digital intern<br />still on the job next week.<span style="display: inline-block; width: 11px; height: 0.88em; vertical-align: -0.06em; background: oklch(0.55 0.075 150); margin-left: 7px; animation: blink 1.2s steps(1) infinite"></span></h1>
-        <p style="margin: 0 0 30px; font-size: 14px; line-height: 1.8; color: #54524b; max-width: 520px; text-wrap: pretty">buddy works on a real computer, learns how your team does things, asks before anything leaves your account, and asks when it's stuck.</p>
+        <h1 style="margin: 0 0 20px; font-weight: 500; font-size: 48px; line-height: 1.08; letter-spacing: -0.03em; max-width: 820px; text-wrap: pretty">a digital intern<br />for the whole team.<span style="display: inline-block; width: 11px; height: 0.88em; vertical-align: -0.06em; background: oklch(0.55 0.075 150); margin-left: 7px; animation: blink 1.2s steps(1) infinite"></span></h1>
+        <p style="margin: 0 0 30px; font-size: 14px; line-height: 1.8; color: #54524b; max-width: 520px; text-wrap: pretty">buddy has its own inbox and its own desk. email it, slack it, or sit next to it and show it. it asks the person who'd know when it's stuck, and nothing goes out until the person who asked says yes.</p>
         <div style="display: flex; align-items: center; gap: 14px">
           <span onClick="{{ enterApp }}" style="display: inline-flex; align-items: center; gap: 9px; font-size: 13px; border: 1px solid oklch(0.55 0.075 150); background: oklch(0.55 0.075 150); color: #fdfcf9; padding: 11px 24px; border-radius: 100px; cursor: pointer; box-shadow: 0 1px 2px rgba(28,27,24,.06), 0 8px 22px -12px oklch(0.55 0.075 150 / 0.55)" style-hover="background: #1c1b18; border-color: #1c1b18"><span style="font-size: 9px">▶</span>get started</span>
                   </div>
       </div>
 
       <div class="landsect" style="padding: 0 0 96px">
+        <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 72px; align-items: end; margin-bottom: 32px">
+          <div>
+            <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">it has an inbox</span>
+            <h2 style="margin: 0 0 10px; font-weight: 500; font-size: 30px; letter-spacing: -0.025em; line-height: 1.15">three people, one buddy.</h2>
+            <p style="margin: 0; font-size: 13px; line-height: 1.7; color: #1c1b18; text-wrap: pretty">rachel emails it. dev slacks it. priya opens the app. same buddy, same memory, same list.</p>
+          </div>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">it keeps track of who asked for what and who it's waiting on. when two requests touch the same thing it notices, and asks before it guesses.</p>
+        </div>
+        <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
+          <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr)">
+            <div style="min-width: 0; border-right: 1px solid #e6e3da">
+              <div style="padding: 10px 16px; border-bottom: 1px solid #e6e3da; background: #f7f6f1; font-size: 10.5px; color: #97948a; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">buddy@halden.trybuddynow.com</div>
+              <div style="display: flex; flex-direction: column; gap: 3px; padding: 11px 16px; border-bottom: 1px solid #f1efe8; min-width: 0"><span style="display: flex; align-items: center; gap: 7px; font-size: 10px; color: #97948a"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.66 0.085 75); flex-shrink: 0"></span>email · <span style="color: #1c1b18; font-size: 11.5px">rachel okafor</span></span><span style="font-size: 11.5px; line-height: 1.5; color: #54524b; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">can you pull the pilot seat counts before thursday?</span></div>
+              <div style="display: flex; flex-direction: column; gap: 3px; padding: 11px 16px; border-bottom: 1px solid #f1efe8; min-width: 0"><span style="display: flex; align-items: center; gap: 7px; font-size: 10px; color: #97948a"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.55 0.075 150); flex-shrink: 0"></span>slack · <span style="color: #1c1b18; font-size: 11.5px">dev mehta</span></span><span style="font-size: 11.5px; line-height: 1.5; color: #54524b; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">@buddy the board deck numbers, same as last month</span></div>
+              <div style="display: flex; flex-direction: column; gap: 3px; padding: 11px 16px; border-bottom: 1px solid #f1efe8; min-width: 0"><span style="display: flex; align-items: center; gap: 7px; font-size: 10px; color: #97948a"><span style="width: 6px; height: 6px; border-radius: 50%; background: #97948a; flex-shrink: 0"></span>app · <span style="color: #1c1b18; font-size: 11.5px">priya nair</span></span><span style="font-size: 11.5px; line-height: 1.5; color: #54524b; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">reconcile september against quickbooks</span></div>
+            </div>
+            <div style="min-width: 0">
+              <div style="padding: 10px 16px; border-bottom: 1px solid #e6e3da; background: #f7f6f1; font-size: 10.5px; color: #97948a; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">what buddy has</div>
+              <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 6px 12px; padding: 14px 16px; border-bottom: 1px solid #f1efe8; min-width: 0"><span style="flex: 1 1 140px; min-width: 0; font-size: 12px; line-height: 1.5; color: #1c1b18">seat counts for rachel</span><span style="flex-shrink: 0; font-size: 10px; color: oklch(0.50 0.09 70); background: oklch(0.66 0.085 75 / 0.14); padding: 3px 9px; border-radius: 100px; white-space: nowrap">waiting on dev · needs the q4 price</span></div>
+              <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 6px 12px; padding: 14px 16px; border-bottom: 1px solid #f1efe8; min-width: 0"><span style="flex: 1 1 140px; min-width: 0; font-size: 12px; line-height: 1.5; color: #1c1b18">board deck for dev</span><span style="flex-shrink: 0; font-size: 10px; color: oklch(0.45 0.07 150); background: oklch(0.55 0.075 150 / 0.10); padding: 3px 9px; border-radius: 100px; white-space: nowrap">drafting</span></div>
+              <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 6px 12px; padding: 14px 16px; border-bottom: 1px solid #f1efe8; min-width: 0"><span style="flex: 1 1 140px; min-width: 0; font-size: 12px; line-height: 1.5; color: #1c1b18">september reconcile for priya</span><span style="flex-shrink: 0; font-size: 10px; color: #54524b; background: #f1efe8; padding: 3px 9px; border-radius: 100px; white-space: nowrap">done · 2 rows flagged</span></div>
+            </div>
+          </div>
+          <div style="border-top: 1px solid #efece4; background: #f1efe8; padding: 9px 16px; font-size: 10.5px; color: #97948a">rachel sees her item. dev sees his. the owner sees all of it.</div>
+        </div>
+      </div>
+
+      <div class="landsect" style="padding: 72px 0 96px; border-top: 1px solid #e6e3da">
         <div class="cchead" style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 72px; align-items: end; margin-bottom: 32px">
           <div>
             <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">its own inbox</span>
@@ -132,8 +163,8 @@
           <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">it has its own email and slack. clients, vendors and your team write to it like a coworker. your team can hand it work directly. anything going to someone outside waits for the right person to say yes.</p>
         </div>
         <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden">
-          <div style="display: flex; gap: 24px; padding: 0 22px; border-bottom: 1px solid #e6e3da; overflow-x: auto">
-            <sc-for list="{{ ccTabs }}" as="t" hint-placeholder-count="4"><span onClick="{{ t.go }}" style="flex-shrink: 0; font-size: 12px; padding: 13px 0 12px; cursor: pointer; white-space: nowrap; color: {{ t.color }}; border-bottom: 1.5px solid {{ t.line }}; margin-bottom: -1px" style-hover="color: #1c1b18">{{ t.name }}</span></sc-for>
+          <div class="nosb" data-cctabs="1" style="position: relative; display: flex; gap: 24px; padding: 0 22px; box-shadow: inset 0 -1px 0 #e6e3da; overflow-x: auto; overflow-y: hidden; scrollbar-width: none">
+            <sc-for list="{{ ccTabs }}" as="t" hint-placeholder-count="4"><span onClick="{{ t.go }}" style="flex-shrink: 0; font-size: 12px; padding: 13px 0 12px; cursor: pointer; white-space: nowrap; color: {{ t.color }}; border-bottom: 2px solid {{ t.line }}" style-hover="color: #1c1b18">{{ t.name }}</span></sc-for>
           </div>
           <div class="ccpanes" style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: 300px">
             <div class="ccleft" style="padding: 20px 24px 24px; border-right: 1px solid #efece4; display: flex; flex-direction: column; gap: 14px; min-width: 0">
@@ -192,8 +223,8 @@
         <div style="order: 2">
           <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">show it once</span>
           <h2 style="margin: 0 0 10px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">teach it the way the team does it.</h2>
-          <p style="margin: 0 0 14px; font-size: 14px; line-height: 1.6; color: #1c1b18; text-wrap: pretty">take over, do the task, hand back.</p>
-          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">do it yourself, say what matters as you go, hand back. buddy writes it down and does it that way next time. everything it learns, anyone on the team can read, edit or throw out.</p>
+          <p style="margin: 0 0 14px; font-size: 14px; line-height: 1.6; color: #1c1b18; text-wrap: pretty">priya does it once. after that buddy does it for everyone.</p>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">do it yourself, say what matters as you go, hand back. buddy writes it down and does it that way next time, for whoever asks. anyone on the team can read it, edit it, or throw it out.</p>
         </div>
         <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
           <div style="display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid #efece4; background: #f1efe8">
@@ -279,7 +310,7 @@
 
       <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
         <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
-          <div style="padding: 11px 16px; border-bottom: 1px solid #efece4; display: flex; align-items: center; justify-content: space-between"><span style="font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a">memory · people</span><span style="font-size: 10px; color: #97948a">assigns</span></div>
+          <div style="padding: 11px 16px; border-bottom: 1px solid #efece4; display: flex; align-items: center; justify-content: space-between"><span style="font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a">settings · team</span><span style="font-size: 10px; color: #97948a">on the team</span></div>
           <sc-for list="{{ laPeople }}" as="p" hint-placeholder-count="4">
             <div onClick="{{ p.toggle }}" style="display: flex; align-items: center; gap: 12px; padding: 11px 16px; border-bottom: 1px solid #f1efe8; cursor: pointer" style-hover="background: #f7f6f1">
               <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12px; color: #1c1b18">{{ p.name }}</span><span style="font-size: 10.5px; color: #97948a">{{ p.role }}</span></span>
@@ -292,7 +323,7 @@
         <div>
           <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">in or out</span>
           <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">your team hands it work directly.</h2>
-          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">switch assigns on for the people you trust. their emails and mentions become work buddy picks up on its own, no one has to open the app. for everyone else, it reads the message and asks you first. sends and payments still wait for a yes either way.</p>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">put the people you trust on the team. their emails and mentions become work buddy picks up on its own, no one has to open the app. for everyone else, it reads the message and asks you first. sends and payments still wait for a yes either way.</p>
         </div>
       </div>
 
@@ -301,14 +332,14 @@
           <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">it knows the job</span>
           <h2 style="margin: 0 0 10px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">its own notes on the work.</h2>
           <p style="margin: 0 0 14px; font-size: 14px; line-height: 1.6; color: #1c1b18; text-wrap: pretty">people, how things are done here, and what's going on.</p>
-          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">who knows what and how they like things done. how this team does each thing. what buddy is on right now. all of it in settings, all of it editable, and you see it write every time.</p>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">who's on the team and what they own. who the clients and vendors are and how they like things. how this team does each thing. what buddy is on right now and for whom. all of it in settings, all of it editable, and everyone on the team sees it write.</p>
         </div>
         <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
           <div style="display: flex; align-items: baseline; justify-content: space-between; padding: 12px 16px 8px"><span style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #97948a">memory · people</span><span style="font-size: 10px; color: #97948a">6</span></div>
           <div style="border-top: 1px solid #efece4">
             <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 10px; padding: 7px 16px; border-bottom: 1px solid #f1efe8"><span style="display: flex; flex-direction: column; gap: 1px; min-width: 0"><span style="font-size: 11.5px; color: #1c1b18">rachel okafor</span><span style="font-size: 9.5px; color: #97948a">client · halden health</span></span><span style="font-size: 10.5px; line-height: 1.5; color: #54524b">pilot terms, seat counts. signs off over $10k.</span></div>
-            <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 10px; padding: 7px 16px; border-bottom: 1px solid #f1efe8"><span style="display: flex; flex-direction: column; gap: 1px; min-width: 0"><span style="font-size: 11.5px; color: #1c1b18">priya nair</span><span style="font-size: 9.5px; color: #97948a">vendor · ledgerline</span></span><span style="font-size: 10.5px; line-height: 1.5; color: #54524b">quickbooks, the monthly close. out fridays.</span></div>
-            <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 10px; padding: 7px 16px; border-bottom: 1px solid #f1efe8"><span style="display: flex; flex-direction: column; gap: 1px; min-width: 0"><span style="font-size: 11.5px; color: #1c1b18">dev mehta</span><span style="font-size: 9.5px; color: #97948a">manager</span></span><span style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-size: 10.5px; line-height: 1.5; color: #54524b">the board deck, final say on pricing.</span><span style="font-size: 10.5px; line-height: 1.5; color: #54524b">daily update.</span></span></div>
+            <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 10px; padding: 7px 16px; border-bottom: 1px solid #f1efe8"><span style="display: flex; flex-direction: column; gap: 1px; min-width: 0"><span style="font-size: 11.5px; color: #1c1b18">priya nair</span><span style="display: flex; align-items: center; gap: 6px; font-size: 9.5px; color: #97948a; min-width: 0"><span style="flex-shrink: 0; font-size: 9px; color: #54524b; border: 1px solid #e6e3da; background: #f7f6f1; padding: 0 6px; border-radius: 100px">teammate</span>books and invoicing</span></span><span style="font-size: 10.5px; line-height: 1.5; color: #54524b">quickbooks, the monthly close. out fridays.</span></div>
+            <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 10px; padding: 7px 16px; border-bottom: 1px solid #f1efe8"><span style="display: flex; flex-direction: column; gap: 1px; min-width: 0"><span style="font-size: 11.5px; color: #1c1b18">dev mehta</span><span style="display: flex; align-items: center; gap: 6px; font-size: 9.5px; color: #97948a; min-width: 0"><span style="flex-shrink: 0; font-size: 9px; color: #54524b; border: 1px solid #e6e3da; background: #f7f6f1; padding: 0 6px; border-radius: 100px">owner</span>northloop</span></span><span style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-size: 10.5px; line-height: 1.5; color: #54524b">the board deck, final say on pricing.</span><span style="font-size: 10.5px; line-height: 1.5; color: #54524b">daily update.</span></span></div>
           </div>
           <div style="margin: 12px 14px 14px; border: 1px solid #e6e3da; border-radius: 8px; background: #f7f6f1; padding: 11px 13px">
             <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 7px"><span style="font-size: 11.5px; color: #1c1b18">reconcile invoices against quickbooks</span><span style="flex: 1"></span><span style="font-size: 9.5px; color: #97948a">step 2 of 3</span></div>
@@ -356,14 +387,14 @@
         <div>
           <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">it gets faster</span>
           <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">the fifth time isn't the first.</h2>
-          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">the first time, it asks. every answer and every edit becomes a saved procedure, so the list of things it already knows how to do keeps growing and the same work takes fewer hours. same job, less of you.</p>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">the first time, it asks. every answer and every edit becomes a saved procedure, so the list of things it already knows how to do keeps growing and the same work takes fewer hours. same job, less of everyone.</p>
         </div>
       </div>
 
       <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
         <div>
           <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">plan</span>
-          <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">it plans. you approve. then it runs.</h2>
+          <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">it plans. whoever asked approves. then it runs.</h2>
           <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">press plan and buddy drafts a plan first: the goal, what done looks like, the inputs it has, and the questions it still needs answered. ask for changes over as many rounds as you like. nothing runs until you say so, and the approved plan is saved to your project as plan.md.</p>
         </div>
         <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
@@ -409,17 +440,18 @@
         <div style="display: flex; flex-direction: column; gap: 12px">
           <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
             <div style="padding: 14px 16px 12px">
-              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 9px"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.66 0.085 75)"></span><span style="font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: oklch(0.50 0.09 70)">needs you</span><span style="flex: 1"></span><span style="font-size: 10px; color: #97948a">waiting 2h</span></div>
-              <span style="display: block; font-size: 12.5px; color: #1c1b18; line-height: 1.5">stuck on the vendor export. i need you to log in.</span>
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 9px"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.66 0.085 75)"></span><span style="font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: oklch(0.50 0.09 70)">waiting on priya · 2h</span></div>
+              <span style="display: block; font-size: 12.5px; color: #1c1b18; line-height: 1.5">stuck on the vendor export. priya, i need you to log in.</span>
             </div>
             <div style="border-top: 1px solid #efece4; background: #f1efe8; padding: 9px 16px; display: flex; align-items: center; gap: 8px"><span style="font-size: 10px; color: #97948a; flex: 1">computer paused at the sign-in screen</span><span style="font-size: 10.5px; border: 1px solid #1c1b18; background: #1c1b18; color: #f7f6f1; padding: 5px 12px; border-radius: 6px">take the keys</span></div>
           </div>
           <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
             <sc-if value="{{ lsAsk }}" hint-placeholder-val="{{ true }}">
-              <div style="padding: 13px 16px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap">
-                <span style="flex: 1; min-width: 180px; font-size: 12px; color: #1c1b18; line-height: 1.5">the quote to rachel is still open. want me to send it?</span>
+              <div style="padding: 14px 16px 0; display: flex; align-items: center; gap: 8px"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.66 0.085 75)"></span><span style="font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: oklch(0.50 0.09 70)">waiting on dev · 20m</span></div>
+              <div style="padding: 9px 16px 13px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap">
+                <span style="flex: 1; min-width: 180px; font-size: 12px; color: #1c1b18; line-height: 1.5">the quote to rachel is still open. dev, want me to send it?</span>
                 <span onClick="{{ lsNo }}" style="font-size: 10.5px; color: #54524b; padding: 5px 10px; cursor: pointer; border: 1px solid transparent; border-radius: 6px" style-hover="border-color: #e6e3da; background: #f7f6f1">not now</span>
-                <span onClick="{{ lsYes }}" style="font-size: 10.5px; border: 1px solid #e6e3da; background: #fdfcf9; color: #1c1b18; padding: 5px 12px; border-radius: 6px; cursor: pointer" style-hover="border-color: #c4c1b6">yes, take it</span>
+                <span onClick="{{ lsYes }}" style="font-size: 10.5px; border: 1px solid #e6e3da; background: #fdfcf9; color: #1c1b18; padding: 5px 12px; border-radius: 6px; cursor: pointer" style-hover="border-color: #c4c1b6">yes, send it</span>
               </div>
             </sc-if>
             <sc-if value="{{ lsDone }}" hint-placeholder-val="{{ false }}">
@@ -433,22 +465,22 @@
         <div>
           <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">stuck means ask</span>
           <h2 style="margin: 0 0 10px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">it doesn't quit.</h2>
-          <p style="margin: 0 0 14px; font-size: 14px; line-height: 1.6; color: #1c1b18; text-wrap: pretty">when it's stuck, it tells you what it needs and waits.</p>
-          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">minutes or days, the computer stays paused. and when the desk is quiet it looks at what's open and asks if you want it to take the next thing.</p>
+          <p style="margin: 0 0 14px; font-size: 14px; line-height: 1.6; color: #1c1b18; text-wrap: pretty">when it's stuck, it asks the one person who'd know, and waits.</p>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">minutes or days, the computer stays paused. if priya's the one with the login, priya gets the question, not everyone. and when the desk is quiet it looks at what's open and asks whoever's around if it should take the next thing.</p>
         </div>
       </div>
 
       <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
         <div>
           <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">approvals first</span>
-          <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">nothing leaves your account without a yes.</h2>
-          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">sends, posts, and payments stop and wait for you, with the exact plan and tools on the card. stop a run mid-flight and it holds at the boundary. resume with a note, or cancel for good.</p>
+          <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">nothing leaves without a yes from the person who asked.</h2>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">sends, posts, and payments stop and wait, with the exact plan and tools on the card. the card goes to whoever gave buddy the job. nobody else's yes counts. stop a run mid-flight and it holds at the boundary. resume with a note, or cancel for good.</p>
         </div>
         <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
           <sc-if value="{{ laPending }}" hint-placeholder-val="{{ true }}">
             <div style="padding: 14px 16px 12px">
               <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 9px">
-                <span style="display: flex; align-items: center; gap: 8px; font-size: 10.5px; color: #54524b"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.66 0.085 75)"></span>gmail · rachel@lumen.co</span>
+                <span style="display: flex; align-items: center; gap: 8px; font-size: 10.5px; color: #54524b"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.66 0.085 75)"></span>gmail · to rachel@lumen.co · asked by dev</span>
                 <span style="font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(0.55 0.075 150); border: 1px solid oklch(0.55 0.075 150 / 0.35); padding: 1px 7px; border-radius: 100px">send</span>
               </div>
               <span style="display: block; font-size: 12.5px; color: #1c1b18; margin-bottom: 3px">send the reply about pilot terms?</span>
@@ -487,7 +519,7 @@
         <div>
           <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">a filesystem that survives</span>
           <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">the work is still there next week.</h2>
-          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">files live in a store that outlasts any session. projects link the folders they need, drafts and notes accumulate, and the next run picks up exactly where the last one held. drag files in, rename, edit, and read everything buddy writes.</p>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">files live in a store that outlasts any session. projects link the folders they need, drafts and notes accumulate, and the next run picks up exactly where the last one held. drag files in, rename, edit, and read everything buddy writes. every file is the team's, not one person's.</p>
         </div>
       </div>
 
@@ -495,7 +527,7 @@
         <div>
           <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">your apps, connected</span>
           <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">click through the apps buddy can touch.</h2>
-          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">gmail, slack, linear, github, notion and more. turn them on per session from the chat bar. apps that need your login authorize once in settings.</p>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">gmail, slack, linear, github, notion and more. turn them on per session from the chat bar. apps that need a login, one person authorizes once in settings and the team is set.</p>
         </div>
         <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
           <div style="display: flex; align-items: baseline; justify-content: space-between; padding: 13px 16px 9px">
@@ -516,14 +548,14 @@
 
       <div class="landsect" style="border-top: 1px solid #e6e3da; padding: 88px 0 96px; text-align: center">
         <div data-slot="pricing" style="min-height: 20px; margin-bottom: 14px; font-size: 12.5px; line-height: 20px; color: #97948a"></div>
-        <h2 style="margin: 0 0 12px; font-weight: 500; font-size: 30px; letter-spacing: -0.025em; text-wrap: pretty">give buddy the job.</h2>
-        <p style="margin: 0 0 26px; font-size: 12.5px; line-height: 1.8; color: #97948a">it will still be at the desk when you check back.<br />and it'll know the job better than it did yesterday.</p>
+        <h2 style="margin: 0 0 12px; font-weight: 500; font-size: 30px; letter-spacing: -0.025em; text-wrap: pretty">give buddy a seat.</h2>
+        <p style="margin: 0 0 26px; font-size: 12.5px; line-height: 1.8; color: #97948a">it'll still be at the desk when anyone checks back.<br />and it'll know the job better than it did yesterday.</p>
         <div style="display: flex; flex-direction: column; align-items: center; gap: 22px">
         <span onClick="{{ enterApp }}" style="display: inline-flex; align-items: center; gap: 9px; font-size: 13px; border: 1px solid oklch(0.55 0.075 150); background: oklch(0.55 0.075 150); color: #fdfcf9; padding: 11px 24px; border-radius: 100px; cursor: pointer; box-shadow: 0 1px 2px rgba(28,27,24,.06), 0 8px 22px -12px oklch(0.55 0.075 150 / 0.55)" style-hover="background: #1c1b18; border-color: #1c1b18"><span style="font-size: 9px">▶</span>get started</span>
         <div style="font-size: 11.5px; line-height: 1.6; color: #97948a">need it for a larger team? <a href="mailto:hello@buddy.work?subject=enterprise" style="color: oklch(0.55 0.075 150); text-decoration: underline; text-underline-offset: 2px">contact us</a> about enterprise plans.</div>
         </div>
         <div style="display: flex; gap: 26px; justify-content: center; padding-top: 64px; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">
-          <span>approvals first</span><span>disposable compute</span><span>durable storage</span>
+          <span>one buddy per team</span><span>approvals first</span><span>disposable compute</span><span>durable storage</span>
         </div>
       </div>
       <footer style="border-top: 1px solid #e6e3da; padding: 22px 0 34px; display: flex; align-items: center; gap: 22px; flex-wrap: wrap; font-size: 11px; color: #97948a">
@@ -535,6 +567,7 @@
       </footer>
 
     </div>
+  </div>
   </div>
   </div>
 </sc-if>
@@ -576,27 +609,52 @@
             <span style="display: flex; align-items: baseline; justify-content: space-between; gap: 10px"><span style="font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">password</span><sc-if value="{{ signingIn }}" hint-placeholder-val="{{ true }}"><span style="font-size: 10.5px; color: #97948a; cursor: pointer; text-decoration: underline; text-underline-offset: 2px">forgot</span></sc-if></span>
             <input value="{{ authPass }}" onChange="{{ onAuthPass }}" onKeyDown="{{ onAuthKey }}" type="password" autoComplete="current-password" placeholder="••••••••" style="background: #fdfcf9; border: 1px solid #e6e3da; border-radius: 7px; padding: 10px 12px; font-family: inherit; font-size: 13px; color: #1c1b18; outline: none" style-focus="border-color: oklch(0.55 0.075 150 / 0.35)" />
           </label>
-          <sc-if value="{{ signingUp }}" hint-placeholder-val="{{ false }}">
-            <label style="display: flex; flex-direction: column; gap: 6px; margin-top: 6px; padding-top: 16px; border-top: 1px solid #e6e3da">
-              <span style="font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">name your teammate</span>
-              <input value="{{ authBot }}" onChange="{{ onAuthBot }}" onKeyDown="{{ onAuthKey }}" spellCheck="{{ false }}" placeholder="teammate name" maxLength="24" style="background: #fdfcf9; border: 1px solid #e6e3da; border-radius: 7px; padding: 10px 12px; font-family: inherit; font-size: 13px; color: #1c1b18; outline: none" style-focus="border-color: oklch(0.55 0.075 150 / 0.35)" />
-              <span style="font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a; margin-top: 6px">your company</span>
-              <input value="{{ authCo }}" onChange="{{ onAuthCo }}" onKeyDown="{{ onAuthKey }}" spellCheck="{{ false }}" placeholder="your company name" maxLength="40" style="background: #fdfcf9; border: 1px solid #e6e3da; border-radius: 7px; padding: 10px 12px; font-family: inherit; font-size: 13px; color: #1c1b18; outline: none" style-focus="border-color: oklch(0.55 0.075 150 / 0.35)" />
-              <span style="display: flex; flex-direction: column; gap: 3px; font-size: 11px; color: #97948a; line-height: 1.5">
-                <span style="display: flex; gap: 8px; align-items: baseline"><span style="width: 36px; flex-shrink: 0; color: #c4c1b6">email</span><span style="color: #1c1b18; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ tmAddrPreview }}</span></span>
-
-              </span>
-            </label>
-          </sc-if>
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 11px">
           <span onClick="{{ submitAuth }}" style="text-align: center; font-size: 12.5px; border: 1px solid #1c1b18; background: #1c1b18; color: #f7f6f1; padding: 10px 14px; border-radius: 7px; cursor: pointer" style-hover="background: oklch(0.55 0.075 150); border-color: oklch(0.55 0.075 150)">{{ authCta }}</span>
           <div style="display: flex; align-items: center; gap: 12px; color: #c4c1b6; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase"><span style="flex: 1; height: 1px; background: #e6e3da"></span>or<span style="flex: 1; height: 1px; background: #e6e3da"></span></div>
-          <span onClick="{{ submitAuth }}" style="display: flex; align-items: center; justify-content: center; gap: 9px; font-size: 12.5px; border: 1px solid #e6e3da; background: #fdfcf9; color: #1c1b18; padding: 10px 14px; border-radius: 7px; cursor: pointer" style-hover="border-color: #c4c1b6; background: #f1efe8"><span style="width: 15px; height: 15px; border-radius: 50%; border: 1px solid #c4c1b6; display: inline-grid; place-items: center; font-size: 9px; font-weight: 700; color: #54524b">G</span>continue with google</span>
+          <span onClick="{{ googleAuth }}" style="display: flex; align-items: center; justify-content: center; gap: 9px; font-size: 12.5px; border: 1px solid #e6e3da; background: #fdfcf9; color: #1c1b18; padding: 10px 14px; border-radius: 7px; cursor: pointer" style-hover="border-color: #c4c1b6; background: #f1efe8"><span style="width: 15px; height: 15px; border-radius: 50%; border: 1px solid #c4c1b6; display: inline-grid; place-items: center; font-size: 9px; font-weight: 700; color: #54524b">G</span>continue with google</span>
         </div>
 
         <div style="font-size: 11.5px; color: #97948a; text-align: center; line-height: 1.6">{{ authSwitchNote }} <span onClick="{{ switchAuth }}" style="color: oklch(0.55 0.075 150); cursor: pointer; text-decoration: underline; text-underline-offset: 2px">{{ authSwitchCta }}</span></div>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ setupView }}" hint-placeholder-val="{{ false }}">
+  <div style="height: 100vh; display: grid; grid-template-columns: 1.05fr 1fr; background: #f7f6f1; position: relative">
+    <div style="border-right: 1px solid #e6e3da; background: #fdfcf9; padding: 56px 56px 44px; display: flex; flex-direction: column; justify-content: space-between; min-width: 0">
+      <div style="display: flex; align-items: center; gap: 10px">
+        <span style="position: relative; display: inline-grid; place-items: center; width: 26px; height: 26px"><span style="font-weight: 700; font-size: 18px; letter-spacing: -0.04em">b</span><span style="position: absolute; top: -1px; right: -4px; width: 5px; height: 5px; border-radius: 50%; background: oklch(0.55 0.075 150); animation: ping 2.4s cubic-bezier(.4,0,.2,1) infinite"></span></span>
+        <span style="font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: #97948a">buddy</span>
+      </div>
+      <div style="max-width: 460px">
+        <h1 style="margin: 0 0 18px; font-weight: 500; font-size: 38px; line-height: 1.08; letter-spacing: -0.03em; text-wrap: pretty">name your buddy.<span style="display: inline-block; width: 10px; height: 0.9em; vertical-align: -0.06em; background: oklch(0.55 0.075 150); margin-left: 6px; animation: blink 1.2s steps(1) infinite"></span></h1>
+        <p style="margin: 0; font-size: 13px; line-height: 1.75; color: #54524b; text-wrap: pretty">it gets its own email address and a slack handle. pick a name your team will recognize.</p>
+      </div>
+      <span style="font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">buddy</span>
+    </div>
+    <div style="display: grid; place-items: center; padding: 48px 40px; min-width: 0">
+      <div style="width: 100%; max-width: 348px; display: flex; flex-direction: column; gap: 22px">
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; color: #97948a">one more step</span>
+          <span style="font-size: 20px; font-weight: 500; letter-spacing: -0.02em">set up your buddy</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 12px">
+          <label style="display: flex; flex-direction: column; gap: 6px">
+            <span style="font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">buddy's name</span>
+            <input value="{{ suName }}" onChange="{{ onSuName }}" onKeyDown="{{ onSuKey }}" spellCheck="{{ false }}" autoFocus="autofocus" maxLength="24" placeholder="buddy's name" style="background: #fdfcf9; border: 1px solid #e6e3da; border-radius: 7px; padding: 10px 12px; font-family: inherit; font-size: 13px; color: #1c1b18; outline: none" style-focus="border-color: oklch(0.55 0.075 150 / 0.35)" />
+          </label>
+          <label style="display: flex; flex-direction: column; gap: 6px">
+            <span style="font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">company name</span>
+            <input value="{{ suCo }}" onChange="{{ onSuCo }}" onKeyDown="{{ onSuKey }}" spellCheck="{{ false }}" maxLength="40" placeholder="your company" style="background: #fdfcf9; border: 1px solid #e6e3da; border-radius: 7px; padding: 10px 12px; font-family: inherit; font-size: 13px; color: #1c1b18; outline: none" style-focus="border-color: oklch(0.55 0.075 150 / 0.35)" />
+          </label>
+          <div style="font-size: 11.5px; line-height: 1.6; color: #54524b; overflow-wrap: anywhere">{{ suLine }}</div>
+          <sc-if value="{{ suHasErr }}" hint-placeholder-val="{{ false }}"><span style="font-size: 11px; color: oklch(0.58 0.10 28)">{{ suErr }}</span></sc-if>
+        </div>
+        <span onClick="{{ suGo }}" style="text-align: center; font-size: 12.5px; border: 1px solid #1c1b18; background: #1c1b18; color: #f7f6f1; padding: 10px 14px; border-radius: 7px; cursor: pointer" style-hover="background: oklch(0.55 0.075 150); border-color: oklch(0.55 0.075 150)">set up</span>
       </div>
     </div>
   </div>
@@ -622,7 +680,21 @@
 
   <div style="border-bottom: 1px solid #e6e3da; background: #fdfcf9; display: flex; align-items: center; justify-content: space-between; padding: 0 28px">
     <div style="display: flex; align-items: baseline; gap: 22px; font-size: 12px; color: #97948a">
-      <span>buddy <b style="color: #54524b; font-weight: 500">v1</b></span>
+      <span style="position: relative">
+          <span onClick="{{ orgToggle }}" style="display: inline-flex; align-items: baseline; gap: 5px; cursor: pointer; color: #1c1b18; font-weight: 500" style-hover="color: oklch(0.55 0.075 150)">{{ orgName }}<span style="font-size: 8px; color: #97948a">▾</span></span>
+          <sc-if value="{{ orgOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="position: absolute; top: 24px; left: -8px; z-index: 900; width: 220px; background: #fdfcf9; border: 1px solid #c4c1b6; border-radius: 8px; box-shadow: 0 1px 2px rgba(28,27,24,.05), 0 18px 40px -20px rgba(28,27,24,.3); padding: 4px; animation: pop .15s cubic-bezier(.4,0,.2,1) both">
+              <sc-for list="{{ orgRows }}" as="o" hint-placeholder-count="2">
+                <div onClick="{{ o.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 8px 9px; border-radius: 6px; cursor: pointer" style-hover="background: #f1efe8">
+                  <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12px; color: #1c1b18; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ o.name }}</span><span style="font-size: 10.5px; color: #97948a">{{ o.bot }}</span></span>
+                  <sc-if value="{{ o.cur }}" hint-placeholder-val="{{ false }}"><span style="flex-shrink: 0; font-size: 12px; color: oklch(0.55 0.075 150)">✓</span></sc-if>
+                </div>
+              </sc-for>
+              <div style="height: 1px; background: #efece4; margin: 4px 2px"></div>
+              <div onClick="{{ orgNew }}" style="padding: 8px 9px; font-size: 12px; color: #54524b; border-radius: 6px; cursor: pointer" style-hover="background: #f1efe8; color: #1c1b18">+ new org</div>
+            </div>
+          </sc-if>
+      </span>
       <span style="color: #c4c1b6">/</span>
       <span>user <b style="color: #54524b; font-weight: 500">{{ whoami }}</b></span>
     </div>
@@ -793,51 +865,159 @@
             <span onClick="{{ openSettings }}" style="font-size: 11px; color: #97948a; cursor: pointer" style-hover="color: #1c1b18">← settings</span>
           </span>
         </div>
-        <p style="margin: 0 0 40px; font-size: 12px; line-height: 1.65; color: #97948a; max-width: 600px; text-wrap: pretty">people who can hand {{ teamBot }} work directly. messages from a verified handle become work it picks up on its own. these are the same rows as <span onClick="{{ goMemoryFromTeam }}" style="color: oklch(0.55 0.075 150); cursor: pointer; text-decoration: underline; text-underline-offset: 2px">memory → people</span>; edit in either place.</p>
+        <p style="margin: 0 0 40px; font-size: 12px; line-height: 1.65; color: #97948a; max-width: 600px; text-wrap: pretty">people who can hand {{ teamBot }} work directly. a message from a verified handle becomes work it picks up on its own. from anyone else, it asks you first.</p>
         <sc-if value="{{ teamLocked }}" hint-placeholder-val="{{ false }}">
-          <div style="margin-bottom: 18px; padding: 10px 14px; border: 1px dashed #e6e3da; border-radius: 7px; font-size: 11.5px; color: #97948a">only the workspace owner can change the team. you can see who's on it.</div>
+          <div style="margin-bottom: 18px; padding: 10px 14px; border: 1px dashed #e6e3da; border-radius: 7px; font-size: 11.5px; color: #97948a; display: flex; gap: 12px; align-items: baseline"><span style="flex: 1">only owners can change the team. you can see who's on it.</span></div>
         </sc-if>
-        <div style="border: 1px solid #e6e3da; background: #fdfcf9; border-radius: 9px; overflow: hidden">
-          <div style="display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.7fr) minmax(0, .8fr) 64px; gap: 16px; padding: 9px 18px; border-bottom: 1px solid #efece4; font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">
-            <span>name</span><span>handles</span><span>reach via</span><span style="text-align: right">assigns</span>
+        <div data-tour="teamtbl" style="border: 1px solid #e6e3da; background: #fdfcf9; border-radius: 9px; overflow: hidden">
+          <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr) minmax(0, .75fr) 170px; gap: 16px; padding: 9px 18px; border-bottom: 1px solid #efece4; font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">
+            <span>name</span><span>handles</span><span>reach via</span><span></span>
           </div>
           <sc-for list="{{ teamRows }}" as="r" hint-placeholder-count="2">
-            <div style="display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.7fr) minmax(0, .8fr) 64px; gap: 16px; align-items: center; padding: 13px 18px; border-bottom: 1px solid #f1efe8">
-              <span style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-size: 12.5px; color: #1c1b18">{{ r.name }}</span><span style="font-size: 10.5px; color: #97948a; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ r.role }}</span></span>
-              <span style="display: flex; flex-direction: column; gap: 5px; min-width: 0">
-                <sc-for list="{{ r.handles }}" as="h" hint-placeholder-count="2">
-                  <span style="display: flex; align-items: center; gap: 8px; min-width: 0; font-size: 11.5px">
-                    <span style="flex-shrink: 0; width: 16px; height: 16px; border-radius: 4px; border: 1px solid #e6e3da; background: #f7f6f1; display: grid; place-items: center; font-size: 9px; color: #54524b">{{ h.mark }}</span>
-                    <span style="min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #1c1b18">{{ h.v }}</span>
-                    <span style="flex-shrink: 0; font-size: 10px; color: {{ h.stColor }}">{{ h.st }}</span>
-                    <sc-if value="{{ h.canVerify }}" hint-placeholder-val="{{ false }}"><span onClick="{{ h.verify }}" style="flex-shrink: 0; font-size: 10.5px; color: oklch(0.55 0.075 150); cursor: pointer; text-decoration: underline; text-underline-offset: 2px">verify</span></sc-if>
-                  </span>
-                </sc-for>
-              </span>
-              <span style="display: inline-flex; justify-self: start; border: 1px solid #e6e3da; border-radius: 6px; overflow: hidden; background: #fdfcf9">
-                <sc-for list="{{ r.vias }}" as="v" hint-placeholder-count="2"><span onClick="{{ v.set }}" style="font-size: 10.5px; padding: 4px 10px; cursor: {{ v.cursor }}; white-space: nowrap; color: {{ v.color }}; background: {{ v.bg }}">{{ v.name }}</span></sc-for>
-              </span>
-              <span onClick="{{ r.toggle }}" title="{{ r.tip }}" style="justify-self: end; display: inline-flex; cursor: {{ r.cursor }}"><span style="position: relative; width: 24px; height: 14px; border-radius: 100px; background: oklch(0.55 0.075 150)"><span style="position: absolute; top: 2px; left: 12px; width: 10px; height: 10px; border-radius: 50%; background: #fdfcf9; box-shadow: 0 1px 2px rgba(28,27,24,.2)"></span></span></span>
+            <div style="border-bottom: 1px solid #f1efe8">
+              <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr) minmax(0, .75fr) 170px; gap: 16px; align-items: center; padding: 13px 18px">
+                <span style="position: relative; display: flex; flex-direction: column; gap: 3px; min-width: 0">
+                  <span style="display: flex; align-items: center; flex-wrap: wrap; gap: 4px 8px; min-width: 0"><span style="font-size: 12.5px; color: #1c1b18; overflow-wrap: anywhere">{{ r.name }}</span><span onClick="{{ r.roleTap }}" title="{{ r.chipTip }}" style="flex-shrink: 0; display: inline-flex; align-items: center; gap: 4px; font-size: 9.5px; letter-spacing: 0.06em; padding: 1px 7px; border-radius: 100px; border: 1px solid {{ r.chipLine }}; color: {{ r.chipColor }}; background: {{ r.chipBg }}; cursor: {{ r.chipCursor }}">{{ r.teamRole }}<sc-if value="{{ r.chipEditable }}" hint-placeholder-val="{{ false }}"><span style="font-size: 7px; color: #97948a">▾</span></sc-if></span></span>
+                  <span style="font-size: 10.5px; color: #97948a; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ r.role }}</span>
+                  <sc-if value="{{ r.roleMenu }}" hint-placeholder-val="{{ false }}">
+                    <div style="position: absolute; top: 22px; left: 0; z-index: 20; width: 240px; background: #fdfcf9; border: 1px solid #c4c1b6; border-radius: 8px; box-shadow: 0 1px 2px rgba(28,27,24,.05), 0 18px 40px -20px rgba(28,27,24,.3); padding: 4px; animation: pop .15s cubic-bezier(.4,0,.2,1) both">
+                      <sc-for list="{{ r.roleOpts }}" as="o" hint-placeholder-count="2">
+                        <div onClick="{{ o.pick }}" style="display: flex; gap: 9px; align-items: baseline; padding: 7px 8px; border-radius: 6px; cursor: {{ o.cursor }}; opacity: {{ o.op }}" style-hover="background: #f1efe8">
+                          <span style="width: 10px; flex-shrink: 0; font-size: 10px; color: oklch(0.55 0.075 150)">{{ o.tick }}</span>
+                          <span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12px; color: #1c1b18">{{ o.name }}</span><span style="font-size: 10.5px; color: #97948a">{{ o.sub }}</span></span>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </sc-if>
+                </span>
+                <span data-tour="{{ r.tourH }}" style="display: flex; flex-direction: column; gap: 6px; min-width: 0">
+                  <sc-for list="{{ r.handles }}" as="h" hint-placeholder-count="2">
+                    <span style="display: flex; align-items: center; gap: 8px; min-width: 0; font-size: 11.5px">
+                      <span style="flex-shrink: 0; width: 16px; height: 16px; border-radius: 4px; border: 1px solid #e6e3da; background: #f7f6f1; display: grid; place-items: center; font-size: 9px; color: #54524b">{{ h.mark }}</span>
+                      <span style="min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #1c1b18">{{ h.v }}</span>
+                      <sc-if value="{{ h.ok }}" hint-placeholder-val="{{ true }}"><span title="verified" style="flex-shrink: 0; font-size: 12px; color: oklch(0.55 0.075 150)">✓</span></sc-if>
+                      <sc-if value="{{ h.canVerify }}" hint-placeholder-val="{{ false }}"><span onClick="{{ h.verify }}" style="flex-shrink: 0; font-size: 10.5px; border: 1px solid #e6e3da; background: #fdfcf9; color: #1c1b18; padding: 2px 9px; border-radius: 5px; cursor: pointer" style-hover="border-color: oklch(0.55 0.075 150); color: oklch(0.55 0.075 150)">{{ h.verifyLabel }}</span></sc-if>
+                      <sc-if value="{{ h.pending }}" hint-placeholder-val="{{ false }}"><span style="flex-shrink: 0; font-size: 10px; color: oklch(0.50 0.09 70)">{{ h.pendLabel }}</span></sc-if>
+                    </span>
+                  </sc-for>
+                  <sc-if value="{{ r.noHandles }}" hint-placeholder-val="{{ false }}"><span style="font-size: 11px; color: #97948a">nothing verified yet · edit to add one</span></sc-if>
+                </span>
+                <span data-tour="{{ r.tourV }}" style="display: inline-flex; justify-self: start; border: 1px solid #e6e3da; border-radius: 6px; overflow: hidden; background: #fdfcf9">
+                  <sc-for list="{{ r.vias }}" as="v" hint-placeholder-count="2"><span onClick="{{ v.set }}" style="font-size: 10.5px; padding: 4px 10px; cursor: {{ v.cursor }}; white-space: nowrap; color: {{ v.color }}; background: {{ v.bg }}">{{ v.name }}</span></sc-for>
+                </span>
+                <span style="display: flex; align-items: center; justify-content: flex-end; gap: 12px">
+                  <sc-if value="{{ r.canEdit }}" hint-placeholder-val="{{ true }}"><span onClick="{{ r.editTap }}" style="flex-shrink: 0; font-size: 11px; color: #97948a; cursor: pointer; white-space: nowrap; color: {{ r.editColor }}" style-hover="color: #1c1b18">{{ r.editLabel }}</span></sc-if>
+                  <sc-if value="{{ r.canLeave }}" hint-placeholder-val="{{ false }}"><span onClick="{{ r.leaveArm }}" style="flex-shrink: 0; font-size: 11px; color: #97948a; cursor: pointer; white-space: nowrap" style-hover="color: oklch(0.58 0.10 28)">leave</span></sc-if>
+                  <sc-if value="{{ r.canRemove }}" hint-placeholder-val="{{ true }}"><span onClick="{{ r.armRemove }}" style="font-size: 11px; color: #97948a; cursor: pointer" style-hover="color: oklch(0.58 0.10 28)">remove</span></sc-if>
+                </span>
+              </div>
+              <sc-if value="{{ r.leaveArmed }}" hint-placeholder-val="{{ false }}">
+                <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 0 18px 12px; padding: 8px 11px; background: #f7f6f1; border: 1px solid #efece4; border-radius: 6px; font-size: 11px; color: #54524b">
+                  <span>leave {{ orgName }}? you'll still be in your other orgs.</span><span style="flex: 1"></span>
+                  <span onClick="{{ r.leave }}" style="color: oklch(0.58 0.10 28); cursor: pointer; text-decoration: underline; text-underline-offset: 2px">leave</span>
+                  <span onClick="{{ r.stay }}" style="color: #97948a; cursor: pointer">stay</span>
+                </div>
+              </sc-if>
+              <sc-if value="{{ r.rmArmed }}" hint-placeholder-val="{{ false }}">
+                <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 0 18px 12px; padding: 8px 11px; background: #f7f6f1; border: 1px solid #efece4; border-radius: 6px; font-size: 11px; color: #54524b">
+                  <span>take {{ r.first }} off the team? {{ teamBot }} keeps everything it knows about them.</span><span style="flex: 1"></span>
+                  <span onClick="{{ r.remove }}" style="color: oklch(0.58 0.10 28); cursor: pointer; text-decoration: underline; text-underline-offset: 2px">remove</span>
+                  <span onClick="{{ r.keep }}" style="color: #97948a; cursor: pointer">keep</span>
+                </div>
+              </sc-if>
+              <sc-if value="{{ r.editing }}" hint-placeholder-val="{{ false }}">
+                <div class="viewin" style="margin: 0 18px 14px; padding: 4px 14px 6px; background: #f7f6f1; border: 1px solid #efece4; border-radius: 7px; max-width: 640px">
+                  <div style="display: grid; grid-template-columns: 70px minmax(0, 1fr); gap: 14px; align-items: start; padding: 10px 0; border-bottom: 1px solid #efece4">
+                    <span style="font-size: 10.5px; color: #97948a; padding-top: 6px">name</span>
+                    <div style="display: flex; align-items: center; gap: 10px; min-height: 28px">
+                      <sc-if value="{{ r.ed.nameIdle }}" hint-placeholder-val="{{ true }}"><span style="flex: 1; min-width: 0; font-size: 12.5px; color: #1c1b18">{{ r.ed.name }}</span><span onClick="{{ r.ed.nameStart }}" style="flex-shrink: 0; font-size: 11px; color: #97948a; cursor: pointer; white-space: nowrap" style-hover="color: #1c1b18">edit</span></sc-if>
+                      <sc-if value="{{ r.ed.nameEdit }}" hint-placeholder-val="{{ false }}"><input value="{{ r.ed.nameDraft }}" onChange="{{ r.ed.onName }}" onKeyDown="{{ r.ed.nameKey }}" autoFocus="autofocus" style="box-sizing: border-box; font: inherit; font-size: 12px; color: #1c1b18; background: #fdfcf9; border: 1px solid #e6e3da; border-radius: 6px; padding: 6px 9px; outline: none; flex: 1; min-width: 0"></input><span onClick="{{ r.ed.nameSave }}" style="flex-shrink: 0; font-size: 11px; border: 1px solid #1c1b18; background: #1c1b18; color: #f7f6f1; padding: 5px 12px; border-radius: 6px; cursor: pointer; white-space: nowrap">save</span><span onClick="{{ r.ed.nameCancel }}" style="flex-shrink: 0; font-size: 11px; color: #97948a; cursor: pointer; white-space: nowrap">cancel</span></sc-if>
+                    </div>
+                  </div>
+                  <div style="display: grid; grid-template-columns: 70px minmax(0, 1fr); gap: 14px; align-items: start; padding: 10px 0; border-bottom: 1px solid #efece4">
+                    <span style="font-size: 10.5px; color: #97948a; padding-top: 6px">emails</span>
+                    <div style="display: flex; flex-direction: column; gap: 9px; padding-top: 4px; min-width: 0">
+                      <sc-for list="{{ r.ed.emails }}" as="e" hint-placeholder-count="2">
+                        <div style="display: flex; align-items: center; gap: 8px; min-width: 0; font-size: 12px">
+                          <span style="min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #1c1b18">{{ e.v }}</span>
+                          <sc-if value="{{ e.ok }}" hint-placeholder-val="{{ true }}"><span title="verified" style="flex-shrink: 0; font-size: 12px; color: oklch(0.55 0.075 150)">✓</span></sc-if>
+                          <span style="flex: 1"></span>
+                          <sc-if value="{{ e.canVerify }}" hint-placeholder-val="{{ false }}"><span onClick="{{ e.verify }}" title="send buddy an email from it" style="flex-shrink: 0; font-size: 10.5px; color: oklch(0.50 0.09 70); cursor: pointer; white-space: nowrap" style-hover="border-color: oklch(0.55 0.075 150); color: oklch(0.55 0.075 150)">not verified</span></sc-if>
+                          <sc-if value="{{ e.primary }}" hint-placeholder-val="{{ false }}"><span style="flex-shrink: 0; font-size: 9.5px; letter-spacing: 0.06em; padding: 1px 7px; border-radius: 100px; border: 1px solid oklch(0.55 0.075 150 / 0.35); color: oklch(0.55 0.075 150)">primary</span></sc-if>
+                          <sc-if value="{{ e.canPrimary }}" hint-placeholder-val="{{ true }}"><span onClick="{{ e.makePrimary }}" style="flex-shrink: 0; font-size: 11px; color: #97948a; cursor: pointer; white-space: nowrap" style-hover="color: #1c1b18">make primary</span></sc-if>
+                          <sc-if value="{{ e.canRemove }}" hint-placeholder-val="{{ true }}"><span onClick="{{ e.remove }}" style="flex-shrink: 0; font-size: 11px; color: #97948a; cursor: pointer; white-space: nowrap" style-hover="color: oklch(0.58 0.10 28)">remove</span></sc-if>
+                        </div>
+                      </sc-for>
+                      <sc-if value="{{ r.ed.addIdle }}" hint-placeholder-val="{{ true }}"><span onClick="{{ r.ed.addStart }}" style="align-self: flex-start; font-size: 11.5px; color: #97948a; cursor: pointer" style-hover="color: #1c1b18">+ add email</span></sc-if>
+                      <sc-if value="{{ r.ed.addType }}" hint-placeholder-val="{{ false }}">
+                        <div style="display: flex; align-items: center; gap: 8px"><input value="{{ r.ed.addV }}" onChange="{{ r.ed.onAddV }}" onKeyDown="{{ r.ed.addKey }}" autoFocus="autofocus" placeholder="name@example.com" style="box-sizing: border-box; font: inherit; font-size: 12px; color: #1c1b18; background: #fdfcf9; border: 1px solid #e6e3da; border-radius: 6px; padding: 6px 9px; outline: none; flex: 1; min-width: 0"></input><span onClick="{{ r.ed.addSend }}" style="flex-shrink: 0; font-size: 11px; border: 1px solid #1c1b18; background: #1c1b18; color: #f7f6f1; padding: 5px 12px; border-radius: 6px; cursor: pointer; white-space: nowrap">verify</span><span onClick="{{ r.ed.addCancel }}" style="flex-shrink: 0; font-size: 11px; color: #97948a; cursor: pointer; white-space: nowrap">cancel</span></div>
+                        <sc-if value="{{ r.ed.addHasErr }}" hint-placeholder-val="{{ false }}"><span style="font-size: 10.5px; color: oklch(0.58 0.10 28)">{{ r.ed.addErr }}</span></sc-if>
+                      </sc-if>
+                      <sc-if value="{{ r.ed.addCode }}" hint-placeholder-val="{{ false }}"><div class="viewin" style="display: flex; align-items: center; gap: 10px; padding: 10px 11px; background: #fdfcf9; border: 1px solid #efece4; border-radius: 6px"><span style="flex: 1; min-width: 0; font-size: 11px; line-height: 1.55; color: #54524b">{{ r.ed.codeMsg }}</span><span style="display: flex; align-items: center; gap: 6px; font-size: 10.5px; color: #97948a; flex-shrink: 0"><span style="width: 10px; height: 10px; border: 1.5px solid #e6e3da; border-top-color: oklch(0.55 0.075 150); border-radius: 50%; animation: spin .8s linear infinite; flex-shrink: 0"></span>waiting to confirm</span><span onClick="{{ r.ed.addCancel }}" style="flex-shrink: 0; font-size: 11px; color: #97948a; cursor: pointer; white-space: nowrap">cancel</span></div></sc-if>
+                    </div>
+                  </div>
+                  <sc-if value="{{ r.ed.isSelf }}" hint-placeholder-val="{{ false }}">
+                    <div style="display: grid; grid-template-columns: 70px minmax(0, 1fr); gap: 14px; align-items: start; padding: 10px 0; border-bottom: 1px solid #efece4">
+                      <span style="font-size: 10.5px; color: #97948a; padding-top: 6px">sign-in</span>
+                      <div style="display: flex; flex-direction: column; gap: 8px; min-width: 0; min-height: 28px; justify-content: center">
+                        <sc-if value="{{ aSignIdle }}" hint-placeholder-val="{{ true }}"><div style="display: flex; align-items: center; gap: 10px"><span style="flex: 1; min-width: 0; font-size: 12.5px; color: #1c1b18; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ aSignV }}</span><span onClick="{{ aSignStart }}" style="flex-shrink: 0; font-size: 11px; color: #97948a; cursor: pointer; white-space: nowrap" style-hover="color: #1c1b18">change</span></div></sc-if>
+                        <sc-if value="{{ aSignType }}" hint-placeholder-val="{{ false }}">
+                          <div style="display: flex; align-items: center; gap: 8px"><input value="{{ aSignDraft }}" onChange="{{ onASign }}" autoFocus="autofocus" placeholder="new sign-in email" style="box-sizing: border-box; font: inherit; font-size: 12px; color: #1c1b18; background: #fdfcf9; border: 1px solid #e6e3da; border-radius: 6px; padding: 6px 9px; outline: none; flex: 1; min-width: 0"></input><span onClick="{{ aSignSend }}" style="flex-shrink: 0; font-size: 11px; border: 1px solid #1c1b18; background: #1c1b18; color: #f7f6f1; padding: 5px 12px; border-radius: 6px; cursor: pointer; white-space: nowrap">send confirmation</span><span onClick="{{ aSignCancel }}" style="flex-shrink: 0; font-size: 11px; color: #97948a; cursor: pointer; white-space: nowrap">cancel</span></div>
+                          <span style="font-size: 10.5px; line-height: 1.55; color: {{ aSignHintColor }}">{{ aSignHint }}</span>
+                        </sc-if>
+                        <sc-if value="{{ aSignSent }}" hint-placeholder-val="{{ false }}"><div style="display: flex; align-items: flex-start; gap: 10px"><span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12.5px; color: #1c1b18">{{ aSignV }}</span><span style="font-size: 10.5px; line-height: 1.55; color: oklch(0.50 0.09 70)">{{ aSignNote }}</span></span><span onClick="{{ aSignCancel }}" style="flex-shrink: 0; font-size: 11px; color: #97948a; cursor: pointer; white-space: nowrap" style-hover="color: #1c1b18">cancel change</span></div></sc-if>
+                      </div>
+                    </div>
+                  </sc-if>
+                  <div style="display: grid; grid-template-columns: 70px minmax(0, 1fr); gap: 14px; align-items: start; padding: 10px 0; border-bottom: 1px solid #efece4; border-bottom: none">
+                    <span style="font-size: 10.5px; color: #97948a; padding-top: 6px">slack</span>
+                    <div style="display: flex; flex-direction: column; gap: 8px; min-width: 0; min-height: 28px; justify-content: center">
+                      <sc-if value="{{ r.ed.slNone }}" hint-placeholder-val="{{ true }}"><div style="display: flex; align-items: center; gap: 8px"><span style="flex: 1; font-size: 12px; color: #97948a">not linked</span><span onClick="{{ r.ed.slStart }}" style="flex-shrink: 0; font-size: 11px; border: 1px solid #1c1b18; background: #1c1b18; color: #f7f6f1; padding: 5px 12px; border-radius: 6px; cursor: pointer; white-space: nowrap" style-hover="background: oklch(0.55 0.075 150); border-color: oklch(0.55 0.075 150)">{{ r.ed.slBtn }}</span></div></sc-if>
+                      <sc-if value="{{ r.ed.slUnver }}" hint-placeholder-val="{{ false }}"><div style="display: flex; align-items: center; gap: 8px"><span style="font-size: 12.5px; color: #1c1b18">{{ r.ed.slHandle }}</span><span style="flex: 1"></span><span onClick="{{ r.ed.slStart }}" style="flex-shrink: 0; font-size: 10.5px; border: 1px solid #e6e3da; background: #fdfcf9; color: #1c1b18; padding: 2px 9px; border-radius: 5px; cursor: pointer" style-hover="border-color: oklch(0.55 0.075 150); color: oklch(0.55 0.075 150)">verify</span><span onClick="{{ r.ed.slUnlink }}" style="flex-shrink: 0; font-size: 11px; color: #97948a; cursor: pointer; white-space: nowrap" style-hover="color: oklch(0.58 0.10 28)">remove</span></div></sc-if>
+                      <sc-if value="{{ r.ed.slCode }}" hint-placeholder-val="{{ false }}"><div class="viewin" style="display: flex; flex-direction: column; gap: 8px; padding: 10px 11px; background: #fdfcf9; border: 1px solid #efece4; border-radius: 6px"><span style="font-size: 11px; line-height: 1.55; color: #54524b">{{ r.ed.slMsg }}</span><div style="display: flex; align-items: center; gap: 12px"><span style="font-size: 20px; letter-spacing: 0.14em; color: #1c1b18; font-variant-numeric: tabular-nums">{{ r.ed.slCodeStr }}</span><span style="display: flex; align-items: center; gap: 6px; font-size: 10.5px; color: #97948a"><span style="width: 10px; height: 10px; border: 1.5px solid #e6e3da; border-top-color: oklch(0.55 0.075 150); border-radius: 50%; animation: spin .8s linear infinite; flex-shrink: 0"></span>waiting for it</span><span style="flex: 1"></span><span onClick="{{ r.ed.slNew }}" style="flex-shrink: 0; font-size: 11px; color: #97948a; cursor: pointer; white-space: nowrap" style-hover="color: #1c1b18">new code</span><span onClick="{{ r.ed.slCancel }}" style="flex-shrink: 0; font-size: 11px; color: #97948a; cursor: pointer; white-space: nowrap">cancel</span></div></div></sc-if>
+                      <sc-if value="{{ r.ed.slOk }}" hint-placeholder-val="{{ false }}"><div style="display: flex; align-items: center; gap: 8px"><span style="font-size: 12.5px; color: #1c1b18">{{ r.ed.slHandle }}</span><span title="verified" style="font-size: 12px; color: oklch(0.55 0.075 150)">✓</span><span style="flex: 1"></span><span onClick="{{ r.ed.slUnlink }}" style="flex-shrink: 0; font-size: 11px; color: #97948a; cursor: pointer; white-space: nowrap" style-hover="color: oklch(0.58 0.10 28)">unlink</span></div></sc-if>
+                    </div>
+                  </div>
+                </div>
+              </sc-if>
             </div>
           </sc-for>
-          <sc-if value="{{ teamEmpty }}" hint-placeholder-val="{{ false }}"><div style="padding: 22px 18px; font-size: 11.5px; color: #97948a; font-style: italic">no one yet. add your first teammate below.</div></sc-if>
+          <sc-if value="{{ teamEmpty }}" hint-placeholder-val="{{ false }}"><div style="padding: 16px 18px; font-size: 11.5px; color: #97948a; font-style: italic; border-bottom: 1px solid #f1efe8">just you so far.</div></sc-if>
+          <sc-if value="{{ hasInvites }}" hint-placeholder-val="{{ true }}">
+            <div style="display: flex; gap: 10px; align-items: baseline; padding: 8px 18px; background: #f7f6f1; border-bottom: 1px solid #efece4; font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a"><span>invites</span><span style="letter-spacing: 0; text-transform: none; font-size: 10.5px; color: #c4c1b6">{{ invCount }}</span></div>
+            <sc-for list="{{ teamInvites }}" as="iv" hint-placeholder-count="3">
+              <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr) minmax(0, .75fr) 170px; gap: 16px; align-items: center; padding: 11px 18px; border-bottom: 1px solid #f1efe8; background: #f7f6f1; opacity: {{ iv.op }}">
+                <span style="display: flex; flex-direction: column; gap: 3px; min-width: 0">
+                  <span style="display: flex; align-items: center; gap: 8px; min-width: 0"><span style="font-size: 12px; color: #54524b; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ iv.who }}</span><span style="flex-shrink: 0; font-size: 9.5px; letter-spacing: 0.06em; padding: 1px 7px; border-radius: 100px; border: 1px solid {{ iv.stLine }}; color: {{ iv.stColor }}">{{ iv.status }}</span></span>
+                  <sc-if value="{{ iv.hasEmail }}" hint-placeholder-val="{{ true }}"><span style="font-size: 10.5px; color: #97948a; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ iv.email }}</span></sc-if>
+                </span>
+                <span style="font-size: 11px; color: #97948a; min-width: 0">{{ iv.when }}</span>
+                <span style="font-size: 11px; color: #97948a">{{ iv.roleLine }}</span>
+                <span style="display: flex; align-items: center; justify-content: flex-end; gap: 14px">
+                  <sc-if value="{{ iv.canResend }}" hint-placeholder-val="{{ true }}"><span onClick="{{ iv.resend }}" style="flex-shrink: 0; font-size: 11px; color: #97948a; cursor: pointer; white-space: nowrap" style-hover="color: #1c1b18">resend</span></sc-if>
+                  <sc-if value="{{ iv.canRevoke }}" hint-placeholder-val="{{ true }}"><span onClick="{{ iv.revoke }}" style="flex-shrink: 0; font-size: 11px; color: #97948a; cursor: pointer; white-space: nowrap" style-hover="color: oklch(0.58 0.10 28)">revoke</span></sc-if>
+                </span>
+              </div>
+            </sc-for>
+          </sc-if>
           <sc-if value="{{ teamCanAdd }}" hint-placeholder-val="{{ true }}">
             <sc-if value="{{ taClosed }}" hint-placeholder-val="{{ true }}">
-              <div onClick="{{ taOpen }}" style="padding: 12px 18px; font-size: 12px; color: #97948a; cursor: pointer" style-hover="background: #f7f6f1; color: #1c1b18">+ add teammate</div>
+              <div data-tour="teamadd" onClick="{{ taOpen }}" style="padding: 12px 18px; font-size: 12px; color: #97948a; cursor: pointer" style-hover="background: #f7f6f1; color: #1c1b18">+ invite teammate</div>
             </sc-if>
             <sc-if value="{{ taOpenNow }}" hint-placeholder-val="{{ false }}">
-              <div class="viewin" style="padding: 16px 18px 18px; background: #f7f6f1">
-                <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
-                  <label style="display: flex; flex-direction: column; gap: 5px; min-width: 0"><span style="font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">name</span><input value="{{ ta.name }}" onChange="{{ taOn.name }}" placeholder="required" style="width: 100%; box-sizing: border-box; font: inherit; font-size: 12px; color: #1c1b18; background: #fdfcf9; border: 1px solid #e6e3da; border-radius: 6px; padding: 7px 9px; outline: none"></input></label>
-                  <label style="display: flex; flex-direction: column; gap: 5px; min-width: 0"><span style="font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">work email</span><input value="{{ ta.email }}" onChange="{{ taOn.email }}" placeholder="name@company.com" style="width: 100%; box-sizing: border-box; font: inherit; font-size: 12px; color: #1c1b18; background: #fdfcf9; border: 1px solid #e6e3da; border-radius: 6px; padding: 7px 9px; outline: none"></input></label>
-                  <label style="display: flex; flex-direction: column; gap: 5px; min-width: 0"><span style="font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">slack</span><input value="{{ ta.slack }}" onChange="{{ taOn.slack }}" placeholder="@handle" style="width: 100%; box-sizing: border-box; font: inherit; font-size: 12px; color: #1c1b18; background: #fdfcf9; border: 1px solid #e6e3da; border-radius: 6px; padding: 7px 9px; outline: none"></input></label>
+              <div class="viewin" style="padding: 16px 18px 18px; background: #f7f6f1; display: flex; flex-direction: column; gap: 12px">
+                <div style="display: flex; flex-direction: column; gap: 10px; max-width: 420px">
+                  <label style="display: flex; flex-direction: column; gap: 5px"><span style="font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">name</span><input value="{{ ta.q }}" onChange="{{ taOnQ }}" placeholder="full name" style="width: 100%; box-sizing: border-box; font: inherit; font-size: 12px; color: #1c1b18; background: #fdfcf9; border: 1px solid #e6e3da; border-radius: 6px; padding: 7px 9px; outline: none"></input></label>
+                  <label style="display: flex; flex-direction: column; gap: 5px"><span style="font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">work email</span><input value="{{ ta.email }}" onChange="{{ taOnEmail }}" placeholder="name@company.com" style="width: 100%; box-sizing: border-box; font: inherit; font-size: 12px; color: #1c1b18; background: #fdfcf9; border: 1px solid #e6e3da; border-radius: 6px; padding: 7px 9px; outline: none"></input></label>
+                  <label style="display: flex; flex-direction: column; gap: 5px; opacity: {{ taSlackOp }}"><span style="font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">slack <span style="letter-spacing: 0; text-transform: none; color: #c4c1b6">optional · needs an email first</span></span><input value="{{ ta.slack }}" onChange="{{ taOnSlack }}" disabled="{{ taSlackOff }}" placeholder="@handle" style="width: 100%; box-sizing: border-box; font: inherit; font-size: 12px; color: #1c1b18; background: #fdfcf9; border: 1px solid #e6e3da; border-radius: 6px; padding: 7px 9px; outline: none"></input></label>
+                  <div style="display: flex; flex-direction: column; gap: 5px"><span style="font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">role</span><span style="display: inline-flex; align-self: flex-start; border: 1px solid #e6e3da; border-radius: 6px; overflow: hidden; background: #fdfcf9"><sc-for list="{{ taRoles }}" as="o" hint-placeholder-count="2"><span onClick="{{ o.set }}" style="font-size: 10.5px; padding: 4px 11px; cursor: pointer; color: {{ o.color }}; background: {{ o.bg }}">{{ o.name }}</span></sc-for></span></div>
                 </div>
-                <div style="display: flex; align-items: center; gap: 10px; margin-top: 14px; flex-wrap: wrap">
-                  <span style="font-size: 10.5px; color: #97948a">they get a link to verify each handle. until then, {{ teamBot }} asks you first.</span>
+                <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap">
+                  <span style="font-size: 10.5px; color: #97948a">{{ taHint }}</span>
                   <span style="flex: 1"></span>
                   <span style="font-size: 11px; color: oklch(0.58 0.10 28)">{{ taErr }}</span>
                   <span onClick="{{ taCancel }}" style="flex-shrink: 0; font-size: 11px; border: 1px solid #e6e3da; background: #fdfcf9; color: #54524b; padding: 5px 12px; border-radius: 6px; cursor: pointer" style-hover="border-color: #c4c1b6; color: #1c1b18">cancel</span>
-                  <span onClick="{{ taSave }}" style="flex-shrink: 0; font-size: 11px; border: 1px solid #1c1b18; background: #1c1b18; color: #f7f6f1; padding: 5px 13px; border-radius: 6px; cursor: pointer">add</span>
+                  <span onClick="{{ taSave }}" style="flex-shrink: 0; font-size: 11px; border: 1px solid #1c1b18; background: #1c1b18; color: #f7f6f1; padding: 5px 13px; border-radius: 6px; cursor: pointer">send invite</span>
                 </div>
               </div>
             </sc-if>
@@ -882,11 +1062,11 @@
               </div>
             </sc-if>
             <div>
-              <div style="display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, .7fr) minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, .6fr) minmax(0, .62fr) minmax(0, .5fr); gap: 14px; padding: 9px 18px; border-bottom: 1px solid #efece4; font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">
-                <span>name</span><span>role</span><span>relation</span><span>knows</span><span>reach</span><span>source</span><span data-tour="assigns" title="can give buddy work directly" style="white-space: nowrap">assigns</span><span style="text-align: right; white-space: nowrap">last seen</span>
+              <div style="display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, .7fr) minmax(0, 1.35fr) minmax(0, 1.4fr) minmax(0, .6fr) minmax(0, .5fr); gap: 14px; padding: 9px 18px; border-bottom: 1px solid #efece4; font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">
+                <span>name</span><span>role</span><span>relation</span><span>knows</span><span>handles</span><span>source</span><span style="text-align: right; white-space: nowrap">last seen</span>
               </div>
               <sc-for list="{{ peopleRows }}" as="r" hint-placeholder-count="5">
-                <div onClick="{{ r.open }}" style="display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, .7fr) minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, .6fr) minmax(0, .62fr) minmax(0, .5fr); gap: 14px; align-items: baseline; padding: 11px 18px; border-bottom: 1px solid #f1efe8; cursor: pointer; background: {{ r.bg }}" style-hover="background: #f7f6f1">
+                <div onClick="{{ r.open }}" style="display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, .7fr) minmax(0, 1.35fr) minmax(0, 1.4fr) minmax(0, .6fr) minmax(0, .5fr); gap: 14px; align-items: baseline; padding: 11px 18px; border-bottom: 1px solid #f1efe8; cursor: pointer; background: {{ r.bg }}" style-hover="background: #f7f6f1">
                   <span style="display: flex; align-items: baseline; gap: 9px; min-width: 0">
                     <sc-if value="{{ r.merging }}" hint-placeholder-val="{{ false }}"><span style="flex-shrink: 0; width: 12px; height: 12px; border-radius: 3px; border: 1px solid {{ r.boxBorder }}; background: {{ r.boxBg }}; color: #f7f6f1; font-size: 9px; line-height: 11px; text-align: center; transform: translateY(1px)">{{ r.tick }}</span></sc-if>
                     <span style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-size: 12px; color: {{ r.nameColor }}">{{ r.name }}</span><sc-if value="{{ r.hasAlias }}" hint-placeholder-val="{{ false }}"><span style="font-size: 10px; color: #97948a; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">aka {{ r.aliasLine }}</span></sc-if></span>
@@ -894,9 +1074,11 @@
                   <span style="font-size: 11.5px; color: #54524b; line-height: 1.5; min-width: 0">{{ r.role }}</span>
                   <span style="font-size: 11.5px; color: #54524b">{{ r.rel }}</span>
                   <span style="font-size: 11.5px; color: #54524b; line-height: 1.5; min-width: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden">{{ r.knows }}</span>
-                  <span style="font-size: 11px; color: #54524b; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ r.reach }}</span>
+                  <span style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+                    <sc-for list="{{ r.handleList }}" as="h" hint-placeholder-count="1"><span style="display: flex; align-items: baseline; gap: 5px; min-width: 0; font-size: 11px; color: #54524b"><span style="min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ h.v }}</span><span style="flex-shrink: 0; color: oklch(0.55 0.075 150)">{{ h.tick }}</span></span></sc-for>
+                  </span>
                   <span><span style="font-size: 10px; color: {{ r.srcColor }}; border: 1px solid #e6e3da; padding: 2px 7px; border-radius: 100px; white-space: nowrap">{{ r.source }}</span></span>
-                  <span style="align-self: center"><span onClick="{{ r.toggleAuth }}" title="{{ r.authTip }}" style="display: inline-flex; align-items: center; gap: 6px; cursor: pointer"><span style="position: relative; width: 24px; height: 14px; border-radius: 100px; flex-shrink: 0; background: {{ r.authTrack }}; transition: background .18s"><span style="position: absolute; top: 2px; left: {{ r.authKnob }}; width: 10px; height: 10px; border-radius: 50%; background: #fdfcf9; box-shadow: 0 1px 2px rgba(28,27,24,.2); transition: left .18s"></span></span></span></span>
+                  
                   <span style="font-size: 10.5px; color: #97948a; text-align: right; font-variant-numeric: tabular-nums">{{ r.seen }}</span>
                 </div>
                 <sc-if value="{{ r.editing }}" hint-placeholder-val="{{ false }}">
@@ -908,11 +1090,19 @@
                       <label style="display: flex; flex-direction: column; gap: 5px; min-width: 0"><span style="font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">role</span><input value="{{ pd.role }}" onChange="{{ pdOn.role }}" placeholder="title and organisation" style="width: 100%; box-sizing: border-box; font: inherit; font-size: 12px; color: #1c1b18; background: #fdfcf9; border: 1px solid #e6e3da; border-radius: 6px; padding: 7px 9px; outline: none"></input></label>
                       <label style="display: flex; flex-direction: column; gap: 5px; min-width: 0; grid-column: 1 / -1"><span style="font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">relationship</span><span style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap"><span style="display: inline-flex; border: 1px solid #e6e3da; border-radius: 6px; overflow: hidden; background: #fdfcf9"><sc-for list="{{ relChoices }}" as="c" hint-placeholder-count="3"><span onClick="{{ c.set }}" style="font-size: 10.5px; padding: 4px 10px; cursor: pointer; white-space: nowrap; color: {{ c.color }}; background: {{ c.bg }}">{{ c.name }}</span></sc-for></span></span></label>
                       <label style="display: flex; flex-direction: column; gap: 5px; min-width: 0; grid-column: 1 / -1"><span style="font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">knows · what they own or decide. buddy searches this when it asks who knows about something</span><textarea value="{{ pd.knows }}" onChange="{{ pdOn.knows }}" rows="2" style="width: 100%; box-sizing: border-box; font: inherit; font-size: 12px; color: #1c1b18; background: #fdfcf9; border: 1px solid #e6e3da; border-radius: 6px; padding: 7px 9px; outline: none; resize: vertical; line-height: 1.65"></textarea></label>
-                      <label style="display: flex; flex-direction: column; gap: 5px; min-width: 0"><span style="font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">reach</span><input value="{{ pd.reach }}" onChange="{{ pdOn.reach }}" placeholder="channel · handle" style="width: 100%; box-sizing: border-box; font: inherit; font-size: 12px; color: #1c1b18; background: #fdfcf9; border: 1px solid #e6e3da; border-radius: 6px; padding: 7px 9px; outline: none"></input></label>
-                      <div onClick="{{ pdToggleAuth }}" style="grid-column: 1 / -1; order: 99; display: flex; align-items: center; gap: 12px; padding: 10px 12px; border: 1px solid {{ pdAuthLine }}; background: {{ pdAuthBg }}; border-radius: 7px; cursor: pointer; transition: background .18s, border-color .18s">
-                        <span style="position: relative; width: 28px; height: 16px; border-radius: 100px; flex-shrink: 0; background: {{ pdAuth.authTrack }}; transition: background .18s"><span style="position: absolute; top: 2px; left: {{ pdAuth.authKnobL }}; width: 12px; height: 12px; border-radius: 50%; background: #fdfcf9; box-shadow: 0 1px 2px rgba(28,27,24,.2); transition: left .18s"></span></span>
-                        <span style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="display: flex; align-items: baseline; gap: 8px"><span style="font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">assigns</span><span style="font-size: 12px; color: #1c1b18">can give buddy work directly</span></span><span style="font-size: 10.5px; line-height: 1.5; color: #97948a">{{ pdAuthNote }}</span></span>
+                      <div style="grid-column: 1 / -1; display: flex; flex-direction: column; gap: 6px">
+                        <span style="font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">handles · emails and slack ids</span>
+                        <sc-for list="{{ pdHandles }}" as="h" hint-placeholder-count="1">
+                          <div style="display: flex; align-items: center; gap: 8px">
+                            <span style="flex-shrink: 0; display: inline-flex; border: 1px solid #e6e3da; border-radius: 6px; overflow: hidden; background: #fdfcf9"><sc-for list="{{ h.kinds }}" as="k" hint-placeholder-count="2"><span onClick="{{ k.set }}" style="font-size: 10.5px; padding: 4px 10px; cursor: pointer; color: {{ k.color }}; background: {{ k.bg }}">{{ k.name }}</span></sc-for></span>
+                            <input value="{{ h.v }}" onChange="{{ h.on }}" placeholder="{{ h.ph }}" style="width: 100%; box-sizing: border-box; font: inherit; font-size: 12px; color: #1c1b18; background: #fdfcf9; border: 1px solid #e6e3da; border-radius: 6px; padding: 7px 9px; outline: none; flex: 1; min-width: 0"></input>
+                            <span title="{{ h.tip }}" style="flex-shrink: 0; width: 14px; font-size: 12px; color: oklch(0.55 0.075 150); text-align: center">{{ h.tick }}</span>
+                            <span onClick="{{ h.remove }}" title="remove" style="flex-shrink: 0; font-size: 12px; color: #c4c1b6; cursor: pointer; padding: 0 4px" style-hover="color: oklch(0.58 0.10 28)">×</span>
+                          </div>
+                        </sc-for>
+                        <span onClick="{{ pdAddHandle }}" style="align-self: flex-start; font-size: 11px; color: #97948a; cursor: pointer" style-hover="color: #1c1b18">+ add email or slack</span>
                       </div>
+                      
                       <span style="display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 18px">
                         <label style="display: flex; flex-direction: column; gap: 5px; min-width: 0"><span style="font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">source</span><span style="display: inline-flex; border: 1px solid #e6e3da; border-radius: 6px; overflow: hidden; background: #fdfcf9"><sc-for list="{{ srcChoices }}" as="c" hint-placeholder-count="3"><span onClick="{{ c.set }}" style="font-size: 10.5px; padding: 4px 10px; cursor: pointer; white-space: nowrap; color: {{ c.color }}; background: {{ c.bg }}">{{ c.name }}</span></sc-for></span></label>
                         <label style="display: flex; flex-direction: column; gap: 5px; min-width: 0"><span style="font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">last seen</span><input type="date" value="{{ pd.seen }}" onChange="{{ pdOn.seen }}" style="width: 100%; box-sizing: border-box; font: inherit; font-size: 12px; color: #1c1b18; background: #fdfcf9; border: 1px solid #e6e3da; border-radius: 6px; padding: 7px 9px; outline: none; padding: 5px 8px"></input></label>
@@ -1237,12 +1427,13 @@
           <section style="padding-left: 34px; min-width: 0; border-left: 1px solid #e6e3da">
             <header style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 22px">
               <span style="font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; color: #97948a; font-weight: 500">projects</span>
-              <span style="font-size: 11px; color: #97948a; font-variant-numeric: tabular-nums">3</span>
+              <span style="font-size: 11px; color: #97948a; font-variant-numeric: tabular-nums">{{ deskProjCount }}</span>
             </header>
             <div style="display: flex; flex-direction: column; gap: 12px">
-              <div onClick="{{ goProjects }}" style="border: 1px solid #e6e3da; background: #fdfcf9; border-radius: 7px; padding: 13px 15px; display: flex; align-items: center; gap: 13px; font-size: 12.5px; cursor: pointer" style-hover="border-color: #c4c1b6"><span style="display: flex; align-items: center; gap: 11px; min-width: 0; flex: 1"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.55 0.075 150); flex-shrink: 0"></span><span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #1c1b18">inbox triage</span></span><span style="color: #97948a; font-size: 10.5px; flex-shrink: 0">2m ago</span></div>
-              <div onClick="{{ goProjects }}" style="border: 1px solid #e6e3da; background: #fdfcf9; border-radius: 7px; padding: 13px 15px; display: flex; align-items: center; gap: 13px; font-size: 12.5px; cursor: pointer" style-hover="border-color: #c4c1b6"><span style="display: flex; align-items: center; gap: 11px; min-width: 0; flex: 1"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.66 0.085 75); flex-shrink: 0"></span><span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #1c1b18">weekend reading</span></span><span style="color: #97948a; font-size: 10.5px; flex-shrink: 0">1h ago</span></div>
-              <div onClick="{{ goProjects }}" style="border: 1px solid #e6e3da; background: #fdfcf9; border-radius: 7px; padding: 13px 15px; display: flex; align-items: center; gap: 13px; font-size: 12.5px; cursor: pointer" style-hover="border-color: #c4c1b6"><span style="display: flex; align-items: center; gap: 11px; min-width: 0; flex: 1"><span style="width: 6px; height: 6px; border-radius: 50%; background: #c4c1b6; flex-shrink: 0"></span><span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #1c1b18">arkos</span></span><span style="color: #97948a; font-size: 10.5px; flex-shrink: 0">2d ago</span></div>
+              <sc-for list="{{ deskProjRows }}" as="p" hint-placeholder-count="3">
+                <div onClick="{{ p.open }}" style="border: 1px solid #e6e3da; background: #fdfcf9; border-radius: 7px; padding: 13px 15px; display: flex; align-items: center; gap: 13px; font-size: 12.5px; cursor: pointer" style-hover="border-color: #c4c1b6"><span style="display: flex; align-items: center; gap: 11px; min-width: 0; flex: 1"><span style="width: 6px; height: 6px; border-radius: 50%; background: {{ p.dot }}; flex-shrink: 0"></span><span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #1c1b18">{{ p.name }}</span></span><span style="color: #97948a; font-size: 10.5px; flex-shrink: 0">{{ p.when }}</span></div>
+              </sc-for>
+              <sc-if value="{{ deskProjNone }}" hint-placeholder-val="{{ false }}"><div onClick="{{ goProjects }}" style="border: 1px dashed #e6e3da; border-radius: 7px; padding: 13px 15px; font-size: 12px; color: #97948a; cursor: pointer" style-hover="color: #1c1b18; border-color: #c4c1b6">no projects yet · start one</div></sc-if>
             </div>
           </section>
         </div>
@@ -1251,32 +1442,6 @@
 
     <sc-if value="{{ inboxView }}" hint-placeholder-val="{{ false }}">
       <div data-tour="inboxpage" class="viewin" style="position: relative; flex: 1; min-height: 0; display: flex; flex-direction: column; overflow-y: auto">
-        <sc-if value="{{ tmNeedName }}" hint-placeholder-val="{{ false }}">
-          <div style="position: absolute; inset: 0; z-index: 30; background: rgba(247,246,241,.72); backdrop-filter: blur(6px); display: grid; place-items: center; padding: 24px">
-            <div style="width: 380px; max-width: 100%; background: #fdfcf9; border: 1px solid #c4c1b6; border-radius: 12px; box-shadow: 0 1px 2px rgba(28,27,24,.05), 0 30px 70px -30px rgba(28,27,24,.35); overflow: hidden; animation: pop .2s cubic-bezier(.4,0,.2,1) both">
-              <div style="padding: 22px 22px 6px">
-                <div style="font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 10px">one step first</div>
-                <div style="font-size: 17px; font-weight: 500; letter-spacing: -0.01em; color: #1c1b18">name your teammate</div>
-                <div style="margin-top: 6px; font-size: 11.5px; line-height: 1.6; color: #97948a; text-wrap: pretty">{{ tmNeedBlurb }}</div>
-              </div>
-              <div style="padding: 14px 22px 18px; display: flex; flex-direction: column; gap: 10px">
-                <input value="{{ tmDraft }}" onChange="{{ onTmDraft }}" onKeyDown="{{ onTmKey }}" spellCheck="{{ false }}" placeholder="teammate name" maxLength="24" autoFocus="autofocus" style="background: #fdfcf9; border: 1px solid #e6e3da; border-radius: 7px; padding: 10px 12px; font-family: inherit; font-size: 13px; color: #1c1b18; outline: none" style-focus="border-color: oklch(0.55 0.075 150 / 0.4)" />
-                <sc-if value="{{ tmNeedCo }}" hint-placeholder-val="{{ false }}">
-                  <input value="{{ tmCoDraft }}" onChange="{{ onTmCoDraft }}" onKeyDown="{{ onTmKey }}" spellCheck="{{ false }}" placeholder="your company name" maxLength="40" style="background: #fdfcf9; border: 1px solid #e6e3da; border-radius: 7px; padding: 10px 12px; font-family: inherit; font-size: 13px; color: #1c1b18; outline: none" style-focus="border-color: oklch(0.55 0.075 150 / 0.4)" />
-                </sc-if>
-                <div style="display: flex; flex-direction: column; gap: 5px; padding: 10px 12px; background: #f7f6f1; border: 1px solid #efece4; border-radius: 7px; font-size: 11px; line-height: 1.5">
-                  <span style="display: flex; gap: 10px; align-items: baseline"><span style="width: 38px; flex-shrink: 0; color: #97948a">email</span><span style="color: #1c1b18; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ tmDraftAddr }}</span></span>
-
-                </div>
-              </div>
-              <div style="border-top: 1px solid #efece4; background: #f1efe8; padding: 11px 22px; display: flex; align-items: center; gap: 10px">
-                <span onClick="{{ goDesk }}" style="font-size: 11px; color: #97948a; cursor: pointer" style-hover="color: #1c1b18">not now</span>
-                <span style="flex: 1"></span>
-                <span onClick="{{ tmSave }}" style="font-size: 11px; border: 1px solid #1c1b18; background: #1c1b18; color: #f7f6f1; padding: 6px 14px; border-radius: 6px; cursor: pointer" style-hover="background: oklch(0.55 0.075 150); border-color: oklch(0.55 0.075 150)">create address</span>
-              </div>
-            </div>
-          </div>
-        </sc-if>
         <div style="padding: 46px 56px 26px; max-width: 1320px; box-sizing: border-box; width: 100%; display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; flex-shrink: 0">
           <h1 style="margin: 0; font-weight: 500; font-size: 30px; letter-spacing: -0.025em; line-height: 1.05">inbox<span style="display: inline-block; width: 9px; height: 0.92em; vertical-align: -0.06em; background: oklch(0.55 0.075 150); margin-left: 5px; animation: blink 1.2s steps(1) infinite"></span></h1>
           <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 10px">
@@ -1304,6 +1469,21 @@
             </div>
           </div>
         </div>
+        <sc-if value="{{ mxShow }}" hint-placeholder-val="{{ false }}">
+          <div style="flex: 1; display: grid; place-items: center; padding: 24px 56px 60px">
+            <div class="viewin" style="width: min(440px, 100%); border: 1px solid #e6e3da; background: #fdfcf9; border-radius: 10px; padding: 26px 26px 22px; display: flex; flex-direction: column; gap: 14px">
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12.5px; color: #1c1b18; overflow-wrap: anywhere">{{ mxAddr }}</span>
+              <sc-if value="{{ mxBusy }}" hint-placeholder-val="{{ true }}">
+                <div style="display: flex; align-items: center; gap: 9px; font-size: 12.5px; color: #1c1b18"><span style="width: 10px; height: 10px; border: 1.5px solid #e6e3da; border-top-color: oklch(0.55 0.075 150); border-radius: 50%; animation: spin .8s linear infinite; flex-shrink: 0"></span><span>setting up mail for {{ mxAddr }}, usually a few minutes.</span></div>
+                <span style="font-size: 11.5px; color: #97948a">you can keep going; everything else works.</span>
+              </sc-if>
+              <sc-if value="{{ mxFailed }}" hint-placeholder-val="{{ false }}">
+                <div style="display: flex; align-items: baseline; gap: 9px; font-size: 12.5px; color: #1c1b18"><span style="flex-shrink: 0; width: 14px; height: 14px; border-radius: 50%; border: 1px solid oklch(0.58 0.10 28); color: oklch(0.58 0.10 28); display: inline-grid; place-items: center; font-size: 9px; font-weight: 700; transform: translateY(1px)">!</span><span>mail setup failed: {{ mxReason }}</span></div>
+                <span onClick="{{ mxRetry }}" style="align-self: flex-start; font-size: 11px; border: 1px solid #1c1b18; background: #1c1b18; color: #f7f6f1; padding: 5px 14px; border-radius: 6px; cursor: pointer" style-hover="background: oklch(0.55 0.075 150); border-color: oklch(0.55 0.075 150)">retry</span>
+              </sc-if>
+            </div>
+          </div>
+        </sc-if>
         <sc-if value="{{ ibEmpty }}" hint-placeholder-val="{{ false }}">
           <div style="margin: 0 56px; max-width: 620px; border: 1px dashed #e6e3da; border-radius: 7px; padding: 34px 22px; text-align: center; color: #97948a; font-size: 12px; line-height: 1.7">
             nothing yet. cc <span onClick="{{ ibCopy }}" title="copy" style="color: #1c1b18; border-bottom: 1px dashed #c4c1b6; cursor: pointer" style-hover="color: oklch(0.55 0.075 150); border-color: oklch(0.55 0.075 150)">{{ ibAddr }}</span> on a thread.
@@ -2264,12 +2444,23 @@
               <span style="flex-shrink: 0; font-size: 11px; color: oklch(0.55 0.075 150)">report →</span>
             </div>
           </section>
+          <section data-tour="teamcard">
+            <span style="display: flex; align-items: baseline; gap: 8px; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #97948a; margin-bottom: 10px">team <span style="letter-spacing: 0.08em; color: #c4c1b6">owner</span></span>
+            <div onClick="{{ goTeam }}" style="display: flex; align-items: center; gap: 12px; padding: 11px 13px; border: 1px solid #e6e3da; border-radius: 7px; cursor: {{ teamCursor }}; background: #fdfcf9" style-hover="border-color: #c4c1b6; background: #f1efe8">
+              <span style="min-width: 0; flex: 1; font-size: 12.5px; color: #1c1b18"><span style="font-variant-numeric: tabular-nums">{{ teamCount }}</span> <span style="color: #97948a">{{ teamCountWord }}</span></span>
+              <span style="flex-shrink: 0; font-size: 11px; color: {{ teamOpenColor }}">{{ teamOpenLabel }}</span>
+            </div>
+          </section>
           <section>
             <span style="display: block; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #97948a; margin-bottom: 10px">teammate</span>
             <div style="display: flex; flex-direction: column; gap: 8px">
               <div style="display: flex; align-items: center; gap: 12px; padding: 11px 13px; border: 1px solid #e6e3da; border-radius: 7px; background: #fdfcf9">
+                <span style="flex-shrink: 0; width: 22px; height: 22px; border-radius: 6px; border: 1px solid #e6e3da; background: #f1efe8; display: grid; place-items: center; font-size: 10.5px; color: #54524b">◱</span>
+                <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12.5px; color: #1c1b18; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ orgName }}</span><span style="font-size: 10.5px; color: #97948a">company name</span></span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 12px; padding: 11px 13px; border: 1px solid #e6e3da; border-radius: 7px; background: #fdfcf9">
                 <span style="flex-shrink: 0; width: 22px; height: 22px; border-radius: 6px; border: 1px solid #e6e3da; background: #f1efe8; display: grid; place-items: center; font-size: 10.5px; color: #54524b">@</span>
-                <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12.5px; color: #1c1b18; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ stAddr }}</span><span style="font-size: 10.5px; color: #97948a">its own email address · cc it on anything</span></span>
+                <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12.5px; color: #1c1b18; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ stAddr }}</span><span style="display: flex; align-items: center; gap: 8px; font-size: 10.5px; color: #97948a"><span style="display: inline-flex; align-items: center; gap: 5px; font-size: 9.5px; letter-spacing: 0.06em; padding: 1px 7px; border-radius: 100px; border: 1px solid {{ mxChipLine }}; color: {{ mxChipColor }}"><sc-if value="{{ mxBusy }}" hint-placeholder-val="{{ false }}"><span style="width: 7px; height: 7px; border: 1.5px solid #e6e3da; border-top-color: oklch(0.50 0.09 70); border-radius: 50%; animation: spin .8s linear infinite"></span></sc-if>{{ mxLabel }}</span><sc-if value="{{ mxFailed }}" hint-placeholder-val="{{ false }}"><span onClick="{{ mxRetry }}" style="color: #1c1b18; cursor: pointer; text-decoration: underline; text-underline-offset: 2px">retry</span></sc-if><span>its own email address · cc it on anything</span></span></span>
                 <span onClick="{{ stCopy }}" style="flex-shrink: 0; font-size: 11px; color: {{ stCopyColor }}; cursor: pointer" style-hover="color: #1c1b18">{{ stCopyLabel }}</span>
               </div>
               <div data-tour="slackbot" style="display: flex; align-items: center; gap: 12px; padding: 11px 13px; border: 1px solid #e6e3da; border-radius: 7px; background: #fdfcf9; flex-direction: column; align-items: stretch; gap: 10px; border-color: {{ sbLine }}">
@@ -2306,14 +2497,8 @@
               </sc-for>
             </div>
           </section>
-          <section>
-            <span style="display: flex; align-items: baseline; gap: 8px; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #97948a; margin-bottom: 10px">team <span style="letter-spacing: 0.08em; color: #c4c1b6">owner</span></span>
-            <div onClick="{{ goTeam }}" style="display: flex; align-items: center; gap: 12px; padding: 11px 13px; border: 1px solid #e6e3da; border-radius: 7px; cursor: {{ teamCursor }}; background: #fdfcf9" style-hover="border-color: #c4c1b6; background: #f1efe8">
-              <span style="min-width: 0; flex: 1; font-size: 12.5px; color: #1c1b18"><span style="font-variant-numeric: tabular-nums">{{ teamCount }}</span> <span style="color: #97948a">{{ teamCountWord }}</span></span>
-              <span style="flex-shrink: 0; font-size: 11px; color: {{ teamOpenColor }}">{{ teamOpenLabel }}</span>
-            </div>
-          </section>
-          <section>
+          
+<section>
             <span style="display: block; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #97948a; margin-bottom: 10px">memory</span>
             <div onClick="{{ goMemory }}" style="display: flex; align-items: center; gap: 12px; padding: 11px 13px; border: 1px solid #e6e3da; border-radius: 7px; cursor: pointer; background: #fdfcf9" style-hover="border-color: #c4c1b6; background: #f1efe8">
               <span style="min-width: 0; flex: 1; font-size: 12.5px; color: #1c1b18"><span style="font-variant-numeric: tabular-nums">{{ memCount }}</span> <span style="color: #97948a">remembered</span></span>
@@ -2391,7 +2576,43 @@
     </div>
   </div>
 </sc-if>
-<div data-tour="fb" style="position: fixed; right: 18px; bottom: 18px; z-index: 5000; display: {{ fbDisplay }}; flex-direction: column; align-items: flex-end; gap: 10px; pointer-events: none">
+<sc-if value="{{ mailOn }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ mailClose }}" style="position: fixed; inset: 0; z-index: 6000; display: grid; place-items: center; padding: 40px; background: color-mix(in oklch, #1c1b18 28%, transparent); backdrop-filter: blur(4px)">
+      <div onClick="{{ stopClick }}" style="width: min(620px, 100%); max-height: calc(100vh - 80px); overflow-y: auto; background: #fdfcf9; border: 1px solid #c4c1b6; border-radius: 10px; box-shadow: 0 30px 70px -30px rgba(28,27,24,.4); animation: pop .2s cubic-bezier(.4,0,.2,1) both">
+        <div style="display: flex; align-items: flex-start; gap: 12px; padding: 14px 18px; background: #f1efe8; border-bottom: 1px solid #e6e3da">
+          <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; font-size: 11.5px; color: #54524b">
+            <span style="font-size: 13px; font-weight: 500; color: #1c1b18">{{ mailSubject }}</span>
+            <span><span style="color: #97948a">from</span> buddy &lt;hello@trybuddynow.com&gt;</span>
+            <span><span style="color: #97948a">to</span> {{ mailTo }}</span>
+          </div>
+          <span onClick="{{ mailClose }}" style="font-size: 16px; line-height: 1; color: #97948a; cursor: pointer; padding: 2px 4px" style-hover="color: #1c1b18">×</span>
+        </div>
+        <div style="padding: 34px 44px 30px; display: flex; flex-direction: column; gap: 20px">
+          <span style="display: flex; align-items: center; gap: 10px"><span style="position: relative; display: inline-grid; place-items: center; width: 26px; height: 26px"><span style="font-weight: 700; font-size: 18px; letter-spacing: -0.04em; color: #1c1b18">b</span><span style="position: absolute; top: -1px; right: -4px; width: 5px; height: 5px; border-radius: 50%; background: oklch(0.55 0.075 150); animation: ping 2.4s cubic-bezier(.4,0,.2,1) infinite"></span></span><span style="font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: #97948a">buddy</span></span>
+          <sc-if value="{{ mailInvite }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size: 18px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.35; color: #1c1b18">{{ invInviter }} added you to {{ invTeam }} on buddy.</div>
+            <p style="margin: 0; font-size: 12.5px; line-height: 1.75; color: #54524b; text-wrap: pretty">buddy is {{ invTeam }}'s digital intern. it works on its own computer, keeps its own files, and asks before anything leaves the account. once you're in, you can hand it work by email or slack.</p>
+            <span onClick="{{ mailContinue }}" style="align-self: flex-start; font-size: 12.5px; background: #1c1b18; color: #f7f6f1; padding: 10px 24px; border-radius: 7px; cursor: pointer" style-hover="background: oklch(0.55 0.075 150)">continue</span>
+          </sc-if>
+          
+          <div style="padding-top: 16px; border-top: 1px solid #efece4; font-size: 11px; line-height: 1.6; color: #97948a">{{ mailFoot }}</div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+  <sc-if value="{{ contOn }}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; inset: 0; z-index: 6100; background: #f7f6f1; display: flex; flex-direction: column">
+      <div style="padding: 24px 32px"><span style="display: flex; align-items: center; gap: 10px"><span style="position: relative; display: inline-grid; place-items: center; width: 26px; height: 26px"><span style="font-weight: 700; font-size: 18px; letter-spacing: -0.04em; color: #1c1b18">b</span><span style="position: absolute; top: -1px; right: -4px; width: 5px; height: 5px; border-radius: 50%; background: oklch(0.55 0.075 150); animation: ping 2.4s cubic-bezier(.4,0,.2,1) infinite"></span></span><span style="font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: #97948a">buddy</span></span></div>
+      <div style="flex: 1; display: grid; place-items: center; padding: 24px">
+        <div style="width: min(420px, 100%); display: flex; flex-direction: column; gap: 26px; animation: pop .25s cubic-bezier(.4,0,.2,1) both">
+          <h1 style="margin: 0; font-weight: 500; font-size: 24px; letter-spacing: -0.02em; line-height: 1.3; text-wrap: pretty">you've been added to {{ invTeam }} on buddy.</h1>
+          <span onClick="{{ contGo }}" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 9px; font-size: 13px; background: #1c1b18; color: #f7f6f1; padding: 11px 28px; border-radius: 8px; cursor: pointer; opacity: {{ contOp }}" style-hover="background: oklch(0.55 0.075 150)">{{ contLabel }}</span>
+        </div>
+      </div>
+      <div style="padding: 22px 32px; font-size: 11px; color: #97948a; text-align: center">{{ contFoot }}</div>
+    </div>
+  </sc-if>
+  <div data-tour="fb" style="position: fixed; right: 18px; bottom: 18px; z-index: 5000; display: {{ fbDisplay }}; flex-direction: column; align-items: flex-end; gap: 10px; pointer-events: none">
   <sc-if value="{{ fbOpen }}" hint-placeholder-val="{{ false }}">
     <div style="pointer-events: auto; width: 320px; max-width: calc(100vw - 36px); background: #fdfcf9; border: 1px solid #c4c1b6; border-radius: 12px; box-shadow: 0 1px 2px rgba(28,27,24,.05), 0 26px 60px -26px rgba(28,27,24,.35); overflow: hidden; transform-origin: bottom right; animation: pop .2s cubic-bezier(.4,0,.2,1) both">
       <sc-if value="{{ fbForm }}" hint-placeholder-val="{{ true }}">
@@ -2430,7 +2651,7 @@
   <span onClick="{{ fbToggle }}" title="feedback · walkthrough" style="pointer-events: auto; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; cursor: pointer; background: {{ fbBtnBg }}; color: {{ fbBtnColor }}; border: 1px solid #1c1b18; box-shadow: 0 1px 2px rgba(28,27,24,.08), 0 12px 28px -14px rgba(28,27,24,.45); font-size: 14px; line-height: 1; transition: background .18s, color .18s, transform .18s" style-hover="transform: translateY(-1px)">{{ fbGlyph }}</span>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;mobilePreview&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;landing&quot;},&quot;maxTools&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:64,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:16,&quot;max&quot;:128,&quot;section&quot;:&quot;tool budget&quot;},&quot;ourTools&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:12,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:0,&quot;max&quot;:40,&quot;section&quot;:&quot;tool budget&quot;},&quot;memoryEmpty&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;memory&quot;},&quot;docFill&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;18400&quot;,&quot;options&quot;:[&quot;18400&quot;,&quot;26900&quot;,&quot;31700&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;memory&quot;},&quot;conflictDemo&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;memory&quot;},&quot;teamOwner&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;team&quot;},&quot;teachLongDemo&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;teach&quot;},&quot;inboxEmpty&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;inbox&quot;},&quot;slackBotState&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;off&quot;,&quot;options&quot;:[&quot;on&quot;,&quot;off&quot;,&quot;removed&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;teammate&quot;},&quot;replayTour&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;walkthrough&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;mobilePreview&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;landing&quot;},&quot;maxTools&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:64,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:16,&quot;max&quot;:128,&quot;section&quot;:&quot;tool budget&quot;},&quot;ourTools&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:12,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:0,&quot;max&quot;:40,&quot;section&quot;:&quot;tool budget&quot;},&quot;memoryEmpty&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;memory&quot;},&quot;docFill&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;18400&quot;,&quot;options&quot;:[&quot;18400&quot;,&quot;26900&quot;,&quot;31700&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;memory&quot;},&quot;conflictDemo&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;memory&quot;},&quot;teamOwner&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;team&quot;},&quot;teachLongDemo&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;teach&quot;},&quot;inboxEmpty&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;inbox&quot;},&quot;slackBotState&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;off&quot;,&quot;options&quot;:[&quot;on&quot;,&quot;off&quot;,&quot;removed&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;teammate&quot;},&quot;replayTour&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;walkthrough&quot;},&quot;previewScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;none&quot;,&quot;options&quot;:[&quot;none&quot;,&quot;invite email&quot;,&quot;continue page&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;team&quot;},&quot;mailSetup&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;auto&quot;,&quot;options&quot;:[&quot;auto&quot;,&quot;setting up&quot;,&quot;failed&quot;,&quot;ready&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;teammate&quot;},&quot;multiOrg&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;team&quot;},&quot;inviteHasAccount&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;team&quot;}}">
 const ACCENT = "oklch(0.55 0.075 150)";
 const ACCENT_C = "oklch(0.55 0.075 150)";
 const ACCENT_LINE = "oklch(0.55 0.075 150 / 0.35)";
@@ -2656,11 +2877,16 @@ const MEM_DOC0 = [
   "",
 ].join("\n");
 const MEM_DOC_EMPTY = MEM_H.map((h) => "## " + h + "\n").join("\n");
+function memHandles(p) {
+  if (p.handles) return p.handles;
+  if (!p.reach) return [];
+  return p.reach.split(";").map((x) => x.trim()).filter(Boolean).map((x) => { const m = /^(slack|email)\s*·\s*(.+)$/.exec(x); return m ? { kind: m[1], v: m[2].trim(), ok: false } : { kind: /^[@#]/.test(x) ? "slack" : "email", v: x, ok: false }; });
+}
 const MEM_PEOPLE = [
   { id: "p1", name: "Rachel Okafor", aliases: ["rachel", "ro"], role: "head of procurement, Halden Health", rel: "client", knows: "pilot terms, seat counts, the procurement calendar. signs off on anything over $10k.", reach: "email · rachel@haldenhealth.com", notes: "prefers one email with everything over a long thread. replies before 9am.", source: "learned", seen: "2026-09-24" },
-  { id: "p2", auth: true, handles: [{ kind: "slack", v: "@dev", ok: true }, { kind: "email", v: "dev@northloop.io", ok: true }], via: "slack", name: "Dev Mehta", aliases: ["dev"], role: "ceo, Northloop", rel: "manager", knows: "fundraising, the board deck, final say on pricing", reach: "slack · @dev", notes: "", source: "taught", seen: "2026-09-26" },
+  { id: "p2", auth: true, teamRole: "owner", handles: [{ kind: "slack", v: "@dev", ok: true }, { kind: "email", v: "dev@northloop.io", ok: true }], via: "slack", name: "Dev Mehta", aliases: ["dev"], role: "ceo, Northloop", rel: "manager", knows: "fundraising, the board deck, final say on pricing", reach: "slack · @dev", notes: "", source: "taught", seen: "2026-09-26" },
   { id: "p3", name: "Priya Nair", aliases: ["priya", "p. nair"], role: "bookkeeper, Ledgerline", rel: "vendor", knows: "QuickBooks, the july and august close, invoice numbering", reach: "email · priya@ledgerline.co", notes: "out on fridays.", source: "learned", seen: "2026-09-19" },
-  { id: "p4", auth: true, handles: [{ kind: "slack", v: "@sam", ok: true }, { kind: "email", v: "sam@northloop.io", ok: false }], via: "slack", name: "Sam Ortiz", aliases: ["sam"], role: "ops lead, Northloop", rel: "report", knows: "offsite logistics, travel bookings, the vendor list", reach: "slack · @sam", notes: "", source: "taught", seen: "2026-09-25" },
+  { id: "p4", auth: true, handles: [{ kind: "slack", v: "@sam", ok: true }, { kind: "email", v: "sam@northloop.io", ok: true }], via: "slack", name: "Sam Ortiz", aliases: ["sam"], role: "ops lead, Northloop", rel: "report", knows: "offsite logistics, travel bookings, the vendor list", reach: "slack · @sam", notes: "", source: "taught", seen: "2026-09-25" },
   { id: "p5", name: "Samuel Ortiz", aliases: ["s. ortiz"], role: "", rel: "", knows: "flight approvals", reach: "email · sam.ortiz@northloop.io", notes: "cc'd on travel threads.", source: "learned", seen: "2026-09-12" },
   { id: "p6", name: "Mara Lindqvist", aliases: [], role: "partner, Fjord Legal", rel: "vendor", knows: "the msa template, data processing terms", reach: "email · mara@fjordlegal.se", notes: "bills in 15-minute increments, so batch questions.", source: "taught", seen: "2026-08-30" },
 ];
@@ -2834,6 +3060,12 @@ const IB_THREADS = [
 
 const TOUR = [
   { t: null, eyebrow: "welcome", title: "this is {name}'s workspace.", body: "a teammate with its own computer, files and memory. here's the lay of the land, in the order you'll use it.", view: { view: "desk" } },
+  { t: "settings", eyebrow: "team · step 1", title: "start with your team.", body: "first, tell {name} who it works with. it all starts in settings, up here.", view: { view: "desk" } },
+  { t: "teamcard", eyebrow: "team · step 2", title: "open team.", body: "the team card in settings. click it to see and change who can give {name} work.", view: { view: "desk", settingsOpen: true } },
+  { t: "teamtbl", eyebrow: "team", title: "who can give {name} work.", body: "your team lives here. a message from one of their verified handles becomes work it picks up on its own. from anyone else, it asks you first.", view: { view: "team" } },
+  { t: "teamhandles", eyebrow: "team · handles", title: "verified email and slack.", body: "each teammate's work email and slack handle. a handle only counts once it's verified, so nobody can spoof a teammate to hand {name} work.", view: { view: "team" } },
+  { t: "teamvia", eyebrow: "team · reach via", title: "how it gets back to them.", body: "pick where {name} reaches each person: email or slack. if they started the conversation, it replies right there. this is for everything else: questions or results it brings to them first.", view: { view: "team" } },
+  { t: "teamadd", eyebrow: "team · add", title: "add someone.", body: "name, work email, and slack if they use it. they get a link to verify, then they're on the team. only the workspace owner can add or remove people.", view: { view: "team" } },
   { t: "nav", eyebrow: "the tabs", title: "five places, one job.", body: "desk, approvals, inbox, files and projects. you'll live mostly in projects; the rest show what's happening across all of them.", view: { view: "desk" } },
   { t: "desk", eyebrow: "desk", title: "your daily view.", body: "what's waiting on you on the left, what {name} is doing in the middle, and your projects on the right.", view: { view: "desk" } },
   { t: "todos", eyebrow: "desk · todos", title: "what it's working on.", body: "every task in flight, grouped by project, with how far along it is. amber means stuck: the line under it says what it needs, and clicking takes you there.", view: { view: "desk" } },
@@ -2869,13 +3101,23 @@ const TOUR = [
   { t: "ledger", eyebrow: "usage · ledger", title: "every run, itemized.", body: "each run with its project, how it ended and the minutes it billed. failed work doesn't bill, and you can mark a run as didn't work.", view: { view: "settings" } },
   { t: "billing", eyebrow: "usage · billing", title: "your plan and what it covers.", body: "the plan includes a set of working hours, plus storage and live sessions up to a cap. past your hours, top up at $5/hr, prepaid. cards and invoices are managed in stripe.", view: { view: "settings" } },
   { t: "people", eyebrow: "memory · people", title: "who's who.", body: "everyone {name} has met or you've told it about: role, what they know, how to reach them. edit, merge or forget anyone.", view: { view: "memory" } },
-  { t: "assigns", eyebrow: "memory · in or out", title: "who can give it work.", body: "switch assigns on for your team. their emails and mentions become work it picks up on its own. for everyone else, it asks you first.", view: { view: "memory" } },
-  { t: "procs", eyebrow: "memory · procedures", title: "how things are done here.", body: "every lesson and correction becomes a procedure with versions and a track record. edit it, restore an old one, or retire it.", view: { view: "memory" } },
+  { t: "procs", eyebrow: "memory · procedures", title: "how things are done here.", body: "teach a procedure from the computer, or write one yourself with + procedure: the steps in plain words, gotchas inline. every lesson and correction updates it, with versions and a track record. turn any of them off anytime.", view: { view: "memory" } },
   { t: "fb", eyebrow: "tour", title: "this tour lives here.", body: "the ? in the corner opens feedback. tell us what's off whenever something is. press walkthrough in it to run this tour again.", view: { view: "desk", fbOpen: true } },
 ];
 
-const TOUR_CH = [["start", null], ["desk", "desk"], ["projects", "projgrid"], ["plan & auto", "run"], ["tools", "toolchip"], ["computer", "comp"], ["teach", "teach"], ["inbox", "inboxpage"], ["files", "files"], ["settings", "conn"], ["usage", "usage"], ["memory", "people"], ["tour", "fb"]]
+const TOUR_CH = [["start", null], ["team", "teamtbl"], ["desk", "nav"], ["projects", "projgrid"], ["plan & auto", "run"], ["tools", "toolchip"], ["computer", "comp"], ["teach", "teach"], ["inbox", "inboxpage"], ["files", "files"], ["settings", "conn"], ["usage", "usage"], ["memory", "people"], ["tour", "fb"]]
   .map(([name, t]) => ({ name, i: TOUR.findIndex((x) => x.t === t) })).filter((c) => c.i >= 0);
+
+const TEAM_INV0 = [
+  { id: "iv1", name: "lena park", email: "lena@northloop.io", role: "member", status: "pending", sent: 3 },
+  { id: "iv2", name: "", email: "omar@northloop.io", role: "member", status: "expired", sent: 9 },
+  { id: "iv3", name: "kai tan", email: "kai@northloop.io", role: "owner", status: "revoked", sent: 5 },
+];
+const ACCT0 = { name: "nathaniel reyes", emails: [{ v: "nathaniel@northloop.io", ok: true }, { v: "nate.reyes@gmail.com", ok: true }], primary: "nathaniel@northloop.io", signin: "nathaniel@northloop.io", slack: null };
+
+const ORG_KEYS = ["orgBlank", "projects", "cur", "added", "folders", "deleted", "resolved", "plans", "mPeople", "mProcs", "mTaught", "mDoc", "ibT", "ibRead", "tInv", "renamedFiles", "renamedDirs", "drafts", "saved", "mx", "mxForce"];
+const ORG_RESET = { orgBlank: false, projects: PROJECTS, cur: "triage", added: [], folders: [], deleted: [], resolved: {}, plans: { triage: { phase: "running", v: 1, lastAsk: "", step: 7 } }, mPeople: null, mProcs: null, mTaught: null, mDoc: null, ibT: null, ibRead: null, tInv: null, renamedFiles: {}, renamedDirs: {}, drafts: {}, saved: {}, mx: "ready", mxForce: null };
+const ORG_BLANK = { ...ORG_RESET, orgBlank: true, projects: [], cur: null, plans: {}, projView: "index" };
 
 class Component extends DCLogic {
   state = { entered: false, greetIx: Math.floor(Math.random() * 6), land: { plan: "proposed", v: 2, ask: "", askText: "", control: false, triage: true, notes: false, tools: { Gmail: true, Slack: true, Linear: true }, appr: null }, plans: { triage: { phase: "running", v: 1, lastAsk: "", step: 7 } }, planAsk: "", composer: "", signedIn: false, authMode: "in", authName: "", authUser: "", authPass: "", open: false, on: { gmail: true, slack: true, linear: true }, tab: "files", expanded: false, view: "desk", dirs: { triage: true }, sel: "triage/backlog.md", drafts: {}, saved: {}, editing: false, dragging: false, added: [], folders: [], dropTarget: "", creating: false, newName: "", resolved: {}, projView: "index", projects: PROJECTS, cur: "triage", renaming: null, renameText: "", making: false, pName: "", pMode: "new", pDirs: {}, wfDirs: {}, wfLinking: false, wfDragging: false, wfDropTarget: "", fsRenaming: null, fsRenameText: "", renamedFiles: {}, renamedDirs: {}, fsDeleting: null, deleted: [], undo: null, compW: 560, compDrag: false, control: false, compSay: "", compSent: false, settingsOpen: false, gran: "month", off: 0, conn: { gmail: true, slack: true, linear: true, github: true, notion: true, "google-calendar": true } };
@@ -3158,61 +3400,277 @@ class Component extends DCLogic {
   }
 
   teamVals() {
-    const st = this.state, owner = this.props.teamOwner ?? true;
-    const people = st.mPeople ?? (this.props.memoryEmpty ? [] : MEM_PEOPLE);
+    const st = this.state, owner = st.meRole ? st.meRole === "owner" : (this.props.teamOwner ?? true);
+    const people = st.mPeople ?? ((this.props.memoryEmpty || this.state.orgBlank) ? [] : MEM_PEOPLE);
     const team = people.filter((p) => p.auth);
     const bot = ((st.botName || "").trim() || "buddy").toLowerCase();
-    const save = (fn, msg) => { this.setState((s2) => ({ mPeople: fn(s2.mPeople ?? people) })); clearTimeout(this._mt); this.setState({ mSaved: msg }); this._mt = setTimeout(() => this.setState({ mSaved: "" }), 1800); };
-    const handlesOf = (p) => p.handles || (p.reach ? [{ kind: /slack/.test(p.reach) ? "slack" : "email", v: p.reach.replace(/^(slack|email) · /, ""), ok: false }] : []);
-    const ta = st.ta || { name: "", email: "", slack: "" };
-    const taOn = {}; ["name", "email", "slack"].forEach((k) => { taOn[k] = (e) => { const v = e.target.value; this.setState((s2) => ({ ta: { ...(s2.ta || {}), [k]: v }, taErr: "" })); }; });
+    const toast = (msg) => { clearTimeout(this._mt); this.setState({ mSaved: msg }); this._mt = setTimeout(() => this.setState({ mSaved: "" }), 1800); };
+    const save = (fn, msg) => { this.setState((s2) => ({ mPeople: fn(s2.mPeople ?? people) })); if (msg) toast(msg); };
+    const ta = st.ta || { q: "", email: "", role: "member" };
+    const G = "oklch(0.55 0.075 150)", GL = "oklch(0.55 0.075 150 / 0.35)", AT = "oklch(0.50 0.09 70)", AL = "oklch(0.66 0.085 75 / 0.45)";
+    const okEmail = (v) => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test((v || "").trim());
+    const acct = st.acct ?? ACCT0;
+    const selfHs = [...acct.emails.filter((e) => e.ok).map((e) => ({ kind: "email", v: e.v, ok: true })), ...(acct.slack ? [{ kind: "slack", v: acct.slack, ok: true }] : [])];
+    const roleOf = (p) => p.teamRole || "member";
+    const owners = team.filter((p) => roleOf(p) === "owner").length + (owner ? 1 : 0);
+    const invs = st.tInv ?? ((this.props.memoryEmpty || this.state.orgBlank) ? [] : TEAM_INV0);
+    const setInv = (fn) => this.setState((s2) => ({ tInv: fn(s2.tInv ?? invs) }));
+    const ago = (d) => d <= 0 ? "just now" : d + "d ago";
+    const ORD = { pending: 0, expired: 1, revoked: 2 };
+    const CODES = ["482 913", "615 078", "903 452", "270 816"];
+    const slug = this.tmSlug();
+    const setA = (fn) => this.setState((s2) => { const b = s2.acct ?? ACCT0; return { acct: { ...b, ...fn(b) } }; });
+    const setP = (pid, fn, msg) => save((list) => list.map((x) => x.id === pid ? fn(x) : x), msg);
+    const T = this._edT || (this._edT = {});
+    const edFor = (id, self, p) => {
+      const H = self ? [] : memHandles(p);
+      const emails = self ? acct.emails : H.filter((h) => h.kind === "email").map((h) => ({ v: h.v, ok: !!h.ok }));
+      const primary = self ? acct.primary : (p.primaryEmail && emails.some((e) => e.v === p.primaryEmail) ? p.primaryEmail : (emails[0] || {}).v);
+      const slackH = self ? (acct.slack ? { v: acct.slack, ok: true } : null) : (H.find((h) => h.kind === "slack") || null);
+      const who = self ? "" : (p.name || "").split(" ")[0].toLowerCase();
+      const nm = (st.edName || {})[id], add = (st.edAdd || {})[id], sl = (st.edSl || {})[id];
+      const setEd = (key, val) => this.setState((s2) => ({ [key]: { ...(s2[key] || {}), [id]: val } }));
+      const code = (n) => CODES[(n || 0) % CODES.length];
+      const landEmail = (v, n) => { clearTimeout(T[id + "e"]); T[id + "e"] = setTimeout(() => {
+        const cur = (this.state.edAdd || {})[id]; if (!cur || cur.stage !== "code" || cur.v !== v || cur.n !== n) return;
+        if (self) setA((b) => ({ emails: b.emails.some((x) => x.v === v) ? b.emails.map((x) => x.v === v ? { ...x, ok: true } : x) : [...b.emails, { v, ok: true }] }));
+        else setP(p.id, (x) => { const XH = memHandles(x); return { ...x, handles: XH.some((h) => h.v === v) ? XH.map((h) => h.v === v ? { ...h, ok: true } : h) : [...XH, { kind: "email", v, ok: true }] }; });
+        setEd("edAdd", null); toast("email verified"); }, 6000); };
+      const landSlack = (n) => { clearTimeout(T[id + "s"]); T[id + "s"] = setTimeout(() => {
+        const cur = (this.state.edSl || {})[id]; if (!cur || cur.n !== n) return;
+        const handle = slackH ? slackH.v : "@" + (self ? (acct.name || "you").split(" ")[0].toLowerCase() : who);
+        if (self) setA(() => ({ slack: handle }));
+        else setP(p.id, (x) => ({ ...x, handles: [...memHandles(x).filter((h) => h.kind !== "slack"), { kind: "slack", v: handle, ok: true }] }));
+        setEd("edSl", null); toast("slack verified"); }, 6000); };
+      const startCode = (v) => { setEd("edAdd", { stage: "code", v, n: 0, err: "" }); landEmail(v, 0); };
+      const sendAdd = () => { const cur = (this.state.edAdd || {})[id] || {}, v = (cur.v || "").trim();
+        if (!okEmail(v)) return setEd("edAdd", { ...cur, err: "that email doesn't look right." });
+        if (emails.some((x) => x.v.toLowerCase() === v.toLowerCase())) return setEd("edAdd", { ...cur, err: "that one's already here." });
+        startCode(v); };
+      const saveName = () => { const v = (((this.state.edName || {})[id]) || "").trim(); if (!v) return; if (self) setA(() => ({ name: v })); else setP(p.id, (x) => ({ ...x, name: v })); setEd("edName", null); toast("saved"); };
+      const slStart = () => { setEd("edSl", { n: 0 }); landSlack(0); };
+      return {
+        isSelf: self, verifyEmail: startCode, slStart,
+        pend: (h) => h.kind === "slack" ? !!sl : !!(add && add.stage === "code" && add.v === h.v),
+        name: self ? acct.name : p.name, nameIdle: nm == null, nameEdit: nm != null, nameDraft: nm || "",
+        onName: (e) => setEd("edName", e.target.value), nameStart: () => setEd("edName", self ? acct.name : p.name), nameCancel: () => setEd("edName", null), nameSave: saveName,
+        nameKey: (e) => { if (e.key === "Enter") saveName(); if (e.key === "Escape") setEd("edName", null); },
+        emails: emails.map((e) => { const pr = e.v === primary; return { v: e.v, ok: e.ok, primary: pr, canPrimary: !pr && e.ok, canVerify: !e.ok && !(add && add.v === e.v), canRemove: !pr && !(self && e.v === acct.signin),
+          verify: () => startCode(e.v),
+          makePrimary: () => { if (self) setA(() => ({ primary: e.v })); else setP(p.id, (x) => ({ ...x, primaryEmail: e.v })); toast("primary changed"); },
+          remove: () => { if (self) setA((b) => ({ emails: b.emails.filter((y) => y.v !== e.v) })); else setP(p.id, (x) => ({ ...x, handles: memHandles(x).filter((h) => h.v !== e.v) })); toast("email removed"); } }; }),
+        addIdle: !add, addType: !!add && add.stage === "type", addCode: !!add && add.stage === "code",
+        addV: add ? add.v : "", addErr: add ? add.err || "" : "", addHasErr: !!(add && add.err),
+        onAddV: (e) => setEd("edAdd", { ...(((this.state.edAdd || {})[id]) || {}), v: e.target.value, err: "" }),
+        addKey: (e) => { if (e.key === "Enter") sendAdd(); },
+        addStart: () => setEd("edAdd", { stage: "type", v: "", err: "" }), addSend: sendAdd,
+        addCancel: () => { clearTimeout(T[id + "e"]); setEd("edAdd", null); },
+        codeStr: add ? code(add.n) : "",
+        codeMsg: add ? "we sent a verification email to " + add.v + ". the ✓ appears once " + (self ? "you confirm" : who + " confirms") + " it." : "",
+        newCode: () => { const cur = (this.state.edAdd || {})[id]; if (!cur) return; const n = (cur.n || 0) + 1; setEd("edAdd", { ...cur, n }); landEmail(cur.v, n); toast("new code"); },
+        slNone: !slackH && !sl, slUnver: !!slackH && !slackH.ok && !sl, slCode: !!sl, slOk: !!slackH && !!slackH.ok && !sl,
+        slHandle: slackH ? slackH.v : "", slBtn: self ? "link your slack" : "link slack",
+        slMsg: (self ? "in slack, dm @" : "ask " + who + " to dm @") + slug + " this code: " + code(sl && sl.n) + ". it expires in 10 minutes.",
+        slCodeStr: code(sl && sl.n),
+        slNew: () => { const n = ((((this.state.edSl || {})[id]) || {}).n || 0) + 1; setEd("edSl", { n }); landSlack(n); toast("new code"); },
+        slCancel: () => { clearTimeout(T[id + "s"]); setEd("edSl", null); },
+        slUnlink: () => { if (self) setA(() => ({ slack: null })); else setP(p.id, (x) => ({ ...x, handles: memHandles(x).filter((h) => h.kind !== "slack") })); toast("slack removed"); },
+      };
+    };
+    const cands = people.filter((p) => !p.auth);
+    const picked = cands.find((p) => p.id === ta.pick);
+    const q = (ta.q || "").trim().toLowerCase();
+    const sugg = picked ? [] : cands.filter((p) => !q || [p.name, ...(p.aliases || [])].join(" ").toLowerCase().includes(q)).slice(0, 5);
+    const pickedHs = picked ? memHandles(picked) : [];
     return {
       teamView: st.view === "team",
       teamBot: bot, teamLocked: !owner, teamCanAdd: owner,
       teamCount: team.length, teamCountWord: team.length === 1 ? "teammate · can assign work" : "teammates · can assign work",
       teamOpenLabel: owner ? "open →" : "view →", teamOpenColor: owner ? "oklch(0.55 0.075 150)" : "#97948a", teamCursor: "pointer",
       goTeam: () => this.setState({ settingsOpen: false, view: "team" }),
-      goMemoryFromTeam: () => this.setState({ view: "memory" }),
       teamEmpty: team.length === 0,
-      teamRows: team.map((p) => {
-        const hs = handlesOf(p), via = p.via || (hs[0] || {}).kind;
+      teamRows: [{ self: true, p: null }, ...team.map((p) => ({ self: false, p }))].map(({ self, p }, ri) => {
+        const hs = (self ? selfHs : memHandles(p)).filter((h) => h.ok), kinds = [...new Set(hs.map((h) => h.kind))];
+        const pv = self ? (st.meVia || "email") : p.via, via = kinds.includes(pv) ? pv : kinds[0];
+        const id = self ? "me" : p.id, role = self ? (owner ? "owner" : "member") : roleOf(p);
+        const editable = owner && !self, lastOwner = role === "owner" && owners <= 1;
+        const ed = edFor(id, self, p);
         return {
-          name: p.name, role: p.role || "no role yet",
-          handles: hs.map((h, i) => {
-            const pending = (st.tVerifying || {})[p.id + ":" + i];
-            return { mark: h.kind === "slack" ? "#" : "@", v: h.v, st: h.ok ? "✓ verified" : pending ? "link sent" : "unverified", stColor: h.ok ? "oklch(0.55 0.075 150)" : "oklch(0.50 0.09 70)",
-              canVerify: owner && !h.ok && !pending,
-              verify: () => {
-                const key = p.id + ":" + i;
-                this.setState((s2) => ({ tVerifying: { ...(s2.tVerifying || {}), [key]: true } }));
-                setTimeout(() => { this.setState((s2) => ({ tVerifying: { ...(s2.tVerifying || {}), [key]: false } })); save((list) => list.map((x) => x.id === p.id ? { ...x, handles: handlesOf(x).map((y, j) => j === i ? { ...y, ok: true } : y) } : x), "verified"); }, 1600);
-              } };
+          ed, editing: st.tEdit === id && (self || owner),
+          name: self ? acct.name : p.name, first: self ? "you" : (p.name || "").split(" ")[0].toLowerCase(), role: self ? "you" : (p.role || ""),
+          teamRole: role, chipEditable: editable,
+          chipLine: role === "owner" ? GL : "#e6e3da", chipColor: role === "owner" ? G : "#54524b", chipBg: role === "owner" ? "oklch(0.55 0.075 150 / 0.06)" : "#fdfcf9",
+          chipCursor: editable ? "pointer" : "default", chipTip: editable ? "change role" : role,
+          roleTap: () => editable && this.setState({ tRoleMenu: st.tRoleMenu === id ? null : id, tMenu: null }),
+          roleMenu: editable && st.tRoleMenu === id,
+          roleOpts: [["member", "can hand " + bot + " work"], ["owner", "can also change the team"]].map(([nm, sub]) => {
+            const on = nm === role, blocked = nm === "member" && lastOwner;
+            return { name: nm, sub: blocked ? "a team needs at least one owner" : sub, tick: on ? "✓" : "", op: blocked ? 0.5 : 1, cursor: blocked || on ? "default" : "pointer",
+              pick: () => { if (blocked) return; this.setState({ tRoleMenu: null }); if (!on) save((list) => list.map((x) => x.id === p.id ? { ...x, teamRole: nm } : x), nm === "owner" ? "made owner" : "made member"); } };
           }),
-          vias: [...new Set(hs.map((h) => h.kind))].map((k) => ({ name: k, color: k === via ? "#f7f6f1" : "#54524b", bg: k === via ? "#1c1b18" : "transparent", cursor: owner ? "pointer" : "default",
-            set: () => owner && k !== via && save((list) => list.map((x) => x.id === p.id ? { ...x, via: k } : x), "saved") })),
-          cursor: owner ? "pointer" : "default", tip: owner ? "turn off to take them off the team. they stay in memory." : "only the owner can change this",
-          toggle: () => owner && save((list) => list.map((x) => x.id === p.id ? { ...x, auth: false } : x), "off the team"),
+          tourH: ri === 0 ? "teamhandles" : "", tourV: ri === 0 ? "teamvia" : "",
+          noHandles: hs.length === 0,
+          handles: hs.map((h) => {
+            const pending = !self && ed.pend(h);
+            return { mark: h.kind === "slack" ? "#" : "@", v: h.v, ok: !!h.ok, pending: !h.ok && pending, verifyLabel: h.kind === "slack" ? "verify" : "not verified", pendLabel: h.kind === "slack" ? "waiting for code" : "waiting to confirm", canVerify: owner && !self && !h.ok && !pending,
+              verify: () => { this.setState({ tEdit: id, tMenu: null, tRoleMenu: null }); if (h.kind === "slack") ed.slStart(); else ed.verifyEmail(h.v); } };
+          }),
+          vias: kinds.map((k) => { const can = self || owner;
+            return { name: k, color: k === via ? "#f7f6f1" : "#54524b", bg: k === via ? "#1c1b18" : "transparent", cursor: can ? "pointer" : "default",
+              set: () => { if (!can || k === via) return; if (self) { this.setState({ meVia: k }); toast("saved"); } else save((list) => list.map((x) => x.id === p.id ? { ...x, via: k } : x), "saved"); } }; }),
+          canLeave: self && !(owner && owners <= 1), leaveArmed: self && !!st.tLeave,
+          leaveArm: () => this.setState({ tLeave: true }), stay: () => this.setState({ tLeave: false }),
+          leave: () => { this.setState({ tLeave: false }); this.orgLeave(); },
+          canEdit: self || owner, editLabel: st.tEdit === id ? "done" : "edit", editColor: st.tEdit === id ? "#1c1b18" : "#97948a",
+          editTap: () => this.setState({ tEdit: st.tEdit === id ? null : id, tMenu: null, tRoleMenu: null }),
+          hasMenu: self && owner, menuOpen: self && st.tMenu === "me",
+          menuTap: () => this.setState({ tMenu: st.tMenu === "me" ? null : "me", tRoleMenu: null }),
+          trStart: () => this.setState({ tMenu: null, tTr: true }),
+          trArmed: self && owner && !!st.tTr, trNone: team.length === 0,
+          trOpts: team.map((t) => ({ name: (t.name || "").toLowerCase(), pick: () => { save((list) => list.map((x) => x.id === t.id ? { ...x, teamRole: "owner" } : x), "ownership transferred"); this.setState({ meRole: "member", tTr: false, meTransferred: true, tRoleMenu: null }); } })),
+          trCancel: () => this.setState({ tTr: false }),
+          canRemove: editable && !lastOwner && st.tRm !== id, rmArmed: editable && st.tRm === id,
+          armRemove: () => this.setState({ tRm: id }), keep: () => this.setState({ tRm: null }),
+          remove: () => { this.setState({ tRm: null }); save((list) => list.map((x) => x.id === p.id ? { ...x, auth: false } : x), "off the team"); },
         };
       }),
-      taClosed: !st.taOpen, taOpenNow: !!st.taOpen, ta, taOn, taErr: st.taErr || "",
-      taOpen: () => this.setState({ taOpen: true, ta: { name: "", email: "", slack: "" }, taErr: "" }),
+      meTransferred: !!st.meTransferred && !owner,
+      undoTransfer: () => this.setState({ meRole: "owner", meTransferred: false }),
+      hasInvites: invs.length > 0,
+      invCount: invs.filter((x) => x.status === "pending").length + " pending",
+      teamInvites: [...invs].sort((x, y) => ORD[x.status] - ORD[y.status]).map((iv) => ({
+        who: iv.name || iv.email, hasEmail: !!iv.name, email: iv.email, status: iv.status,
+        stColor: iv.status === "pending" ? AT : "#97948a", stLine: iv.status === "pending" ? AL : "#e6e3da",
+        when: iv.status === "pending" ? "sent " + ago(iv.sent) + " · expires in " + Math.max(1, 7 - iv.sent) + "d" : iv.status === "expired" ? "sent " + ago(iv.sent) + " · expired " + ago(iv.sent - 7) : "revoked",
+        roleLine: "as " + iv.role, op: iv.status === "revoked" ? 0.55 : 1,
+        canResend: owner && iv.status !== "revoked", canRevoke: owner && iv.status === "pending",
+        resend: () => { setInv((l) => l.map((x) => x.id === iv.id ? { ...x, status: "pending", sent: 0 } : x)); toast("invite resent"); },
+        revoke: () => { setInv((l) => l.map((x) => x.id === iv.id ? { ...x, status: "revoked" } : x)); toast("invite revoked"); },
+      })),
+      taClosed: !st.taOpen, taOpenNow: !!st.taOpen, ta, taErr: st.taErr || "",
+      taRoles: ["member", "owner"].map((r) => { const on = (ta.role || "member") === r; return { name: r, color: on ? "#f7f6f1" : "#54524b", bg: on ? "#1c1b18" : "transparent", set: () => this.setState((s2) => ({ ta: { ...(s2.ta || {}), role: r } })) }; }),
+      taHint: "they get an email with a link. once they accept, they're on the team. inviting the same email again just resends it.",
+      taSlackOff: !okEmail(ta.email), taSlackOp: okEmail(ta.email) ? 1 : 0.5,
+      taOnSlack: (e) => { const v = e.target.value; this.setState((s2) => ({ ta: { ...(s2.ta || {}), slack: v }, taErr: "" })); },
+      taOnQ: (e) => { const v = e.target.value; this.setState((s2) => ({ ta: { ...(s2.ta || {}), q: v }, taErr: "" })); },
+      taOnEmail: (e) => { const v = e.target.value; this.setState((s2) => ({ ta: { ...(s2.ta || {}), email: v }, taErr: "" })); },
+      taOpen: () => this.setState({ taOpen: true, ta: { q: "", email: "", slack: "", role: "member" }, taErr: "" }),
       taCancel: () => this.setState({ taOpen: false, taErr: "" }),
       taSave: () => {
-        const name = (ta.name || "").trim(), email = (ta.email || "").trim(), slack = (ta.slack || "").trim();
+        const name = (ta.q || "").trim(), email = (ta.email || "").trim(), slack = (ta.slack || "").trim(), el = email.toLowerCase();
+        if (!okEmail(email)) return this.setState({ taErr: email ? "that email doesn't look right." : "add their work email." });
+        const again = invs.find((x) => x.email.toLowerCase() === el);
+        if (again) { setInv((l) => l.map((x) => x.id === again.id ? { ...x, status: "pending", sent: 0, role: ta.role || x.role } : x)); this.setState({ taOpen: false }); return toast("invite resent"); }
+        if (team.some((p) => memHandles(p).some((h) => h.v.toLowerCase() === el)) || acct.emails.some((x) => x.v.toLowerCase() === el)) return this.setState({ taErr: "they're already on the team." });
         if (!name) return this.setState({ taErr: "a name is required." });
-        if (!email && !slack) return this.setState({ taErr: "add an email or a slack handle." });
-        if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return this.setState({ taErr: "that email doesn't look right." });
-        const handles = [...(slack ? [{ kind: "slack", v: slack.startsWith("@") ? slack : "@" + slack, ok: false }] : []), ...(email ? [{ kind: "email", v: email, ok: false }] : [])];
-        const np = { id: "p" + Date.now(), auth: true, handles, via: handles[0].kind, name, aliases: [name.split(" ")[0].toLowerCase()], role: "", rel: "", knows: "", reach: handles[0].kind + " · " + handles[0].v, notes: "", source: "taught", seen: "2026-10-03" };
-        save((list) => [...list, np], "added");
-        this.setState({ taOpen: false });
+        if (!people.some((p) => memHandles(p).some((h) => h.v.toLowerCase() === el))) {
+          const handles = [{ kind: "email", v: email, ok: false }, ...(slack ? [{ kind: "slack", v: slack.startsWith("@") ? slack : "@" + slack, ok: false }] : [])];
+          save((list) => [...list, { id: "p" + Date.now(), auth: false, handles, via: "email", name, aliases: [name.split(" ")[0].toLowerCase()], role: "", rel: "", knows: "", reach: handles.map((h) => h.kind + " · " + h.v).join("; "), notes: "", source: "taught", seen: "2026-10-05" }]);
+        }
+        setInv((l) => [{ id: "iv" + Date.now(), name: name.toLowerCase(), email, role: ta.role || "member", status: "pending", sent: 0 }, ...l]);
+        this.setState({ taOpen: false }); toast("invite sent");
+      },
+    };
+  }
+
+  acceptInvite(id) {
+    const st = this.state, people = st.mPeople ?? ((this.props.memoryEmpty || this.state.orgBlank) ? [] : MEM_PEOPLE);
+    const invs = st.tInv ?? ((this.props.memoryEmpty || this.state.orgBlank) ? [] : TEAM_INV0);
+    const iv = invs.find((x) => x.id === id) || invs.find((x) => x.status === "pending");
+    if (!iv) return null;
+    const el = iv.email.toLowerCase();
+    const hit = people.find((p) => memHandles(p).some((h) => h.v.toLowerCase() === el));
+    const nm = iv.name || iv.email.split("@")[0];
+    const list = hit
+      ? people.map((p) => p.id === hit.id ? { ...p, auth: true, teamRole: iv.role, handles: memHandles(p).map((h) => h.v.toLowerCase() === el ? { ...h, ok: true } : h) } : p)
+      : [...people, { id: "p" + Date.now(), auth: true, teamRole: iv.role, handles: [{ kind: "email", v: iv.email, ok: true }], via: "email", name: nm, aliases: [nm.split(" ")[0]], role: "", rel: "", knows: "", reach: "email · " + iv.email, notes: "", source: "taught", seen: "2026-10-05" }];
+    this.setState({ mPeople: list, tInv: invs.filter((x) => x.id !== iv.id) });
+    return nm.split(" ")[0];
+  }
+
+  acctVals() {
+    const st = this.state, a = st.acct ?? ACCT0, add = st.aAdd, sign = st.aSign, sl = st.aSlack;
+    const okEmail = (v) => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test((v || "").trim());
+    const toast = (msg) => { clearTimeout(this._mt); this.setState({ mSaved: msg }); this._mt = setTimeout(() => this.setState({ mSaved: "" }), 1800); };
+    const setA = (patch) => this.setState((s2) => { const base = s2.acct ?? ACCT0; return { acct: { ...base, ...(typeof patch === "function" ? patch(base) : patch) } }; });
+    const saveName = () => { const v = (this.state.aName || "").trim(); if (!v) return; setA({ name: v }); this.setState({ aName: null }); toast("saved"); };
+    const sendAdd = () => {
+      const cur = this.state.aAdd || {}, v = (cur.v || "").trim();
+      if (!okEmail(v)) return this.setState({ aAdd: { ...cur, err: "that email doesn't look right." } });
+      if (a.emails.some((x) => x.v.toLowerCase() === v.toLowerCase())) return this.setState({ aAdd: { ...cur, err: "that one's already on your account." } });
+      this.setState({ aAdd: { stage: "code", v, n: 0, err: "" } }); arm(v, 0);
+    };
+    const CODES = ["482 913", "615 078", "903 452", "270 816"];
+    const arm = (v, n) => { clearTimeout(this._aet); this._aet = setTimeout(() => { const cur = this.state.aAdd; if (!cur || cur.stage !== "code" || cur.v !== v || cur.n !== n) return; setA((x) => ({ emails: [...x.emails, { v, ok: true }] })); this.setState({ aAdd: null }); toast("email verified"); }, 6000); };
+    const linkSlack = () => { setA({ slack: "@" + (a.name || "you").split(" ")[0].toLowerCase() }); this.setState({ aSlack: null }); toast("slack linked"); };
+    return {
+      acctName: a.name, aNameIdle: st.aName == null, aNameEdit: st.aName != null, aNameDraft: st.aName || "",
+      onAName: (e) => this.setState({ aName: e.target.value }),
+      aNameStart: () => this.setState({ aName: a.name }), aNameCancel: () => this.setState({ aName: null }),
+      aNameSave: saveName, aNameKey: (e) => { if (e.key === "Enter") saveName(); if (e.key === "Escape") this.setState({ aName: null }); },
+      acctEmails: a.emails.map((e) => { const primary = e.v === a.primary; return { v: e.v, ok: e.ok, primary, canPrimary: !primary && e.ok, canRemove: !primary && e.v !== a.signin,
+        makePrimary: () => { setA({ primary: e.v }); toast("primary changed"); },
+        remove: () => { setA((x) => ({ emails: x.emails.filter((y) => y.v !== e.v) })); toast("email removed"); } }; }),
+      aAddIdle: !add, aAddType: !!add && add.stage === "type", aAddCode: !!add && add.stage === "code",
+      aAddV: add ? add.v : "", aAddErr: add ? add.err || "" : "", aAddHasErr: !!(add && add.err),
+      onAAddV: (e) => this.setState({ aAdd: { ...(this.state.aAdd || {}), v: e.target.value, err: "" } }),
+      aAddKey: (e) => { if (e.key === "Enter") sendAdd(); },
+      aAddStart: () => this.setState({ aAdd: { stage: "type", v: "", code: "", err: "" } }),
+      aAddCancel: () => { clearTimeout(this._aet); this.setState({ aAdd: null }); }, aAddSend: sendAdd,
+      aCodeStr: add ? CODES[(add.n || 0) % CODES.length] : "",
+      aCodeMsg: add ? "send " + this.tmSlug() + " an email from " + add.v + " with this code: " + CODES[(add.n || 0) % CODES.length] + ". it expires in 10 minutes." : "",
+      aNewCode: () => { const cur = this.state.aAdd; if (!cur) return; const n = (cur.n || 0) + 1; this.setState({ aAdd: { ...cur, n } }); arm(cur.v, n); toast("new code"); },
+      aSignV: a.signin, aSignIdle: !sign, aSignType: !!sign && sign.stage === "type", aSignSent: !!sign && sign.stage === "sent",
+      aSignDraft: sign ? sign.v : "", onASign: (e) => this.setState({ aSign: { ...(this.state.aSign || {}), v: e.target.value, err: "" } }),
+      aSignStart: () => this.setState({ aSign: { stage: "type", v: "", err: "" } }), aSignCancel: () => this.setState({ aSign: null }),
+      aSignHint: sign && sign.err ? sign.err : "we'll send a confirmation to " + a.signin + " and to the new address.",
+      aSignHintColor: sign && sign.err ? "oklch(0.58 0.10 28)" : "#97948a",
+      aSignSend: () => { const v = ((this.state.aSign || {}).v || "").trim();
+        if (!okEmail(v)) return this.setState({ aSign: { ...this.state.aSign, err: "that email doesn't look right." } });
+        if (v.toLowerCase() === a.signin.toLowerCase()) return this.setState({ aSign: { ...this.state.aSign, err: "that's already your sign-in email." } });
+        this.setState({ aSign: { stage: "sent", v } }); toast("confirmation sent"); },
+      aSignNote: sign && sign.stage === "sent" ? "confirmation sent to " + a.signin + " and " + sign.v + ". it switches once you confirm from " + sign.v + "." : "",
+      aSlNone: !a.slack && !sl, aSlCode: !a.slack && sl === "code", aSlLinked: !!a.slack,
+      aSlHandle: a.slack || "", aSlCodeStr: CODES[(st.aSlN || 0) % CODES.length],
+      aSlMsg: "in slack, dm @" + this.tmSlug() + " this code: " + CODES[(st.aSlN || 0) % CODES.length] + ". it expires in 10 minutes.",
+      aSlLinkCode: () => { this.setState({ aSlack: "code", aSlN: 0 }); clearTimeout(this._slt); this._slt = setTimeout(() => { if (this.state.aSlack === "code") linkSlack(); }, 6000); },
+      aSlNewCode: () => { this.setState({ aSlN: (this.state.aSlN || 0) + 1 }); clearTimeout(this._slt); this._slt = setTimeout(() => { if (this.state.aSlack === "code") linkSlack(); }, 6000); toast("new code"); },
+      aSlCancel: () => { clearTimeout(this._slt); this.setState({ aSlack: null }); },
+      aSlUnlink: () => { setA({ slack: null }); toast("slack unlinked"); },
+    };
+  }
+
+  mailVals() {
+    const st = this.state, pv = this.props.previewScreen || "none";
+    if (pv !== this._pv) { const first = this._pv === undefined; this._pv = pv; if (!(first && pv === "none")) setTimeout(() => this.setState({ mail: pv === "invite email" ? "invite" : null, cont: pv === "continue page", contBusy: false }), 0); }
+    const invs = st.tInv ?? ((this.props.memoryEmpty || this.state.orgBlank) ? [] : TEAM_INV0);
+    const iv = invs.find((x) => x.status === "pending") || TEAM_INV0[0];
+    const a = st.acct ?? ACCT0;
+    const org = this.tmOrg();
+    return {
+      mailOn: st.mail === "invite", mailInvite: true,
+      mailSubject: "you've been added to " + org + " on buddy", mailTo: iv.email,
+      mailFoot: "this link is for " + iv.email + " and expires in 7 days. if you weren't expecting it, you can ignore this email.",
+      mailClose: () => this.setState({ mail: null }),
+      mailContinue: () => this.setState({ mail: null, cont: true, contBusy: false }),
+      invInviter: a.name, invTeam: org, invEmail: iv.email,
+      contFoot: this.props.inviteHasAccount ? "this adds " + org + " to your orgs." : "this link is for " + iv.email + ". if that isn't you, you can close this page.",
+      contOn: !!st.cont, contLabel: st.contBusy ? "joining…" : "continue", contOp: st.contBusy ? 0.6 : 1,
+      contGo: () => {
+        if (this.state.contBusy) return;
+        this.setState({ contBusy: true });
+        setTimeout(() => {
+          const who = this.acceptInvite(iv.id);
+          this.setState({ cont: false, contBusy: false, signedIn: true, entered: true, view: "team", settingsOpen: false, mSaved: who ? who + " joined the team" : "" });
+          clearTimeout(this._mt); this._mt = setTimeout(() => this.setState({ mSaved: "" }), 2200);
+        }, 700);
       },
     };
   }
 
   memVals() {
     const st = this.state, P = this.props;
-    const empty = !!P.memoryEmpty, conflict = P.conflictDemo ?? true;
+    const empty = !!(P.memoryEmpty || st.orgBlank), conflict = P.conflictDemo ?? true;
     const people = st.mPeople ?? (empty ? [] : MEM_PEOPLE);
     const procs = st.mProcs ?? (empty ? [] : MEM_PROCS);
     const taught = st.mTaught ?? (empty ? [] : MEM_TAUGHT);
@@ -3235,7 +3693,7 @@ class Component extends DCLogic {
         return set({ mPick: nx, mKeep: nx.includes(st.mKeep) ? st.mKeep : nx[0] });
       }
       if (st.mEdit === p.id) return;
-      set({ mEdit: p.id, pd: { ...p, aliases: p.aliases.join(", ") }, mConf: "", mErr: "", mDelArm: false, mPeople: dropNew, mNewId: null });
+      set({ mEdit: p.id, pd: { ...p, aliases: p.aliases.join(", "), handles: memHandles(p).map((h) => ({ ...h })) }, mConf: "", mErr: "", mDelArm: false, mPeople: dropNew, mNewId: null });
     };
     const pd = st.pd || {};
     const pdOn = {};
@@ -3294,7 +3752,7 @@ class Component extends DCLogic {
         const keep = st.mKeep || picks[0]; const other = picks.find((x) => x !== keep);
         const a = byId(keep), b = byId(other); if (!a || !b) return;
         const join = (x, y, sep) => x && y && x !== y ? x + sep + y : x || y;
-        const merged = { ...a, aliases: [...new Set([...a.aliases, b.name, ...b.aliases])].filter((x) => x.toLowerCase() !== a.name.toLowerCase()),
+        const merged = { ...a, auth: !!(a.auth || b.auth), handles: [...memHandles(a), ...memHandles(b).filter((h) => !memHandles(a).some((x) => x.v.toLowerCase() === h.v.toLowerCase()))], aliases: [...new Set([...a.aliases, b.name, ...b.aliases])].filter((x) => x.toLowerCase() !== a.name.toLowerCase()),
           role: a.role || b.role, rel: a.rel || b.rel, knows: join(a.knows, b.knows, "; "), reach: join(a.reach, b.reach, "; "), notes: join(a.notes, b.notes, " "), seen: (a.seen || "") > (b.seen || "") ? a.seen : b.seen };
         set({ mPeople: people.filter((p) => p.id !== other).map((p) => p.id === keep ? merged : p), mMerge: false, mPick: [], mKeep: null });
         toast("merged");
@@ -3302,7 +3760,7 @@ class Component extends DCLogic {
       addPerson: () => {
         const id = "p" + Date.now();
         const np = { id, name: "", aliases: [], role: "", rel: "", knows: "", reach: "", notes: "", source: "taught", seen: "2026-09-27" };
-        set({ mPeople: [np, ...dropNew], mEdit: id, mNewId: id, pd: { ...np, aliases: "" }, mQ: "", mMerge: false, mPick: [], mConf: "", mErr: "", mDelArm: false });
+        set({ mPeople: [np, ...dropNew], mEdit: id, mNewId: id, pd: { ...np, aliases: "", handles: [] }, mQ: "", mMerge: false, mPick: [], mConf: "", mErr: "", mDelArm: false });
       },
       peopleRows: pl.map((p) => {
         const picked = picks.includes(p.id), editing = st.mEdit === p.id;
@@ -3313,6 +3771,7 @@ class Component extends DCLogic {
           seen: fmtD(p.seen), editing, merging: !!st.mMerge,
           boxBorder: picked ? G : "#c4c1b6", boxBg: picked ? G : "#fdfcf9", tick: picked ? "✓" : "",
           bg: editing ? "#f7f6f1" : picked ? "oklch(0.55 0.075 150 / 0.06)" : "transparent",
+          handleList: memHandles(p).map((h) => ({ v: h.v, tick: h.ok ? "✓" : "" })),
           open: () => openPerson(p),
           authTrack: p.auth ? G : "#d9d6cc", authKnob: p.auth ? "12px" : "2px",
           authTip: p.auth ? "can give buddy work directly" : "buddy asks you before acting on their messages",
@@ -3320,6 +3779,14 @@ class Component extends DCLogic {
         };
       }),
       pd, pdOn, mErr: st.mErr || "",
+      pdHandles: (pd.handles || []).map((h, i) => {
+        const upd = (fn) => this.setState((s2) => ({ pd: { ...s2.pd, handles: (s2.pd.handles || []).map((x, j) => j === i ? fn(x) : x) } }));
+        return { v: h.v, tick: h.ok ? "✓" : "", tip: h.ok ? "verified" : "", ph: h.kind === "slack" ? "@handle or member id" : "name@company.com",
+          kinds: ["email", "slack"].map((k) => ({ name: k, color: k === h.kind ? "#f7f6f1" : "#54524b", bg: k === h.kind ? "#1c1b18" : "transparent", set: () => upd((x) => x.kind === k ? x : { ...x, kind: k, ok: false }) })),
+          on: (e) => { const v = e.target.value; upd((x) => ({ ...x, v, ok: false })); },
+          remove: () => this.setState((s2) => ({ pd: { ...s2.pd, handles: (s2.pd.handles || []).filter((_, j) => j !== i) } })) };
+      }),
+      pdAddHandle: () => this.setState((s2) => ({ pd: { ...s2.pd, handles: [...(s2.pd.handles || []), { kind: "email", v: "", ok: false }] } })),
       pdAuth: { authTrack: pd.auth ? "oklch(0.55 0.075 150)" : "#d9d6cc", authKnobL: pd.auth ? "14px" : "2px" },
       pdAuthLine: pd.auth ? "oklch(0.55 0.075 150 / 0.35)" : "#e6e3da", pdAuthBg: pd.auth ? "oklch(0.55 0.075 150 / 0.06)" : "#fdfcf9",
       pdAuthNote: pd.auth ? "their emails and mentions become work buddy picks up on its own. sends and payments still wait for approval." : "buddy reads their messages but asks you before taking anything on.",
@@ -3336,11 +3803,12 @@ class Component extends DCLogic {
         if (!d.name.trim()) return set({ mErr: "a name is required." });
         const orig = byId(d.id);
         if (conflict && !st.mConfUsed && d.id === "p1" && orig) {
-          const cur = { ...orig, reach: "email · rachel.okafor@haldenhealth.com", notes: orig.notes + " moved to the new domain in september.", seen: "2026-09-27" };
-          return set({ mPeople: people.map((p) => p.id === d.id ? cur : p), pd: { ...cur, aliases: cur.aliases.join(", ") }, mConfUsed: true,
+          const cur = { ...orig, handles: [{ kind: "email", v: "rachel.okafor@haldenhealth.com", ok: false }], reach: "email · rachel.okafor@haldenhealth.com", notes: orig.notes + " moved to the new domain in september.", seen: "2026-09-27" };
+          return set({ mPeople: people.map((p) => p.id === d.id ? cur : p), pd: { ...cur, aliases: cur.aliases.join(", "), handles: cur.handles.map((h) => ({ ...h })) }, mConfUsed: true,
             mConf: "buddy updated rachel's reach at 14:02 while you were editing. this is the current text; redo your change and save again." });
         }
-        const clean = { ...d, name: d.name.trim(), aliases: d.aliases.split(",").map((x) => x.trim()).filter(Boolean) };
+        const hs = (d.handles || []).map((h) => ({ ...h, v: h.v.trim() })).filter((h) => h.v);
+        const clean = { ...d, name: d.name.trim(), aliases: d.aliases.split(",").map((x) => x.trim()).filter(Boolean), handles: hs, reach: hs.map((h) => h.kind + " · " + h.v).join("; "), via: hs.some((h) => h.kind === d.via) ? d.via : (hs[0] || {}).kind };
         set({ mPeople: people.map((p) => p.id === d.id ? clean : p), ...closeEdit });
         toast("saved");
       },
@@ -3457,7 +3925,38 @@ class Component extends DCLogic {
   }
 
   tmSlug(v) { const x = ((v ?? this.state.botName) || "buddy").trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, ""); return x || "buddy"; }
-  tmOrg() { const raw = (this.state.company || this.state.authCo || "").trim(); if (raw) return raw.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "company"; const u = this.state.authUser || "nathaniel@northloop.io"; return ((u.split("@")[1] || "northloop.io").split(".")[0] || "northloop").toLowerCase(); }
+  orgSnap() { const st = this.state, o = {}; ORG_KEYS.forEach((k) => { o[k] = st[k]; }); return o; }
+  orgCur() { return { snap: this.orgSnap(), name: (this.state.company || "northloop").toLowerCase(), bot: ((this.state.botName || "").trim() || "buddy").toLowerCase(), slug: this.state.mailSlug || null, botName: this.state.botName, company: this.state.company }; }
+  orgOthers() { return this.state.orgOthers ?? (this.props.multiOrg ? [{ name: "fjord studio", bot: "ada", slug: "fjord_studio", botName: "ada", company: "fjord studio", snap: ORG_BLANK }] : []); }
+  orgSwitch(o, keepCur) {
+    const others = this.orgOthers().filter((x) => x !== o);
+    const next = keepCur === false ? others : [this.orgCur(), ...others];
+    const sn = o.snap || {};
+    this.setState({ ...ORG_RESET, ...Object.fromEntries(ORG_KEYS.filter((k) => sn[k] !== undefined).map((k) => [k, sn[k]])), orgOthers: next, botName: o.botName, company: o.company, mailSlug: o.slug, orgOpen: false, view: "desk", settingsOpen: false, tEdit: null, mSaved: "switched to " + o.name });
+    clearTimeout(this._mt); this._mt = setTimeout(() => this.setState({ mSaved: "" }), 1800);
+  }
+  orgLeave() {
+    const others = this.orgOthers();
+    if (!others.length) return this.setState({ signedIn: false, entered: false, authPass: "" });
+    this.orgSwitch(others[0], false);
+  }
+  orgVals() {
+    const st = this.state, cur = this.orgCur(), others = this.orgOthers();
+    const saveCo = () => { const v = (this.state.coDraft || "").trim(); if (!v) return; this.setState({ company: v, coDraft: null }); };
+    return {
+      orgMulti: others.length > 0, orgName: cur.name, orgOpen: !!st.orgOpen,
+      orgToggle: () => this.setState({ orgOpen: !st.orgOpen }),
+      orgRows: [{ ...cur, cur: true, pick: () => this.setState({ orgOpen: false }) }, ...others.map((o) => ({ name: o.name, bot: o.bot, cur: false, pick: () => this.orgSwitch(o) }))],
+      orgNew: () => this.setState({ orgOpen: false, needSetup: true, newOrg: true, suName: "", suCo: "", suErr: "" }),
+      coIdle: st.coDraft == null, coEdit: st.coDraft != null, coDraft: st.coDraft || "",
+      coStart: () => this.setState({ coDraft: cur.name }), coCancel: () => this.setState({ coDraft: null }),
+      onCo: (e) => this.setState({ coDraft: e.target.value }), coSave: saveCo,
+      coKey: (e) => { if (e.key === "Enter") saveCo(); if (e.key === "Escape") this.setState({ coDraft: null }); },
+    };
+  }
+  mxGate() { const pm = this.props.mailSetup || "auto"; const m = this.state.mxForce || (pm !== "auto" ? pm : (this.state.mx || "ready")); return m !== "ready"; }
+  tmOrg() { if (this.state.mailSlug) return this.state.mailSlug; return this.tmOrg0(); }
+  tmOrg0() { const raw = (this.state.company || this.state.authCo || "").trim(); if (raw) return raw.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "company"; const u = this.state.authUser || "nathaniel@northloop.io"; return ((u.split("@")[1] || "northloop.io").split(".")[0] || "northloop").toLowerCase(); }
   tmAddr(v) { return this.tmSlug(v) + "@" + this.tmOrg() + ".trybuddynow.com"; }
 
   tourGo(i) {
@@ -3628,7 +4127,7 @@ class Component extends DCLogic {
   allFiles() {
     const rf = this.state.renamedFiles || {};
     const rd = this.state.renamedDirs || {};
-    return FILES.map((f) => {
+    return (this.state.orgBlank ? [] : FILES).map((f) => {
       let p = rf[f.path] || f.path;
       for (const [oldD, newD] of Object.entries(rd)) if (p === oldD || p.startsWith(oldD + "/")) p = newD + p.slice(oldD.length);
       return p === f.path ? f : { ...f, path: p };
@@ -3804,12 +4303,12 @@ class Component extends DCLogic {
     const up = this.state.authMode === "up";
     IB_ADDRS.buddy = this.tmAddr();
     const u = this.usage();
-    const curP = this.state.projects.find((p) => p.id === this.state.cur) || this.state.projects[0];
+    const curP = this.state.projects.find((p) => p.id === this.state.cur) || this.state.projects[0] || { id: "_none", name: "", folders: [], files: 0, when: "", state: "idle", dot: "#c4c1b6", stateColor: "#97948a", fresh: true };
     const fresh = !!curP.fresh;
     const pl = this.state.plans[curP.id] || { phase: "idle", v: 1, lastAsk: "" };
     const plan = planFor(curP, pl.v);
-    const cur = this.state.projects.find((p) => p.id === this.state.cur) || this.state.projects[0];
-    const sel = this.state.sel;
+    const cur = this.state.projects.find((p) => p.id === this.state.cur) || this.state.projects[0] || { id: "_none", name: "", folders: [], files: 0, when: "", state: "idle", dot: "#c4c1b6", stateColor: "#97948a", fresh: true };
+    const sel = this.allFiles().some((f) => f.path === this.state.sel) ? this.state.sel : null;
     const selFile = this.allFiles().find((f) => f.path === sel);
     const isText = sel ? this.textByPath(sel) !== null : false;
     const draft = sel ? this.textOf(sel) : "";
@@ -3979,7 +4478,49 @@ class Component extends DCLogic {
       backToLanding: () => this.setState({ entered: false }),
       greetHead: GREETINGS[this.state.greetIx % GREETINGS.length].head,
       greetSub: GREETINGS[this.state.greetIx % GREETINGS.length].sub,
-      appView: this.state.signedIn,
+      appView: this.state.signedIn && !this.state.needSetup,
+      setupView: this.state.signedIn && !!this.state.needSetup,
+      ...(() => {
+        const st = this.state;
+        const slugify = (v) => (v || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+        const nameV = st.suName || ""; const local = slugify(nameV).replace(/-/g, "_") || "[buddy's_name]";
+        const slug = slugify(st.suCo).replace(/-/g, "_") || "[company_name]";
+        const go = () => {
+          const name = (this.state.suName || "").trim(), co = (this.state.suCo || "").trim();
+          const sl = slugify(co).replace(/-/g, "_");
+          if (!name) return this.setState({ suErr: "give your buddy a name." });
+          if (!co) return this.setState({ suErr: "add your company name." });
+          if (!sl) return this.setState({ suErr: "the address needs a company part." });
+          const wasNew = !!this.state.newOrg;
+          if (wasNew) this.setState({ orgOthers: [this.orgCur(), ...this.orgOthers()], ...ORG_BLANK });
+          this.setState({ botName: name, company: co, mailSlug: sl, botSet: true, needSetup: false, newOrg: false, suErr: "", mx: "setting up", view: "desk" });
+          if (wasNew) { clearTimeout(this._mxT); this._mxT = setTimeout(() => this.setState((s2) => s2.mx === "setting up" ? { mx: "ready" } : null), 12000); return; }
+          clearTimeout(this._mxT); this._mxT = setTimeout(() => this.setState((s2) => s2.mx === "setting up" ? { mx: "ready" } : null), 12000);
+          if (!this.state.toured) { this.setState({ toured: true }); setTimeout(() => this.tourGo(0), 500); }
+        };
+        return {
+          suName: nameV, suCo: st.suCo || "", suLine: "address: " + local + "@" + slug + ".trybuddynow.com",
+          onSuName: (e) => this.setState({ suName: e.target.value.replace(/[^a-zA-Z0-9 ._-]/g, ""), suErr: "" }),
+          onSuCo: (e) => this.setState({ suCo: e.target.value, suErr: "" }),
+          onSuSlug: (e) => this.setState({ suSlug: e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, ""), suErr: "" }),
+          onSuKey: (e) => { if (e.key === "Enter") go(); },
+          suGo: go, suErr: st.suErr || "", suHasErr: !!st.suErr,
+          googleAuth: () => this.setState({ signedIn: true, view: "desk", needSetup: !this.state.botSet }),
+        };
+      })(),
+      ...(() => {
+        const pm = this.props.mailSetup || "auto";
+        const m = this.state.mxForce || (pm !== "auto" ? pm : (this.state.mx || "ready"));
+        return {
+          mxShow: m !== "ready" && this.state.view === "inbox", mxBusy: m === "setting up", mxFailed: m === "failed", mxReady: m === "ready",
+          mxAddr: this.tmAddr(), mxReason: "couldn't reserve " + this.tmOrg() + ".trybuddynow.com in time",
+          mxLabel: m === "setting up" ? "setting up" : m === "failed" ? "failed" : "ready",
+          mxChipColor: m === "ready" ? "oklch(0.55 0.075 150)" : m === "failed" ? "oklch(0.58 0.10 28)" : "oklch(0.50 0.09 70)",
+          mxChipLine: m === "ready" ? "oklch(0.55 0.075 150 / 0.35)" : m === "failed" ? "oklch(0.58 0.10 28 / 0.4)" : "oklch(0.66 0.085 75 / 0.45)",
+          mxRetry: () => { this.setState({ mxForce: "setting up" }); clearTimeout(this._mxT); this._mxT = setTimeout(() => this.setState({ mxForce: "ready", mx: "ready" }), 5000); },
+          mxGate: m !== "ready",
+        };
+      })(),
       signingUp: up,
       signingIn: !up,
       authKicker: up ? "new account" : "sign in",
@@ -4030,9 +4571,9 @@ class Component extends DCLogic {
       tmAddrPreview: ((this.state.authBot || "").trim() ? this.tmSlug(this.state.authBot) : "[teammate name]") + "@" + ((this.state.authCo || "").trim() ? this.tmOrg() : "[your company name]") + ".trybuddynow.com",
       onAuthPass: (e) => this.setState({ authPass: e.target.value }),
       onAuthKey: (e) => {
-        if (e.key === "Enter") { const up = this.state.authMode === "up"; this.setState((st) => ({ signedIn: true, view: "desk", botName: st.authMode === "up" ? (st.authBot || "").trim() || st.botName : st.botName, company: st.authMode === "up" ? (st.authCo || "").trim() || st.company : st.company })); if (up && !this.state.toured) { this.setState({ toured: true }); setTimeout(() => this.tourGo(0), 500); } };
+        if (e.key === "Enter") { const up = this.state.authMode === "up"; this.setState({ signedIn: true, view: "desk", needSetup: up && !this.state.botSet }); };
       },
-      submitAuth: () => { const up = this.state.authMode === "up"; this.setState((st) => ({ signedIn: true, view: "desk", botName: st.authMode === "up" ? (st.authBot || "").trim() || st.botName : st.botName, company: st.authMode === "up" ? (st.authCo || "").trim() || st.company : st.company })); if (up && !this.state.toured) { this.setState({ toured: true }); setTimeout(() => this.tourGo(0), 500); } },
+      submitAuth: () => { const up = this.state.authMode === "up"; this.setState({ signedIn: true, view: "desk", needSetup: up && !this.state.botSet }); },
       whoami: this.state.authUser || "nathaniel@northloop.io",
       signOut: () => this.setState({ signedIn: false, authPass: "", entered: false }),
       view: this.state.view,
@@ -4243,13 +4784,18 @@ class Component extends DCLogic {
       modalSignOut: () => this.setState({ settingsOpen: false, signedIn: false, authPass: "", entered: false }),
       ...this.memVals(),
       ...this.teamVals(),
+      ...this.orgVals(),
+      deskProjRows: this.state.projects.slice(0, 3).map((p) => ({ name: p.name, when: p.when || "just now", dot: p.dot || "#c4c1b6", open: () => this.setState({ view: "projects", projView: "session", cur: p.id }) })),
+      deskProjCount: this.state.projects.length, deskProjNone: this.state.projects.length === 0,
+      ...this.acctVals(),
+      ...this.mailVals(),
       ...this.teachVals(),
       ...(() => {
         const st = this.state, kind = st.fbKind || "idea";
         const where = st.legal ? st.legal : (!st.signedIn && !st.entered) ? "landing" : st.view === "memory" ? "memory" : st.teach ? "teach mode" : st.view || "projects";
         const set = (o) => this.setState(o);
         return {
-          fbDisplay: st.signedIn ? "flex" : "none",
+          fbDisplay: st.signedIn && !st.needSetup ? "flex" : "none",
           fbOpen: !!st.fbOpen, fbForm: !st.fbDone, fbSent: !!st.fbDone, fbWhere: where,
           fbToggle: () => set({ fbOpen: !st.fbOpen, fbErr: "" }),
           fbClose: () => set({ fbOpen: false, fbErr: "" }),
@@ -4334,7 +4880,7 @@ class Component extends DCLogic {
       cycleHours: u.total,
       ...(() => {
         const hrs = parseFloat(String(u.total).replace(/[^0-9.]/g, "")) || 0;
-        const compH = hrs * 1.35, CR = 0.6, LR = 4.4;
+        const compH = hrs * 1.35, CR = 0.5, LR = 40;
         const c = compH * CR, l = hrs * LR, f = (n) => "$" + n.toFixed(2);
         return { costTotal: f(c + l), costComp: f(c), costLabor: f(l), costCompPct: ((c / (c + l || 1)) * 100).toFixed(1) + "%",
           costCompNote: compH.toFixed(1) + " hrs the machine was on, at $" + CR.toFixed(2) + "/hr. includes boot and wind-down.",
@@ -4352,7 +4898,7 @@ class Component extends DCLogic {
       inboxNavRule: this.state.view === "inbox" ? "oklch(0.55 0.075 150)" : "transparent",
       ...(() => {
         const st = this.state, set = (o) => this.setState(o);
-        const threads = this.props.inboxEmpty ? [] : (st.ibT || IB_THREADS);
+        const threads = (this.props.inboxEmpty || st.orgBlank) ? [] : (st.ibT || IB_THREADS);
         const muted = st.ibMuted || [];
         const read = st.ibRead || [];
         const f = st.ibF || "all", q = (st.ibQ || "").toLowerCase().trim();
@@ -4365,11 +4911,11 @@ class Component extends DCLogic {
         const isUnread = (t) => t.unread && !read.includes(t.id);
         const BN = ((st.botName || "").trim() || "buddy").toLowerCase();
         const projs = st.projects, home = st.ibHome || "triage";
-        const pname = (id) => (projs.find((p) => p.id === id) || projs.find((p) => p.id === home) || projs[0]).name;
+        const pname = (id) => (projs.find((p) => p.id === id) || projs.find((p) => p.id === home) || projs[0] || { id: "_none", name: "no project yet", folders: [], files: 0, when: "", state: "idle", dot: "#c4c1b6", stateColor: "#97948a", fresh: true }).name;
         const projOf = () => home;
         const moveT = (tid, pid) => set({ ibT: threads.map((t) => t.id === tid ? { ...t, proj: pid } : t), ibDrag: null, ibOver: null });
         return {
-          ibAddr: this.tmAddr(), ibEmpty: threads.length === 0, ibHas: threads.length > 0,
+          ibAddr: this.tmAddr(), ibEmpty: threads.length === 0 && !this.mxGate(), ibHas: threads.length > 0 && !this.mxGate(),
           ibCopy: () => { try { navigator.clipboard.writeText(this.tmAddr()); } catch (e) {} set({ ibCopied: true }); setTimeout(() => this.setState({ ibCopied: false }), 1400); },
           ibCopiedOp: st.ibCopied ? 1 : 0,
           inboxHasUnread: threads.some(isUnread),
@@ -4399,11 +4945,11 @@ class Component extends DCLogic {
           ibMove: (e) => th && moveT(th.id, e.target.value),
           ibHasOpen: !!th, ibNoOpen: !th,
           th: th ? { ...(() => {
-              const ppl = st.mPeople ?? (this.props.memoryEmpty ? [] : MEM_PEOPLE);
+              const ppl = st.mPeople ?? ((this.props.memoryEmpty || this.state.orgBlank) ? [] : MEM_PEOPLE);
               const who = ppl.find((p) => p.name === th.sender);
-              if (!who) return { hasAuth: true, authText: "not in memory · buddy asks first", authColor: "#97948a", authTip: "add them in settings → memory to let them assign work" };
+              if (!who) return { hasAuth: true, authText: "not in memory · buddy asks first", authColor: "#97948a", authTip: "add them in settings → team to let them assign work" };
               const f = who.name.split(" ")[0].toLowerCase();
-              return who.auth ? { hasAuth: true, authText: f + " can assign work", authColor: "oklch(0.55 0.075 150)", authTip: "set in settings → memory" } : { hasAuth: true, authText: "buddy asks you before acting for " + f, authColor: "#97948a", authTip: "set in settings → memory" };
+              return who.auth ? { hasAuth: true, authText: f + " can assign work", authColor: "oklch(0.55 0.075 150)", authTip: "set in settings → team" } : { hasAuth: true, authText: "buddy asks you before acting for " + f, authColor: "#97948a", authTip: "set in settings → team" };
             })(), subject: th.subject, where: th.where.replace(/\bbuddy\b/, BN), mark: th.src === "email" ? "@" : "#", srcName: th.src, item: pname(projOf(th)), proj: projOf(th),
             canHand: th.outside && !th.item, canMute: true,
             ...(() => { const ppl = [...new Set(th.msgs.flatMap((g) => [g.side === "buddy" ? "buddy" : g.who, ...(g.to || []), ...(g.cc || [])]))]; const f2 = (x) => x === "buddy" ? BN : x.split(" (")[0].split(" ")[0].toLowerCase(); return { hasPeople: ppl.length > 2, people: ppl.length + " people · " + ppl.slice(0, 3).map(f2).join(", ") + (ppl.length > 3 ? " +" + (ppl.length - 3) : ""), peopleAll: ppl.map((x) => x === "buddy" ? BN : x).join(", ") }; })(),
@@ -4473,7 +5019,7 @@ class Component extends DCLogic {
             });
             return out;
           })() : [],
-          ibGoMemory: () => set({ view: "memory" }),
+          ibGoMemory: () => set({ view: "team" }),
           ...(() => {
             if (!th) return { rpFwd: false, rpNotFwd: true, rpFwdTo: "", onRpFwdTo: () => {}, rpFwdNote: "", rpBccToggle: () => {}, rpBccColor: "#97948a", rpBccLabel: "", rpBccOpen: false, rpBcc: "", onRpBcc: () => {}, rpVia: "", rpIsEmail: false, rpTo: "", rpModes: [], rpBlocked: false, rpBlockedText: "", rpLine: "#e6e3da", rpHasAtt: false, rpAtt: [], rpText: "", onRpText: () => {}, onRpKey: () => {}, rpHint: "", rpSend: () => {}, rpAttach: () => {}, rpBtnLine: "#e6e3da", rpBtnBg: "#fdfcf9", rpBtnColor: "#97948a" };
             const dr = (st.rpDraft || {})[th.id] || "", att = (st.rpFiles || {})[th.id] || [], mode = (st.rpMode || {})[th.id] || "all", all = mode === "all";
@@ -4530,20 +5076,20 @@ class Component extends DCLogic {
       filesNavColor: this.state.view === "files" ? "#1c1b18" : "#97948a",
       projNavColor: this.state.view === "projects" ? "#1c1b18" : "#97948a",
       deskNavColor: this.state.view === "desk" ? "#1c1b18" : "#97948a",
-      apprNavColor: this.state.view === "approvals" ? "#1c1b18" : APPROVALS.some((a) => !this.state.resolved[a.id]) ? ACCENT : "#97948a",
+      apprNavColor: this.state.view === "approvals" ? "#1c1b18" : (this.state.orgBlank ? [] : APPROVALS).some((a) => !this.state.resolved[a.id]) ? ACCENT : "#97948a",
       filesNavRule: this.state.view === "files" ? ACCENT : "transparent",
       projNavRule: this.state.view === "projects" ? ACCENT : "transparent",
       deskNavRule: this.state.view === "desk" ? ACCENT : "transparent",
       apprNavRule: this.state.view === "approvals" ? ACCENT : "transparent",
-      approvals: APPROVALS.filter((a) => !this.state.resolved[a.id]).map((a) => ({
+      approvals: (this.state.orgBlank ? [] : APPROVALS).filter((a) => !this.state.resolved[a.id]).map((a) => ({
         ...a,
         approve: () => this.setState((st) => ({ resolved: { ...st.resolved, [a.id]: "approved" } })),
         decline: () => this.setState((st) => ({ resolved: { ...st.resolved, [a.id]: "declined" } })),
       })),
       noApprovals: APPROVALS.every((a) => this.state.resolved[a.id]),
-      pendingCount: APPROVALS.filter((a) => !this.state.resolved[a.id]).length,
-      pillLine: APPROVALS.some((a) => !this.state.resolved[a.id]) ? ACCENT_LINE : "#e6e3da",
-      pillColor: APPROVALS.some((a) => !this.state.resolved[a.id]) ? ACCENT : "#54524b",
+      pendingCount: (this.state.orgBlank ? [] : APPROVALS).filter((a) => !this.state.resolved[a.id]).length,
+      pillLine: (this.state.orgBlank ? [] : APPROVALS).some((a) => !this.state.resolved[a.id]) ? ACCENT_LINE : "#e6e3da",
+      pillColor: (this.state.orgBlank ? [] : APPROVALS).some((a) => !this.state.resolved[a.id]) ? ACCENT : "#54524b",
       rows: this.fileRows().map((r) => {
         const arming = this.state.fsDeleting === r.path;
         return {
@@ -4636,7 +5182,7 @@ class Component extends DCLogic {
         ];
         const c = S[k], d = dec[k];
         return {
-          ccTabs: S.map((x, i) => ({ name: x.name, color: i === k ? "#1c1b18" : "#97948a", line: i === k ? "#1c1b18" : "transparent", go: () => this.setState({ ccS: i }) })),
+          ccTabs: S.map((x, i) => ({ name: x.name, color: i === k ? "#1c1b18" : "#97948a", line: i === k ? "oklch(0.55 0.075 150)" : "transparent", go: (e) => { const el = e && e.currentTarget, strip = el && el.closest("[data-cctabs]"); if (strip) strip.scrollTo({ left: Math.max(0, el.offsetLeft - (strip.clientWidth - el.offsetWidth) / 2), behavior: "smooth" }); this.setState({ ccS: i }); } })),
           cs: { ...c, hasFile: !!c.file, isDraft: c.kind === "draft", isRecur: c.kind === "recur", isContract: c.kind === "contract",
             pending: c.kind === "draft" && !d, decided: c.kind === "draft" && !!d, waitText: "waiting on " + (c.gate || "") + "'s yes",
             doneText: d === "yes" ? c.gate + " approved · sent" : c.gate + " declined · not sent", doneColor: d === "yes" ? "oklch(0.55 0.075 150)" : "#97948a",
@@ -4669,7 +5215,7 @@ class Component extends DCLogic {
           { name: "renew the porto venue hold", when: "oct 14", sub: "arkos · from sam's email", pid: "arkos" },
         ];
         const m = (x) => ({ ...x, project: x.sub, open: go(x.pid) });
-        return { deskRecur: R.map(m), deskRecurCount: R.length, deskLater: L.map(m), deskLaterCount: L.length };
+        const B = this.state.orgBlank; return { deskRecur: B ? [] : R.map(m), deskRecurCount: B ? 0 : R.length, deskLater: B ? [] : L.map(m), deskLaterCount: B ? 0 : L.length };
       })(),
       fbTour: () => { this.setState({ fbOpen: false }); setTimeout(() => this.tourGo(0), 180); },
       showFiles: () => this.setState({ tab: "files" }),

@@ -57,6 +57,10 @@
     .research-preview { font-size: 9px !important; letter-spacing: 0.12em !important; }
     [style*="grid-template-columns: 200px minmax(0, 1fr)"] { grid-template-columns: 1fr !important; gap: 24px !important; padding: 40px 22px 24px !important; }
     [style*="grid-template-columns: 200px minmax(0, 1fr)"] > nav { position: static !important; }
+    /* "three people, one buddy.": its head and its card stack, as every other section's do. */
+    .landsect > [style*="gap: 72px; align-items: end"] { grid-template-columns: 1fr !important; gap: 14px !important; }
+    .landcard > [style^="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr)"] { grid-template-columns: 1fr !important; }
+    .landcard > [style^="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr)"] > :first-child { border-right: none !important; border-bottom: 1px solid #e6e3da; }
   }
   @media (prefers-reduced-motion: reduce) {
     .landsect, .viewin { animation: none !important; }
@@ -67,13 +71,12 @@
 <body>
 <!-- Rendered from the template below at its initial state, so the page reads before the script runs. -->
 <div id="root">
+
 <!--sc-if-->
 
 <!--sc-if-->
-  <div style="height: 100vh; height: 100dvh; overflow-y: auto; background: #f7f6f1">
-  <div class="lpwrap" style="container-type: inline-size; background: #f7f6f1; margin: 0 auto; max-width: none; min-height: 100%; border-left: none; border-right: none">
-
-    <div style="position: sticky; top: 0; z-index: 50; background: color-mix(in oklch, #f7f6f1 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid #e6e3da">
+  <div style="height: 100vh; height: 100dvh; display: flex; flex-direction: column; background: #f7f6f1">
+    <div style="flex-shrink: 0; background: #f7f6f1; margin: 0 auto; width: 100%; max-width: none; border-left: none; border-right: none; box-sizing: border-box; border-bottom: 1px solid #e6e3da">
       <div style="max-width: 1060px; margin: 0 auto; padding: 14px 48px; position: relative; display: flex; align-items: center; justify-content: space-between">
         <span style="display: flex; align-items: center; gap: 10px">
           <span style="position: relative; display: inline-grid; place-items: center; width: 26px; height: 26px"><span style="font-weight: 700; font-size: 18px; letter-spacing: -0.04em">b</span><span style="position: absolute; top: -1px; right: -4px; width: 5px; height: 5px; border-radius: 50%; background: oklch(0.55 0.075 150); animation: ping 2.4s cubic-bezier(.4,0,.2,1) infinite"></span></span>
@@ -83,18 +86,49 @@
         <a href="https://app.trybuddynow.com/app/" style="font-size: 12px; color: #54524b; cursor: pointer; border: 1px solid #e6e3da; background: #fdfcf9; padding: 6px 15px; border-radius: 100px">sign in</a>
       </div>
     </div>
+  <div data-lpscroll="1" style="flex: 1; min-height: 0; overflow-y: auto">
+  <div class="lpwrap" style="container-type: inline-size; background: #f7f6f1; margin: 0 auto; max-width: none; min-height: 100%; border-left: none; border-right: none">
+
 
     <div style="max-width: 1060px; margin: 0 auto; padding: 0 48px">
 
       <div class="viewin" style="padding: 104px 0 88px">
-        <h1 style="margin: 0 0 20px; font-weight: 500; font-size: 48px; line-height: 1.08; letter-spacing: -0.03em; max-width: 820px; text-wrap: pretty">a digital intern<br>still on the job next week.<span style="display: inline-block; width: 11px; height: 0.88em; vertical-align: -0.06em; background: oklch(0.55 0.075 150); margin-left: 7px; animation: blink 1.2s steps(1) infinite"></span></h1>
-        <p style="margin: 0 0 30px; font-size: 14px; line-height: 1.8; color: #54524b; max-width: 520px; text-wrap: pretty">buddy works on a real computer, learns how your team does things, asks before anything leaves your account, and asks when it's stuck.</p>
+        <h1 style="margin: 0 0 20px; font-weight: 500; font-size: 48px; line-height: 1.08; letter-spacing: -0.03em; max-width: 820px; text-wrap: pretty">a digital intern<br>for the whole team.<span style="display: inline-block; width: 11px; height: 0.88em; vertical-align: -0.06em; background: oklch(0.55 0.075 150); margin-left: 7px; animation: blink 1.2s steps(1) infinite"></span></h1>
+        <p style="margin: 0 0 30px; font-size: 14px; line-height: 1.8; color: #54524b; max-width: 520px; text-wrap: pretty">buddy has its own inbox and its own desk. email it, slack it, or sit next to it and show it. it asks the person who'd know when it's stuck, and nothing goes out until the person who asked says yes.</p>
         <div style="display: flex; align-items: center; gap: 14px">
           <a href="https://app.trybuddynow.com/app/" style="display: inline-flex; align-items: center; gap: 9px; font-size: 13px; border: 1px solid oklch(0.55 0.075 150); background: oklch(0.55 0.075 150); color: #fdfcf9; padding: 11px 24px; border-radius: 100px; cursor: pointer; box-shadow: 0 1px 2px rgba(28,27,24,.06), 0 8px 22px -12px oklch(0.55 0.075 150 / 0.55)"><span style="font-size: 9px">▶</span>get started</a>
                   </div>
       </div>
 
       <div class="landsect" style="padding: 0 0 96px">
+        <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 72px; align-items: end; margin-bottom: 32px">
+          <div>
+            <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">it has an inbox</span>
+            <h2 style="margin: 0 0 10px; font-weight: 500; font-size: 30px; letter-spacing: -0.025em; line-height: 1.15">three people, one buddy.</h2>
+            <p style="margin: 0; font-size: 13px; line-height: 1.7; color: #1c1b18; text-wrap: pretty">rachel emails it. dev slacks it. priya opens the app. same buddy, same memory, same list.</p>
+          </div>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">it keeps track of who asked for what and who it's waiting on. when two requests touch the same thing it notices, and asks before it guesses.</p>
+        </div>
+        <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
+          <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr)">
+            <div style="min-width: 0; border-right: 1px solid #e6e3da">
+              <div style="padding: 10px 16px; border-bottom: 1px solid #e6e3da; background: #f7f6f1; font-size: 10.5px; color: #97948a; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">buddy@halden.trybuddynow.com</div>
+              <div style="display: flex; flex-direction: column; gap: 3px; padding: 11px 16px; border-bottom: 1px solid #f1efe8; min-width: 0"><span style="display: flex; align-items: center; gap: 7px; font-size: 10px; color: #97948a"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.66 0.085 75); flex-shrink: 0"></span>email · <span style="color: #1c1b18; font-size: 11.5px">rachel okafor</span></span><span style="font-size: 11.5px; line-height: 1.5; color: #54524b; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">can you pull the pilot seat counts before thursday?</span></div>
+              <div style="display: flex; flex-direction: column; gap: 3px; padding: 11px 16px; border-bottom: 1px solid #f1efe8; min-width: 0"><span style="display: flex; align-items: center; gap: 7px; font-size: 10px; color: #97948a"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.55 0.075 150); flex-shrink: 0"></span>slack · <span style="color: #1c1b18; font-size: 11.5px">dev mehta</span></span><span style="font-size: 11.5px; line-height: 1.5; color: #54524b; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">@buddy the board deck numbers, same as last month</span></div>
+              <div style="display: flex; flex-direction: column; gap: 3px; padding: 11px 16px; border-bottom: 1px solid #f1efe8; min-width: 0"><span style="display: flex; align-items: center; gap: 7px; font-size: 10px; color: #97948a"><span style="width: 6px; height: 6px; border-radius: 50%; background: #97948a; flex-shrink: 0"></span>app · <span style="color: #1c1b18; font-size: 11.5px">priya nair</span></span><span style="font-size: 11.5px; line-height: 1.5; color: #54524b; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">reconcile september against quickbooks</span></div>
+            </div>
+            <div style="min-width: 0">
+              <div style="padding: 10px 16px; border-bottom: 1px solid #e6e3da; background: #f7f6f1; font-size: 10.5px; color: #97948a; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">what buddy has</div>
+              <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 6px 12px; padding: 14px 16px; border-bottom: 1px solid #f1efe8; min-width: 0"><span style="flex: 1 1 140px; min-width: 0; font-size: 12px; line-height: 1.5; color: #1c1b18">seat counts for rachel</span><span style="flex-shrink: 0; font-size: 10px; color: oklch(0.50 0.09 70); background: oklch(0.66 0.085 75 / 0.14); padding: 3px 9px; border-radius: 100px; white-space: nowrap">waiting on dev · needs the q4 price</span></div>
+              <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 6px 12px; padding: 14px 16px; border-bottom: 1px solid #f1efe8; min-width: 0"><span style="flex: 1 1 140px; min-width: 0; font-size: 12px; line-height: 1.5; color: #1c1b18">board deck for dev</span><span style="flex-shrink: 0; font-size: 10px; color: oklch(0.45 0.07 150); background: oklch(0.55 0.075 150 / 0.10); padding: 3px 9px; border-radius: 100px; white-space: nowrap">drafting</span></div>
+              <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 6px 12px; padding: 14px 16px; border-bottom: 1px solid #f1efe8; min-width: 0"><span style="flex: 1 1 140px; min-width: 0; font-size: 12px; line-height: 1.5; color: #1c1b18">september reconcile for priya</span><span style="flex-shrink: 0; font-size: 10px; color: #54524b; background: #f1efe8; padding: 3px 9px; border-radius: 100px; white-space: nowrap">done · 2 rows flagged</span></div>
+            </div>
+          </div>
+          <div style="border-top: 1px solid #efece4; background: #f1efe8; padding: 9px 16px; font-size: 10.5px; color: #97948a">rachel sees her item. dev sees his. the owner sees all of it.</div>
+        </div>
+      </div>
+
+      <div class="landsect" style="padding: 72px 0 96px; border-top: 1px solid #e6e3da">
         <div class="cchead" style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 72px; align-items: start; margin-bottom: 32px">
           <div>
             <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">its own inbox</span>
@@ -147,7 +181,46 @@
       </div>
 
       <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
+        <div style="order: 2">
+          <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">show it once</span>
+          <h2 style="margin: 0 0 10px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">teach it the way the team does it.</h2>
+          <p style="margin: 0 0 14px; font-size: 14px; line-height: 1.6; color: #1c1b18; text-wrap: pretty">priya does it once. after that buddy does it for everyone.</p>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">do it yourself, say what matters as you go, hand back. buddy writes it down and does it that way next time, for whoever asks. anyone on the team can read it, edit it, or throw it out.</p>
+        </div>
         <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
+          <div style="display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid #efece4; background: #f1efe8">
+            <span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.66 0.085 75)"></span>
+            <span style="flex: 1; font-size: 10px; color: #54524b">teaching · netsuite</span>
+            <span style="font-size: 9px; letter-spacing: .1em; text-transform: uppercase; padding: 2px 8px; border-radius: 100px; border: 1px solid oklch(0.66 0.085 75); color: oklch(0.50 0.09 70)">you have the keys</span>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr">
+            <div style="padding: 14px; border-right: 1px solid #efece4; display: flex; flex-direction: column; gap: 9px">
+              <div style="aspect-ratio: 4 / 3; border: 1px solid #efece4; border-radius: 6px; background: repeating-linear-gradient(135deg, #f1efe8 0 8px, #ebe8df 8px 16px); display: flex; align-items: flex-end; padding: 6px"><span style="font-size: 8.5px; color: #97948a; background: #fdfcf9; border: 1px solid #e6e3da; padding: 2px 7px; border-radius: 100px">reports · saved searches</span></div>
+              <div style="display: flex; flex-direction: column; gap: 6px; border-top: 1px solid #efece4; padding-top: 9px">
+                <span style="font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a">you said</span>
+                <span style="display: grid; grid-template-columns: 12px 1fr; font-size: 10.5px; line-height: 1.5; color: #54524b"><span style="color: oklch(0.66 0.085 75)">›</span>not the invoice list. it stops at 1,000 rows.</span>
+                <span style="display: grid; grid-template-columns: 12px 1fr; font-size: 10.5px; line-height: 1.5; color: #54524b"><span style="color: oklch(0.66 0.085 75)">›</span>csv, always. priya's import hates excel.</span>
+                <span style="display: grid; grid-template-columns: 12px 1fr; font-size: 10.5px; line-height: 1.5; color: #54524b"><span style="color: oklch(0.66 0.085 75)">›</span><span><span style="color: #97948a">(edited draft)</span> seat counts before price when writing to rachel.</span></span>
+              </div>
+            </div>
+            <div style="padding: 14px 16px; display: flex; flex-direction: column; gap: 8px">
+              <span style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap"><span style="font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a">buddy wrote</span><span style="font-size: 9px; color: oklch(0.55 0.075 150); border: 1px solid oklch(0.55 0.075 150 / 0.35); padding: 1px 7px; border-radius: 100px">learned from your edit</span></span>
+              <span style="font-size: 12px; color: #1c1b18">export invoices from netsuite</span>
+              <div style="display: flex; flex-direction: column; gap: 5px; font-size: 10.5px; line-height: 1.55; color: #54524b">
+                <span style="display: grid; grid-template-columns: 14px 1fr"><span style="color: #97948a">1</span>reports → saved searches</span>
+                <span style="display: grid; grid-template-columns: 14px 1fr; padding-left: 14px; color: #97948a"><span>·</span><span><i>gotcha:</i> not the invoice list, it caps at 1,000 rows</span></span>
+                <span style="display: grid; grid-template-columns: 14px 1fr"><span style="color: #97948a">2</span>last month, first to last day</span>
+                <span style="display: grid; grid-template-columns: 14px 1fr"><span style="color: #97948a">3</span>export as csv</span>
+                <span style="display: grid; grid-template-columns: 14px 1fr"><span style="color: #97948a">4</span>email priya the row count</span>
+              </div>
+              <span style="margin-top: auto; font-size: 9.5px; color: oklch(0.55 0.075 150)">saved to memory</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
+        <div class="landcard" style="order: 2; border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
           <div style="display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid #efece4; background: #f1efe8">
             <span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.55 0.075 150); animation: ping 2.4s cubic-bezier(.4,0,.2,1) infinite"></span>
             <span style="flex: 1; min-width: 0; font-size: 10px; color: #54524b; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">buddy's computer · mail.google.com/…/thread/pilot-terms</span>
@@ -189,7 +262,7 @@
             <span style="font-size: 10.5px; border: 1px solid #1c1b18; background: #1c1b18; color: #f7f6f1; padding: 4px 11px; border-radius: 6px; cursor: pointer; transition: color .2s, border-color .2s, background .2s">take over</span>
           </div>
         </div>
-        <div style="order: 2">
+        <div>
           <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">a real computer</span>
           <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">watch the screen live. take the keys anytime.</h2>
           <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">buddy drives a full desktop and browser, not an api shim. watch every click as it happens, expand the screen to half or full width, double-click to take over, and hand back when you're done. hand back and buddy knows what you did while you had the keys. type into the bubble to steer without touching anything.</p>
@@ -197,47 +270,8 @@
       </div>
 
       <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
-        <div>
-          <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">show it once</span>
-          <h2 style="margin: 0 0 10px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">teach it the way the team does it.</h2>
-          <p style="margin: 0 0 14px; font-size: 14px; line-height: 1.6; color: #1c1b18; text-wrap: pretty">take over, do the task, hand back.</p>
-          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">do it yourself, say what matters as you go, hand back. buddy writes it down and does it that way next time. everything it learns, anyone on the team can read, edit or throw out.</p>
-        </div>
-        <div class="landcard" style="order: 2; border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
-          <div style="display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid #efece4; background: #f1efe8">
-            <span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.66 0.085 75)"></span>
-            <span style="flex: 1; font-size: 10px; color: #54524b">teaching · netsuite</span>
-            <span style="font-size: 9px; letter-spacing: .1em; text-transform: uppercase; padding: 2px 8px; border-radius: 100px; border: 1px solid oklch(0.66 0.085 75); color: oklch(0.50 0.09 70)">you have the keys</span>
-          </div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr">
-            <div style="padding: 14px; border-right: 1px solid #efece4; display: flex; flex-direction: column; gap: 9px">
-              <div style="aspect-ratio: 4 / 3; border: 1px solid #efece4; border-radius: 6px; background: repeating-linear-gradient(135deg, #f1efe8 0 8px, #ebe8df 8px 16px); display: flex; align-items: flex-end; padding: 6px"><span style="font-size: 8.5px; color: #97948a; background: #fdfcf9; border: 1px solid #e6e3da; padding: 2px 7px; border-radius: 100px">reports · saved searches</span></div>
-              <div style="display: flex; flex-direction: column; gap: 6px; border-top: 1px solid #efece4; padding-top: 9px">
-                <span style="font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a">you said</span>
-                <span style="display: grid; grid-template-columns: 12px 1fr; font-size: 10.5px; line-height: 1.5; color: #54524b"><span style="color: oklch(0.66 0.085 75)">›</span>not the invoice list. it stops at 1,000 rows.</span>
-                <span style="display: grid; grid-template-columns: 12px 1fr; font-size: 10.5px; line-height: 1.5; color: #54524b"><span style="color: oklch(0.66 0.085 75)">›</span>csv, always. priya's import hates excel.</span>
-                <span style="display: grid; grid-template-columns: 12px 1fr; font-size: 10.5px; line-height: 1.5; color: #54524b"><span style="color: oklch(0.66 0.085 75)">›</span><span><span style="color: #97948a">(edited draft)</span> seat counts before price when writing to rachel.</span></span>
-              </div>
-            </div>
-            <div style="padding: 14px 16px; display: flex; flex-direction: column; gap: 8px">
-              <span style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap"><span style="font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a">buddy wrote</span><span style="font-size: 9px; color: oklch(0.55 0.075 150); border: 1px solid oklch(0.55 0.075 150 / 0.35); padding: 1px 7px; border-radius: 100px">learned from your edit</span></span>
-              <span style="font-size: 12px; color: #1c1b18">export invoices from netsuite</span>
-              <div style="display: flex; flex-direction: column; gap: 5px; font-size: 10.5px; line-height: 1.55; color: #54524b">
-                <span style="display: grid; grid-template-columns: 14px 1fr"><span style="color: #97948a">1</span>reports → saved searches</span>
-                <span style="display: grid; grid-template-columns: 14px 1fr; padding-left: 14px; color: #97948a"><span>·</span><span><i>gotcha:</i> not the invoice list, it caps at 1,000 rows</span></span>
-                <span style="display: grid; grid-template-columns: 14px 1fr"><span style="color: #97948a">2</span>last month, first to last day</span>
-                <span style="display: grid; grid-template-columns: 14px 1fr"><span style="color: #97948a">3</span>export as csv</span>
-                <span style="display: grid; grid-template-columns: 14px 1fr"><span style="color: #97948a">4</span>email priya the row count</span>
-              </div>
-              <span style="margin-top: auto; font-size: 9.5px; color: oklch(0.55 0.075 150)">saved to memory</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
         <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
-          <div style="padding: 11px 16px; border-bottom: 1px solid #efece4; display: flex; align-items: center; justify-content: space-between"><span style="font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a">memory · people</span><span style="font-size: 10px; color: #97948a">assigns</span></div>
+          <div style="padding: 11px 16px; border-bottom: 1px solid #efece4; display: flex; align-items: center; justify-content: space-between"><span style="font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a">settings · team</span><span style="font-size: 10px; color: #97948a">on the team</span></div>
           <!--sc-for-->
             <div style="display: flex; align-items: center; gap: 12px; padding: 11px 16px; border-bottom: 1px solid #f1efe8; cursor: pointer">
               <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12px; color: #1c1b18">dev mehta</span><span style="font-size: 10.5px; color: #97948a">ceo · northloop</span></span>
@@ -268,7 +302,7 @@
         <div>
           <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">in or out</span>
           <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">your team hands it work directly.</h2>
-          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">switch assigns on for the people you trust. their emails and mentions become work buddy picks up on its own, no one has to open the app. for everyone else, it reads the message and asks you first. sends and payments still wait for a yes either way.</p>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">put the people you trust on the team. their emails and mentions become work buddy picks up on its own, no one has to open the app. for everyone else, it reads the message and asks you first. sends and payments still wait for a yes either way.</p>
         </div>
       </div>
 
@@ -277,14 +311,14 @@
           <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">it knows the job</span>
           <h2 style="margin: 0 0 10px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">its own notes on the work.</h2>
           <p style="margin: 0 0 14px; font-size: 14px; line-height: 1.6; color: #1c1b18; text-wrap: pretty">people, how things are done here, and what's going on.</p>
-          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">who knows what and how they like things done. how this team does each thing. what buddy is on right now. all of it in settings, all of it editable, and you see it write every time.</p>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">who's on the team and what they own. who the clients and vendors are and how they like things. how this team does each thing. what buddy is on right now and for whom. all of it in settings, all of it editable, and everyone on the team sees it write.</p>
         </div>
         <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
           <div style="display: flex; align-items: baseline; justify-content: space-between; padding: 12px 16px 8px"><span style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #97948a">memory · people</span><span style="font-size: 10px; color: #97948a">6</span></div>
           <div style="border-top: 1px solid #efece4">
             <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 10px; padding: 7px 16px; border-bottom: 1px solid #f1efe8"><span style="display: flex; flex-direction: column; gap: 1px; min-width: 0"><span style="font-size: 11.5px; color: #1c1b18">rachel okafor</span><span style="font-size: 9.5px; color: #97948a">client · halden health</span></span><span style="font-size: 10.5px; line-height: 1.5; color: #54524b">pilot terms, seat counts. signs off over $10k.</span></div>
-            <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 10px; padding: 7px 16px; border-bottom: 1px solid #f1efe8"><span style="display: flex; flex-direction: column; gap: 1px; min-width: 0"><span style="font-size: 11.5px; color: #1c1b18">priya nair</span><span style="font-size: 9.5px; color: #97948a">vendor · ledgerline</span></span><span style="font-size: 10.5px; line-height: 1.5; color: #54524b">quickbooks, the monthly close. out fridays.</span></div>
-            <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 10px; padding: 7px 16px; border-bottom: 1px solid #f1efe8"><span style="display: flex; flex-direction: column; gap: 1px; min-width: 0"><span style="font-size: 11.5px; color: #1c1b18">dev mehta</span><span style="font-size: 9.5px; color: #97948a">manager</span></span><span style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-size: 10.5px; line-height: 1.5; color: #54524b">the board deck, final say on pricing.</span><span style="font-size: 10.5px; line-height: 1.5; color: #54524b">daily update.</span></span></div>
+            <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 10px; padding: 7px 16px; border-bottom: 1px solid #f1efe8"><span style="display: flex; flex-direction: column; gap: 1px; min-width: 0"><span style="font-size: 11.5px; color: #1c1b18">priya nair</span><span style="display: flex; align-items: center; gap: 6px; font-size: 9.5px; color: #97948a; min-width: 0"><span style="flex-shrink: 0; font-size: 9px; color: #54524b; border: 1px solid #e6e3da; background: #f7f6f1; padding: 0 6px; border-radius: 100px">teammate</span>books and invoicing</span></span><span style="font-size: 10.5px; line-height: 1.5; color: #54524b">quickbooks, the monthly close. out fridays.</span></div>
+            <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 10px; padding: 7px 16px; border-bottom: 1px solid #f1efe8"><span style="display: flex; flex-direction: column; gap: 1px; min-width: 0"><span style="font-size: 11.5px; color: #1c1b18">dev mehta</span><span style="display: flex; align-items: center; gap: 6px; font-size: 9.5px; color: #97948a; min-width: 0"><span style="flex-shrink: 0; font-size: 9px; color: #54524b; border: 1px solid #e6e3da; background: #f7f6f1; padding: 0 6px; border-radius: 100px">owner</span>northloop</span></span><span style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-size: 10.5px; line-height: 1.5; color: #54524b">the board deck, final say on pricing.</span><span style="font-size: 10.5px; line-height: 1.5; color: #54524b">daily update.</span></span></div>
           </div>
           <div style="margin: 12px 14px 14px; border: 1px solid #e6e3da; border-radius: 8px; background: #f7f6f1; padding: 11px 13px">
             <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 7px"><span style="font-size: 11.5px; color: #1c1b18">reconcile invoices against quickbooks</span><span style="flex: 1"></span><span style="font-size: 9.5px; color: #97948a">step 2 of 3</span></div>
@@ -332,14 +366,14 @@
         <div>
           <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">it gets faster</span>
           <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">the fifth time isn't the first.</h2>
-          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">the first time, it asks. every answer and every edit becomes a saved procedure, so the list of things it already knows how to do keeps growing and the same work takes fewer hours. same job, less of you.</p>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">the first time, it asks. every answer and every edit becomes a saved procedure, so the list of things it already knows how to do keeps growing and the same work takes fewer hours. same job, less of everyone.</p>
         </div>
       </div>
 
       <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
         <div>
           <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">plan</span>
-          <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">it plans. you approve. then it runs.</h2>
+          <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">it plans. whoever asked approves. then it runs.</h2>
           <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">press plan and buddy drafts a plan first: the goal, what done looks like, the inputs it has, and the questions it still needs answered. ask for changes over as many rounds as you like. nothing runs until you say so, and the approved plan is saved to your project as plan.md.</p>
         </div>
         <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
@@ -369,17 +403,18 @@
         <div style="display: flex; flex-direction: column; gap: 12px">
           <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
             <div style="padding: 14px 16px 12px">
-              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 9px"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.66 0.085 75)"></span><span style="font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: oklch(0.50 0.09 70)">needs you</span><span style="flex: 1"></span><span style="font-size: 10px; color: #97948a">waiting 2h</span></div>
-              <span style="display: block; font-size: 12.5px; color: #1c1b18; line-height: 1.5">stuck on the vendor export. i need you to log in.</span>
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 9px"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.66 0.085 75)"></span><span style="font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: oklch(0.50 0.09 70)">waiting on priya · 2h</span></div>
+              <span style="display: block; font-size: 12.5px; color: #1c1b18; line-height: 1.5">stuck on the vendor export. priya, i need you to log in.</span>
             </div>
             <div style="border-top: 1px solid #efece4; background: #f1efe8; padding: 9px 16px; display: flex; align-items: center; gap: 8px"><span style="font-size: 10px; color: #97948a; flex: 1">computer paused at the sign-in screen</span><span style="font-size: 10.5px; border: 1px solid #1c1b18; background: #1c1b18; color: #f7f6f1; padding: 5px 12px; border-radius: 6px">take the keys</span></div>
           </div>
           <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
             <!--sc-if-->
-              <div style="padding: 13px 16px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap">
-                <span style="flex: 1; min-width: 180px; font-size: 12px; color: #1c1b18; line-height: 1.5">the quote to rachel is still open. want me to send it?</span>
+              <div style="padding: 14px 16px 0; display: flex; align-items: center; gap: 8px"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.66 0.085 75)"></span><span style="font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: oklch(0.50 0.09 70)">waiting on dev · 20m</span></div>
+              <div style="padding: 9px 16px 13px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap">
+                <span style="flex: 1; min-width: 180px; font-size: 12px; color: #1c1b18; line-height: 1.5">the quote to rachel is still open. dev, want me to send it?</span>
                 <span style="font-size: 10.5px; color: #54524b; padding: 5px 10px; cursor: pointer; border: 1px solid transparent; border-radius: 6px">not now</span>
-                <span style="font-size: 10.5px; border: 1px solid #e6e3da; background: #fdfcf9; color: #1c1b18; padding: 5px 12px; border-radius: 6px; cursor: pointer">yes, take it</span>
+                <span style="font-size: 10.5px; border: 1px solid #e6e3da; background: #fdfcf9; color: #1c1b18; padding: 5px 12px; border-radius: 6px; cursor: pointer">yes, send it</span>
               </div>
             
             <!--sc-if-->
@@ -388,22 +423,22 @@
         <div>
           <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">stuck means ask</span>
           <h2 style="margin: 0 0 10px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">it doesn't quit.</h2>
-          <p style="margin: 0 0 14px; font-size: 14px; line-height: 1.6; color: #1c1b18; text-wrap: pretty">when it's stuck, it tells you what it needs and waits.</p>
-          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">minutes or days, the computer stays paused. and when the desk is quiet it looks at what's open and asks if you want it to take the next thing.</p>
+          <p style="margin: 0 0 14px; font-size: 14px; line-height: 1.6; color: #1c1b18; text-wrap: pretty">when it's stuck, it asks the one person who'd know, and waits.</p>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">minutes or days, the computer stays paused. if priya's the one with the login, priya gets the question, not everyone. and when the desk is quiet it looks at what's open and asks whoever's around if it should take the next thing.</p>
         </div>
       </div>
 
       <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
         <div>
           <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">approvals first</span>
-          <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">nothing leaves your account without a yes.</h2>
-          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">sends, posts, and payments stop and wait for you, with the exact plan and tools on the card. stop a run mid-flight and it holds at the boundary. resume with a note, or cancel for good.</p>
+          <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">nothing leaves without a yes from the person who asked.</h2>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">sends, posts, and payments stop and wait, with the exact plan and tools on the card. the card goes to whoever gave buddy the job. nobody else's yes counts. stop a run mid-flight and it holds at the boundary. resume with a note, or cancel for good.</p>
         </div>
         <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
           <!--sc-if-->
             <div style="padding: 14px 16px 12px">
               <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 9px">
-                <span style="display: flex; align-items: center; gap: 8px; font-size: 10.5px; color: #54524b"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.66 0.085 75)"></span>gmail · rachel@lumen.co</span>
+                <span style="display: flex; align-items: center; gap: 8px; font-size: 10.5px; color: #54524b"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.66 0.085 75)"></span>gmail · to rachel@lumen.co · asked by dev</span>
                 <span style="font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(0.55 0.075 150); border: 1px solid oklch(0.55 0.075 150 / 0.35); padding: 1px 7px; border-radius: 100px">send</span>
               </div>
               <span style="display: block; font-size: 12.5px; color: #1c1b18; margin-bottom: 3px">send the reply about pilot terms?</span>
@@ -433,7 +468,7 @@
         <div>
           <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">a filesystem that survives</span>
           <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">the work is still there next week.</h2>
-          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">files live in a store that outlasts any session. projects link the folders they need, drafts and notes accumulate, and the next run picks up exactly where the last one held. drag files in, rename, edit, and read everything buddy writes.</p>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">files live in a store that outlasts any session. projects link the folders they need, drafts and notes accumulate, and the next run picks up exactly where the last one held. drag files in, rename, edit, and read everything buddy writes. every file is the team's, not one person's.</p>
         </div>
       </div>
 
@@ -441,7 +476,7 @@
         <div>
           <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">your apps, connected</span>
           <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">click through the apps buddy can touch.</h2>
-          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">gmail, slack, linear, github, notion and more. turn them on per session from the chat bar. apps that need your login authorize once in settings.</p>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">gmail, slack, linear, github, notion and more. turn them on per session from the chat bar. apps that need a login, one person authorizes once in settings and the team is set.</p>
         </div>
         <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
           <div style="display: flex; align-items: baseline; justify-content: space-between; padding: 13px 16px 9px">
@@ -486,31 +521,32 @@
 
       <div class="landsect" style="border-top: 1px solid #e6e3da; padding: 88px 0 96px; text-align: center">
         <div data-slot="pricing" style="min-height: 20px; margin-bottom: 14px; font-size: 12.5px; line-height: 20px; color: #97948a"></div>
-        <h2 style="margin: 0 0 12px; font-weight: 500; font-size: 30px; letter-spacing: -0.025em; text-wrap: pretty">give buddy the job.</h2>
-        <p style="margin: 0 0 26px; font-size: 12.5px; line-height: 1.8; color: #97948a">it will still be at the desk when you check back.<br>and it'll know the job better than it did yesterday.</p>
+        <h2 style="margin: 0 0 12px; font-weight: 500; font-size: 30px; letter-spacing: -0.025em; text-wrap: pretty">give buddy a seat.</h2>
+        <p style="margin: 0 0 26px; font-size: 12.5px; line-height: 1.8; color: #97948a">it'll still be at the desk when anyone checks back.<br>and it'll know the job better than it did yesterday.</p>
         <div style="display: flex; flex-direction: column; align-items: center; gap: 22px">
         <a href="https://app.trybuddynow.com/app/" style="display: inline-flex; align-items: center; gap: 9px; font-size: 13px; border: 1px solid oklch(0.55 0.075 150); background: oklch(0.55 0.075 150); color: #fdfcf9; padding: 11px 24px; border-radius: 100px; cursor: pointer; box-shadow: 0 1px 2px rgba(28,27,24,.06), 0 8px 22px -12px oklch(0.55 0.075 150 / 0.55)"><span style="font-size: 9px">▶</span>get started</a>
-        <div style="font-size: 11.5px; line-height: 1.6; color: #97948a">need it for a larger team? <a href="mailto:trybuddynow@gmail.com?subject=enterprise" style="color: oklch(0.55 0.075 150); text-decoration: underline; text-underline-offset: 2px">contact us</a> about enterprise plans.</div>
+        <div style="font-size: 11.5px; line-height: 1.6; color: #97948a">need it for a larger team? <a href="mailto:hello@buddy.work?subject=enterprise" style="color: oklch(0.55 0.075 150); text-decoration: underline; text-underline-offset: 2px">contact us</a> about enterprise plans.</div>
         </div>
         <div style="display: flex; gap: 26px; justify-content: center; padding-top: 64px; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">
-          <span>approvals first</span><span>disposable compute</span><span>durable storage</span>
+          <span>one buddy per team</span><span>approvals first</span><span>disposable compute</span><span>durable storage</span>
         </div>
       </div>
-      <footer style="border-top: 1px solid #e6e3da; padding: 22px 0 calc(34px + env(safe-area-inset-bottom)); display: flex; align-items: center; gap: 22px; flex-wrap: wrap; font-size: 11px; color: #97948a">
+      <footer style="border-top: 1px solid #e6e3da; padding: 22px 0 34px; display: flex; align-items: center; gap: 22px; flex-wrap: wrap; font-size: 11px; color: #97948a">
         <span>© 2026 buddy</span>
         <span style="flex: 1"></span>
         <span style="color: #97948a; text-decoration: none; cursor: pointer">privacy</span>
         <span style="color: #97948a; text-decoration: none; cursor: pointer">terms</span>
-        <a href="mailto:trybuddynow@gmail.com" style="color: #97948a; text-decoration: none; cursor: pointer">contact us</a>
+        <a href="mailto:hello@buddy.work" style="color: #97948a; text-decoration: none; cursor: pointer">contact us</a>
       </footer>
 
     </div>
   </div>
   </div>
+  </div>
 
 
 </div>
-<!-- design_NEWEST/Looking Glass - Tool Budget.dc.html (buddy-core designs/new-landing, 2026-10-03): legalView and landingView, verbatim but for the owner rulings. -->
+<!-- design_NEWEST/Looking Glass - Tool Budget.dc.html (buddy-core designs/new-landing, 2026-10-06): legalView and landingView, verbatim but for the owner rulings. -->
 <template id="landing">
 <sc-if value="{{ legalView }}" hint-placeholder-val="{{ false }}">
   <div data-legalscroll="1" style="height: 100vh; height: 100dvh; overflow-y: auto; background: #f7f6f1">
@@ -560,10 +596,8 @@
 </sc-if>
 
 <sc-if value="{{ landingView }}" hint-placeholder-val="{{ true }}">
-  <div style="height: 100vh; height: 100dvh; overflow-y: auto; background: {{ lpOuterBg }}">
-  <div class="lpwrap" style="container-type: inline-size; background: #f7f6f1; margin: 0 auto; max-width: {{ lpMax }}; min-height: 100%; border-left: {{ lpEdge }}; border-right: {{ lpEdge }}">
-
-    <div style="position: sticky; top: 0; z-index: 50; background: color-mix(in oklch, #f7f6f1 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid #e6e3da">
+  <div style="height: 100vh; height: 100dvh; display: flex; flex-direction: column; background: {{ lpOuterBg }}">
+    <div style="flex-shrink: 0; background: #f7f6f1; margin: 0 auto; width: 100%; max-width: {{ lpMax }}; border-left: {{ lpEdge }}; border-right: {{ lpEdge }}; box-sizing: border-box; border-bottom: 1px solid #e6e3da">
       <div style="max-width: 1060px; margin: 0 auto; padding: 14px 48px; position: relative; display: flex; align-items: center; justify-content: space-between">
         <span style="display: flex; align-items: center; gap: 10px">
           <span style="position: relative; display: inline-grid; place-items: center; width: 26px; height: 26px"><span style="font-weight: 700; font-size: 18px; letter-spacing: -0.04em">b</span><span style="position: absolute; top: -1px; right: -4px; width: 5px; height: 5px; border-radius: 50%; background: oklch(0.55 0.075 150); animation: ping 2.4s cubic-bezier(.4,0,.2,1) infinite"></span></span>
@@ -573,18 +607,49 @@
         <a href="https://app.trybuddynow.com/app/" style="font-size: 12px; color: #54524b; cursor: pointer; border: 1px solid #e6e3da; background: #fdfcf9; padding: 6px 15px; border-radius: 100px" style-hover="border-color: #c4c1b6; color: #1c1b18">sign in</a>
       </div>
     </div>
+  <div data-lpscroll="1" style="flex: 1; min-height: 0; overflow-y: auto">
+  <div class="lpwrap" style="container-type: inline-size; background: #f7f6f1; margin: 0 auto; max-width: {{ lpMax }}; min-height: 100%; border-left: {{ lpEdge }}; border-right: {{ lpEdge }}">
+
 
     <div style="max-width: 1060px; margin: 0 auto; padding: 0 48px">
 
       <div class="viewin" style="padding: 104px 0 88px">
-        <h1 style="margin: 0 0 20px; font-weight: 500; font-size: 48px; line-height: 1.08; letter-spacing: -0.03em; max-width: 820px; text-wrap: pretty">a digital intern<br />still on the job next week.<span style="display: inline-block; width: 11px; height: 0.88em; vertical-align: -0.06em; background: oklch(0.55 0.075 150); margin-left: 7px; animation: blink 1.2s steps(1) infinite"></span></h1>
-        <p style="margin: 0 0 30px; font-size: 14px; line-height: 1.8; color: #54524b; max-width: 520px; text-wrap: pretty">buddy works on a real computer, learns how your team does things, asks before anything leaves your account, and asks when it's stuck.</p>
+        <h1 style="margin: 0 0 20px; font-weight: 500; font-size: 48px; line-height: 1.08; letter-spacing: -0.03em; max-width: 820px; text-wrap: pretty">a digital intern<br />for the whole team.<span style="display: inline-block; width: 11px; height: 0.88em; vertical-align: -0.06em; background: oklch(0.55 0.075 150); margin-left: 7px; animation: blink 1.2s steps(1) infinite"></span></h1>
+        <p style="margin: 0 0 30px; font-size: 14px; line-height: 1.8; color: #54524b; max-width: 520px; text-wrap: pretty">buddy has its own inbox and its own desk. email it, slack it, or sit next to it and show it. it asks the person who'd know when it's stuck, and nothing goes out until the person who asked says yes.</p>
         <div style="display: flex; align-items: center; gap: 14px">
           <a href="https://app.trybuddynow.com/app/" style="display: inline-flex; align-items: center; gap: 9px; font-size: 13px; border: 1px solid oklch(0.55 0.075 150); background: oklch(0.55 0.075 150); color: #fdfcf9; padding: 11px 24px; border-radius: 100px; cursor: pointer; box-shadow: 0 1px 2px rgba(28,27,24,.06), 0 8px 22px -12px oklch(0.55 0.075 150 / 0.55)" style-hover="background: #1c1b18; border-color: #1c1b18"><span style="font-size: 9px">▶</span>get started</a>
                   </div>
       </div>
 
       <div class="landsect" style="padding: 0 0 96px">
+        <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 72px; align-items: end; margin-bottom: 32px">
+          <div>
+            <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">it has an inbox</span>
+            <h2 style="margin: 0 0 10px; font-weight: 500; font-size: 30px; letter-spacing: -0.025em; line-height: 1.15">three people, one buddy.</h2>
+            <p style="margin: 0; font-size: 13px; line-height: 1.7; color: #1c1b18; text-wrap: pretty">rachel emails it. dev slacks it. priya opens the app. same buddy, same memory, same list.</p>
+          </div>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">it keeps track of who asked for what and who it's waiting on. when two requests touch the same thing it notices, and asks before it guesses.</p>
+        </div>
+        <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
+          <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr)">
+            <div style="min-width: 0; border-right: 1px solid #e6e3da">
+              <div style="padding: 10px 16px; border-bottom: 1px solid #e6e3da; background: #f7f6f1; font-size: 10.5px; color: #97948a; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">buddy@halden.trybuddynow.com</div>
+              <div style="display: flex; flex-direction: column; gap: 3px; padding: 11px 16px; border-bottom: 1px solid #f1efe8; min-width: 0"><span style="display: flex; align-items: center; gap: 7px; font-size: 10px; color: #97948a"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.66 0.085 75); flex-shrink: 0"></span>email · <span style="color: #1c1b18; font-size: 11.5px">rachel okafor</span></span><span style="font-size: 11.5px; line-height: 1.5; color: #54524b; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">can you pull the pilot seat counts before thursday?</span></div>
+              <div style="display: flex; flex-direction: column; gap: 3px; padding: 11px 16px; border-bottom: 1px solid #f1efe8; min-width: 0"><span style="display: flex; align-items: center; gap: 7px; font-size: 10px; color: #97948a"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.55 0.075 150); flex-shrink: 0"></span>slack · <span style="color: #1c1b18; font-size: 11.5px">dev mehta</span></span><span style="font-size: 11.5px; line-height: 1.5; color: #54524b; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">@buddy the board deck numbers, same as last month</span></div>
+              <div style="display: flex; flex-direction: column; gap: 3px; padding: 11px 16px; border-bottom: 1px solid #f1efe8; min-width: 0"><span style="display: flex; align-items: center; gap: 7px; font-size: 10px; color: #97948a"><span style="width: 6px; height: 6px; border-radius: 50%; background: #97948a; flex-shrink: 0"></span>app · <span style="color: #1c1b18; font-size: 11.5px">priya nair</span></span><span style="font-size: 11.5px; line-height: 1.5; color: #54524b; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">reconcile september against quickbooks</span></div>
+            </div>
+            <div style="min-width: 0">
+              <div style="padding: 10px 16px; border-bottom: 1px solid #e6e3da; background: #f7f6f1; font-size: 10.5px; color: #97948a; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">what buddy has</div>
+              <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 6px 12px; padding: 14px 16px; border-bottom: 1px solid #f1efe8; min-width: 0"><span style="flex: 1 1 140px; min-width: 0; font-size: 12px; line-height: 1.5; color: #1c1b18">seat counts for rachel</span><span style="flex-shrink: 0; font-size: 10px; color: oklch(0.50 0.09 70); background: oklch(0.66 0.085 75 / 0.14); padding: 3px 9px; border-radius: 100px; white-space: nowrap">waiting on dev · needs the q4 price</span></div>
+              <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 6px 12px; padding: 14px 16px; border-bottom: 1px solid #f1efe8; min-width: 0"><span style="flex: 1 1 140px; min-width: 0; font-size: 12px; line-height: 1.5; color: #1c1b18">board deck for dev</span><span style="flex-shrink: 0; font-size: 10px; color: oklch(0.45 0.07 150); background: oklch(0.55 0.075 150 / 0.10); padding: 3px 9px; border-radius: 100px; white-space: nowrap">drafting</span></div>
+              <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 6px 12px; padding: 14px 16px; border-bottom: 1px solid #f1efe8; min-width: 0"><span style="flex: 1 1 140px; min-width: 0; font-size: 12px; line-height: 1.5; color: #1c1b18">september reconcile for priya</span><span style="flex-shrink: 0; font-size: 10px; color: #54524b; background: #f1efe8; padding: 3px 9px; border-radius: 100px; white-space: nowrap">done · 2 rows flagged</span></div>
+            </div>
+          </div>
+          <div style="border-top: 1px solid #efece4; background: #f1efe8; padding: 9px 16px; font-size: 10.5px; color: #97948a">rachel sees her item. dev sees his. the owner sees all of it.</div>
+        </div>
+      </div>
+
+      <div class="landsect" style="padding: 72px 0 96px; border-top: 1px solid #e6e3da">
         <div class="cchead" style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 72px; align-items: start; margin-bottom: 32px">
           <div>
             <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">its own inbox</span>
@@ -650,7 +715,46 @@
       </div>
 
       <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
+        <div style="order: 2">
+          <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">show it once</span>
+          <h2 style="margin: 0 0 10px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">teach it the way the team does it.</h2>
+          <p style="margin: 0 0 14px; font-size: 14px; line-height: 1.6; color: #1c1b18; text-wrap: pretty">priya does it once. after that buddy does it for everyone.</p>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">do it yourself, say what matters as you go, hand back. buddy writes it down and does it that way next time, for whoever asks. anyone on the team can read it, edit it, or throw it out.</p>
+        </div>
         <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
+          <div style="display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid #efece4; background: #f1efe8">
+            <span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.66 0.085 75)"></span>
+            <span style="flex: 1; font-size: 10px; color: #54524b">teaching · netsuite</span>
+            <span style="font-size: 9px; letter-spacing: .1em; text-transform: uppercase; padding: 2px 8px; border-radius: 100px; border: 1px solid oklch(0.66 0.085 75); color: oklch(0.50 0.09 70)">you have the keys</span>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr">
+            <div style="padding: 14px; border-right: 1px solid #efece4; display: flex; flex-direction: column; gap: 9px">
+              <div style="aspect-ratio: 4 / 3; border: 1px solid #efece4; border-radius: 6px; background: repeating-linear-gradient(135deg, #f1efe8 0 8px, #ebe8df 8px 16px); display: flex; align-items: flex-end; padding: 6px"><span style="font-size: 8.5px; color: #97948a; background: #fdfcf9; border: 1px solid #e6e3da; padding: 2px 7px; border-radius: 100px">reports · saved searches</span></div>
+              <div style="display: flex; flex-direction: column; gap: 6px; border-top: 1px solid #efece4; padding-top: 9px">
+                <span style="font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a">you said</span>
+                <span style="display: grid; grid-template-columns: 12px 1fr; font-size: 10.5px; line-height: 1.5; color: #54524b"><span style="color: oklch(0.66 0.085 75)">›</span>not the invoice list. it stops at 1,000 rows.</span>
+                <span style="display: grid; grid-template-columns: 12px 1fr; font-size: 10.5px; line-height: 1.5; color: #54524b"><span style="color: oklch(0.66 0.085 75)">›</span>csv, always. priya's import hates excel.</span>
+                <span style="display: grid; grid-template-columns: 12px 1fr; font-size: 10.5px; line-height: 1.5; color: #54524b"><span style="color: oklch(0.66 0.085 75)">›</span><span><span style="color: #97948a">(edited draft)</span> seat counts before price when writing to rachel.</span></span>
+              </div>
+            </div>
+            <div style="padding: 14px 16px; display: flex; flex-direction: column; gap: 8px">
+              <span style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap"><span style="font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a">buddy wrote</span><span style="font-size: 9px; color: oklch(0.55 0.075 150); border: 1px solid oklch(0.55 0.075 150 / 0.35); padding: 1px 7px; border-radius: 100px">learned from your edit</span></span>
+              <span style="font-size: 12px; color: #1c1b18">export invoices from netsuite</span>
+              <div style="display: flex; flex-direction: column; gap: 5px; font-size: 10.5px; line-height: 1.55; color: #54524b">
+                <span style="display: grid; grid-template-columns: 14px 1fr"><span style="color: #97948a">1</span>reports → saved searches</span>
+                <span style="display: grid; grid-template-columns: 14px 1fr; padding-left: 14px; color: #97948a"><span>·</span><span><i>gotcha:</i> not the invoice list, it caps at 1,000 rows</span></span>
+                <span style="display: grid; grid-template-columns: 14px 1fr"><span style="color: #97948a">2</span>last month, first to last day</span>
+                <span style="display: grid; grid-template-columns: 14px 1fr"><span style="color: #97948a">3</span>export as csv</span>
+                <span style="display: grid; grid-template-columns: 14px 1fr"><span style="color: #97948a">4</span>email priya the row count</span>
+              </div>
+              <span style="margin-top: auto; font-size: 9.5px; color: oklch(0.55 0.075 150)">saved to memory</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
+        <div class="landcard" style="order: 2; border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
           <div style="display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid #efece4; background: #f1efe8">
             <span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.55 0.075 150); animation: ping 2.4s cubic-bezier(.4,0,.2,1) infinite"></span>
             <span style="flex: 1; min-width: 0; font-size: 10px; color: #54524b; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">buddy's computer · mail.google.com/…/thread/pilot-terms</span>
@@ -692,7 +796,7 @@
             <span onClick="{{ lcToggle }}" style="font-size: 10.5px; border: 1px solid {{ lcBtnLine }}; background: {{ lcBtnFill }}; color: {{ lcBtnColor }}; padding: 4px 11px; border-radius: 6px; cursor: pointer; transition: color .2s, border-color .2s, background .2s">{{ lcBtn }}</span>
           </div>
         </div>
-        <div style="order: 2">
+        <div>
           <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">a real computer</span>
           <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">watch the screen live. take the keys anytime.</h2>
           <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">buddy drives a full desktop and browser, not an api shim. watch every click as it happens, expand the screen to half or full width, double-click to take over, and hand back when you're done. hand back and buddy knows what you did while you had the keys. type into the bubble to steer without touching anything.</p>
@@ -700,47 +804,8 @@
       </div>
 
       <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
-        <div>
-          <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">show it once</span>
-          <h2 style="margin: 0 0 10px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">teach it the way the team does it.</h2>
-          <p style="margin: 0 0 14px; font-size: 14px; line-height: 1.6; color: #1c1b18; text-wrap: pretty">take over, do the task, hand back.</p>
-          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">do it yourself, say what matters as you go, hand back. buddy writes it down and does it that way next time. everything it learns, anyone on the team can read, edit or throw out.</p>
-        </div>
-        <div class="landcard" style="order: 2; border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
-          <div style="display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid #efece4; background: #f1efe8">
-            <span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.66 0.085 75)"></span>
-            <span style="flex: 1; font-size: 10px; color: #54524b">teaching · netsuite</span>
-            <span style="font-size: 9px; letter-spacing: .1em; text-transform: uppercase; padding: 2px 8px; border-radius: 100px; border: 1px solid oklch(0.66 0.085 75); color: oklch(0.50 0.09 70)">you have the keys</span>
-          </div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr">
-            <div style="padding: 14px; border-right: 1px solid #efece4; display: flex; flex-direction: column; gap: 9px">
-              <div style="aspect-ratio: 4 / 3; border: 1px solid #efece4; border-radius: 6px; background: repeating-linear-gradient(135deg, #f1efe8 0 8px, #ebe8df 8px 16px); display: flex; align-items: flex-end; padding: 6px"><span style="font-size: 8.5px; color: #97948a; background: #fdfcf9; border: 1px solid #e6e3da; padding: 2px 7px; border-radius: 100px">reports · saved searches</span></div>
-              <div style="display: flex; flex-direction: column; gap: 6px; border-top: 1px solid #efece4; padding-top: 9px">
-                <span style="font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a">you said</span>
-                <span style="display: grid; grid-template-columns: 12px 1fr; font-size: 10.5px; line-height: 1.5; color: #54524b"><span style="color: oklch(0.66 0.085 75)">›</span>not the invoice list. it stops at 1,000 rows.</span>
-                <span style="display: grid; grid-template-columns: 12px 1fr; font-size: 10.5px; line-height: 1.5; color: #54524b"><span style="color: oklch(0.66 0.085 75)">›</span>csv, always. priya's import hates excel.</span>
-                <span style="display: grid; grid-template-columns: 12px 1fr; font-size: 10.5px; line-height: 1.5; color: #54524b"><span style="color: oklch(0.66 0.085 75)">›</span><span><span style="color: #97948a">(edited draft)</span> seat counts before price when writing to rachel.</span></span>
-              </div>
-            </div>
-            <div style="padding: 14px 16px; display: flex; flex-direction: column; gap: 8px">
-              <span style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap"><span style="font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a">buddy wrote</span><span style="font-size: 9px; color: oklch(0.55 0.075 150); border: 1px solid oklch(0.55 0.075 150 / 0.35); padding: 1px 7px; border-radius: 100px">learned from your edit</span></span>
-              <span style="font-size: 12px; color: #1c1b18">export invoices from netsuite</span>
-              <div style="display: flex; flex-direction: column; gap: 5px; font-size: 10.5px; line-height: 1.55; color: #54524b">
-                <span style="display: grid; grid-template-columns: 14px 1fr"><span style="color: #97948a">1</span>reports → saved searches</span>
-                <span style="display: grid; grid-template-columns: 14px 1fr; padding-left: 14px; color: #97948a"><span>·</span><span><i>gotcha:</i> not the invoice list, it caps at 1,000 rows</span></span>
-                <span style="display: grid; grid-template-columns: 14px 1fr"><span style="color: #97948a">2</span>last month, first to last day</span>
-                <span style="display: grid; grid-template-columns: 14px 1fr"><span style="color: #97948a">3</span>export as csv</span>
-                <span style="display: grid; grid-template-columns: 14px 1fr"><span style="color: #97948a">4</span>email priya the row count</span>
-              </div>
-              <span style="margin-top: auto; font-size: 9.5px; color: oklch(0.55 0.075 150)">saved to memory</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
         <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
-          <div style="padding: 11px 16px; border-bottom: 1px solid #efece4; display: flex; align-items: center; justify-content: space-between"><span style="font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a">memory · people</span><span style="font-size: 10px; color: #97948a">assigns</span></div>
+          <div style="padding: 11px 16px; border-bottom: 1px solid #efece4; display: flex; align-items: center; justify-content: space-between"><span style="font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a">settings · team</span><span style="font-size: 10px; color: #97948a">on the team</span></div>
           <sc-for list="{{ laPeople }}" as="p" hint-placeholder-count="4">
             <div onClick="{{ p.toggle }}" style="display: flex; align-items: center; gap: 12px; padding: 11px 16px; border-bottom: 1px solid #f1efe8; cursor: pointer" style-hover="background: #f7f6f1">
               <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12px; color: #1c1b18">{{ p.name }}</span><span style="font-size: 10.5px; color: #97948a">{{ p.role }}</span></span>
@@ -753,7 +818,7 @@
         <div>
           <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">in or out</span>
           <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">your team hands it work directly.</h2>
-          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">switch assigns on for the people you trust. their emails and mentions become work buddy picks up on its own, no one has to open the app. for everyone else, it reads the message and asks you first. sends and payments still wait for a yes either way.</p>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">put the people you trust on the team. their emails and mentions become work buddy picks up on its own, no one has to open the app. for everyone else, it reads the message and asks you first. sends and payments still wait for a yes either way.</p>
         </div>
       </div>
 
@@ -762,14 +827,14 @@
           <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">it knows the job</span>
           <h2 style="margin: 0 0 10px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">its own notes on the work.</h2>
           <p style="margin: 0 0 14px; font-size: 14px; line-height: 1.6; color: #1c1b18; text-wrap: pretty">people, how things are done here, and what's going on.</p>
-          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">who knows what and how they like things done. how this team does each thing. what buddy is on right now. all of it in settings, all of it editable, and you see it write every time.</p>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">who's on the team and what they own. who the clients and vendors are and how they like things. how this team does each thing. what buddy is on right now and for whom. all of it in settings, all of it editable, and everyone on the team sees it write.</p>
         </div>
         <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
           <div style="display: flex; align-items: baseline; justify-content: space-between; padding: 12px 16px 8px"><span style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #97948a">memory · people</span><span style="font-size: 10px; color: #97948a">6</span></div>
           <div style="border-top: 1px solid #efece4">
             <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 10px; padding: 7px 16px; border-bottom: 1px solid #f1efe8"><span style="display: flex; flex-direction: column; gap: 1px; min-width: 0"><span style="font-size: 11.5px; color: #1c1b18">rachel okafor</span><span style="font-size: 9.5px; color: #97948a">client · halden health</span></span><span style="font-size: 10.5px; line-height: 1.5; color: #54524b">pilot terms, seat counts. signs off over $10k.</span></div>
-            <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 10px; padding: 7px 16px; border-bottom: 1px solid #f1efe8"><span style="display: flex; flex-direction: column; gap: 1px; min-width: 0"><span style="font-size: 11.5px; color: #1c1b18">priya nair</span><span style="font-size: 9.5px; color: #97948a">vendor · ledgerline</span></span><span style="font-size: 10.5px; line-height: 1.5; color: #54524b">quickbooks, the monthly close. out fridays.</span></div>
-            <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 10px; padding: 7px 16px; border-bottom: 1px solid #f1efe8"><span style="display: flex; flex-direction: column; gap: 1px; min-width: 0"><span style="font-size: 11.5px; color: #1c1b18">dev mehta</span><span style="font-size: 9.5px; color: #97948a">manager</span></span><span style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-size: 10.5px; line-height: 1.5; color: #54524b">the board deck, final say on pricing.</span><span style="font-size: 10.5px; line-height: 1.5; color: #54524b">daily update.</span></span></div>
+            <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 10px; padding: 7px 16px; border-bottom: 1px solid #f1efe8"><span style="display: flex; flex-direction: column; gap: 1px; min-width: 0"><span style="font-size: 11.5px; color: #1c1b18">priya nair</span><span style="display: flex; align-items: center; gap: 6px; font-size: 9.5px; color: #97948a; min-width: 0"><span style="flex-shrink: 0; font-size: 9px; color: #54524b; border: 1px solid #e6e3da; background: #f7f6f1; padding: 0 6px; border-radius: 100px">teammate</span>books and invoicing</span></span><span style="font-size: 10.5px; line-height: 1.5; color: #54524b">quickbooks, the monthly close. out fridays.</span></div>
+            <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 10px; padding: 7px 16px; border-bottom: 1px solid #f1efe8"><span style="display: flex; flex-direction: column; gap: 1px; min-width: 0"><span style="font-size: 11.5px; color: #1c1b18">dev mehta</span><span style="display: flex; align-items: center; gap: 6px; font-size: 9.5px; color: #97948a; min-width: 0"><span style="flex-shrink: 0; font-size: 9px; color: #54524b; border: 1px solid #e6e3da; background: #f7f6f1; padding: 0 6px; border-radius: 100px">owner</span>northloop</span></span><span style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-size: 10.5px; line-height: 1.5; color: #54524b">the board deck, final say on pricing.</span><span style="font-size: 10.5px; line-height: 1.5; color: #54524b">daily update.</span></span></div>
           </div>
           <div style="margin: 12px 14px 14px; border: 1px solid #e6e3da; border-radius: 8px; background: #f7f6f1; padding: 11px 13px">
             <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 7px"><span style="font-size: 11.5px; color: #1c1b18">reconcile invoices against quickbooks</span><span style="flex: 1"></span><span style="font-size: 9.5px; color: #97948a">step 2 of 3</span></div>
@@ -817,14 +882,14 @@
         <div>
           <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">it gets faster</span>
           <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">the fifth time isn't the first.</h2>
-          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">the first time, it asks. every answer and every edit becomes a saved procedure, so the list of things it already knows how to do keeps growing and the same work takes fewer hours. same job, less of you.</p>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">the first time, it asks. every answer and every edit becomes a saved procedure, so the list of things it already knows how to do keeps growing and the same work takes fewer hours. same job, less of everyone.</p>
         </div>
       </div>
 
       <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
         <div>
           <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">plan</span>
-          <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">it plans. you approve. then it runs.</h2>
+          <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">it plans. whoever asked approves. then it runs.</h2>
           <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">press plan and buddy drafts a plan first: the goal, what done looks like, the inputs it has, and the questions it still needs answered. ask for changes over as many rounds as you like. nothing runs until you say so, and the approved plan is saved to your project as plan.md.</p>
         </div>
         <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
@@ -870,17 +935,18 @@
         <div style="display: flex; flex-direction: column; gap: 12px">
           <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
             <div style="padding: 14px 16px 12px">
-              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 9px"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.66 0.085 75)"></span><span style="font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: oklch(0.50 0.09 70)">needs you</span><span style="flex: 1"></span><span style="font-size: 10px; color: #97948a">waiting 2h</span></div>
-              <span style="display: block; font-size: 12.5px; color: #1c1b18; line-height: 1.5">stuck on the vendor export. i need you to log in.</span>
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 9px"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.66 0.085 75)"></span><span style="font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: oklch(0.50 0.09 70)">waiting on priya · 2h</span></div>
+              <span style="display: block; font-size: 12.5px; color: #1c1b18; line-height: 1.5">stuck on the vendor export. priya, i need you to log in.</span>
             </div>
             <div style="border-top: 1px solid #efece4; background: #f1efe8; padding: 9px 16px; display: flex; align-items: center; gap: 8px"><span style="font-size: 10px; color: #97948a; flex: 1">computer paused at the sign-in screen</span><span style="font-size: 10.5px; border: 1px solid #1c1b18; background: #1c1b18; color: #f7f6f1; padding: 5px 12px; border-radius: 6px">take the keys</span></div>
           </div>
           <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
             <sc-if value="{{ lsAsk }}" hint-placeholder-val="{{ true }}">
-              <div style="padding: 13px 16px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap">
-                <span style="flex: 1; min-width: 180px; font-size: 12px; color: #1c1b18; line-height: 1.5">the quote to rachel is still open. want me to send it?</span>
+              <div style="padding: 14px 16px 0; display: flex; align-items: center; gap: 8px"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.66 0.085 75)"></span><span style="font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: oklch(0.50 0.09 70)">waiting on dev · 20m</span></div>
+              <div style="padding: 9px 16px 13px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap">
+                <span style="flex: 1; min-width: 180px; font-size: 12px; color: #1c1b18; line-height: 1.5">the quote to rachel is still open. dev, want me to send it?</span>
                 <span onClick="{{ lsNo }}" style="font-size: 10.5px; color: #54524b; padding: 5px 10px; cursor: pointer; border: 1px solid transparent; border-radius: 6px" style-hover="border-color: #e6e3da; background: #f7f6f1">not now</span>
-                <span onClick="{{ lsYes }}" style="font-size: 10.5px; border: 1px solid #e6e3da; background: #fdfcf9; color: #1c1b18; padding: 5px 12px; border-radius: 6px; cursor: pointer" style-hover="border-color: #c4c1b6">yes, take it</span>
+                <span onClick="{{ lsYes }}" style="font-size: 10.5px; border: 1px solid #e6e3da; background: #fdfcf9; color: #1c1b18; padding: 5px 12px; border-radius: 6px; cursor: pointer" style-hover="border-color: #c4c1b6">yes, send it</span>
               </div>
             </sc-if>
             <sc-if value="{{ lsDone }}" hint-placeholder-val="{{ false }}">
@@ -894,22 +960,22 @@
         <div>
           <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">stuck means ask</span>
           <h2 style="margin: 0 0 10px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">it doesn't quit.</h2>
-          <p style="margin: 0 0 14px; font-size: 14px; line-height: 1.6; color: #1c1b18; text-wrap: pretty">when it's stuck, it tells you what it needs and waits.</p>
-          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">minutes or days, the computer stays paused. and when the desk is quiet it looks at what's open and asks if you want it to take the next thing.</p>
+          <p style="margin: 0 0 14px; font-size: 14px; line-height: 1.6; color: #1c1b18; text-wrap: pretty">when it's stuck, it asks the one person who'd know, and waits.</p>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">minutes or days, the computer stays paused. if priya's the one with the login, priya gets the question, not everyone. and when the desk is quiet it looks at what's open and asks whoever's around if it should take the next thing.</p>
         </div>
       </div>
 
       <div class="landsect" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 72px 0; border-top: 1px solid #e6e3da">
         <div>
           <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">approvals first</span>
-          <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">nothing leaves your account without a yes.</h2>
-          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">sends, posts, and payments stop and wait for you, with the exact plan and tools on the card. stop a run mid-flight and it holds at the boundary. resume with a note, or cancel for good.</p>
+          <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">nothing leaves without a yes from the person who asked.</h2>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">sends, posts, and payments stop and wait, with the exact plan and tools on the card. the card goes to whoever gave buddy the job. nobody else's yes counts. stop a run mid-flight and it holds at the boundary. resume with a note, or cancel for good.</p>
         </div>
         <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
           <sc-if value="{{ laPending }}" hint-placeholder-val="{{ true }}">
             <div style="padding: 14px 16px 12px">
               <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 9px">
-                <span style="display: flex; align-items: center; gap: 8px; font-size: 10.5px; color: #54524b"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.66 0.085 75)"></span>gmail · rachel@lumen.co</span>
+                <span style="display: flex; align-items: center; gap: 8px; font-size: 10.5px; color: #54524b"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.66 0.085 75)"></span>gmail · to rachel@lumen.co · asked by dev</span>
                 <span style="font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(0.55 0.075 150); border: 1px solid oklch(0.55 0.075 150 / 0.35); padding: 1px 7px; border-radius: 100px">send</span>
               </div>
               <span style="display: block; font-size: 12.5px; color: #1c1b18; margin-bottom: 3px">send the reply about pilot terms?</span>
@@ -948,7 +1014,7 @@
         <div>
           <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">a filesystem that survives</span>
           <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">the work is still there next week.</h2>
-          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">files live in a store that outlasts any session. projects link the folders they need, drafts and notes accumulate, and the next run picks up exactly where the last one held. drag files in, rename, edit, and read everything buddy writes.</p>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">files live in a store that outlasts any session. projects link the folders they need, drafts and notes accumulate, and the next run picks up exactly where the last one held. drag files in, rename, edit, and read everything buddy writes. every file is the team's, not one person's.</p>
         </div>
       </div>
 
@@ -956,7 +1022,7 @@
         <div>
           <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">your apps, connected</span>
           <h2 style="margin: 0 0 14px; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; text-wrap: pretty">click through the apps buddy can touch.</h2>
-          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">gmail, slack, linear, github, notion and more. turn them on per session from the chat bar. apps that need your login authorize once in settings.</p>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">gmail, slack, linear, github, notion and more. turn them on per session from the chat bar. apps that need a login, one person authorizes once in settings and the team is set.</p>
         </div>
         <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
           <div style="display: flex; align-items: baseline; justify-content: space-between; padding: 13px 16px 9px">
@@ -977,25 +1043,26 @@
 
       <div class="landsect" style="border-top: 1px solid #e6e3da; padding: 88px 0 96px; text-align: center">
         <div data-slot="pricing" style="min-height: 20px; margin-bottom: 14px; font-size: 12.5px; line-height: 20px; color: #97948a"></div>
-        <h2 style="margin: 0 0 12px; font-weight: 500; font-size: 30px; letter-spacing: -0.025em; text-wrap: pretty">give buddy the job.</h2>
-        <p style="margin: 0 0 26px; font-size: 12.5px; line-height: 1.8; color: #97948a">it will still be at the desk when you check back.<br />and it'll know the job better than it did yesterday.</p>
+        <h2 style="margin: 0 0 12px; font-weight: 500; font-size: 30px; letter-spacing: -0.025em; text-wrap: pretty">give buddy a seat.</h2>
+        <p style="margin: 0 0 26px; font-size: 12.5px; line-height: 1.8; color: #97948a">it'll still be at the desk when anyone checks back.<br />and it'll know the job better than it did yesterday.</p>
         <div style="display: flex; flex-direction: column; align-items: center; gap: 22px">
         <a href="https://app.trybuddynow.com/app/" style="display: inline-flex; align-items: center; gap: 9px; font-size: 13px; border: 1px solid oklch(0.55 0.075 150); background: oklch(0.55 0.075 150); color: #fdfcf9; padding: 11px 24px; border-radius: 100px; cursor: pointer; box-shadow: 0 1px 2px rgba(28,27,24,.06), 0 8px 22px -12px oklch(0.55 0.075 150 / 0.55)" style-hover="background: #1c1b18; border-color: #1c1b18"><span style="font-size: 9px">▶</span>get started</a>
-        <div style="font-size: 11.5px; line-height: 1.6; color: #97948a">need it for a larger team? <a href="mailto:trybuddynow@gmail.com?subject=enterprise" style="color: oklch(0.55 0.075 150); text-decoration: underline; text-underline-offset: 2px">contact us</a> about enterprise plans.</div>
+        <div style="font-size: 11.5px; line-height: 1.6; color: #97948a">need it for a larger team? <a href="mailto:hello@buddy.work?subject=enterprise" style="color: oklch(0.55 0.075 150); text-decoration: underline; text-underline-offset: 2px">contact us</a> about enterprise plans.</div>
         </div>
         <div style="display: flex; gap: 26px; justify-content: center; padding-top: 64px; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">
-          <span>approvals first</span><span>disposable compute</span><span>durable storage</span>
+          <span>one buddy per team</span><span>approvals first</span><span>disposable compute</span><span>durable storage</span>
         </div>
       </div>
-      <footer style="border-top: 1px solid #e6e3da; padding: 22px 0 calc(34px + env(safe-area-inset-bottom)); display: flex; align-items: center; gap: 22px; flex-wrap: wrap; font-size: 11px; color: #97948a">
+      <footer style="border-top: 1px solid #e6e3da; padding: 22px 0 34px; display: flex; align-items: center; gap: 22px; flex-wrap: wrap; font-size: 11px; color: #97948a">
         <span>© 2026 buddy</span>
         <span style="flex: 1"></span>
         <span onClick="{{ goPrivacy }}" style="color: #97948a; text-decoration: none; cursor: pointer" style-hover="color: #1c1b18">privacy</span>
         <span onClick="{{ goTerms }}" style="color: #97948a; text-decoration: none; cursor: pointer" style-hover="color: #1c1b18">terms</span>
-        <a href="mailto:trybuddynow@gmail.com" style="color: #97948a; text-decoration: none; cursor: pointer" style-hover="color: #1c1b18">contact us</a>
+        <a href="mailto:hello@buddy.work" style="color: #97948a; text-decoration: none; cursor: pointer" style-hover="color: #1c1b18">contact us</a>
       </footer>
 
     </div>
+  </div>
   </div>
   </div>
 </sc-if>
