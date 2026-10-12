@@ -46,6 +46,9 @@
   .fsrow:hover .fsdel, .fsrow .fsdel[data-armed="true"] { opacity: 1; }
   @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
   @keyframes ccgate { 0% { left: 0; opacity: 0; } 15% { opacity: 1; } 70% { left: calc(50% - 52px); opacity: 1; } 100% { left: calc(50% - 52px); opacity: 0; } }
+  @keyframes memglow { 0% { box-shadow: 0 0 0 0 oklch(0.55 0.075 150 / 0.35); } 100% { box-shadow: 0 0 0 10px oklch(0.55 0.075 150 / 0); } }
+  @keyframes memtick { from { transform: scale(0); } to { transform: scale(1); } }
+  @keyframes gcdot { 0%, 60%, 100% { opacity: .35; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-2px); } }
   @keyframes ccflow { 0% { left: 0; opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { left: calc(100% - 7px); opacity: 0; } }
   @container (max-width: 760px) {
     .landsect { grid-template-columns: minmax(0, 1fr) !important; gap: 28px !important; }
@@ -53,6 +56,13 @@
     .cchead { grid-template-columns: minmax(0, 1fr) !important; gap: 14px !important; }
     .ccpanes { grid-template-columns: minmax(0, 1fr) !important; }
     .ccleft { border-right: none !important; border-bottom: 1px solid #efece4; }
+    /* "the whole team, one thread.": the canvas's own rules for this section. */
+    .lpsplit { grid-template-columns: minmax(0, 1fr) !important; gap: 14px !important; }
+    .lpsplit > * { border-right: none !important; }
+    .gcgrid { grid-template-columns: minmax(0, 1fr) !important; }
+    .gcfeed { height: 380px !important; }
+    .gcside { border-left: none !important; border-top: 1px solid #e6e3da; }
+    .gcind { padding-left: 18px !important; }
   }
 </style>
 <style>
@@ -65,10 +75,6 @@
     .research-preview { font-size: 9px !important; letter-spacing: 0.12em !important; }
     [style*="grid-template-columns: 200px minmax(0, 1fr)"] { grid-template-columns: 1fr !important; gap: 24px !important; padding: 40px 22px 24px !important; }
     [style*="grid-template-columns: 200px minmax(0, 1fr)"] > nav { position: static !important; }
-    /* "the whole team, one buddy.": its head and its card stack, as every other section's do. */
-    .landsect > [style*="gap: 72px; align-items: end"] { grid-template-columns: 1fr !important; gap: 14px !important; }
-    .landcard > [style^="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr)"] { grid-template-columns: 1fr !important; }
-    .landcard > [style^="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr)"] > :first-child { border-right: none !important; border-bottom: 1px solid #e6e3da; }
   }
   @media (prefers-reduced-motion: reduce) {
     .landsect, .viewin { animation: none !important; }
@@ -109,30 +115,61 @@
       </div>
 
       <div class="landsect" style="padding: 0 0 96px">
-        <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 72px; align-items: end; margin-bottom: 32px">
+        <div class="lpsplit" style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 72px; align-items: end; margin-bottom: 32px">
           <div>
-            <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">it has an inbox</span>
-            <h2 style="margin: 0 0 10px; font-weight: 500; font-size: 30px; letter-spacing: -0.025em; line-height: 1.15">the whole team, one buddy.</h2>
-            <p style="margin: 0; font-size: 13px; line-height: 1.7; color: #1c1b18; text-wrap: pretty">rachel emails it. dev slacks it. priya opens the app. same buddy, same memory, same list.</p>
+            <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">it's a group chat</span>
+            <h2 style="margin: 0 0 10px; font-weight: 500; font-size: 30px; letter-spacing: -0.025em; line-height: 1.15">the whole team, one thread.</h2>
+            <p style="margin: 0; font-size: 13px; line-height: 1.7; color: #1c1b18; text-wrap: pretty">sam's on slack, priya emails, dev opens the app. it's all one thread to buddy. it answers each of them where they asked, by name, and keeps their asks straight, learning along the way.</p>
           </div>
-          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">buddy tracks who asked for what, what's done, and who it's waiting on. it chases the open ones so you don't have to.</p>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">client email lands in the thread too. when buddy needs a decision it asks the person who owns it, and nothing goes out until they say yes.</p>
         </div>
         <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
-          <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr)">
-            <div style="min-width: 0; border-right: 1px solid #e6e3da">
-              <div style="padding: 10px 16px; border-bottom: 1px solid #e6e3da; background: #f7f6f1; font-size: 10.5px; color: #97948a; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">buddy@halden.trybuddynow.com</div>
-              <div style="display: flex; flex-direction: column; gap: 3px; padding: 11px 16px; border-bottom: 1px solid #f1efe8; min-width: 0"><span style="display: flex; align-items: center; gap: 7px; font-size: 10px; color: #97948a"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.66 0.085 75); flex-shrink: 0"></span>email · <span style="color: #1c1b18; font-size: 11.5px">rachel okafor</span></span><span style="font-size: 11.5px; line-height: 1.5; color: #54524b; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">can you pull the pilot seat counts before thursday?</span></div>
-              <div style="display: flex; flex-direction: column; gap: 3px; padding: 11px 16px; border-bottom: 1px solid #f1efe8; min-width: 0"><span style="display: flex; align-items: center; gap: 7px; font-size: 10px; color: #97948a"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.55 0.075 150); flex-shrink: 0"></span>slack · <span style="color: #1c1b18; font-size: 11.5px">dev mehta</span></span><span style="font-size: 11.5px; line-height: 1.5; color: #54524b; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">@buddy the board deck numbers, same as last month</span></div>
-              <div style="display: flex; flex-direction: column; gap: 3px; padding: 11px 16px; border-bottom: 1px solid #f1efe8; min-width: 0"><span style="display: flex; align-items: center; gap: 7px; font-size: 10px; color: #97948a"><span style="width: 6px; height: 6px; border-radius: 50%; background: #97948a; flex-shrink: 0"></span>app · <span style="color: #1c1b18; font-size: 11.5px">priya nair</span></span><span style="font-size: 11.5px; line-height: 1.5; color: #54524b; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">reconcile september against quickbooks</span></div>
+          <div style="display: flex; align-items: center; gap: 12px; padding: 11px 18px; border-bottom: 1px solid #e6e3da; background: #f7f6f1">
+            <span style="font-size: 12px; color: #1c1b18"># halden-pilot</span>
+            <span style="display: flex; align-items: center">
+              <!--sc-for--><span title="sam ortiz" style="width: 20px; height: 20px; margin-left: -4px; border-radius: 6px; border: 2px solid #f7f6f1; background: #e6e3da; color: #54524b; display: grid; place-items: center; font-size: 9px">s</span><span title="priya nair" style="width: 20px; height: 20px; margin-left: -4px; border-radius: 6px; border: 2px solid #f7f6f1; background: oklch(0.66 0.085 75 / 0.18); color: oklch(0.45 0.08 70); display: grid; place-items: center; font-size: 9px">p</span><span title="dev mehta" style="width: 20px; height: 20px; margin-left: -4px; border-radius: 6px; border: 2px solid #f7f6f1; background: #dcd9e6; color: #4f4b63; display: grid; place-items: center; font-size: 9px">d</span><span title="buddy" style="width: 20px; height: 20px; margin-left: -4px; border-radius: 6px; border: 2px solid #f7f6f1; background: oklch(0.55 0.075 150 / 0.14); color: oklch(0.45 0.07 150); display: grid; place-items: center; font-size: 9px">b</span>
+            </span>
+            <span style="display: flex; gap: 5px"><!--sc-for--><span style="display: inline-flex; align-items: center; gap: 4px; font-size: 10px; color: #54524b; border: 1px solid #e6e3da; background: #fdfcf9; padding: 1px 7px; border-radius: 100px"><span style="font-size: 9px; color: #97948a">#</span>slack</span><span style="display: inline-flex; align-items: center; gap: 4px; font-size: 10px; color: #54524b; border: 1px solid #e6e3da; background: #fdfcf9; padding: 1px 7px; border-radius: 100px"><span style="font-size: 9px; color: #97948a">@</span>email</span><span style="display: inline-flex; align-items: center; gap: 4px; font-size: 10px; color: #54524b; border: 1px solid #e6e3da; background: #fdfcf9; padding: 1px 7px; border-radius: 100px"><span style="font-size: 9px; color: #97948a">▢</span>app</span></span>
+            <span style="flex: 1"></span>
+            <span style="font-size: 10.5px; color: #97948a; cursor: pointer">replay</span>
+          </div>
+          <div class="gcgrid" style="display: grid; grid-template-columns: minmax(0, 1fr) 236px">
+          <div style="min-width: 0; display: flex; flex-direction: column">
+          <div class="gcfeed" style="height: 440px; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; padding: 8px 0">
+            <!--sc-for-->
+            <!--sc-if-->
+          </div>
+          <div style="border-top: 1px solid #efece4; padding: 10px 18px; display: flex; align-items: center; gap: 10px">
+            <span style="flex: 1; border: 1px solid #e6e3da; border-radius: 8px; padding: 8px 12px; font-size: 12px; color: #c4c1b6; background: #fdfcf9">message # halden-pilot</span>
+          </div>
+          </div>
+          <div class="gcside" style="min-width: 0; border-left: 1px solid #e6e3da; background: #f7f6f1; display: flex; flex-direction: column">
+            <div style="padding: 12px 14px 8px; display: flex; align-items: baseline; justify-content: space-between">
+              <span style="font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a">buddy's todos</span>
+              <span style="font-size: 10px; color: #97948a; font-variant-numeric: tabular-nums">0 open</span>
             </div>
-            <div style="min-width: 0">
-              <div style="padding: 10px 16px; border-bottom: 1px solid #e6e3da; background: #f7f6f1; font-size: 10.5px; color: #97948a; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">what buddy has</div>
-              <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 6px 12px; padding: 14px 16px; border-bottom: 1px solid #f1efe8; min-width: 0"><span style="flex: 1 1 140px; min-width: 0; font-size: 12px; line-height: 1.5; color: #1c1b18">seat counts for rachel</span><span style="flex-shrink: 0; font-size: 10px; color: oklch(0.50 0.09 70); background: oklch(0.66 0.085 75 / 0.14); padding: 3px 9px; border-radius: 100px; white-space: nowrap">waiting on dev · needs the q4 price</span></div>
-              <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 6px 12px; padding: 14px 16px; border-bottom: 1px solid #f1efe8; min-width: 0"><span style="flex: 1 1 140px; min-width: 0; font-size: 12px; line-height: 1.5; color: #1c1b18">board deck for dev</span><span style="flex-shrink: 0; font-size: 10px; color: oklch(0.45 0.07 150); background: oklch(0.55 0.075 150 / 0.10); padding: 3px 9px; border-radius: 100px; white-space: nowrap">drafting</span></div>
-              <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 6px 12px; padding: 14px 16px; border-bottom: 1px solid #f1efe8; min-width: 0"><span style="flex: 1 1 140px; min-width: 0; font-size: 12px; line-height: 1.5; color: #1c1b18">september reconcile for priya</span><span style="flex-shrink: 0; font-size: 10px; color: #54524b; background: #f1efe8; padding: 3px 9px; border-radius: 100px; white-space: nowrap">done · 2 rows flagged</span></div>
+            <div style="display: flex; flex-direction: column; gap: 6px; padding: 0 10px 12px">
+              <!--sc-for-->
+              <!--sc-if--><span style="padding: 6px 4px; font-size: 11px; color: #c4c1b6; font-style: italic">nothing yet</span>
+            </div>
+            <div style="margin-top: auto; padding: 0 10px 12px">
+              <div style="display: flex; align-items: baseline; justify-content: space-between; padding: 0 4px 6px">
+                <span style="font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a">computer</span>
+                <span style="display: flex; align-items: center; gap: 5px; font-size: 10px; color: #97948a"><span style="width: 5px; height: 5px; border-radius: 50%; background: #97948a"></span>idle</span>
+              </div>
+              <div style="border: 1px solid #c4c1b6; border-radius: 8px; background: #fdfcf9; overflow: hidden">
+                <div style="display: flex; align-items: center; gap: 6px; padding: 6px 8px; border-bottom: 1px solid #efece4">
+                  <span style="display: flex; gap: 3px"><span style="width: 6px; height: 6px; border-radius: 50%; background: #e6e3da"></span><span style="width: 6px; height: 6px; border-radius: 50%; background: #e6e3da"></span><span style="width: 6px; height: 6px; border-radius: 50%; background: #e6e3da"></span></span>
+                  <span style="flex: 1; min-width: 0; font-size: 9.5px; color: #54524b; background: #f1efe8; border-radius: 4px; padding: 2px 7px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; transition: color .3s">about:blank</span>
+                </div>
+                <div style="position: relative; aspect-ratio: 16 / 10; background: repeating-linear-gradient(135deg, #f7f6f1 0 7px, #f1efe8 7px 14px); display: flex; align-items: flex-end; padding: 8px">
+                  <!--sc-if-->
+                  <span style="position: relative; max-width: 100%; font-size: 10px; line-height: 1.4; color: #1c1b18; background: #fdfcf9; border: 1px solid #e6e3da; padding: 3px 8px; border-radius: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">waiting for work</span>
+                </div>
+              </div>
             </div>
           </div>
-          <div style="border-top: 1px solid #efece4; background: #f1efe8; padding: 9px 16px; font-size: 10.5px; color: #97948a">rachel sees her item. dev sees his. the owner sees all of it.</div>
+          </div>
         </div>
       </div>
 
@@ -630,30 +667,139 @@
       </div>
 
       <div class="landsect" style="padding: 0 0 96px">
-        <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 72px; align-items: end; margin-bottom: 32px">
+        <div class="lpsplit" style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 72px; align-items: end; margin-bottom: 32px">
           <div>
-            <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">it has an inbox</span>
-            <h2 style="margin: 0 0 10px; font-weight: 500; font-size: 30px; letter-spacing: -0.025em; line-height: 1.15">the whole team, one buddy.</h2>
-            <p style="margin: 0; font-size: 13px; line-height: 1.7; color: #1c1b18; text-wrap: pretty">rachel emails it. dev slacks it. priya opens the app. same buddy, same memory, same list.</p>
+            <span style="display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150); margin-bottom: 14px">it's a group chat</span>
+            <h2 style="margin: 0 0 10px; font-weight: 500; font-size: 30px; letter-spacing: -0.025em; line-height: 1.15">the whole team, one thread.</h2>
+            <p style="margin: 0; font-size: 13px; line-height: 1.7; color: #1c1b18; text-wrap: pretty">sam's on slack, priya emails, dev opens the app. it's all one thread to buddy. it answers each of them where they asked, by name, and keeps their asks straight, learning along the way.</p>
           </div>
-          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">buddy tracks who asked for what, what's done, and who it's waiting on. it chases the open ones so you don't have to.</p>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.8; color: #54524b; text-wrap: pretty">client email lands in the thread too. when buddy needs a decision it asks the person who owns it, and nothing goes out until they say yes.</p>
         </div>
         <div class="landcard" style="border: 1px solid #c4c1b6; border-radius: 10px; background: #fdfcf9; overflow: hidden; box-shadow: 0 1px 2px rgba(28,27,24,.04), 0 22px 50px -30px rgba(28,27,24,.25)">
-          <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr)">
-            <div style="min-width: 0; border-right: 1px solid #e6e3da">
-              <div style="padding: 10px 16px; border-bottom: 1px solid #e6e3da; background: #f7f6f1; font-size: 10.5px; color: #97948a; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">buddy@halden.trybuddynow.com</div>
-              <div style="display: flex; flex-direction: column; gap: 3px; padding: 11px 16px; border-bottom: 1px solid #f1efe8; min-width: 0"><span style="display: flex; align-items: center; gap: 7px; font-size: 10px; color: #97948a"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.66 0.085 75); flex-shrink: 0"></span>email · <span style="color: #1c1b18; font-size: 11.5px">rachel okafor</span></span><span style="font-size: 11.5px; line-height: 1.5; color: #54524b; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">can you pull the pilot seat counts before thursday?</span></div>
-              <div style="display: flex; flex-direction: column; gap: 3px; padding: 11px 16px; border-bottom: 1px solid #f1efe8; min-width: 0"><span style="display: flex; align-items: center; gap: 7px; font-size: 10px; color: #97948a"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.55 0.075 150); flex-shrink: 0"></span>slack · <span style="color: #1c1b18; font-size: 11.5px">dev mehta</span></span><span style="font-size: 11.5px; line-height: 1.5; color: #54524b; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">@buddy the board deck numbers, same as last month</span></div>
-              <div style="display: flex; flex-direction: column; gap: 3px; padding: 11px 16px; border-bottom: 1px solid #f1efe8; min-width: 0"><span style="display: flex; align-items: center; gap: 7px; font-size: 10px; color: #97948a"><span style="width: 6px; height: 6px; border-radius: 50%; background: #97948a; flex-shrink: 0"></span>app · <span style="color: #1c1b18; font-size: 11.5px">priya nair</span></span><span style="font-size: 11.5px; line-height: 1.5; color: #54524b; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">reconcile september against quickbooks</span></div>
+          <div style="display: flex; align-items: center; gap: 12px; padding: 11px 18px; border-bottom: 1px solid #e6e3da; background: #f7f6f1">
+            <span style="font-size: 12px; color: #1c1b18"># halden-pilot</span>
+            <span style="display: flex; align-items: center">
+              <sc-for list="{{ gcFaces }}" as="f" hint-placeholder-count="4"><span title="{{ f.name }}" style="width: 20px; height: 20px; margin-left: -4px; border-radius: 6px; border: 2px solid #f7f6f1; background: {{ f.bg }}; color: {{ f.c }}; display: grid; place-items: center; font-size: 9px">{{ f.t }}</span></sc-for>
+            </span>
+            <span style="display: flex; gap: 5px"><sc-for list="{{ gcSrcs }}" as="c" hint-placeholder-count="3"><span style="display: inline-flex; align-items: center; gap: 4px; font-size: 10px; color: #54524b; border: 1px solid #e6e3da; background: #fdfcf9; padding: 1px 7px; border-radius: 100px"><span style="font-size: 9px; color: #97948a">{{ c.g }}</span>{{ c.n }}</span></sc-for></span>
+            <span style="flex: 1"></span>
+            <span onClick="{{ gcReplay }}" style="font-size: 10.5px; color: #97948a; cursor: pointer" style-hover="color: #1c1b18">replay</span>
+          </div>
+          <div class="gcgrid" style="display: grid; grid-template-columns: minmax(0, 1fr) 236px">
+          <div style="min-width: 0; display: flex; flex-direction: column">
+          <div class="gcfeed" style="height: 440px; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; padding: 8px 0">
+            <sc-for list="{{ gcMsgs }}" as="m" hint-placeholder-count="5">
+              <sc-if value="{{ m.isMsg }}" hint-placeholder-val="{{ true }}">
+                <div style="display: flex; gap: 11px; padding: 7px 18px; background: {{ m.band }}; animation: pop .28s cubic-bezier(.4,0,.2,1) both">
+                  <span style="flex-shrink: 0; width: 26px; height: 26px; border-radius: 7px; background: {{ m.bg }}; color: {{ m.fc }}; display: grid; place-items: center; font-size: 11px; font-weight: 500">{{ m.t }}</span>
+                  <div style="min-width: 0; display: flex; flex-direction: column; gap: 2px">
+                    <span style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap"><span style="font-size: 12px; font-weight: 500; color: {{ m.nameColor }}">{{ m.name }}</span><span style="display: inline-flex; align-items: center; gap: 4px; font-size: 9.5px; color: {{ m.viaColor }}; border: 1px solid {{ m.viaLine }}; background: {{ m.viaBg }}; padding: 0 6px; border-radius: 100px; line-height: 15px"><span style="font-size: 9px">{{ m.viaG }}</span>{{ m.via }}</span><span style="font-size: 10px; color: #97948a; font-variant-numeric: tabular-nums">{{ m.time }}</span></span>
+                    <span style="font-size: 12.5px; line-height: 1.6; color: #1c1b18; text-wrap: pretty"><sc-for list="{{ m.parts }}" as="p" hint-placeholder-count="1"><span style="color: {{ p.c }}; background: {{ p.bg }}; border-radius: 4px; padding: {{ p.pad }}">{{ p.t }}</span></sc-for></span>
+                  </div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ m.isMail }}" hint-placeholder-val="{{ false }}">
+                <div class="gcind" style="padding: 7px 18px 7px 55px; animation: pop .28s cubic-bezier(.4,0,.2,1) both">
+                  <div style="max-width: 440px; border: 1px solid #e6e3da; border-left: 2px solid oklch(0.66 0.085 75); border-radius: 3px 8px 8px 3px; background: #fdfcf9; padding: 9px 12px; display: flex; flex-direction: column; gap: 3px">
+                    <span style="display: flex; align-items: center; gap: 7px; font-size: 10px; color: #97948a"><span style="font-size: 9px; color: #54524b; border: 1px solid #e6e3da; padding: 0 6px; border-radius: 100px; line-height: 15px">@ email</span><span style="color: #1c1b18; font-size: 11.5px">rachel okafor</span><span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">rachel@haldenhealth.com · 9:09</span></span>
+                    <span style="font-size: 11.5px; color: #1c1b18">re: pilot terms and seat counts</span>
+                    <span style="font-size: 11px; color: #54524b; line-height: 1.5; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">can you confirm seats through q1 before we sign?</span>
+                  </div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ m.isSys }}" hint-placeholder-val="{{ false }}">
+                <div style="display: flex; align-items: center; gap: 10px; padding: 8px 18px; animation: pop .28s cubic-bezier(.4,0,.2,1) both">
+                  <span style="flex: 1; height: 1px; background: #efece4"></span>
+                  <span style="display: flex; align-items: center; gap: 7px; font-size: 10.5px; color: #97948a; white-space: nowrap"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.66 0.085 75)"></span>{{ m.text }}</span>
+                  <span style="flex: 1; height: 1px; background: #efece4"></span>
+                </div>
+              </sc-if>
+              <sc-if value="{{ m.isProc }}" hint-placeholder-val="{{ false }}">
+                <div class="gcind" style="padding: 3px 18px 7px 55px; animation: pop .28s cubic-bezier(.4,0,.2,1) both">
+                  <span style="display: inline-flex; align-items: center; gap: 8px; max-width: 100%; border: 1px solid #e6e3da; background: #f7f6f1; border-radius: 7px; padding: 5px 11px 5px 7px">
+                    <span style="flex-shrink: 0; width: 16px; height: 16px; border-radius: 4px; border: 1px solid #c4c1b6; background: #fdfcf9; color: #54524b; display: grid; place-items: center; font-size: 9px">≡</span>
+                    <span style="font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; color: #97948a; white-space: nowrap">using procedure</span>
+                    <span style="min-width: 0; font-size: 11px; color: #1c1b18; text-decoration: underline; text-decoration-color: #c4c1b6; text-underline-offset: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ m.text }}</span>
+                    <span style="flex-shrink: 0; font-size: 10px; color: #97948a; white-space: nowrap">{{ m.meta }}</span>
+                  </span>
+                </div>
+              </sc-if>
+              <sc-if value="{{ m.isMem }}" hint-placeholder-val="{{ false }}">
+                <div class="gcind" style="padding: 3px 18px 7px 55px; animation: pop .28s cubic-bezier(.4,0,.2,1) both">
+                  <span style="display: inline-flex; align-items: center; gap: 8px; max-width: 100%; border: 1px solid oklch(0.55 0.075 150 / 0.35); background: oklch(0.55 0.075 150 / 0.06); border-radius: 100px; padding: 4px 11px 4px 6px; animation: memglow 1.6s ease-out both">
+                    <span style="flex-shrink: 0; width: 16px; height: 16px; border-radius: 50%; background: oklch(0.55 0.075 150); color: #fdfcf9; display: grid; place-items: center; font-size: 9px; animation: memtick .5s .25s cubic-bezier(.3,1.6,.5,1) both">✓</span>
+                    <span style="font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; color: oklch(0.55 0.075 150); white-space: nowrap">saved to memory</span>
+                    <span style="min-width: 0; font-size: 11px; color: #54524b; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ m.text }}</span>
+                  </span>
+                </div>
+              </sc-if>
+              <sc-if value="{{ m.isCard }}" hint-placeholder-val="{{ false }}">
+                <div class="gcind" style="padding: 5px 18px 7px 55px; animation: pop .28s cubic-bezier(.4,0,.2,1) both">
+                  <div style="max-width: 420px; border: 1px solid {{ m.line }}; border-radius: 8px; background: #fdfcf9; overflow: hidden; transition: border-color .3s">
+                    <div style="padding: 9px 12px; display: flex; flex-direction: column; gap: 3px">
+                      <span style="font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: {{ m.eyColor }}">{{ m.ey }}</span>
+                      <span style="font-size: 12px; color: #1c1b18">reply to rachel okafor · seat counts</span>
+                      <span style="font-size: 11px; color: #54524b; line-height: 1.5">42 seats today, 50 held through march, at $28 a seat.</span>
+                    </div>
+                    <div style="border-top: 1px solid #efece4; background: #f7f6f1; padding: 7px 12px; display: flex; align-items: center; gap: 8px; font-size: 10.5px; color: #97948a">
+                      <span style="flex: 1">{{ m.who }}</span>
+                      <sc-if value="{{ m.pending }}" hint-placeholder-val="{{ true }}"><span style="font-size: 10.5px; color: #f7f6f1; background: #1c1b18; padding: 2px 9px; border-radius: 5px">approve</span></sc-if>
+                      <sc-if value="{{ m.done }}" hint-placeholder-val="{{ false }}"><span style="color: oklch(0.55 0.075 150)">✓ sent</span></sc-if>
+                    </div>
+                  </div>
+                </div>
+              </sc-if>
+            </sc-for>
+            <sc-if value="{{ gcTyping }}" hint-placeholder-val="{{ false }}">
+              <div style="display: flex; align-items: center; gap: 11px; padding: 7px 18px">
+                <span style="flex-shrink: 0; width: 26px; height: 26px; border-radius: 7px; background: oklch(0.55 0.075 150 / 0.14); color: oklch(0.55 0.075 150); display: grid; place-items: center; font-size: 11px; font-weight: 500">b</span>
+                <span style="display: inline-flex; gap: 4px; align-items: center"><span style="width: 5px; height: 5px; border-radius: 50%; background: #c4c1b6; animation: gcdot 1s infinite"></span><span style="width: 5px; height: 5px; border-radius: 50%; background: #c4c1b6; animation: gcdot 1s .15s infinite"></span><span style="width: 5px; height: 5px; border-radius: 50%; background: #c4c1b6; animation: gcdot 1s .3s infinite"></span></span>
+                <span style="font-size: 10.5px; color: #97948a">buddy is typing</span>
+              </div>
+            </sc-if>
+          </div>
+          <div style="border-top: 1px solid #efece4; padding: 10px 18px; display: flex; align-items: center; gap: 10px">
+            <span style="flex: 1; border: 1px solid #e6e3da; border-radius: 8px; padding: 8px 12px; font-size: 12px; color: #c4c1b6; background: #fdfcf9">message # halden-pilot</span>
+          </div>
+          </div>
+          <div class="gcside" style="min-width: 0; border-left: 1px solid #e6e3da; background: #f7f6f1; display: flex; flex-direction: column">
+            <div style="padding: 12px 14px 8px; display: flex; align-items: baseline; justify-content: space-between">
+              <span style="font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a">buddy's todos</span>
+              <span style="font-size: 10px; color: #97948a; font-variant-numeric: tabular-nums">{{ gcTodoCount }}</span>
             </div>
-            <div style="min-width: 0">
-              <div style="padding: 10px 16px; border-bottom: 1px solid #e6e3da; background: #f7f6f1; font-size: 10.5px; color: #97948a; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">what buddy has</div>
-              <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 6px 12px; padding: 14px 16px; border-bottom: 1px solid #f1efe8; min-width: 0"><span style="flex: 1 1 140px; min-width: 0; font-size: 12px; line-height: 1.5; color: #1c1b18">seat counts for rachel</span><span style="flex-shrink: 0; font-size: 10px; color: oklch(0.50 0.09 70); background: oklch(0.66 0.085 75 / 0.14); padding: 3px 9px; border-radius: 100px; white-space: nowrap">waiting on dev · needs the q4 price</span></div>
-              <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 6px 12px; padding: 14px 16px; border-bottom: 1px solid #f1efe8; min-width: 0"><span style="flex: 1 1 140px; min-width: 0; font-size: 12px; line-height: 1.5; color: #1c1b18">board deck for dev</span><span style="flex-shrink: 0; font-size: 10px; color: oklch(0.45 0.07 150); background: oklch(0.55 0.075 150 / 0.10); padding: 3px 9px; border-radius: 100px; white-space: nowrap">drafting</span></div>
-              <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 6px 12px; padding: 14px 16px; border-bottom: 1px solid #f1efe8; min-width: 0"><span style="flex: 1 1 140px; min-width: 0; font-size: 12px; line-height: 1.5; color: #1c1b18">september reconcile for priya</span><span style="flex-shrink: 0; font-size: 10px; color: #54524b; background: #f1efe8; padding: 3px 9px; border-radius: 100px; white-space: nowrap">done · 2 rows flagged</span></div>
+            <div style="display: flex; flex-direction: column; gap: 6px; padding: 0 10px 12px">
+              <sc-for list="{{ gcTodos }}" as="t" hint-placeholder-count="3">
+                <div style="border: 1px solid #e6e3da; background: #fdfcf9; border-radius: 7px; padding: 9px 10px; display: flex; flex-direction: column; gap: 5px; animation: pop .28s cubic-bezier(.4,0,.2,1) both">
+                  <span style="display: flex; align-items: flex-start; gap: 8px">
+                    <span style="flex-shrink: 0; width: 12px; height: 12px; margin-top: 2px; border-radius: 3px; border: 1px solid {{ t.boxLine }}; background: {{ t.boxBg }}; color: #fdfcf9; font-size: 8px; line-height: 11px; text-align: center; transition: all .3s">{{ t.tick }}</span>
+                    <span style="flex: 1; min-width: 0; font-size: 11.5px; line-height: 1.45; color: {{ t.color }}; text-decoration: {{ t.strike }}; transition: color .3s">{{ t.name }}</span>
+                  </span>
+                  <span style="display: flex; align-items: center; justify-content: space-between; gap: 6px; padding-left: 20px">
+                    <span style="font-size: 10px; color: #97948a">for {{ t.who }}</span>
+                    <span style="font-size: 9.5px; color: {{ t.stColor }}; background: {{ t.stBg }}; padding: 1px 7px; border-radius: 100px; white-space: nowrap; transition: all .3s">{{ t.st }}</span>
+                  </span>
+                </div>
+              </sc-for>
+              <sc-if value="{{ gcTodoNone }}" hint-placeholder-val="{{ false }}"><span style="padding: 6px 4px; font-size: 11px; color: #c4c1b6; font-style: italic">nothing yet</span></sc-if>
+            </div>
+            <div style="margin-top: auto; padding: 0 10px 12px">
+              <div style="display: flex; align-items: baseline; justify-content: space-between; padding: 0 4px 6px">
+                <span style="font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: #97948a">computer</span>
+                <span style="display: flex; align-items: center; gap: 5px; font-size: 10px; color: {{ gcPcStateColor }}"><span style="width: 5px; height: 5px; border-radius: 50%; background: {{ gcPcStateColor }}"></span>{{ gcPcState }}</span>
+              </div>
+              <div style="border: 1px solid #c4c1b6; border-radius: 8px; background: #fdfcf9; overflow: hidden">
+                <div style="display: flex; align-items: center; gap: 6px; padding: 6px 8px; border-bottom: 1px solid #efece4">
+                  <span style="display: flex; gap: 3px"><span style="width: 6px; height: 6px; border-radius: 50%; background: #e6e3da"></span><span style="width: 6px; height: 6px; border-radius: 50%; background: #e6e3da"></span><span style="width: 6px; height: 6px; border-radius: 50%; background: #e6e3da"></span></span>
+                  <span style="flex: 1; min-width: 0; font-size: 9.5px; color: #54524b; background: #f1efe8; border-radius: 4px; padding: 2px 7px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; transition: color .3s">{{ gcPcUrl }}</span>
+                </div>
+                <div style="position: relative; aspect-ratio: 16 / 10; background: repeating-linear-gradient(135deg, #f7f6f1 0 7px, #f1efe8 7px 14px); display: flex; align-items: flex-end; padding: 8px">
+                  <sc-if value="{{ gcPcBusy }}" hint-placeholder-val="{{ false }}"><span style="position: absolute; left: {{ gcPcX }}; top: {{ gcPcY }}; width: 9px; height: 9px; border-radius: 50%; background: oklch(0.55 0.075 150); box-shadow: 0 0 0 4px oklch(0.55 0.075 150 / 0.18); transition: left .9s cubic-bezier(.4,0,.2,1), top .9s cubic-bezier(.4,0,.2,1)"></span></sc-if>
+                  <span style="position: relative; max-width: 100%; font-size: 10px; line-height: 1.4; color: #1c1b18; background: #fdfcf9; border: 1px solid #e6e3da; padding: 3px 8px; border-radius: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ gcPcDoing }}</span>
+                </div>
+              </div>
             </div>
           </div>
-          <div style="border-top: 1px solid #efece4; background: #f1efe8; padding: 9px 16px; font-size: 10.5px; color: #97948a">rachel sees her item. dev sees his. the owner sees all of it.</div>
+          </div>
         </div>
       </div>
 
@@ -1259,6 +1405,69 @@
         toggle: () => this.setState((st) => ({ laAssign: { ...(st.laAssign || {}), [p.id]: !on } })) }; }),
       };
     },
+    gcVals() {
+      // The canvas's group-chat thread, verbatim but for the pause (the legal view here).
+    const P = { sam: ["s", "#e6e3da", "#54524b", "sam ortiz"], priya: ["p", "oklch(0.66 0.085 75 / 0.18)", "oklch(0.45 0.08 70)", "priya nair"], dev: ["d", "#dcd9e6", "#4f4b63", "dev mehta"], buddy: ["b", "oklch(0.55 0.075 150 / 0.14)", "oklch(0.45 0.07 150)", "buddy"] };
+    const S = [
+      { k: "msg", by: "sam", via: "slack", time: "9:02", text: "@buddy can you book a room for the halden visit thursday? 4 people" },
+      { k: "msg", by: "buddy", via: "slack", time: "9:02", text: "on it @sam. looking at 2pm, floor 2." },
+      { k: "msg", by: "priya", via: "email", time: "9:04", text: "subject: september close. can you reconcile september before friday?" },
+      { k: "msg", by: "buddy", via: "email", time: "9:04", text: "got it @priya. starting it after sam's room is booked." },
+      { k: "proc", text: "reconcile invoices against quickbooks", meta: "v2 · taught by priya" },
+      { k: "mail" },
+      { k: "msg", by: "buddy", via: "app", time: "9:11", text: "@dev rachel wants seat counts. the q4 price isn't set. use $28 a seat?" },
+      { k: "msg", by: "dev", via: "app", time: "9:13", text: "28 is right. send it" },
+      { k: "mem", text: "q4 seat price is $28 · from dev" },
+      { k: "card" },
+      { k: "msg", by: "buddy", via: "slack", time: "9:31", text: "@sam room 2.1 is booked, thursday 2pm." },
+      { k: "msg", by: "buddy", via: "email", time: "9:33", text: "@priya reconcile done, 3 rows flagged in books/gaps.md" },
+    ];
+    if (!this._gcInt) this._gcInt = setInterval(() => {
+      if (this.state.legal) return;
+      this.setState((st) => { const n = st.gcN || 0; if (n >= S.length + 3) return { gcN: 0 }; return { gcN: n + 1 }; });
+    }, 1500);
+    const n = Math.min(this.state.gcN ?? 0, S.length);
+    const shown = S.slice(0, n);
+    const nextIsBuddy = n < S.length && S[n].by === "buddy";
+    const cardAt = S.findIndex((x) => x.k === "card");
+    const cardDone = n > cardAt + 1 || (this.state.gcN || 0) > cardAt + 1;
+    const parts = (t) => t.split(/(@\w+)/).filter(Boolean).map((x) => x[0] === "@" ? { t: x, c: "oklch(0.45 0.07 150)", bg: "oklch(0.55 0.075 150 / 0.12)", pad: "0 3px" } : { t: x, c: "inherit", bg: "transparent", pad: "0" });
+    const D = ["oklch(0.45 0.07 150)", "oklch(0.55 0.075 150 / 0.10)"], W = ["oklch(0.50 0.09 70)", "oklch(0.66 0.085 75 / 0.14)"], Q = ["#54524b", "#f1efe8"], K = ["#97948a", "#f1efe8"];
+    const last = S.length;
+    const T = [
+      { at: 1, name: "book a room for the halden visit", who: "sam", st: (k) => k >= last ? ["done", K] : ["doing", D] },
+      { at: 3, name: "reconcile september", who: "priya", st: (k) => k >= last ? ["done", K] : k >= 5 ? ["doing", D] : ["queued", Q] },
+      { at: 7, name: "seat counts for rachel", who: "rachel", st: (k) => cardDone || k > cardAt + 1 ? ["done", K] : ["waiting on dev", W] },
+    ].filter((t) => n >= t.at).map((t) => { const [label, c] = t.st(n), done = label === "done";
+      return { name: t.name, who: t.who, st: label, stColor: c[0], stBg: c[1], tick: done ? "✓" : "", boxLine: done ? "oklch(0.55 0.075 150)" : "#c4c1b6", boxBg: done ? "oklch(0.55 0.075 150)" : "#fdfcf9", color: done ? "#97948a" : "#1c1b18", strike: done ? "line-through" : "none" }; });
+    const pc = n === 0 ? ["", "waiting for work", false] : n >= last ? ["", "all done", false]
+      : n <= 3 ? ["robin.com/lisbon/floor-2", "picking room 2.1 for thursday", true]
+      : n <= 5 ? ["quickbooks.intuit.com/reconcile", "matching september bank lines", true]
+      : n <= cardAt ? ["mail.google.com/…/rachel", "drafting the reply to rachel", true]
+      : !cardDone ? ["mail.google.com/…/rachel", "paused · waiting on dev", false]
+      : ["quickbooks.intuit.com/reconcile", "flagging 3 rows in books/gaps.md", true];
+    const XY = [["22%", "28%"], ["64%", "40%"], ["38%", "62%"], ["72%", "22%"], ["50%", "48%"]][n % 5];
+    return {
+      gcPcUrl: pc[0] || "about:blank", gcPcDoing: pc[1], gcPcBusy: pc[2], gcPcX: XY[0], gcPcY: XY[1],
+      gcPcState: pc[2] ? "live" : (n > 0 && n < last ? "paused" : "idle"), gcPcStateColor: pc[2] ? "oklch(0.55 0.075 150)" : (n > 0 && n < last ? "oklch(0.66 0.085 75)" : "#97948a"),
+      gcTodos: T, gcTodoNone: T.length === 0, gcTodoCount: T.filter((t) => t.st !== "done").length + " open",
+      gcSrcs: [{ g: "#", n: "slack" }, { g: "@", n: "email" }, { g: "▢", n: "app" }],
+      gcFaces: ["sam", "priya", "dev", "buddy"].map((k) => ({ t: P[k][0], bg: P[k][1], c: P[k][2], name: P[k][3] })),
+      gcTyping: nextIsBuddy && n > 0,
+      gcReplay: () => this.setState({ gcN: 0 }),
+      gcMsgs: shown.map((m, i) => {
+        if (m.k === "sys") return { isSys: true, text: m.text };
+        if (m.k === "mail") return { isMail: true };
+        if (m.k === "mem") return { isMem: true, text: m.text };
+        if (m.k === "proc") return { isProc: true, text: m.text, meta: m.meta };
+        if (m.k === "card") return { isCard: true, pending: !cardDone, done: cardDone, ey: cardDone ? "approved by dev" : "waiting on dev", eyColor: cardDone ? "oklch(0.55 0.075 150)" : "oklch(0.50 0.09 70)", line: cardDone ? "oklch(0.55 0.075 150 / 0.35)" : "oklch(0.66 0.085 75 / 0.45)", who: cardDone ? "sent from buddy's address" : "only dev can approve this" };
+        const p = P[m.by], b = m.by === "buddy";
+        const V = { slack: ["#", "slack"], email: ["@", "email"], app: ["▢", "app"] }[m.via] || ["", ""];
+        const vb = V[1];
+        return { viaG: V[0], via: vb, viaColor: b ? "oklch(0.45 0.07 150)" : "#54524b", viaLine: b ? "oklch(0.55 0.075 150 / 0.35)" : "#e6e3da", viaBg: b ? "oklch(0.55 0.075 150 / 0.06)" : "#f7f6f1", isMsg: true, t: p[0], bg: p[1], fc: p[2], name: p[3], time: m.time, nameColor: b ? "oklch(0.45 0.07 150)" : "#1c1b18", band: b ? "oklch(0.55 0.075 150 / 0.04)" : "transparent", parts: parts(m.text) };
+      }),
+    };
+  },
     landingVals() {
     const L = this.state.land;
     const ls = this.state.lsOffer || "ask";
@@ -1366,7 +1575,7 @@
   // so the app can link to them, and the address follows the view.
   const HASHES = { "#privacy": "privacy", "#terms": "terms" };
   function compute() {
-    current = { ...app.landingVals(), ...app.ccVals(), ...app.legalVals(), landingView: !app.state.legal, legalView: !!app.state.legal };
+    current = { ...app.landingVals(), ...app.ccVals(), ...app.gcVals(), ...app.legalVals(), landingView: !app.state.legal, legalView: !!app.state.legal };
   }
   function refresh() {
     compute();
