@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+<style>
+  html, body { margin: 0; background: #e6e3da; }
+  body { font-family: 'JetBrains Mono', ui-monospace, monospace; color: #1c1b18; -webkit-font-smoothing: antialiased; }
+  a { color: oklch(0.55 0.075 150); }
+  a:hover { color: #1c1b18; }
+  * { box-sizing: border-box; }
+  input { font-family: inherit; }
+  @keyframes fadein { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+  @keyframes slidein { from { opacity: 0; transform: translateX(16px); } to { opacity: 1; transform: none; } }
+  @keyframes sheet { from { transform: translateY(100%); } to { transform: none; } }
+  @keyframes ping { 0% { box-shadow: 0 0 0 0 oklch(0.55 0.075 150 / 0.5); } 70% { box-shadow: 0 0 0 7px oklch(0.55 0.075 150 / 0); } 100% { box-shadow: 0 0 0 0 oklch(0.55 0.075 150 / 0); } }
+  @keyframes blink { 50% { opacity: 0; } }
+  .nosb { scrollbar-width: none; }
+  .nosb::-webkit-scrollbar { display: none; }
+</style>
+</helmet>
+<div style="min-height: 100vh; display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 24px 16px 40px">
+  <div style="display: flex; align-items: center; gap: 14px; font-size: 11px; color: #97948a">
+    <span>buddy · mobile</span>
+    <span style="display: inline-flex; border: 1px solid #c4c1b6; border-radius: 7px; overflow: hidden; background: #fdfcf9">
+      <sc-for list="{{ orients }}" as="o" hint-placeholder-count="2"><span onClick="{{ o.go }}" style="padding: 5px 12px; cursor: pointer; color: {{ o.color }}; background: {{ o.bg }}">{{ o.name }}</span></sc-for>
+    </span>
+    <span onClick="{{ restart }}" style="cursor: pointer" style-hover="color: #1c1b18">restart</span>
+    <span onClick="{{ skipToAuth }}" style="cursor: pointer" style-hover="color: #1c1b18">skip to sign in</span>
+  </div>
+
+  <div style="width: {{ frameW }}; height: {{ frameH }}; max-width: 100%; position: relative; border-radius: 40px; border: 1px solid #c4c1b6; background: #f7f6f1; overflow: hidden; box-shadow: 0 30px 80px -40px rgba(28,27,24,.45); display: flex; flex-direction: column; transition: width .3s, height .3s">
+
+    <sc-if value="{{ isLanding }}" hint-placeholder-val="{{ true }}">
+      <iframe ref="{{ frameRef }}" src="Looking Glass - Tool Budget.dc.html" title="landing" style="flex: 1; width: 100%; border: 0; background: #f7f6f1"></iframe>
+    </sc-if>
+
+    <sc-if value="{{ isDesk2 }}" hint-placeholder-val="{{ false }}">
+      <div style="flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: center; padding: 0 {{ dkPad }}; animation: fadein .25s both">
+        <span style="font-size: 23px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.3">buddy is best on a computer.</span>
+        <span style="margin-top: 22px; font-size: 13.5px; line-height: 1.75; color: #54524b; max-width: 460px">open app.trybuddynow.com on your laptop or desktop to make your account. after that, you can sign in here.</span>
+        <span style="margin-top: 26px; display: flex; gap: 26px; font-size: 13.5px">
+          <span onClick="{{ flipAuth }}" style="color: oklch(0.55 0.075 150); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; padding: 10px 0">sign in</span>
+          <span onClick="{{ toLanding }}" style="color: #97948a; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; padding: 10px 0">back</span>
+        </span>
+      </div>
+    </sc-if>
+    <sc-if value="{{ isAuth }}" hint-placeholder-val="{{ false }}">
+      <div class="nosb" style="flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: {{ authDir }}; animation: fadein .2s both">
+        <div style="flex: {{ authLeftFlex }}; padding: {{ authLeftPad }}; display: flex; flex-direction: column; justify-content: {{ authLeftJustify }}; gap: 8px">
+          <span onClick="{{ toLanding }}" style="align-self: flex-start; font-size: 12px; color: #97948a; cursor: pointer; padding: 10px 0">‹ back</span>
+          <span style="font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.55 0.075 150)">{{ authKicker }}</span>
+          <span style="font-size: 24px; font-weight: 600; letter-spacing: -0.03em">{{ authTitle }}</span>
+        </div>
+        <sc-if value="{{ authIn }}" hint-placeholder-val="{{ true }}">
+        <div style="flex: 1; padding: {{ authRightPad }}; display: flex; flex-direction: column; gap: 14px">
+          <sc-if value="{{ authNever }}" hint-placeholder-val="{{ false }}">
+            <label style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">name</span><input value="{{ aName }}" onChange="{{ onAName }}" placeholder="what should buddy call you?" style="height: 50px; border-radius: 12px; border: 1px solid #e6e3da; background: #fdfcf9; padding: 0 14px; font-size: 14px; outline: none; color: #1c1b18; width: 100%"></input></label>
+          </sc-if>
+          <label style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">username</span><input value="{{ email }}" onChange="{{ onEmail }}" autoComplete="username" placeholder="nathaniel@buddy.computer" style="height: 50px; border-radius: 12px; border: 1px solid #e6e3da; background: #fdfcf9; padding: 0 14px; font-size: 14px; outline: none; color: #1c1b18; width: 100%"></input></label>
+          <label style="display: flex; flex-direction: column; gap: 6px"><span style="display: flex; justify-content: space-between"><span style="font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">password</span><sc-if value="{{ authIn }}" hint-placeholder-val="{{ true }}"><span style="font-size: 11px; color: #97948a">forgot</span></sc-if></span><input type="password" value="{{ aPass }}" onChange="{{ onAPass }}" placeholder="••••••••" style="height: 50px; border-radius: 12px; border: 1px solid #e6e3da; background: #fdfcf9; padding: 0 14px; font-size: 14px; outline: none; color: #1c1b18; width: 100%"></input></label>
+          <sc-if value="{{ authNever }}" hint-placeholder-val="{{ false }}">
+            <label style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">name your teammate</span><input value="{{ aBot }}" onChange="{{ onABot }}" maxLength="24" placeholder="teammate name" style="height: 50px; border-radius: 12px; border: 1px solid #e6e3da; background: #fdfcf9; padding: 0 14px; font-size: 14px; outline: none; color: #1c1b18; width: 100%"></input></label>
+            <label style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">your company</span><input value="{{ aCo }}" onChange="{{ onACo }}" maxLength="40" placeholder="your company name" style="height: 50px; border-radius: 12px; border: 1px solid #e6e3da; background: #fdfcf9; padding: 0 14px; font-size: 14px; outline: none; color: #1c1b18; width: 100%"></input></label>
+            <div style="display: flex; gap: 10px; align-items: baseline; padding: 10px 12px; border-radius: 10px; background: #f1efe8; font-size: 11.5px"><span style="color: #97948a; flex-shrink: 0">email</span><span style="color: #1c1b18; overflow-wrap: anywhere">{{ aAddr }}</span></div>
+          </sc-if>
+          <span onClick="{{ signIn }}" style="height: 50px; border-radius: 12px; background: #1c1b18; color: #f7f6f1; display: flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer; margin-top: 4px">{{ authCta }}</span>
+          <div style="display: flex; align-items: center; gap: 10px; font-size: 11px; color: #c4c1b6"><span style="flex: 1; height: 1px; background: #e6e3da"></span>or<span style="flex: 1; height: 1px; background: #e6e3da"></span></div>
+          <span onClick="{{ signIn }}" style="height: 50px; border-radius: 12px; border: 1px solid #e6e3da; background: #fdfcf9; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 13.5px; cursor: pointer"><span style="font-weight: 700">G</span>continue with google</span>
+          <span style="align-self: center; padding: 10px 0 4px; font-size: 12px; color: #97948a">{{ authSwitchNote }} <span onClick="{{ flipAuth }}" style="color: #1c1b18; cursor: pointer; text-decoration: underline; text-underline-offset: 2px">{{ authSwitchCta }}</span></span>
+        </div>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isApp }}" hint-placeholder-val="{{ false }}">
+      <div style="flex: 1; min-height: 0; display: flex; flex-direction: column; position: relative">
+        <header style="height: 56px; flex-shrink: 0; display: flex; align-items: center; gap: 4px; padding: 14px 8px 0 8px">
+          <sc-if value="{{ hasBack }}" hint-placeholder-val="{{ false }}"><span onClick="{{ back }}" style="width: 44px; height: 44px; display: grid; place-items: center; font-size: 20px; color: #54524b; cursor: pointer">‹</span></sc-if>
+          <sc-if value="{{ noBack }}" hint-placeholder-val="{{ true }}"><span style="width: 12px"></span></sc-if>
+          <span style="flex: 1; min-width: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.02em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ title }}</span>
+        </header>
+
+        <div class="nosb" style="flex: 1; min-height: 0; overflow-y: auto">
+
+          <sc-if value="{{ isDesk }}" hint-placeholder-val="{{ false }}">
+            <div style="padding: 8px 16px 24px; display: flex; flex-direction: column; gap: 6px; animation: fadein .2s both">
+              <sc-if value="{{ secAsks }}" hint-placeholder-val="{{ true }}">
+                <sc-if value="{{ secHeads }}" hint-placeholder-val="{{ true }}"><div style="display: flex; align-items: center; justify-content: space-between; padding: 14px 0 4px"><span style="font-size: 11px; color: oklch(0.50 0.09 70)">needs you</span><sc-if value="{{ asksMore.show }}" hint-placeholder-val="{{ false }}"><span onClick="{{ asksMore.go }}" style="min-height: 32px; display: flex; align-items: center; font-size: 11.5px; color: #54524b; cursor: pointer">{{ asksMore.label }}</span></sc-if></div></sc-if>
+                <sc-for list="{{ asks }}" as="a" hint-placeholder-count="2">
+                  <div style="border: 1px solid {{ a.line }}; border-radius: 14px; background: #fdfcf9; padding: 14px; display: flex; flex-direction: column; gap: 10px; margin-bottom: 4px; animation: fadein .2s both">
+                    <span style="font-size: 11px; color: #97948a">{{ a.meta }}</span>
+                    <span style="font-size: 14px; line-height: 1.5">{{ a.title }}</span>
+                    <sc-if value="{{ a.pending }}" hint-placeholder-val="{{ true }}">
+                      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px">
+                        <span onClick="{{ a.no }}" style="height: 44px; border-radius: 11px; border: 1px solid #e6e3da; display: flex; align-items: center; justify-content: center; font-size: 13px; color: #54524b; cursor: pointer">{{ a.noLabel }}</span>
+                        <span onClick="{{ a.yes }}" style="height: 44px; border-radius: 11px; background: #1c1b18; color: #f7f6f1; display: flex; align-items: center; justify-content: center; font-size: 13px; cursor: pointer">{{ a.yesLabel }}</span>
+                      </div>
+                    </sc-if>
+                    <sc-if value="{{ a.done }}" hint-placeholder-val="{{ false }}">
+                      <div style="display: flex; align-items: center; font-size: 12.5px"><span style="flex: 1; color: {{ a.doneColor }}">{{ a.doneText }}</span><span onClick="{{ a.undo }}" style="color: #97948a; cursor: pointer; padding: 8px 0 8px 12px">undo</span></div>
+                    </sc-if>
+                  </div>
+                </sc-for>
+              </sc-if>
+              <sc-if value="{{ secTasks }}" hint-placeholder-val="{{ true }}">
+              <sc-if value="{{ secHeads }}" hint-placeholder-val="{{ true }}"><div style="display: flex; align-items: center; justify-content: space-between; padding: 14px 0 4px"><span style="font-size: 11px; color: #97948a">working on</span><sc-if value="{{ tasksMore.show }}" hint-placeholder-val="{{ false }}"><span onClick="{{ tasksMore.go }}" style="min-height: 32px; display: flex; align-items: center; font-size: 11.5px; color: #54524b; cursor: pointer">{{ tasksMore.label }}</span></sc-if></div></sc-if>
+              <sc-for list="{{ tasks }}" as="t" hint-placeholder-count="3">
+                <div onClick="{{ t.open }}" style="min-height: 60px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #efece4; cursor: pointer">
+                  <span style="width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; background: {{ t.dot }}; animation: {{ t.anim }}"></span>
+                  <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px"><span style="font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ t.name }}</span><span style="font-size: 11px; color: {{ t.subColor }}">{{ t.sub }}</span></span>
+                  <span style="font-size: 11px; color: #97948a">{{ t.prog }}</span>
+                </div>
+              </sc-for>
+              </sc-if>
+              <sc-if value="{{ secUp }}" hint-placeholder-val="{{ true }}">
+              <sc-if value="{{ secHeads }}" hint-placeholder-val="{{ true }}"><div style="display: flex; align-items: center; justify-content: space-between; padding: 14px 0 4px"><span style="font-size: 11px; color: #97948a">coming up</span><sc-if value="{{ upMore.show }}" hint-placeholder-val="{{ false }}"><span onClick="{{ upMore.go }}" style="min-height: 32px; display: flex; align-items: center; font-size: 11.5px; color: #54524b; cursor: pointer">{{ upMore.label }}</span></sc-if></div></sc-if>
+              <sc-for list="{{ upcoming }}" as="u" hint-placeholder-count="3">
+                <div style="min-height: 48px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #efece4">
+                  <span style="flex: 1; min-width: 0; font-size: 13px; color: #54524b; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ u.name }}</span>
+                  <span style="font-size: 11px; color: #97948a">{{ u.when }}</span>
+                </div>
+              </sc-for>
+              </sc-if>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ isInbox }}" hint-placeholder-val="{{ false }}">
+            <div style="padding: 0 16px 24px; animation: fadein .2s both">
+              <sc-for list="{{ threads }}" as="t" hint-placeholder-count="5">
+                <div onClick="{{ t.open }}" style="min-height: 68px; padding: 12px 0; display: flex; flex-direction: column; justify-content: center; gap: 3px; border-bottom: 1px solid #efece4; cursor: pointer">
+                  <span style="display: flex; align-items: baseline; gap: 8px"><span style="flex: 1; min-width: 0; font-size: 13.5px; font-weight: {{ t.w }}; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ t.who }}</span><span style="font-size: 11px; color: #97948a">{{ t.when }}</span></span>
+                  <span style="font-size: 12.5px; color: #54524b; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ t.subject }}</span>
+                  <sc-if value="{{ t.waiting }}" hint-placeholder-val="{{ false }}"><span style="font-size: 11px; color: oklch(0.50 0.09 70)">{{ t.status }}</span></sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ isThread }}" hint-placeholder-val="{{ false }}">
+            <div style="padding: 0 16px 20px; display: flex; flex-direction: column; gap: 14px; animation: slidein .2s both">
+              <span onClick="{{ toggleHead }}" style="font-size: 11.5px; color: #97948a; cursor: pointer; padding: 4px 0 2px">{{ headLine }}</span>
+              <sc-if value="{{ headOpen }}" hint-placeholder-val="{{ false }}">
+                <div style="display: flex; flex-direction: column; gap: 4px; padding: 10px 12px; border-radius: 10px; background: #f1efe8; font-size: 11.5px; line-height: 1.55">
+                  <span><span style="color: #97948a">from</span> rachel@haldenhealth.com</span>
+                  <span><span style="color: #97948a">to</span> you</span>
+                  <span style="overflow-wrap: anywhere"><span style="color: #97948a">cc</span> [teammate]@[company].trybuddynow.com</span>
+                </div>
+              </sc-if>
+              <sc-for list="{{ msgs }}" as="m" hint-placeholder-count="3">
+                <div style="display: flex; flex-direction: column; align-items: {{ m.align }}; gap: 4px">
+                  <span style="font-size: 10.5px; color: #97948a">{{ m.who }}</span>
+                  <div style="max-width: 86%; padding: 10px 13px; border-radius: {{ m.radius }}; background: {{ m.bg }}; font-size: 13.5px; line-height: 1.6">{{ m.body }}</div>
+                  <sc-if value="{{ m.waiting }}" hint-placeholder-val="{{ false }}"><span style="font-size: 11px; color: oklch(0.50 0.09 70)">waiting on dev's yes</span></sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ isProjects }}" hint-placeholder-val="{{ false }}">
+            <div style="padding: 0 16px 24px; animation: fadein .2s both">
+              <sc-for list="{{ projects }}" as="p" hint-placeholder-count="3">
+                <div onClick="{{ p.open }}" style="min-height: 64px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #efece4; cursor: pointer">
+                  <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px"><span style="font-size: 14px">{{ p.name }}</span><span style="font-size: 11px; color: {{ p.stColor }}">{{ p.state }}</span></span>
+                  <span style="color: #c4c1b6">›</span>
+                </div>
+              </sc-for>
+              <span style="display: block; padding: 18px 0; font-size: 13px; color: #97948a">+ new project</span>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ isProject }}" hint-placeholder-val="{{ false }}">
+            <div style="padding: 0 16px 20px; display: flex; flex-direction: column; gap: 14px; animation: slidein .2s both">
+              <div onClick="{{ openScreen }}" style="position: relative; aspect-ratio: 16 / 9; border-radius: 12px; background: repeating-linear-gradient(135deg, #f1efe8 0 8px, #ebe8df 8px 16px); border: 1px solid #e6e3da; cursor: pointer">
+                <span style="position: absolute; left: 10px; top: 10px; display: flex; align-items: center; gap: 6px; font-size: 10.5px; color: #54524b; background: #fdfcf9; border: 1px solid #e6e3da; padding: 3px 9px; border-radius: 100px"><span style="width: 6px; height: 6px; border-radius: 50%; background: {{ screenDot }}; animation: {{ screenAnim }}"></span>{{ screenLabel }}</span>
+                <span style="position: absolute; right: 10px; bottom: 10px; font-size: 11px; color: #54524b; background: #fdfcf9; border: 1px solid #e6e3da; padding: 4px 10px; border-radius: 8px">open</span>
+              </div>
+              <sc-for list="{{ chat }}" as="c" hint-placeholder-count="2">
+                <div style="display: flex; flex-direction: column; align-items: {{ c.align }}; gap: 4px; animation: fadein .2s both">
+                  <div style="max-width: 88%; padding: 10px 13px; border-radius: {{ c.radius }}; background: {{ c.bg }}; font-size: 13.5px; line-height: 1.6">{{ c.body }}</div>
+                </div>
+              </sc-for>
+              <sc-if value="{{ planDrafting }}" hint-placeholder-val="{{ false }}">
+                <span style="display: flex; align-items: center; gap: 10px; font-size: 12.5px; color: #97948a"><span style="width: 7px; height: 7px; border-radius: 50%; background: oklch(0.55 0.075 150); animation: ping 1.4s infinite"></span>drafting a plan</span>
+              </sc-if>
+              <sc-if value="{{ planShown }}" hint-placeholder-val="{{ false }}">
+                <div style="border: 1px solid #c4c1b6; border-radius: 14px; background: #fdfcf9; padding: 14px; display: flex; flex-direction: column; gap: 12px; animation: fadein .2s both">
+                  <span style="font-size: 11px; color: #97948a">plan · v1 · {{ planState }}</span>
+                  <sc-for list="{{ planFields }}" as="f" hint-placeholder-count="3">
+                    <div style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 10.5px; color: {{ f.color }}">{{ f.k }}</span><span style="font-size: 13px; line-height: 1.55">{{ f.v }}</span></div>
+                  </sc-for>
+                  <sc-if value="{{ planProposed }}" hint-placeholder-val="{{ true }}">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px">
+                      <span onClick="{{ planDismiss }}" style="height: 44px; border-radius: 11px; border: 1px solid #e6e3da; display: flex; align-items: center; justify-content: center; font-size: 13px; color: #54524b; cursor: pointer">update</span>
+                      <span onClick="{{ planApprove }}" style="height: 44px; border-radius: 11px; background: oklch(0.55 0.075 150); color: #fdfcf9; display: flex; align-items: center; justify-content: center; font-size: 13px; cursor: pointer">approve and run</span>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ planRunning }}" hint-placeholder-val="{{ false }}">
+                    <div style="display: flex; align-items: center; gap: 10px; font-size: 12.5px; color: oklch(0.42 0.07 150)"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.55 0.075 150); animation: ping 1.4s infinite"></span><span style="flex: 1">{{ runLine }}</span><span onClick="{{ planStop }}" style="color: #54524b; cursor: pointer; padding: 8px 0 8px 12px">stop</span></div>
+                  </sc-if>
+                </div>
+              </sc-if>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ isSettings }}" hint-placeholder-val="{{ false }}">
+            <div style="padding: 0 16px 24px; animation: fadein .2s both">
+              <sc-for list="{{ setRows }}" as="r" hint-placeholder-count="6">
+                <div onClick="{{ r.go }}" style="min-height: 60px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #efece4; cursor: pointer">
+                  <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px"><span style="font-size: 14px; color: {{ r.color }}">{{ r.name }}</span><span style="font-size: 11px; color: #97948a">{{ r.sub }}</span></span>
+                  <span style="color: #c4c1b6">{{ r.chev }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ isTeam }}" hint-placeholder-val="{{ false }}">
+            <div style="padding: 0 16px 24px; animation: slidein .2s both">
+              <sc-for list="{{ team }}" as="m" hint-placeholder-count="2">
+                <div style="padding: 14px 0; border-bottom: 1px solid #efece4; display: flex; flex-direction: column; gap: 6px">
+                  <span style="font-size: 14px">{{ m.name }}</span>
+                  <sc-for list="{{ m.handles }}" as="h" hint-placeholder-count="2">
+                    <div style="min-height: 40px; display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: #54524b">
+                      <span style="flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ h.v }}</span>
+                      <sc-if value="{{ h.ok }}" hint-placeholder-val="{{ true }}"><span style="color: oklch(0.55 0.075 150)">✓</span></sc-if>
+                      <sc-if value="{{ h.canVerify }}" hint-placeholder-val="{{ false }}"><span onClick="{{ h.verify }}" style="height: 34px; padding: 0 12px; display: inline-flex; align-items: center; border-radius: 9px; border: 1px solid #e6e3da; font-size: 12px; color: #1c1b18; cursor: pointer">verify</span></sc-if>
+                      <sc-if value="{{ h.pending }}" hint-placeholder-val="{{ false }}"><span style="font-size: 11px; color: oklch(0.50 0.09 70)">link sent</span></sc-if>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-for>
+              <span style="display: block; padding: 18px 0; font-size: 13px; color: #97948a">+ add teammate</span>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ isUsage }}" hint-placeholder-val="{{ false }}">
+            <div style="padding: 0 16px 24px; display: flex; flex-direction: column; gap: 18px; animation: slidein .2s both">
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid #e6e3da; border-radius: 10px; overflow: hidden">
+                <sc-for list="{{ grans }}" as="g" hint-placeholder-count="3"><span onClick="{{ g.go }}" style="height: 40px; display: flex; align-items: center; justify-content: center; font-size: 12px; cursor: pointer; color: {{ g.color }}; background: {{ g.bg }}">{{ g.name }}</span></sc-for>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 11px; color: #97948a">{{ period }}</span><span style="font-size: 32px; font-weight: 500; letter-spacing: -0.03em; font-variant-numeric: tabular-nums">{{ cost }}</span></div>
+              <div style="display: flex; flex-direction: column; gap: 12px">
+                <div style="display: flex; height: 6px; border-radius: 100px; overflow: hidden; background: #f1efe8"><div style="width: {{ compPct }}; background: oklch(0.66 0.085 75)"></div><div style="flex: 1; background: oklch(0.55 0.075 150)"></div></div>
+                <sc-for list="{{ split }}" as="x" hint-placeholder-count="2">
+                  <div style="display: flex; align-items: baseline; gap: 10px">
+                    <span style="width: 8px; height: 8px; border-radius: 2px; background: {{ x.c }}; flex-shrink: 0; transform: translateY(-1px)"></span>
+                    <span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 13.5px">{{ x.k }}</span><span style="font-size: 11px; color: #97948a">{{ x.s }}</span></span>
+                    <span style="font-size: 13.5px; font-variant-numeric: tabular-nums">{{ x.v }}</span>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="display: flex; flex-direction: column">
+                <sc-for list="{{ usageRows }}" as="u" hint-placeholder-count="3">
+                  <div style="min-height: 48px; display: flex; align-items: center; border-bottom: 1px solid #efece4; font-size: 13px"><span style="flex: 1; color: #54524b">{{ u.k }}</span><span style="font-variant-numeric: tabular-nums">{{ u.v }}</span></div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ isMemory }}" hint-placeholder-val="{{ false }}">
+            <div style="padding: 0 16px 24px; animation: slidein .2s both">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; border: 1px solid #e6e3da; border-radius: 10px; overflow: hidden; margin-bottom: 6px">
+                <sc-for list="{{ memTabs }}" as="t" hint-placeholder-count="2"><span onClick="{{ t.go }}" style="height: 40px; display: flex; align-items: center; justify-content: center; font-size: 12px; cursor: pointer; color: {{ t.color }}; background: {{ t.bg }}">{{ t.name }}</span></sc-for>
+              </div>
+              <sc-if value="{{ memPeople }}" hint-placeholder-val="{{ true }}">
+                <sc-for list="{{ people }}" as="p" hint-placeholder-count="4">
+                  <div style="min-height: 60px; display: flex; flex-direction: column; justify-content: center; gap: 3px; border-bottom: 1px solid #efece4">
+                    <span style="font-size: 14px">{{ p.name }}</span><span style="font-size: 11.5px; color: #97948a">{{ p.role }}</span>
+                  </div>
+                </sc-for>
+              </sc-if>
+              <sc-if value="{{ memProcs }}" hint-placeholder-val="{{ false }}">
+                <sc-for list="{{ procs }}" as="r" hint-placeholder-count="4">
+                  <div onClick="{{ r.toggle }}" style="border-bottom: 1px solid #efece4; cursor: pointer; opacity: {{ r.op }}">
+                    <div style="min-height: 62px; display: flex; align-items: center; gap: 12px">
+                      <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px"><span style="font-size: 14px">{{ r.name }}</span><span style="font-size: 11.5px; color: #97948a">{{ r.app }} · {{ r.track }}</span></span>
+                      <span onClick="{{ r.flip }}" title="{{ r.status }}" style="flex-shrink: 0; padding: 10px 0 10px 10px; cursor: pointer"><span style="position: relative; display: block; width: 40px; height: 24px; border-radius: 100px; background: {{ r.track }}; transition: background .18s"><span style="position: absolute; top: 3px; left: {{ r.knob }}; width: 18px; height: 18px; border-radius: 50%; background: #fdfcf9; box-shadow: 0 1px 2px rgba(28,27,24,.25); transition: left .18s"></span></span></span>
+                    </div>
+                    <sc-if value="{{ r.open }}" hint-placeholder-val="{{ false }}">
+                      <div style="padding: 0 0 14px; display: flex; flex-direction: column; gap: 6px; animation: fadein .18s both">
+                        <sc-for list="{{ r.steps }}" as="s" hint-placeholder-count="3"><div style="display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 6px; font-size: 12.5px; line-height: 1.6; color: #54524b"><span style="color: #97948a">{{ s.n }}</span><span>{{ s.t }}</span></div></sc-for>
+                      </div>
+                    </sc-if>
+                  </div>
+                </sc-for>
+              </sc-if>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ isConn }}" hint-placeholder-val="{{ false }}">
+            <div style="padding: 0 16px 24px; animation: slidein .2s both">
+              <sc-for list="{{ conns }}" as="c" hint-placeholder-count="5">
+                <div style="min-height: 60px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #efece4">
+                  <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px"><span style="font-size: 14px">{{ c.name }}</span><span style="font-size: 11.5px; color: {{ c.subColor }}">{{ c.sub }}</span></span>
+                  <span onClick="{{ c.toggle }}" style="height: 36px; padding: 0 14px; display: inline-flex; align-items: center; border-radius: 10px; font-size: 12px; cursor: pointer; border: 1px solid {{ c.line }}; background: {{ c.bg }}; color: {{ c.color }}">{{ c.label }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+
+        <sc-if value="{{ showComposer }}" hint-placeholder-val="{{ false }}">
+          <div style="flex-shrink: 0; padding: 8px 12px 10px; display: flex; flex-direction: column; gap: 8px; border-top: 1px solid #efece4">
+            <sc-if value="{{ showPlanBtns }}" hint-placeholder-val="{{ false }}">
+              <div style="display: flex; gap: 6px">
+                <span onClick="{{ planGo }}" style="height: 34px; padding: 0 14px; display: inline-flex; align-items: center; border-radius: 100px; background: #1c1b18; color: #f7f6f1; font-size: 12px; cursor: pointer">plan</span>
+                <span onClick="{{ autoTap }}" style="height: 34px; padding: 0 14px; display: inline-flex; align-items: center; border-radius: 100px; font-size: 12px; cursor: pointer; border: 1px solid {{ autoLine }}; color: {{ autoColor }}">{{ autoLabel }}</span>
+              </div>
+            </sc-if>
+            <div style="display: flex; align-items: center; gap: 6px">
+              <input value="{{ draft }}" onChange="{{ onDraft }}" onKeyDown="{{ onDraftKey }}" placeholder="{{ composerPh }}" style="flex: 1; min-width: 0; height: 44px; border: 1px solid #e6e3da; border-radius: 22px; padding: 0 16px; font-size: 14px; background: #fdfcf9; outline: none; color: #1c1b18"></input>
+              <span onClick="{{ send }}" style="width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; font-size: 15px; flex-shrink: 0; cursor: pointer; background: {{ sendBg }}; color: #fdfcf9">↑</span>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ showTabs }}" hint-placeholder-val="{{ true }}">
+          <nav style="flex-shrink: 0; height: 72px; padding: 4px 8px 18px; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid #efece4">
+            <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+              <span onClick="{{ t.go }}" style="position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; font-size: 12px; cursor: pointer; color: {{ t.color }}">
+                <span style="width: 5px; height: 5px; border-radius: 50%; background: {{ t.dot }}"></span>{{ t.name }}
+              </span>
+            </sc-for>
+          </nav>
+        </sc-if>
+
+        <sc-if value="{{ autoWarn }}" hint-placeholder-val="{{ false }}">
+          <div onClick="{{ autoCancel }}" style="position: absolute; inset: 0; z-index: 40; background: rgba(28,27,24,.25)"></div>
+          <div style="position: absolute; left: 0; right: 0; bottom: 0; z-index: 41; background: #fdfcf9; border-radius: 20px 20px 0 0; padding: 12px 18px 28px; animation: sheet .25s cubic-bezier(.4,0,.2,1) both">
+            <div style="width: 36px; height: 4px; border-radius: 100px; background: #d9d6cc; margin: 0 auto 18px"></div>
+            <span style="display: block; font-size: 15px; font-weight: 500; line-height: 1.45">works on its own, checking in with you less often.</span>
+            <span style="display: block; margin-top: 6px; font-size: 13px; color: #54524b">you can stop it at any time.</span>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 20px">
+              <span onClick="{{ autoCancel }}" style="height: 48px; border-radius: 12px; border: 1px solid #e6e3da; display: flex; align-items: center; justify-content: center; font-size: 13.5px; color: #54524b; cursor: pointer">cancel</span>
+              <span onClick="{{ autoConfirm }}" style="height: 48px; border-radius: 12px; background: oklch(0.66 0.085 75); color: #fdfcf9; display: flex; align-items: center; justify-content: center; font-size: 13.5px; cursor: pointer">turn on auto</span>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isScreen }}" hint-placeholder-val="{{ false }}">
+      <div style="position: absolute; inset: 0; z-index: 60; background: #1c1b18; color: #f7f6f1; display: flex; flex-direction: column; animation: fadein .2s both">
+        <div style="height: 64px; flex-shrink: 0; display: flex; align-items: center; gap: 10px; padding: 16px 12px 0 16px">
+          <span style="width: 7px; height: 7px; border-radius: 50%; background: {{ scDot }}; animation: {{ scAnim }}"></span>
+          <span style="flex: 1; font-size: 13px">{{ scTitle }}</span>
+          <sc-if value="{{ scWatching }}" hint-placeholder-val="{{ true }}">
+            <span onClick="{{ closeScreen }}" style="height: 38px; padding: 0 14px; display: inline-flex; align-items: center; border-radius: 10px; border: 1px solid #3a3934; font-size: 12px; cursor: pointer">close</span>
+          </sc-if>
+          <sc-if value="{{ scHolding }}" hint-placeholder-val="{{ false }}">
+            <span onClick="{{ handBack }}" style="height: 38px; padding: 0 14px; display: inline-flex; align-items: center; border-radius: 10px; background: #f7f6f1; color: #1c1b18; font-size: 12px; cursor: pointer">hand back</span>
+          </sc-if>
+        </div>
+        <div style="flex: 1; min-height: 0; padding: 10px; display: flex; align-items: center; justify-content: center">
+          <div onDoubleClick="{{ takeOver }}" style="position: relative; width: 100%; aspect-ratio: 16 / 10; max-height: 100%; border-radius: 10px; background: repeating-linear-gradient(135deg, #2a2925 0 8px, #24231f 8px 16px); border: 1px solid {{ scLine }}">
+            <span style="position: absolute; left: 10px; top: 10px; font-size: 10.5px; color: #97948a">vendor portal · sign in</span>
+          </div>
+        </div>
+        <div style="flex-shrink: 0; padding: 8px 12px 26px; display: flex; flex-direction: column; gap: 10px">
+          <sc-if value="{{ scWatching }}" hint-placeholder-val="{{ true }}">
+            <span onClick="{{ takeOver }}" style="height: 48px; border-radius: 12px; background: #f7f6f1; color: #1c1b18; display: flex; align-items: center; justify-content: center; font-size: 13.5px; cursor: pointer">take over</span>
+          </sc-if>
+          <sc-if value="{{ scHolding }}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; align-items: center; gap: 6px">
+              <input value="{{ scText }}" onChange="{{ onScText }}" onKeyDown="{{ onScKey }}" placeholder="{{ scPh }}" style="flex: 1; min-width: 0; height: 44px; border-radius: 22px; border: 1px solid {{ scInLine }}; background: #24231f; color: #f7f6f1; padding: 0 16px; font-size: 13.5px; outline: none"></input>
+              <span onClick="{{ scSend }}" style="width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: {{ scSendBg }}; color: #fdfcf9; font-size: 15px; flex-shrink: 0; cursor: pointer">↑</span>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </sc-if>
+    <sc-if value="{{ fbBtn }}" hint-placeholder-val="{{ false }}">
+      <span onClick="{{ fbToggle }}" title="feedback · walkthrough" style="position: absolute; right: 14px; bottom: {{ fbBottom }}; z-index: 50; width: 40px; height: 40px; border-radius: 50%; background: #1c1b18; color: #f7f6f1; display: grid; place-items: center; font-size: 15px; cursor: pointer; box-shadow: 0 6px 18px -6px rgba(28,27,24,.5)">?</span>
+    </sc-if>
+    <sc-if value="{{ fbOpen }}" hint-placeholder-val="{{ false }}">
+      <div onClick="{{ fbClose }}" style="position: absolute; inset: 0; z-index: 70; background: rgba(28,27,24,.25)"></div>
+      <div style="position: absolute; left: 0; right: 0; bottom: 0; z-index: 71; background: #fdfcf9; border-radius: 20px 20px 0 0; padding: 12px 18px 28px; animation: sheet .25s cubic-bezier(.4,0,.2,1) both">
+        <div style="width: 36px; height: 4px; border-radius: 100px; background: #d9d6cc; margin: 0 auto 16px"></div>
+        <sc-if value="{{ fbForm }}" hint-placeholder-val="{{ true }}">
+          <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 14px"><span style="font-size: 15px; font-weight: 500">feedback</span></div>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid #e6e3da; border-radius: 10px; overflow: hidden; margin-bottom: 10px">
+            <sc-for list="{{ fbKinds }}" as="k" hint-placeholder-count="3"><span onClick="{{ k.set }}" style="height: 40px; display: flex; align-items: center; justify-content: center; font-size: 12px; cursor: pointer; color: {{ k.color }}; background: {{ k.bg }}">{{ k.name }}</span></sc-for>
+          </div>
+          <textarea value="{{ fbText }}" onChange="{{ onFbText }}" rows="4" placeholder="{{ fbHint }}" style="width: 100%; box-sizing: border-box; font-family: inherit; font-size: 14px; line-height: 1.6; color: #1c1b18; background: #f7f6f1; border: 1px solid #e6e3da; border-radius: 12px; padding: 12px 14px; outline: none; resize: none"></textarea>
+          <div onClick="{{ fbToggleShot }}" style="min-height: 44px; display: flex; align-items: center; gap: 10px; font-size: 12.5px; color: #54524b; cursor: pointer">
+            <span style="width: 18px; height: 18px; border-radius: 5px; border: 1px solid {{ fbShotLine }}; background: {{ fbShotBg }}; color: #fdfcf9; display: grid; place-items: center; font-size: 11px">{{ fbShotTick }}</span>include a screenshot of this screen
+          </div>
+          <span style="display: block; min-height: 18px; font-size: 11.5px; color: oklch(0.58 0.10 28)">{{ fbErr }}</span>
+          <div style="display: grid; grid-template-columns: 1fr 1.4fr; gap: 8px; margin-top: 4px">
+            <span onClick="{{ fbClose }}" style="height: 48px; border-radius: 12px; border: 1px solid #e6e3da; display: flex; align-items: center; justify-content: center; font-size: 13.5px; color: #54524b; cursor: pointer">cancel</span>
+            <span onClick="{{ fbSend }}" style="height: 48px; border-radius: 12px; background: #1c1b18; color: #f7f6f1; display: flex; align-items: center; justify-content: center; font-size: 13.5px; cursor: pointer">send</span>
+          </div>
+        </sc-if>
+        <sc-if value="{{ fbSent }}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; flex-direction: column; gap: 6px; padding: 8px 0 4px; animation: fadein .2s both">
+            <span style="display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500"><span style="width: 7px; height: 7px; border-radius: 50%; background: oklch(0.55 0.075 150)"></span>thanks. it's in.</span>
+            <span style="font-size: 13px; color: #54524b">we read every one.</span>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 16px">
+              <span onClick="{{ fbAnother }}" style="height: 48px; border-radius: 12px; border: 1px solid #e6e3da; display: flex; align-items: center; justify-content: center; font-size: 13.5px; color: #54524b; cursor: pointer">send another</span>
+              <span onClick="{{ fbClose }}" style="height: 48px; border-radius: 12px; background: #1c1b18; color: #f7f6f1; display: flex; align-items: center; justify-content: center; font-size: 13.5px; cursor: pointer">close</span>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { orient: "portrait", screen: "landing", authUp: false, email: "", tab: "desk", sub: null, thread: null, proj: null,
+    asks: {}, draft: "", sent: [], headOpen: false, plan: "idle", auto: false, autoWarn: false,
+    sc: null, paused: false, tNotes: [], scText: "", verify: {}, verified: {}, gran: "week",
+    conn: { gmail: true, slack: true, linear: true }, memTab: "people", procOpen: null, copied: false, more: {}, procOn: {} };
+
+  frameRef = React.createRef();
+  hookDoc = (doc) => {
+    if (!doc || !doc.body || doc.__buddyHooked) return false;
+    doc.__buddyHooked = true;
+    doc.addEventListener("click", (ev) => {
+      const el = ev.target.closest && ev.target.closest("span, a, button");
+      const t = el && (el.textContent || "").replace(/▶/g, "").trim().toLowerCase();
+      if (t === "get started" || t === "sign in") { ev.preventDefault(); ev.stopPropagation(); this.setState({ screen: "auth", authUp: t === "get started" }); }
+    }, true);
+    return true;
+  };
+  componentDidMount() {
+    this._poll = setInterval(() => {
+      const f = this.frameRef.current;
+      if (!f) { this._hookedFrame = null; return; }
+      if (this._hookedFrame !== f) { this._hookedFrame = f; f.addEventListener("load", () => { try { this.hookDoc(f.contentDocument); } catch (e) {} }); }
+      try { const d = f.contentDocument; if (d && d.readyState === "complete") this.hookDoc(d); } catch (e) {}
+    }, 300);
+  }
+  componentWillUnmount() { clearInterval(this._poll); }
+
+  renderVals() {
+    const st = this.state, G = "oklch(0.55 0.075 150)", A = "oklch(0.66 0.085 75)", AT = "oklch(0.50 0.09 70)";
+    const land = st.orient === "landscape";
+    const set = (o) => this.setState(o);
+    const segOn = (on) => ({ color: on ? "#f7f6f1" : "#54524b", bg: on ? "#1c1b18" : "transparent" });
+
+    const ASKS = [
+      { id: "a1", meta: "gmail · inbox triage", title: "send the reply about pilot terms to rachel?", yesLabel: "approve", noLabel: "decline", yesText: "sent", noText: "declined, not sent" },
+      { id: "a2", meta: "arkos · waiting 2h", title: "stuck on the vendor export. i need you to log in.", yesLabel: "take the keys", noLabel: "later", yesText: "", noText: "snoozed until 2pm", keys: true },
+      { id: "a3", meta: "slack · arkos", title: "post the offsite schedule in #general?", yesLabel: "approve", noLabel: "decline", yesText: "posted", noText: "declined, not posted" },
+      { id: "a4", meta: "stripe · inbox triage", title: "refund $240 to lumen clinics? they were billed twice.", yesLabel: "approve", noLabel: "decline", yesText: "refunded", noText: "declined" },
+      { id: "a5", meta: "legal · waiting on you", title: "sign the updated msa from fjord legal.", yesLabel: "open", noLabel: "later", yesText: "opened in files", noText: "snoozed until tomorrow" },
+    ];
+    const listMode = st.sub === "deskList" ? st.deskList : null;
+    const cap = (list, key, n) => {
+      if (listMode) return { items: list, more: { show: false, label: "", go: () => {} } };
+      const extra = list.length - n;
+      return { items: list.slice(0, n), more: { show: extra > 0, label: "see all " + list.length + " ›", go: () => set({ sub: "deskList", deskList: key }) } };
+    };
+    const asks = ASKS.map((a) => { const d = st.asks[a.id]; return { ...a, pending: !d, done: !!d, line: d ? "#e6e3da" : "oklch(0.66 0.085 75 / 0.45)",
+      doneText: d === "yes" ? a.yesText : a.noText, doneColor: d === "yes" ? G : "#97948a",
+      yes: () => a.keys ? set({ sc: "hold" }) : set({ asks: { ...st.asks, [a.id]: "yes" } }), no: () => set({ asks: { ...st.asks, [a.id]: "no" } }),
+      undo: () => { const n = { ...st.asks }; delete n[a.id]; set({ asks: n }); } }; });
+
+    const PR = [
+      { id: "triage", name: "inbox triage", state: "running · step 2 of 5", stColor: G },
+      { id: "arkos", name: "arkos", state: "needs you", stColor: AT },
+      { id: "reading", name: "weekend reading", state: "idle", stColor: "#97948a" },
+    ];
+    const proj = PR.find((p) => p.id === st.proj) || PR[0];
+
+    const TH = [
+      { id: "i1", who: "rachel okafor", when: "9:14", subject: "re: pilot terms and seat counts", status: "waiting on dev", unread: true },
+      { id: "i2", who: "dev mehta · #ops", when: "9:10", subject: "every monday, send me the pipeline" },
+      { id: "i3", who: "jordan lee", when: "8:51", subject: "demo for our three clinics", status: "waiting on sam", unread: true },
+      { id: "i4", who: "mara lindqvist", when: "yesterday", subject: "updated msa, needs a signature", status: "waiting on you" },
+    ];
+
+    const view = st.sub || st.tab;
+    const titles = { desk: "desk", inbox: "inbox", projects: "projects", settings: "settings", thread: "pilot terms", project: proj.name, team: "team", usage: "usage", memory: "memory", connections: "connections", deskList: ({ asks: "needs you", tasks: "working on", up: "coming up" })[st.deskList] || "desk" };
+    const back = () => {
+      if (st.sub === "thread") return set({ sub: null, thread: null });
+      if (st.sub === "project") return set({ sub: null, proj: null, plan: "idle" });
+      set({ sub: null });
+    };
+
+    const planRun = st.plan === "running";
+    const isTeach = false;
+    const holding = st.sc === "hold" || isTeach;
+
+    const team = [
+      { id: "dev", name: "dev mehta", handles: [{ v: "@dev", ok: true }, { v: "dev@northloop.io", ok: true }] },
+      { id: "sam", name: "sam ortiz", handles: [{ v: "@sam", ok: true }, { v: "sam@northloop.io", ok: false }] },
+    ].map((m) => ({ ...m, handles: m.handles.map((h) => { const k = m.id + h.v, ok = h.ok || !!st.verified[k], p = !!st.verify[k];
+      return { v: h.v, ok, pending: !ok && p, canVerify: !ok && !p, verify: () => { set({ verify: { ...st.verify, [k]: true } }); setTimeout(() => this.setState((s) => ({ verified: { ...s.verified, [k]: true } })), 1400); } }; }) }));
+
+    const U = { day: { p: "today", w: 6.2 }, week: { p: "sep 28 – oct 4", w: 37.3 }, month: { p: "september", w: 148.4 } }[st.gran];
+    const uComp = U.w * 1.35, uC = uComp * 0.5, uL = U.w * 40, money = (n) => "$" + n.toFixed(2);
+
+    const CONNS = [
+      { id: "gmail", name: "gmail", desc: "read and draft email", tools: 8 },
+      { id: "slack", name: "slack", desc: "read channels, post as you", tools: 6 },
+      { id: "linear", name: "linear", desc: "issues and projects", tools: 9 },
+      { id: "github", name: "github", desc: "repos, issues, pull requests", tools: 12 },
+      { id: "notion", name: "notion", desc: "pages and databases", tools: 7 },
+      { id: "quickbooks", name: "quickbooks", desc: "invoices and bank lines", tools: 10 },
+    ];
+    const connOn = CONNS.filter((c) => st.conn[c.id]).map((c) => c.name);
+    const PROCS = [
+      { id: "r1", name: "export invoices from netsuite", app: "netsuite", track: "worked 4 of 5", status: "active", steps: ["reports → saved searches, not the invoice list. it caps at 1,000 rows.", "date range: first to last day of last month", "export as csv, never excel", "email priya the file with the row count"] },
+      { id: "r2", name: "triage the support inbox", app: "gmail", track: "worked 3 of 4", status: "active", steps: ["label by customer, then topic", "answer password and invoice-copy requests", "money or contracts go on the desk"] },
+      { id: "r3", name: "reconcile invoices against quickbooks", app: "quickbooks", track: "worked 2 of 3", status: "active", steps: ["import the month's csv", "match on amount and date, within 3 days. partial payments come in as two lines.", "list anything unmatched in books/gaps.md"] },
+      { id: "r4", name: "post the weekly update in slack", app: "slack", track: "worked 2 of 2", status: "retired", steps: ["collect the week's finished runs", "post three lines in #updates"] },
+    ];
+    const draftOk = st.draft.trim().length > 0;
+    const composerShown = (view === "thread" || view === "project") && !st.sc;
+
+    return {
+      orients: ["portrait", "landscape"].map((o) => ({ name: o, ...segOn(st.orient === o), go: () => set({ orient: o }) })),
+      frameW: land ? "844px" : "390px", frameH: land ? "390px" : "844px",
+      frameRef: this.frameRef,
+      ...(() => {
+        const K = { bug: "what happened, and what did you expect?", idea: "what would make buddy better?", other: "tell us anything" };
+        const kind = st.fbKind || "bug", shot = st.fbShot ?? true;
+        const close = () => set({ fbOpen: false, fbErr: "" });
+        return {
+          fbBtn: st.screen === "app" && !st.sc && !st.autoWarn && !st.fbOpen,
+          fbBottom: st.sub && (st.sub === "thread" || st.sub === "project") ? "128px" : st.sub ? "24px" : "86px",
+          fbOpen: !!st.fbOpen, fbForm: !st.fbDone, fbSent: !!st.fbDone,
+          fbToggle: () => set({ fbOpen: true, fbDone: false, fbErr: "" }), fbClose: close,
+          fbKinds: ["bug", "idea", "other"].map((k) => ({ name: k, ...segOn(k === kind), set: () => set({ fbKind: k }) })),
+          fbHint: K[kind], fbText: st.fbText || "", onFbText: (e) => set({ fbText: e.target.value, fbErr: "" }),
+          fbShotTick: shot ? "✓" : "", fbShotBg: shot ? G : "#fdfcf9", fbShotLine: shot ? G : "#c4c1b6", fbToggleShot: () => set({ fbShot: !shot }),
+          fbErr: st.fbErr || "",
+          fbSend: () => (st.fbText || "").trim() ? set({ fbDone: true, fbText: "" }) : set({ fbErr: "write something first." }),
+          fbAnother: () => set({ fbDone: false }),
+        };
+      })(),
+      skipToAuth: () => set({ screen: "auth", authUp: false }),
+      restart: () => set({ screen: "landing", tab: "desk", sub: null, sc: null, plan: "idle", asks: {}, sent: [], auto: false }),
+
+      isLanding: st.screen === "landing", isAuth: st.screen === "auth" && !st.authUp, isDesk2: st.screen === "auth" && st.authUp, dkPad: land ? "120px" : "42px", isApp: st.screen === "app", isScreen: st.screen === "app" && !!st.sc,
+      toLanding: () => set({ screen: "landing" }),
+      authDir: land ? "row" : "column", authLeftFlex: land ? "0 0 300px" : "0 0 auto",
+      authLeftPad: land ? "28px 32px" : "48px 24px 8px", authLeftJustify: land ? "flex-start" : "flex-start",
+      authRightPad: land ? "28px 40px 28px 8px" : "20px 24px 36px",
+      authUp: st.authUp, authIn: !st.authUp,
+      authNever: false,
+      authKicker: st.authUp ? "new account" : "sign in", authTitle: st.authUp ? "on a computer" : "welcome back",
+      authCta: st.authUp ? "create account" : "sign in",
+      authSwitchNote: st.authUp ? "already have an account?" : "no account yet?", authSwitchCta: st.authUp ? "sign in" : "make one",
+      aName: st.aName || "", onAName: (e) => set({ aName: e.target.value }),
+      aPass: st.aPass || "", onAPass: (e) => set({ aPass: e.target.value }),
+      aBot: st.aBot || "", onABot: (e) => set({ aBot: e.target.value.replace(/[^a-zA-Z0-9 ._-]/g, "") }),
+      aCo: st.aCo || "", onACo: (e) => set({ aCo: e.target.value }),
+      aAddr: (((st.aBot || "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "")) || "[teammate]") + "@" + (((st.aCo || "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "")) || "[company]") + ".trybuddynow.com",
+      flipAuth: () => set({ authUp: !st.authUp }), email: st.email, onEmail: (e) => set({ email: e.target.value }),
+      signIn: () => set({ screen: "app", tab: "desk", sub: null }),
+
+      title: titles[view] || view, hasBack: !!st.sub, noBack: !st.sub, back,
+      isDesk: view === "desk" || view === "deskList",
+      secAsks: !listMode || listMode === "asks", secTasks: !listMode || listMode === "tasks", secUp: !listMode || listMode === "up", secHeads: !listMode, isInbox: view === "inbox", isThread: view === "thread", isProjects: view === "projects", isProject: view === "project",
+      isSettings: view === "settings", isTeam: view === "team", isUsage: view === "usage", isMemory: view === "memory",
+      showTabs: !st.sub, showComposer: composerShown,
+
+      hasAsks: asks.length > 0,
+      ...(() => {
+        const pend = asks.filter((a) => a.pending), done = asks.filter((a) => a.done);
+        const c = cap([...pend, ...done], "asks", 2, "asks");
+        return { asks: c.items, asksMore: c.more };
+      })(),
+      ...(() => {
+        const c = cap([
+          { name: "weekend inbox triage", sub: "drafting rachel's reply", prog: "2/5", dot: G, anim: "ping 2.4s infinite", subColor: "#97948a", id: "triage" },
+          { name: "vendor export", sub: "stuck · needs you to log in", prog: "1/3", dot: A, anim: "none", subColor: AT, id: "arkos" },
+          { name: "reconcile september", sub: "matching bank lines", prog: "3/4", dot: G, anim: "none", subColor: "#97948a", id: "arkos" },
+          { name: "demo reply to jordan", sub: "waiting on sam", prog: "2/3", dot: A, anim: "none", subColor: AT, id: "triage" },
+          { name: "offsite room holds", sub: "comparing three venues", prog: "1/4", dot: G, anim: "none", subColor: "#97948a", id: "arkos" },
+          { name: "weekend reading digest", sub: "summarizing 6 articles", prog: "4/6", dot: G, anim: "none", subColor: "#97948a", id: "reading" },
+        ].map((t) => ({ ...t, open: () => set({ sub: "project", proj: t.id }) })), "tasks", 3, "tasks");
+        return { tasks: c.items, tasksMore: c.more };
+      })(),
+      ...(() => {
+        const c = cap([
+          { name: "triage the support inbox", when: "tomorrow 8:30" }, { name: "follow up with rachel", when: "thu 9:00" }, { name: "pipeline to dev", when: "mon 9:00" },
+          { name: "weekly reading digest", when: "fri 4pm" }, { name: "remind priya about invoices", when: "fri 10:00" }, { name: "renew the porto venue hold", when: "oct 14" }, { name: "export last month's invoices", when: "nov 1" },
+        ], "up", 3, "");
+        return { upcoming: c.items, upMore: c.more };
+      })(),
+
+      threads: TH.map((t) => ({ ...t, w: t.unread ? 600 : 400, waiting: !!t.status, open: () => set({ sub: "thread", thread: t.id }) })),
+      headOpen: st.headOpen, headLine: st.headOpen ? "rachel, you, [teammate] · hide" : "rachel, you, [teammate] · details",
+      toggleHead: () => set({ headOpen: !st.headOpen }),
+      msgs: [
+        { who: "rachel okafor · 9:02", body: "before we sign, can you confirm seats through q1?", r: false },
+        { who: "you · 9:06", body: "looping in our teammate to pull the numbers.", r: false },
+        { who: "[teammate] · draft", body: "42 seats today, and we'll hold 50 through march at the current rate.", r: true, waiting: true },
+        ...st.sent.map((b) => ({ who: "you, via [teammate] · now", body: b, r: true })),
+      ].map((m) => ({ ...m, align: m.r ? "flex-end" : "flex-start", radius: m.r ? "16px 16px 4px 16px" : "16px 16px 16px 4px", bg: m.r ? "oklch(0.55 0.075 150 / 0.10)" : "#f1efe8", waiting: !!m.waiting })),
+
+      projects: PR.map((p) => ({ ...p, open: () => set({ sub: "project", proj: p.id, plan: "idle" }) })),
+      screenLabel: planRun || proj.id === "triage" ? "live · working" : proj.id === "arkos" ? "paused · needs you" : "idle",
+      screenDot: proj.id === "arkos" ? A : planRun || proj.id === "triage" ? G : "#c4c1b6",
+      screenAnim: planRun || proj.id === "triage" ? "ping 2.4s infinite" : "none",
+      openScreen: () => set({ sc: "watch" }),
+      chat: [{ body: "pull anything from the weekend that still needs an answer, and don't touch calendar this time.", r: true }, ...(st.chatSent || []).map((b) => ({ body: b, r: true }))]
+        .map((c) => ({ ...c, align: c.r ? "flex-end" : "flex-start", radius: c.r ? "16px 16px 4px 16px" : "16px 16px 16px 4px", bg: c.r ? "oklch(0.55 0.075 150 / 0.10)" : "#f1efe8" })),
+      planDrafting: st.plan === "drafting", planShown: st.plan === "proposed" || planRun, planProposed: st.plan === "proposed", planRunning: planRun,
+      planState: planRun ? (st.auto ? "running on auto" : "approved") : "waiting on you",
+      runLine: st.auto ? "auto · picks up the next thing on its own" : "running from plan.md · step 2 of 5",
+      planFields: [
+        { k: "goal", v: "answer the weekend's mail, drafting replies for your approval.", color: "#97948a" },
+        { k: "done when", v: "every thread is answered, filed, or waiting in approvals.", color: "#97948a" },
+        { k: "missing", v: "is there a deadline i should work against?", color: AT },
+      ],
+      showPlanBtns: view === "project" && st.plan === "idle",
+      planGo: () => { set({ plan: "drafting" }); setTimeout(() => this.setState({ plan: "proposed" }), 1200); },
+      planApprove: () => set({ plan: "running" }), planDismiss: () => set({ plan: "idle" }), planStop: () => set({ plan: "idle", auto: false }),
+      autoLabel: st.auto ? "auto · on" : "auto", autoLine: st.auto ? A : "#e6e3da", autoColor: st.auto ? AT : "#54524b",
+      autoTap: () => st.auto ? set({ auto: false }) : set({ autoWarn: true }),
+      autoWarn: st.autoWarn, autoCancel: () => set({ autoWarn: false }),
+      autoConfirm: () => set({ autoWarn: false, auto: true, plan: "running" }),
+
+      draft: st.draft, onDraft: (e) => set({ draft: e.target.value }),
+      composerPh: view === "thread" ? "reply all" : "message buddy",
+      sendBg: draftOk ? "#1c1b18" : "#c4c1b6",
+      send: () => { if (!draftOk) return; if (view === "thread") set({ sent: [...st.sent, st.draft.trim()], draft: "" }); else set({ chatSent: [...(st.chatSent || []), st.draft.trim()], draft: "" }); },
+      onDraftKey: (e) => { if (e.key === "Enter" && draftOk) { e.preventDefault(); if (view === "thread") set({ sent: [...st.sent, st.draft.trim()], draft: "" }); else set({ chatSent: [...(st.chatSent || []), st.draft.trim()], draft: "" }); } },
+
+      setRows: [
+        { name: "team", sub: "2 people can assign work", go: () => set({ sub: "team" }) },
+        { name: "memory", sub: "6 people · 4 procedures", go: () => set({ sub: "memory" }) },
+        { name: "usage & billing", sub: "this week", go: () => set({ sub: "usage" }) },
+        { name: "connections", sub: connOn.join(", ") || "none yet", go: () => set({ sub: "connections" }) },
+        { name: st.copied ? "copied" : "teammate", sub: "[teammate]@[company].trybuddynow.com", chevTxt: "copy", go: () => { try { navigator.clipboard.writeText("[teammate]@[company].trybuddynow.com"); } catch (e) {} set({ copied: true }); setTimeout(() => this.setState({ copied: false }), 1400); } },
+        { name: "sign out", sub: "nathaniel@northloop.io", go: () => set({ screen: "landing" }) },
+      ].map((r) => ({ ...r, color: r.name === "sign out" ? "#97948a" : r.name === "copied" ? G : "#1c1b18", chev: r.chevTxt || (r.name === "sign out" ? "" : "›") })),
+      isConn: view === "connections",
+      conns: CONNS.map((c) => { const on = !!st.conn[c.id];
+        return { name: c.name, sub: on ? "connected · " + c.tools + " tools" : c.desc, subColor: on ? G : "#97948a", label: on ? "disconnect" : "connect",
+          line: on ? "#e6e3da" : "#1c1b18", bg: on ? "transparent" : "#1c1b18", color: on ? "#54524b" : "#f7f6f1",
+          toggle: () => set({ conn: { ...st.conn, [c.id]: !on } }) }; }),
+      memTabs: ["people", "procedures"].map((t) => ({ name: t, ...segOn(st.memTab === t), go: () => set({ memTab: t }) })),
+      memPeople: st.memTab === "people", memProcs: st.memTab === "procedures",
+      procs: PROCS.map((p) => { const on = st.procOn[p.id] ?? p.status !== "retired"; return { ...p, status: on ? "active" : "off", op: on ? 1 : 0.5, track: on ? G : "#d9d6cc", knob: on ? "19px" : "3px",
+        track2: 0, flip: (e) => { e.stopPropagation(); set({ procOn: { ...st.procOn, [p.id]: !on } }); }, open: st.procOpen === p.id,
+        steps: p.steps.map((t, i) => ({ n: i + 1 + ".", t })), toggle: () => set({ procOpen: st.procOpen === p.id ? null : p.id }) }; }),
+      team,
+      grans: ["day", "week", "month"].map((g) => ({ name: g, ...segOn(st.gran === g), go: () => set({ gran: g }) })),
+      period: U.p, cost: money(uC + uL), compPct: (uC / (uC + uL) * 100).toFixed(1) + "%",
+      split: [
+        { k: "computer", s: uComp.toFixed(1) + " hrs on · $0.50/hr", v: money(uC), c: A },
+        { k: "work", s: U.w.toFixed(1) + " working hrs · $40/hr", v: money(uL), c: G },
+      ],
+      usageRows: [{ k: "storage", v: "2.4 of 10 gb" }, { k: "live sessions", v: "3 of 8" }],
+      people: [{ name: "rachel okafor", role: "client · halden health" }, { name: "dev mehta", role: "ceo · northloop" }, { name: "priya nair", role: "vendor · ledgerline" }, { name: "sam ortiz", role: "ops lead · northloop" }],
+
+      tabs: ["desk", "inbox", "projects", "settings"].map((t) => ({ name: t, color: st.tab === t ? "#1c1b18" : "#97948a", dot: st.tab === t ? G : "transparent", go: () => set({ tab: t, sub: null }) })),
+
+      scWatching: st.sc === "watch", scHolding: holding, teaching: isTeach,
+      scTitle: isTeach ? (st.paused ? "teaching · paused" : "teaching") : st.sc === "hold" ? "you have the keys" : "watching",
+      scDot: isTeach ? (st.paused ? "#97948a" : "oklch(0.62 0.09 250)") : st.sc === "hold" ? A : G,
+      scAnim: st.sc === "watch" ? "ping 2.4s infinite" : "none",
+      scLine: isTeach ? "oklch(0.62 0.09 250 / 0.6)" : st.sc === "hold" ? "oklch(0.66 0.085 75 / 0.6)" : "#3a3934",
+      closeScreen: () => set({ sc: null }),
+      takeOver: () => set({ sc: "hold" }),
+      handBack: () => set({ sc: null, paused: false, asks: st.sc === "hold" && !st.asks.a2 ? { ...st.asks, a2: "yes" } : st.asks }),
+      tNotes: st.tNotes,
+      scText: st.scText, onScText: (e) => set({ scText: e.target.value }),
+      scPh: isTeach ? "note for the lesson" : "type on the screen",
+      scInLine: isTeach ? "oklch(0.62 0.09 250 / 0.6)" : "#3a3934",
+      scSendBg: st.scText.trim() ? (isTeach ? "oklch(0.55 0.09 250)" : "#f7f6f1") : "#3a3934",
+      scSend: () => { const t = st.scText.trim(); if (!t) return; set(isTeach ? { tNotes: [...st.tNotes, t], scText: "" } : { scText: "" }); },
+      onScKey: (e) => { if (e.key === "Enter") { const t = st.scText.trim(); if (!t) return; e.preventDefault(); set(isTeach ? { tNotes: [...st.tNotes, t], scText: "" } : { scText: "" }); } },
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #f7f6f1; }
+  body, input, textarea { font-family: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace; }
+  a { color: oklch(0.55 0.075 150); } a:hover { color: #1c1b18; }
+  * { box-sizing: border-box; }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-thumb { background: #dcd9cf; border-radius: 100px; border: 2px solid #f7f6f1; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  @keyframes ping { 0% { box-shadow: 0 0 0 0 oklch(0.55 0.075 150 / 0.5); } 70% { box-shadow: 0 0 0 6px oklch(0.55 0.075 150 / 0); } 100% { box-shadow: 0 0 0 0 oklch(0.55 0.075 150 / 0); } }
+  @keyframes pop { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+  @keyframes viewin { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+  .viewin { animation: viewin .18s cubic-bezier(.3,.9,.2,1) both; }
+  .urow:hover, .rrow:hover { background: #f1efe8 !important; }
+</style>
+</helmet>
+
+<div style="height: 100vh; display: flex; flex-direction: column; color: #1c1b18; font-size: 13px; overflow: hidden">
+
+  <div style="flex-shrink: 0; display: flex; align-items: center; gap: 14px; padding: 13px 26px; border-bottom: 1px solid #e6e3da; background: #fdfcf9">
+    <span style="display: flex; align-items: center; gap: 10px">
+      <span style="position: relative; display: inline-grid; place-items: center; width: 24px; height: 24px"><span style="font-weight: 700; font-size: 17px; letter-spacing: -0.04em">b</span><span style="position: absolute; top: -1px; right: -4px; width: 5px; height: 5px; border-radius: 50%; background: oklch(0.55 0.075 150); animation: ping 2.4s cubic-bezier(.4,0,.2,1) infinite"></span></span>
+      <span style="font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: #97948a">buddy admin</span>
+    </span>
+    <span style="font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; color: oklch(0.58 0.10 28); border: 1px solid oklch(0.58 0.10 28 / 0.3); background: oklch(0.58 0.10 28 / 0.07); padding: 2px 9px; border-radius: 100px">dev</span>
+    <span style="flex: 1"></span>
+    <span style="font-size: 10.5px; color: #54524b; border: 1px solid #e6e3da; background: #f1efe8; padding: 3px 10px; border-radius: 100px">john · admin</span>
+  </div>
+
+  <div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 172px 1fr">
+
+    <div style="border-right: 1px solid #e6e3da; padding: 18px 0; display: flex; flex-direction: column; gap: 2px">
+      <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="4">
+        <div onClick="{{ n.go }}" style="display: flex; align-items: center; gap: 9px; padding: 8px 20px; cursor: pointer; font-size: 12px; color: {{ n.color }}; border-left: 2px solid {{ n.edge }}" style-hover="color: #1c1b18">
+          <span>{{ n.label }}</span>
+          <sc-if value="{{ n.hasBadge }}" hint-placeholder-val="{{ false }}"><span style="font-size: 9.5px; color: #fdfcf9; background: oklch(0.58 0.10 28); border-radius: 100px; padding: 1px 6px">{{ n.badge }}</span></sc-if>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="min-width: 0; min-height: 0; overflow-y: auto">
+
+      <sc-if value="{{ usersView }}" hint-placeholder-val="{{ true }}">
+        <div class="viewin" style="padding: 34px 40px 56px; max-width: 1060px">
+          <div style="display: flex; align-items: baseline; gap: 16px; margin-bottom: 24px">
+            <h1 style="margin: 0; font-weight: 500; font-size: 21px; letter-spacing: -0.02em">cost per user</h1>
+            <span style="flex: 1"></span>
+            <input value="{{ userQuery }}" onChange="{{ onUserQuery }}" spellCheck="{{ false }}" placeholder="search users" style="width: 220px; background: #fdfcf9; border: 1px solid #e6e3da; border-radius: 6px; padding: 6px 11px; font-family: inherit; font-size: 11.5px; color: #1c1b18; outline: none" style-focus="border-color: oklch(0.55 0.075 150 / 0.35)" />
+            <span style="font-size: 10.5px; color: #97948a">last 30 days</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 26px">
+            <div style="border: 1px solid #e6e3da; background: #fdfcf9; border-radius: 8px; padding: 15px 16px 13px"><span style="display: block; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: #97948a; margin-bottom: 7px">cogs</span><span style="font-size: 20px; font-weight: 500; letter-spacing: -0.02em">{{ kpiCogs }}</span></div>
+            <div style="border: 1px solid #e6e3da; background: #fdfcf9; border-radius: 8px; padding: 15px 16px 13px"><span style="display: block; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: #97948a; margin-bottom: 7px">tokens in</span><span style="font-size: 20px; font-weight: 500; letter-spacing: -0.02em">{{ kpiTin }}</span></div>
+            <div style="border: 1px solid #e6e3da; background: #fdfcf9; border-radius: 8px; padding: 15px 16px 13px"><span style="display: block; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: #97948a; margin-bottom: 7px">tokens out</span><span style="font-size: 20px; font-weight: 500; letter-spacing: -0.02em">{{ kpiTout }}</span></div>
+            <div style="border: 1px solid #e6e3da; background: #fdfcf9; border-radius: 8px; padding: 15px 16px 13px"><span style="display: block; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: #97948a; margin-bottom: 7px">invoiced</span><span style="font-size: 20px; font-weight: 500; letter-spacing: -0.02em">{{ kpiInv }}</span></div>
+          </div>
+
+          <div style="border: 1px solid #e6e3da; background: #fdfcf9; border-radius: 9px; overflow: hidden">
+            <div style="display: grid; grid-template-columns: 1.4fr .45fr .7fr .7fr .7fr .6fr .65fr .65fr; gap: 10px; padding: 10px 18px; border-bottom: 1px solid #efece4; font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">
+              <sc-for list="{{ userCols }}" as="c" hint-placeholder-count="8">
+                <span onClick="{{ c.sort }}" style="text-align: {{ c.align }}; cursor: pointer; color: {{ c.color }}" style-hover="color: #1c1b18">{{ c.label }}{{ c.arrow }}</span>
+              </sc-for>
+            </div>
+            <sc-for list="{{ userRows }}" as="u" hint-placeholder-count="6">
+              <div class="urow" onClick="{{ u.open }}" style="display: grid; grid-template-columns: 1.4fr .45fr .7fr .7fr .7fr .6fr .65fr .65fr; gap: 10px; padding: 11px 18px; cursor: pointer; border-bottom: 1px solid #f1efe8; font-variant-numeric: tabular-nums; align-items: baseline">
+                <span style="display: flex; align-items: center; gap: 9px; min-width: 0"><span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #1c1b18">{{ u.email }}</span><sc-if value="{{ u.flagged }}" hint-placeholder-val="{{ false }}"><span style="flex-shrink: 0; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(0.58 0.10 28); border: 1px solid oklch(0.58 0.10 28 / 0.3); padding: 1px 6px; border-radius: 100px">flagged</span></sc-if><sc-if value="{{ u.cut }}" hint-placeholder-val="{{ false }}"><span style="flex-shrink: 0; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: #fdfcf9; background: oklch(0.66 0.085 75); padding: 1px 6px; border-radius: 100px">paused</span></sc-if></span>
+                <span style="text-align: right; color: #54524b">{{ u.runs }}</span>
+                <span style="text-align: right; color: {{ u.unattColor }}">{{ u.unatt }}</span>
+                <span style="text-align: right; color: #54524b">{{ u.tin }}</span>
+                <span style="text-align: right; color: #54524b">{{ u.tout }}</span>
+                <span style="text-align: right; color: {{ u.errColor }}">{{ u.errRate }}</span>
+                <span style="text-align: right; color: #1c1b18">{{ u.cogs }}</span>
+                <span style="text-align: right; color: {{ u.invColor }}">{{ u.invoice }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ userView }}" hint-placeholder-val="{{ false }}">
+        <div class="viewin" style="padding: 34px 40px 56px; max-width: 1060px">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 22px">
+            <span onClick="{{ backToUsers }}" style="font-size: 15px; color: #97948a; cursor: pointer; padding: 2px 6px 2px 0" style-hover="color: #1c1b18">←</span>
+            <h1 style="margin: 0; font-weight: 500; font-size: 21px; letter-spacing: -0.02em">{{ selEmail }}</h1>
+            <sc-if value="{{ selFlagged }}" hint-placeholder-val="{{ false }}"><span style="font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(0.58 0.10 28); border: 1px solid oklch(0.58 0.10 28 / 0.3); padding: 2px 7px; border-radius: 100px">flagged</span></sc-if>
+            <sc-if value="{{ selCutoff }}" hint-placeholder-val="{{ false }}"><span style="font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: #fdfcf9; background: oklch(0.66 0.085 75); padding: 2px 8px; border-radius: 100px">paused</span></sc-if>
+            <span style="flex: 1"></span>
+            <span style="font-size: 10.5px; color: #97948a; font-variant-numeric: tabular-nums">{{ selTotals }}</span>
+            <sc-if value="{{ selCutoff }}" hint-placeholder-val="{{ false }}">
+              <span onClick="{{ restoreUser }}" style="font-size: 11px; border: 1px solid #e6e3da; background: #fdfcf9; color: #54524b; padding: 5px 13px; border-radius: 6px; cursor: pointer" style-hover="border-color: #c4c1b6; color: #1c1b18">resume access</span>
+            </sc-if>
+            <sc-if value="{{ selActive }}" hint-placeholder-val="{{ true }}">
+              <span onClick="{{ armCutoff }}" style="font-size: 11px; border: 1px solid {{ cutLine }}; background: {{ cutFill }}; color: {{ cutColor }}; padding: 5px 13px; border-radius: 6px; cursor: pointer">{{ cutLabel }}</span>
+            </sc-if>
+          </div>
+          <sc-if value="{{ cutArmed }}" hint-placeholder-val="{{ false }}">
+            <div style="margin: 0 0 18px 27px; border: 1px solid oklch(0.66 0.085 75 / 0.35); background: oklch(0.66 0.085 75 / 0.08); border-radius: 8px; padding: 12px 16px; display: flex; align-items: center; gap: 12px; animation: pop .2s cubic-bezier(.4,0,.2,1) both">
+              <span style="min-width: 0; flex: 1; font-size: 11.5px; color: #54524b; line-height: 1.6">running sessions finish their hop and park. no new sessions start. storage stays intact. sign-in shows "account paused, contact support".</span>
+              <span onClick="{{ confirmCutoff }}" style="flex-shrink: 0; font-size: 11px; border: 1px solid oklch(0.66 0.085 75); background: oklch(0.66 0.085 75); color: #fdfcf9; padding: 5px 13px; border-radius: 6px; cursor: pointer">confirm pause</span>
+              <span onClick="{{ disarmCutoff }}" style="flex-shrink: 0; font-size: 11px; color: #54524b; cursor: pointer; padding: 5px 6px">keep active</span>
+            </div>
+          </sc-if>
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 22px">
+            <div style="border: 1px solid #e6e3da; background: #fdfcf9; border-radius: 8px; padding: 14px 16px 12px"><span style="display: block; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: #97948a; margin-bottom: 6px">running now</span><span style="display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 500; letter-spacing: -0.02em"><sc-if value="{{ selLive }}" hint-placeholder-val="{{ false }}"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.55 0.075 150); animation: ping 2.4s cubic-bezier(.4,0,.2,1) infinite"></span></sc-if>{{ selRunning }}</span></div>
+            <div style="border: 1px solid #e6e3da; background: #fdfcf9; border-radius: 8px; padding: 14px 16px 12px"><span style="display: block; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: #97948a; margin-bottom: 6px">storage</span><span style="font-size: 18px; font-weight: 500; letter-spacing: -0.02em">{{ selStore }}</span><span style="display: block; font-size: 9.5px; color: #97948a; margin-top: 3px">of {{ selStoreCap }} allocated</span></div>
+            <div style="border: 1px solid #e6e3da; background: #fdfcf9; border-radius: 8px; padding: 14px 16px 12px"><span style="display: block; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: #97948a; margin-bottom: 6px">unattended</span><span style="font-size: 18px; font-weight: 500; letter-spacing: -0.02em">{{ selUnatt }}</span><span style="display: block; margin-top: 7px; height: 3px; border-radius: 100px; background: #f1efe8; overflow: hidden"><span style="display: block; height: 100%; width: {{ selUnattPct }}; background: oklch(0.55 0.075 150)"></span></span><span style="display: block; font-size: 9.5px; color: #97948a; margin-top: 5px">{{ selUnattNote }}</span></div>
+            <div style="border: 1px solid #e6e3da; background: #fdfcf9; border-radius: 8px; padding: 14px 16px 12px"><span style="display: block; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: #97948a; margin-bottom: 6px">invoice</span><span style="font-size: 18px; font-weight: 500; letter-spacing: -0.02em; color: {{ selInvColor }}">{{ selInvoice }}</span></div>
+          </div>
+          <div style="border: 1px solid {{ compBorder }}; background: #fdfcf9; border-radius: 10px; overflow: hidden; margin-bottom: 22px; transition: border-color .25s">
+            <div style="display: flex; align-items: center; gap: 10px; padding: 10px 16px; border-bottom: 1px solid #efece4">
+              <span style="font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: #97948a">computer</span>
+              <sc-if value="{{ compWatch }}" hint-placeholder-val="{{ true }}"><span style="font-size: 10.5px; color: #97948a">view only</span></sc-if>
+              <sc-if value="{{ compControl }}" hint-placeholder-val="{{ false }}"><span style="display: flex; align-items: center; gap: 6px; font-size: 10.5px; color: oklch(0.55 0.075 150)"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.55 0.075 150)"></span>you have control · run held · user notified</span></sc-if>
+              <span style="flex: 1"></span>
+              <sc-if value="{{ compWatch }}" hint-placeholder-val="{{ true }}"><span onClick="{{ takeOver }}" style="font-size: 11px; border: 1px solid #1c1b18; background: #1c1b18; color: #f7f6f1; padding: 5px 13px; border-radius: 6px; cursor: pointer">take over</span></sc-if>
+              <sc-if value="{{ compControl }}" hint-placeholder-val="{{ false }}"><span onClick="{{ handBack }}" style="font-size: 11px; border: 1px solid #e6e3da; background: #fdfcf9; color: #54524b; padding: 5px 13px; border-radius: 6px; cursor: pointer" style-hover="border-color: #c4c1b6; color: #1c1b18">hand back</span></sc-if>
+            </div>
+            <div onDoubleClick="{{ takeOver }}" style="position: relative; aspect-ratio: 16 / 9; max-height: 380px; width: 100%; background: repeating-linear-gradient(135deg, #f1efe8 0 10px, #ebe8df 10px 20px); display: flex; align-items: center; justify-content: center; cursor: {{ compCursor }}">
+              <span style="font-size: 10.5px; color: #97948a; background: #fdfcf9; border: 1px solid #e6e3da; padding: 4px 10px; border-radius: 100px">live screen · user's box</span>
+              <sc-if value="{{ compWatch }}" hint-placeholder-val="{{ true }}"><span style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); font-size: 10px; color: #97948a">double-click to take over</span></sc-if>
+            </div>
+          </div>
+          <div style="border: 1px solid #e6e3da; background: #fdfcf9; border-radius: 9px; overflow: hidden">
+            <div style="display: grid; grid-template-columns: .85fr .75fr 1.05fr .55fr .55fr .9fr .6fr .55fr; gap: 10px; padding: 10px 18px; border-bottom: 1px solid #efece4; font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">
+              <sc-for list="{{ runCols }}" as="c" hint-placeholder-count="7">
+                <span onClick="{{ c.sort }}" style="text-align: {{ c.align }}; cursor: pointer; color: {{ c.color }}" style-hover="color: #1c1b18">{{ c.label }}{{ c.arrow }}</span>
+              </sc-for>
+            </div>
+            <sc-for list="{{ runRows }}" as="r" hint-placeholder-count="6">
+              <div class="rrow" onClick="{{ r.expand }}" style="display: grid; grid-template-columns: .85fr .75fr 1.05fr .55fr .55fr .9fr .6fr .55fr; gap: 10px; padding: 11px 18px; cursor: pointer; border-bottom: 1px solid #f1efe8; font-variant-numeric: tabular-nums; align-items: baseline">
+                <span style="color: #1c1b18">{{ r.id }}</span>
+                <span style="font-size: 11px; color: {{ r.modeColor }}">{{ r.mode }}</span>
+                <span style="color: #54524b; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ r.model }}</span>
+                <span style="text-align: right; color: #54524b">{{ r.tin }}</span>
+                <span style="text-align: right; color: #54524b">{{ r.tout }}</span>
+                <span style="color: {{ r.termColor }}">{{ r.term }}</span>
+                <span style="text-align: right; color: #54524b">{{ r.wall }}</span>
+                <span style="text-align: right; color: #1c1b18">{{ r.cogs }}</span>
+              </div>
+              <sc-if value="{{ r.expanded }}" hint-placeholder-val="{{ false }}">
+                <div style="border-bottom: 1px solid #f1efe8; background: #f7f6f1; padding: 14px 18px 16px; animation: pop .18s cubic-bezier(.4,0,.2,1) both">
+                  <div style="display: flex; align-items: baseline; gap: 18px; font-size: 11px; color: #54524b; font-variant-numeric: tabular-nums; margin-bottom: 12px">
+                    <span>{{ r.started }} → {{ r.finished }}</span>
+                    <span style="color: #1c1b18">{{ r.wallLong }}</span>
+                    <span style="flex: 1"></span>
+                    <span onClick="{{ r.open }}" style="color: oklch(0.55 0.075 150); cursor: pointer; text-decoration: underline; text-underline-offset: 2px">replay from log</span>
+                  </div>
+                  <div style="display: flex; height: 10px; border-radius: 100px; overflow: hidden; margin-bottom: 8px">
+                    <span title="model" style="width: {{ r.pctModel }}; background: oklch(0.55 0.075 150)"></span>
+                    <span title="tools" style="width: {{ r.pctTools }}; background: oklch(0.66 0.085 75)"></span>
+                    <span title="waiting on user" style="width: {{ r.pctWait }}; background: #dcd9cf"></span>
+                    <span title="parked" style="width: {{ r.pctPark }}; background: #efece4"></span>
+                  </div>
+                  <div style="display: flex; gap: 18px; font-size: 10px; color: #97948a; font-variant-numeric: tabular-nums">
+                    <span><span style="display: inline-block; width: 8px; height: 8px; border-radius: 2px; background: oklch(0.55 0.075 150); margin-right: 5px; vertical-align: -1px"></span>model {{ r.tModel }}</span>
+                    <span><span style="display: inline-block; width: 8px; height: 8px; border-radius: 2px; background: oklch(0.66 0.085 75); margin-right: 5px; vertical-align: -1px"></span>tools {{ r.tTools }}</span>
+                    <span><span style="display: inline-block; width: 8px; height: 8px; border-radius: 2px; background: #dcd9cf; margin-right: 5px; vertical-align: -1px"></span>waiting on user {{ r.tWait }}</span>
+                    <span><span style="display: inline-block; width: 8px; height: 8px; border-radius: 2px; background: #efece4; margin-right: 5px; vertical-align: -1px"></span>parked {{ r.tPark }}</span>
+                  </div>
+                </div>
+              </sc-if>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ replayView }}" hint-placeholder-val="{{ false }}">
+        <div class="viewin" style="padding: 34px 40px 56px; max-width: 900px">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 4px">
+            <span onClick="{{ backToUser }}" style="font-size: 15px; color: #97948a; cursor: pointer; padding: 2px 6px 2px 0" style-hover="color: #1c1b18">←</span>
+            <h1 style="margin: 0; font-weight: 500; font-size: 21px; letter-spacing: -0.02em">{{ replayId }}</h1>
+            <span style="font-size: 10.5px; color: #97948a">{{ replayMeta }}</span>
+            <span style="flex: 1"></span>
+            <span style="font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: {{ replayTermColor }}; border: 1px solid {{ replayTermLine }}; padding: 2px 8px; border-radius: 100px">{{ replayTerm }}</span>
+          </div>
+          <p style="margin: 0 0 22px 27px; font-size: 11px; color: #97948a">seq {{ replayRange }} · args redacted</p>
+          <div style="display: flex; flex-direction: column; gap: 0; border-left: 1px solid #e6e3da; margin-left: 8px; padding-left: 24px">
+            <sc-for list="{{ replayRows }}" as="e" hint-placeholder-count="7">
+              <div style="position: relative; padding: 10px 0">
+                <span style="position: absolute; left: -28px; top: 15px; width: 7px; height: 7px; border-radius: 50%; background: {{ e.dot }}"></span>
+                <div style="display: flex; align-items: baseline; gap: 10px">
+                  <span style="font-size: 10px; color: #97948a; font-variant-numeric: tabular-nums; flex-shrink: 0">{{ e.seq }}</span>
+                  <span style="font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: {{ e.kindColor }}; flex-shrink: 0">{{ e.kind }}</span>
+                  <span style="font-size: 12px; color: #54524b; line-height: 1.6; overflow-wrap: anywhere">{{ e.body }}</span>
+                  <span style="flex: 1"></span>
+                  <span style="font-size: 10px; color: #97948a; font-variant-numeric: tabular-nums; flex-shrink: 0">{{ e.usage }}</span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ errorsView }}" hint-placeholder-val="{{ false }}">
+        <div class="viewin" style="padding: 34px 40px 56px; max-width: 1060px">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 24px">
+            <h1 style="margin: 0; font-weight: 500; font-size: 21px; letter-spacing: -0.02em">errors</h1>
+            <span style="font-size: 10.5px; color: #97948a; font-variant-numeric: tabular-nums">system rate {{ sysRate }} · threshold {{ threshold }}</span>
+          </div>
+          <div style="border: 1px solid #e6e3da; background: #fdfcf9; border-radius: 9px; padding: 18px; margin-bottom: 22px">
+            <div style="display: flex; align-items: flex-end; gap: 6px; height: 90px">
+              <sc-for list="{{ termBars }}" as="t" hint-placeholder-count="8">
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; height: 100%; justify-content: flex-end">
+                  <span style="font-size: 10px; color: #54524b; font-variant-numeric: tabular-nums">{{ t.n }}</span>
+                  <span title="{{ t.name }}" style="width: 100%; border-radius: 3px 3px 0 0; background: {{ t.color }}; height: {{ t.h }}"></span>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display: flex; gap: 6px; margin-top: 8px">
+              <sc-for list="{{ termBars }}" as="t" hint-placeholder-count="8">
+                <span style="flex: 1; text-align: center; font-size: 8.5px; color: #97948a; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ t.name }}</span>
+              </sc-for>
+            </div>
+          </div>
+          <div style="border: 1px solid #e6e3da; background: #fdfcf9; border-radius: 9px; overflow: hidden">
+            <div style="display: grid; grid-template-columns: 1.6fr .6fr .8fr 1fr; gap: 10px; padding: 10px 18px; border-bottom: 1px solid #efece4; font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">
+              <span>user</span><span style="text-align: right">runs</span><span style="text-align: right">error rate</span><span>top reason</span>
+            </div>
+            <sc-for list="{{ errRows }}" as="u" hint-placeholder-count="4">
+              <div class="urow" onClick="{{ u.open }}" style="display: grid; grid-template-columns: 1.6fr .6fr .8fr 1fr; gap: 10px; padding: 11px 18px; cursor: pointer; border-bottom: 1px solid #f1efe8; font-variant-numeric: tabular-nums; align-items: baseline">
+                <span style="color: #1c1b18">{{ u.email }}</span>
+                <span style="text-align: right; color: #54524b">{{ u.runs }}</span>
+                <span style="text-align: right; color: {{ u.errColor }}">{{ u.errRate }}</span>
+                <span style="color: #54524b">{{ u.top }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ feedbackView }}" hint-placeholder-val="{{ false }}">
+        <div class="viewin" style="padding: 34px 40px 56px; max-width: 860px">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 24px">
+            <h1 style="margin: 0; font-weight: 500; font-size: 21px; letter-spacing: -0.02em">feedback</h1>
+            <span style="font-size: 10.5px; color: #97948a">{{ fbCount }} unread</span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 10px">
+            <sc-for list="{{ fbRows }}" as="f" hint-placeholder-count="4">
+              <div style="border: 1px solid #e6e3da; background: #fdfcf9; border-radius: 8px; padding: 14px 16px 12px">
+                <div style="display: flex; align-items: baseline; gap: 10px; margin-bottom: 6px">
+                  <span style="font-size: 11px; color: #1c1b18">{{ f.email }}</span>
+                  <span style="font-size: 10px; color: #97948a">{{ f.when }}</span>
+                  <span style="flex: 1"></span>
+                  <span onClick="{{ f.openUser }}" style="font-size: 10px; color: oklch(0.55 0.075 150); cursor: pointer; text-decoration: underline; text-underline-offset: 2px">sessions</span>
+                </div>
+                <span style="font-size: 12px; color: #54524b; line-height: 1.7">{{ f.text }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ pricesView }}" hint-placeholder-val="{{ false }}">
+        <div class="viewin" style="padding: 34px 40px 56px; max-width: 760px">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 24px">
+            <h1 style="margin: 0; font-weight: 500; font-size: 21px; letter-spacing: -0.02em">price table</h1>
+            <span style="font-size: 10.5px; color: #97948a">$ / 1M tokens · re-fold reprices history</span>
+          </div>
+          <div style="border: 1px solid #e6e3da; background: #fdfcf9; border-radius: 9px; overflow: hidden">
+            <div style="display: grid; grid-template-columns: 1.5fr .8fr .8fr .8fr; gap: 10px; padding: 10px 18px; border-bottom: 1px solid #efece4; font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #97948a">
+              <span>model</span><span style="text-align: right">input</span><span style="text-align: right">output</span><span>source</span>
+            </div>
+            <sc-for list="{{ priceRows }}" as="p" hint-placeholder-count="4">
+              <div style="display: grid; grid-template-columns: 1.5fr .8fr .8fr .8fr; gap: 10px; padding: 11px 18px; border-bottom: 1px solid #f1efe8; font-variant-numeric: tabular-nums; align-items: baseline">
+                <span style="color: #1c1b18">{{ p.model }}</span>
+                <span style="text-align: right; color: #54524b">{{ p.pin }}</span>
+                <span style="text-align: right; color: #54524b">{{ p.pout }}</span>
+                <span style="color: #97948a; font-size: 11px">{{ p.src }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <p style="margin: 14px 2px 0; font-size: 11px; color: #97948a; line-height: 1.7">self-hosted rates are owner-set (gpu $/hr over throughput). edit in config.yaml.</p>
+        </div>
+      </sc-if>
+
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const RED = "oklch(0.58 0.10 28)";
+const GREEN = "oklch(0.55 0.075 150)";
+
+const PRICES = {
+  "claude-sonnet-4": { pin: 3.0, pout: 15.0, src: "vendor" },
+  "claude-haiku-3.5": { pin: 0.8, pout: 4.0, src: "vendor" },
+  "qwen-72b (self-hosted)": { pin: 0.35, pout: 0.35, src: "owner-set" },
+};
+
+const USERS = [
+  { email: "rachel@lumen.co", runs: 41, unatt: 29, tin: 18400000, tout: 2100000, err: 0.05, model: "claude-sonnet-4", minutes: 412, live: 2, store: 3.4, cap: 10 },
+  { email: "derek@northpine.com", runs: 33, unatt: 25, tin: 12100000, tout: 1500000, err: 0.31, model: "claude-sonnet-4", minutes: 268, live: 1, store: 8.9, cap: 10 },
+  { email: "mia@brightform.io", runs: 27, unatt: 8, tin: 9800000, tout: 1200000, err: 0.04, model: "qwen-72b (self-hosted)", minutes: 305, live: 0, store: 1.7, cap: 10 },
+  { email: "sam@vantagehq.com", runs: 19, unatt: 4, tin: 6200000, tout: 740000, err: 0.11, model: "claude-haiku-3.5", minutes: 143, live: 1, store: 0.9, cap: 5 },
+  { email: "priya@oakline.dev", runs: 12, unatt: 7, tin: 3900000, tout: 460000, err: 0.08, model: "claude-sonnet-4", minutes: 96, live: 0, store: 2.2, cap: 5 },
+  { email: "tom@fernworks.co", runs: 6, unatt: 0, tin: 1100000, tout: 130000, err: 0.0, model: "qwen-72b (self-hosted)", minutes: 44, live: 0, store: 0.3, cap: 5 },
+];
+const RATE_PER_MIN = 0.18;
+
+const TERMS = [
+  { name: "turn_end", n: 96, err: false },
+  { name: "completed", n: 41, err: false },
+  { name: "cancelled", n: 9, err: false },
+  { name: "interrupted", n: 6, err: false },
+  { name: "max_hops", n: 8, err: true },
+  { name: "model_error", n: 11, err: true },
+  { name: "context_overflow", n: 5, err: true },
+  { name: "wall_clock", n: 2, err: true },
+];
+
+const RUNS = {
+  "derek@northpine.com": [
+    { id: "s_9f21", model: "claude-sonnet-4", tin: 840000, tout: 96000, term: "model_error", unatt: true },
+    { id: "s_9e87", model: "claude-sonnet-4", tin: 1200000, tout: 210000, term: "completed", unatt: true },
+    { id: "s_9d54", model: "claude-sonnet-4", tin: 620000, tout: 71000, term: "context_overflow", unatt: true },
+    { id: "s_9c02", model: "claude-sonnet-4", tin: 980000, tout: 140000, term: "turn_end", unatt: false },
+    { id: "s_9b77", model: "claude-sonnet-4", tin: 450000, tout: 38000, term: "max_hops", unatt: true },
+    { id: "s_9a19", model: "claude-sonnet-4", tin: 1500000, tout: 260000, term: "completed", unatt: false },
+  ],
+};
+const GENERIC_RUNS = [
+  { id: "s_4410", model: "", tin: 720000, tout: 88000, term: "turn_end", unatt: false },
+  { id: "s_43fa", model: "", tin: 1100000, tout: 170000, term: "completed", unatt: true },
+  { id: "s_43c1", model: "", tin: 380000, tout: 41000, term: "turn_end", unatt: false },
+  { id: "s_4388", model: "", tin: 890000, tout: 120000, term: "completed", unatt: true },
+];
+
+const REPLAY = [
+  { seq: "0412", kind: "user", body: "triage the weekend inbox and draft replies", dot: "#c4c1b6", usage: "" },
+  { seq: "0413", kind: "model", body: "reading gmail. three threads need drafts, starting with rachel's pilot-terms ask.", dot: GREEN, usage: "in 41.2k · out 1.8k" },
+  { seq: "0414", kind: "tool", body: "gmail.search(q: [redacted]) → 12 threads", dot: "#c4c1b6", usage: "" },
+  { seq: "0415", kind: "tool", body: "browser.open(url: [redacted]) · cancelled_by_user", dot: "#c4c1b6", usage: "" },
+  { seq: "0416", kind: "stopped", body: "stopped at step 3 · leases released, box hibernated, awaiting resume", dot: "oklch(0.66 0.085 75)", usage: "" },
+  { seq: "0417", kind: "resumed", body: "resumed with message: skip the portal, use the pdf in inbox · after 2h 14m", dot: "oklch(0.66 0.085 75)", usage: "" },
+  { seq: "0418", kind: "tool", body: "fs.write(path: triage/backlog.md, content: [redacted])", dot: "#c4c1b6", usage: "" },
+  { seq: "0419", kind: "model", body: "drafting the seat-count reply. context is getting heavy from thread bodies.", dot: GREEN, usage: "in 96.4k · out 2.2k" },
+  { seq: "0420", kind: "tool", body: "gmail.thread(id: [redacted]) → 44kb body", dot: "#c4c1b6", usage: "" },
+  { seq: "0421", kind: "model", body: "call failed: prompt exceeds context window", dot: RED, usage: "in 212.7k" },
+  { seq: "0422", kind: "terminal", body: "context_overflow · leases released, box hibernated", dot: RED, usage: "" },
+];
+
+const FEEDBACK = [
+  { email: "mia@brightform.io", when: "2h ago", text: "please let me pin more than one folder to the working files tab. i re-link the same three every project." },
+  { email: "derek@northpine.com", when: "1d ago", text: "runs keep dying on long email threads. can buddy summarize instead of loading the whole thing?" },
+  { email: "rachel@lumen.co", when: "3d ago", text: "the stop button saved me twice this week. would love a way to schedule runs for 6am." },
+  { email: "sam@vantagehq.com", when: "5d ago", text: "approvals on mobile are cramped, the decline button is basically unclickable." },
+];
+
+const fmtTok = (n) => (n >= 1e6 ? (n / 1e6).toFixed(1) + "m" : Math.round(n / 1e3) + "k");
+const fmtUsd = (n) => "$" + (n >= 100 ? Math.round(n).toLocaleString() : n.toFixed(2));
+const cogsOf = (u) => {
+  const p = PRICES[u.model];
+  return (u.tin / 1e6) * p.pin + (u.tout / 1e6) * p.pout;
+};
+
+class Component extends DCLogic {
+  state = { view: "users", sel: null, replay: null, threshold: 0.2, cut: {}, cutArm: false, uSort: { key: "cogs", dir: -1 }, rSort: { key: "cogs", dir: -1 }, uQuery: "", expandedRun: null, comp: "watch" };
+
+  mkCols(defs, sortKey, stateKey) {
+    const cur = this.state[stateKey];
+    return defs.map((d) => ({
+      label: d.label,
+      align: d.align || "left",
+      color: cur.key === d.key ? "#1c1b18" : "#97948a",
+      arrow: cur.key === d.key ? (cur.dir === -1 ? " ↓" : " ↑") : "",
+      sort: () =>
+        this.setState({
+          [stateKey]: { key: d.key, dir: cur.key === d.key ? -cur.dir : d.numeric ? -1 : 1 },
+        }),
+    }));
+  }
+
+  sortRows(rows, sort) {
+    const { key, dir } = sort;
+    return [...rows].sort((a, b) => {
+      const av = a[key], bv = b[key];
+      if (typeof av === "number" && typeof bv === "number") return (av - bv) * dir;
+      return String(av).localeCompare(String(bv)) * dir;
+    });
+  }
+
+  renderVals() {
+    const st = this.state;
+    const totCogs = USERS.reduce((a, u) => a + cogsOf(u), 0);
+    const totInv = USERS.reduce((a, u) => a + u.minutes * RATE_PER_MIN, 0);
+    const errTotal = TERMS.reduce((a, t) => a + t.n, 0);
+    const errN = TERMS.filter((t) => t.err).reduce((a, t) => a + t.n, 0);
+    const maxTerm = Math.max(...TERMS.map((t) => t.n));
+    const selUser = USERS.find((u) => u.email === st.sel);
+    const nav = [
+      { key: "users", label: "users" },
+      { key: "errors", label: "errors", badge: USERS.filter((u) => u.err > st.threshold).length },
+      { key: "feedback", label: "feedback", badge: FEEDBACK.length },
+      { key: "prices", label: "price table" },
+    ];
+    const runsFor = (email) => {
+      const u = USERS.find((x) => x.email === email);
+      return (RUNS[email] || GENERIC_RUNS.map((r) => ({ ...r, model: u.model }))).map((r) => ({ ...r, model: r.model || u.model }));
+    };
+    return {
+      navItems: nav.map((n) => ({
+        label: n.label,
+        color: st.view === n.key || (n.key === "users" && (st.view === "user" || st.view === "replay")) ? "#1c1b18" : "#97948a",
+        edge: st.view === n.key || (n.key === "users" && (st.view === "user" || st.view === "replay")) ? "#1c1b18" : "transparent",
+        hasBadge: !!n.badge,
+        badge: n.badge || 0,
+        go: () => this.setState({ view: n.key, sel: null, replay: null }),
+      })),
+      usersView: st.view === "users",
+      userView: st.view === "user",
+      replayView: st.view === "replay",
+      errorsView: st.view === "errors",
+      feedbackView: st.view === "feedback",
+      pricesView: st.view === "prices",
+      kpiCogs: fmtUsd(totCogs),
+      kpiTin: fmtTok(USERS.reduce((a, u) => a + u.tin, 0)),
+      kpiTout: fmtTok(USERS.reduce((a, u) => a + u.tout, 0)),
+      kpiInv: fmtUsd(totInv),
+      userCols: this.mkCols(
+        [
+          { key: "email", label: "user" },
+          { key: "runs", label: "runs", align: "right", numeric: true },
+          { key: "unatt", label: "unattended", align: "right", numeric: true },
+          { key: "tin", label: "tokens in", align: "right", numeric: true },
+          { key: "tout", label: "tokens out", align: "right", numeric: true },
+          { key: "err", label: "error rate", align: "right", numeric: true },
+          { key: "cogs", label: "cogs", align: "right", numeric: true },
+          { key: "invoice", label: "invoice", align: "right", numeric: true },
+        ],
+        "uSort",
+        "uSort"
+      ),
+      userQuery: st.uQuery,
+      onUserQuery: (e) => this.setState({ uQuery: e.target.value }),
+      userRows: this.sortRows(
+        USERS.map((u) => ({ ...u, cogs: cogsOf(u), invoice: u.minutes * RATE_PER_MIN })).filter(
+          (u) => !st.uQuery.trim() || u.email.toLowerCase().includes(st.uQuery.trim().toLowerCase())
+        ),
+        st.uSort
+      ).map((u) => ({
+        email: u.email,
+        runs: u.runs,
+        tin: fmtTok(u.tin),
+        tout: fmtTok(u.tout),
+        errRate: Math.round(u.err * 100) + "%",
+        errColor: u.err > st.threshold ? RED : "#54524b",
+        flagged: u.err > st.threshold,
+        cut: !!st.cut[u.email],
+        unatt: u.unatt + "/" + u.runs,
+        unattColor: u.unatt / u.runs > 0.5 ? GREEN : "#54524b",
+        cogs: fmtUsd(u.cogs),
+        invoice: fmtUsd(u.invoice),
+        invColor: u.invoice < u.cogs ? RED : "#1c1b18",
+        open: () => this.setState({ view: "user", sel: u.email }),
+      })),
+      backToUsers: () => this.setState({ comp: "watch",  view: "users", sel: null }),
+      selEmail: st.sel || "",
+      selFlagged: selUser ? selUser.err > st.threshold : false,
+      selCutoff: !!st.cut[st.sel],
+      selActive: !st.cut[st.sel],
+      compWatch: st.comp === "watch",
+      compCursor: st.comp === "control" ? "crosshair" : "zoom-in",
+      compControl: st.comp === "control",
+      takeOver: () => this.setState({ comp: "control" }),
+      handBack: () => this.setState({ comp: "watch" }),
+      compBorder: st.comp === "control" ? "oklch(0.55 0.075 150)" : "#e6e3da",
+      cutArmed: st.cutArm && !st.cut[st.sel],
+      cutLabel: st.cutArm ? "confirm below" : "pause user",
+      cutLine: st.cutArm ? "oklch(0.66 0.085 75 / 0.35)" : "#e6e3da",
+      cutFill: st.cutArm ? "oklch(0.66 0.085 75 / 0.08)" : "#fdfcf9",
+      cutColor: "oklch(0.66 0.085 75)",
+      armCutoff: () => this.setState({ cutArm: true }),
+      disarmCutoff: () => this.setState({ cutArm: false }),
+      confirmCutoff: () => this.setState((s) => ({ cut: { ...s.cut, [s.sel]: true }, cutArm: false })),
+      restoreUser: () => this.setState((s) => ({ cut: { ...s.cut, [s.sel]: false } })),
+      selRunning: selUser ? (st.cut[st.sel] ? 0 : selUser.live) : 0,
+      selLive: selUser ? !st.cut[st.sel] && selUser.live > 0 : false,
+      selStore: selUser ? selUser.store.toFixed(1) + " gb" : "",
+      selStoreCap: selUser ? selUser.cap + " gb" : "",
+      selUnatt: selUser ? selUser.unatt + "/" + selUser.runs : "",
+      selUnattPct: selUser ? Math.round((selUser.unatt / selUser.runs) * 100) + "%" : "0%",
+      selUnattNote: selUser ? Math.round((selUser.unatt / selUser.runs) * 100) + "% ran on autopilot" : "",
+      selCogs: selUser ? fmtUsd(cogsOf(selUser)) : "",
+      selInvoice: selUser ? fmtUsd(selUser.minutes * RATE_PER_MIN) : "",
+      selInvColor: selUser && selUser.minutes * RATE_PER_MIN < cogsOf(selUser) ? RED : "#1c1b18",
+      selTotals: selUser
+        ? selUser.runs + " runs · " + fmtTok(selUser.tin) + " in · " + fmtTok(selUser.tout) + " out"
+        : "",
+      runCols: this.mkCols(
+        [
+          { key: "id", label: "session" },
+          { key: "unatt", label: "mode" },
+          { key: "model", label: "model" },
+          { key: "tin", label: "in", align: "right", numeric: true },
+          { key: "tout", label: "out", align: "right", numeric: true },
+          { key: "term", label: "terminal" },
+          { key: "hourIdx", label: "hour", align: "right", numeric: true },
+          { key: "cogs", label: "cogs", align: "right", numeric: true },
+        ],
+        "rSort",
+        "rSort"
+      ),
+      runRows: st.sel
+        ? this.sortRows(
+            runsFor(st.sel).map((r) => {
+              const p = PRICES[r.model] || PRICES["claude-sonnet-4"];
+              const seed = r.id.split("").reduce((a, c) => a + c.charCodeAt(0), 0);
+              const wallMin = r.unatt ? 38 + (seed % 22) : 6 + (seed % 40);
+              const hourIdx = 9 + (seed % 9);
+              return { ...r, cogs: (r.tin / 1e6) * p.pin + (r.tout / 1e6) * p.pout, wallMin, hourIdx, seed };
+            }),
+            st.rSort
+          ).map((r) => {
+            const fmtMin = (m) => (m >= 60 ? Math.floor(m / 60) + "h " + Math.round(m % 60) + "m" : Math.round(m) + "m");
+            const mModel = r.wallMin * (0.12 + (r.seed % 10) / 100);
+            const mTools = r.wallMin * (0.2 + (r.seed % 7) / 100);
+            const mWait = r.unatt ? 0 : r.wallMin * 0.3;
+            const mPark = Math.max(0, r.wallMin - mModel - mTools - mWait);
+            const pct = (m) => Math.round((m / r.wallMin) * 100) + "%";
+            const h = r.hourIdx;
+            const startMin = 0;
+            const endTotal = h * 60 + 60;
+            const fmtClock = (t) => {
+              const hh = Math.floor(t / 60) % 24, mm = Math.round(t % 60);
+              return String(hh).padStart(2, "0") + ":" + String(mm).padStart(2, "0");
+            };
+            return {
+              expanded: st.expandedRun === r.id,
+              expand: () => this.setState({ expandedRun: st.expandedRun === r.id ? null : r.id }),
+              wall: String(h).padStart(2, "0") + ":00",
+              wallLong: fmtMin(r.wallMin) + " active of 60m",
+              started: "aug 27 " + fmtClock(h * 60 + startMin),
+              finished: fmtClock(endTotal),
+              tModel: fmtMin(mModel),
+              tTools: fmtMin(mTools),
+              tWait: fmtMin(mWait),
+              tPark: fmtMin(mPark),
+              pctModel: pct(mModel),
+              pctTools: pct(mTools),
+              pctWait: pct(mWait),
+              pctPark: pct(mPark),
+              id: r.id,
+              mode: r.unatt ? "unattended" : "attended",
+              modeColor: r.unatt ? GREEN : "#97948a",
+              model: r.model,
+              tin: fmtTok(r.tin),
+              tout: fmtTok(r.tout),
+              term: r.term,
+              termColor: ["model_error", "context_overflow", "max_hops", "wall_clock"].includes(r.term) ? RED : "#54524b",
+              cogs: fmtUsd(r.cogs),
+              open: () => this.setState({ view: "replay", replay: r.id }),
+            };
+          })
+        : [],
+      backToUser: () => this.setState({ view: "user", replay: null }),
+      replayId: st.replay || "",
+      replayMeta: st.sel || "",
+      replayTerm: "context_overflow",
+      replayTermColor: RED,
+      replayTermLine: "oklch(0.58 0.10 28 / 0.3)",
+      replayRange: "0412–0422",
+      replayRows: REPLAY.map((e) => ({
+        ...e,
+        kindColor: e.kind === "terminal" ? RED : e.kind === "model" ? GREEN : e.kind === "stopped" || e.kind === "resumed" ? "oklch(0.66 0.085 75)" : "#97948a",
+      })),
+      sysRate: Math.round((errN / errTotal) * 100) + "%",
+      threshold: Math.round(st.threshold * 100) + "%",
+      termBars: TERMS.map((t) => ({
+        name: t.name,
+        n: t.n,
+        h: Math.max(6, Math.round((t.n / maxTerm) * 62)) + "px",
+        color: t.err ? RED : "#dcd9cf",
+      })),
+      errRows: USERS.filter((u) => u.err > 0)
+        .sort((a, b) => b.err - a.err)
+        .map((u) => ({
+          email: u.email,
+          runs: u.runs,
+          errRate: Math.round(u.err * 100) + "%",
+          errColor: u.err > st.threshold ? RED : "#54524b",
+          top: u.err > 0.2 ? "context_overflow" : u.err > 0.07 ? "max_hops" : "model_error",
+          open: () => this.setState({ view: "user", sel: u.email }),
+        })),
+      fbCount: FEEDBACK.length,
+      fbRows: FEEDBACK.map((f) => ({
+        ...f,
+        openUser: () => this.setState({ view: "user", sel: f.email }),
+      })),
+      priceRows: Object.entries(PRICES).map(([model, p]) => ({
+        model,
+        pin: "$" + p.pin.toFixed(2),
+        pout: "$" + p.pout.toFixed(2),
+        src: p.src,
+      })),
+      goPrices: () => this.setState({ view: "prices" }),
+    };
+  }
+}
+</script>
+</body>
+</html>
