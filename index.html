@@ -694,7 +694,7 @@
                   <span style="flex-shrink: 0; width: 26px; height: 26px; border-radius: 7px; background: {{ m.bg }}; color: {{ m.fc }}; display: grid; place-items: center; font-size: 11px; font-weight: 500">{{ m.t }}</span>
                   <div style="min-width: 0; max-width: 78%; display: flex; flex-direction: column; align-items: {{ m.align }}; gap: 3px">
                     <span style="display: flex; flex-direction: {{ m.dir }}; align-items: center; gap: 8px; flex-wrap: wrap"><span style="font-size: 12px; font-weight: 500; color: {{ m.nameColor }}">{{ m.name }}</span><span style="display: inline-flex; align-items: center; gap: 4px; font-size: 9.5px; color: {{ m.viaColor }}; border: 1px solid {{ m.viaLine }}; background: {{ m.viaBg }}; padding: 0 6px; border-radius: 100px; line-height: 15px"><span style="font-size: 9px">{{ m.viaG }}</span>{{ m.via }}</span><span style="font-size: 10px; color: #97948a; font-variant-numeric: tabular-nums">{{ m.time }}</span></span>
-                    <span style="font-size: 12.5px; line-height: 1.6; color: #1c1b18; text-wrap: pretty; text-align: {{ m.ta }}; background: {{ m.bub }}; border: 1px solid {{ m.bubLine }}; border-right: 2px solid {{ m.bubEdge }}; border-radius: {{ m.bubR }}; padding: {{ m.bubPad }}"><sc-for list="{{ m.parts }}" as="p" hint-placeholder-count="1"><span style="color: {{ p.c }}; background: {{ p.bg }}; border-radius: 4px; padding: {{ p.pad }}">{{ p.t }}</span></sc-for></span>
+                    <span style="font-size: 12.5px; line-height: 1.6; color: #1c1b18; text-wrap: pretty; text-align: {{ m.ta }}; background: {{ m.bub }}; border: 1px solid {{ m.bubLine }}; border-right: 2px solid {{ m.bubEdge }}; border-left: 2px solid {{ m.bubEdgeL }}; border-radius: {{ m.bubR }}; padding: {{ m.bubPad }}"><sc-for list="{{ m.parts }}" as="p" hint-placeholder-count="1"><span style="color: {{ p.c }}; background: {{ p.bg }}; border-radius: 4px; padding: {{ p.pad }}">{{ p.t }}</span></sc-for></span>
                   </div>
                 </div>
               </sc-if>
@@ -1472,8 +1472,8 @@
         const V = GC_CH[m.via] || ["", "", "#54524b", "#e6e3da", "#f7f6f1", "transparent"];
         const vb = V[1];
         return { dir: b ? "row" : "row-reverse", align: b ? "flex-start" : "flex-end", ta: b ? "left" : "right",
-          bub: b ? "transparent" : "#f1efe8", bubLine: b ? "transparent" : "#e6e3da", bubR: b ? "0" : "9px 3px 9px 9px", bubPad: b ? "0" : "6px 11px",
-          viaG: V[0], via: vb, viaColor: V[2], viaLine: V[3], viaBg: V[4], bubEdge: b ? "transparent" : V[5], isMsg: true, t: p[0], bg: p[1], fc: p[2], name: p[3], time: m.time, nameColor: b ? "oklch(0.45 0.07 150)" : "#1c1b18", band: b ? "oklch(0.55 0.075 150 / 0.04)" : "transparent", parts: parts(m.text) };
+          bub: b ? "oklch(0.55 0.075 150 / 0.08)" : "#f1efe8", bubLine: b ? "oklch(0.55 0.075 150 / 0.30)" : "#e6e3da", bubR: b ? "3px 9px 9px 9px" : "9px 3px 9px 9px", bubPad: "6px 11px",
+          viaG: V[0], via: vb, viaColor: V[2], viaLine: V[3], viaBg: V[4], bubEdge: b ? "oklch(0.55 0.075 150 / 0.30)" : V[5], bubEdgeL: b ? V[5] : "#e6e3da", isMsg: true, t: p[0], bg: p[1], fc: p[2], name: p[3], time: m.time, nameColor: b ? "oklch(0.45 0.07 150)" : "#1c1b18", band: "transparent", parts: parts(m.text) };
       }),
     };
   },
