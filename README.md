@@ -131,3 +131,11 @@ This does not test Vercel's deployed routing or the actual core backend.
 
 `vercel dev` would apply the rewrite, but it sends real requests to the
 real app host, so don't use it to submit the form.
+
+## Local end-to-end check (synthetic)
+
+buddy-core's `scripts/e2e_local/flows.py` serves this repo's files on 127.0.0.1 and stands
+in for the `/api/waitlist` rewrite by forwarding it to a local core, then drives the form
+in headless Chromium (receipt, repeat, and the mail outcomes core records). It proves the
+page against core's real `POST /waitlist`; it does not prove the Vercel rewrite or the
+client address Vercel presents, which stay unverified (above).
