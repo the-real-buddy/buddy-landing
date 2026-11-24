@@ -16,74 +16,69 @@
 <link href="/waitlist/waitlist.css" rel="stylesheet">
 </head>
 <body>
-<header class="nav">
-  <a class="brand" href="/" aria-label="buddy home">b · buddy</a>
-  <a class="signin" href="https://app.trybuddynow.com/app/">sign in →</a>
+<header class="top">
+  <div class="top-in">
+    <a class="mark" href="/" aria-label="buddy home"><span class="glyph">b<i></i></span><span class="word">buddy</span></a>
+    <span class="preview">research preview</span>
+    <a class="signin" href="https://app.trybuddynow.com/app/">sign in</a>
+  </div>
 </header>
 
-<nav class="crumb" aria-label="breadcrumb"><a href="/">home</a> / <span aria-current="page">request access</span></nav>
-
 <main id="apply">
-  <div class="grid">
-    <div class="intro">
-      <p class="eyebrow">research preview · request access</p>
-      <h1>one buddy.<br>your whole team.</h1>
-      <p class="lede">tell us about your team and the first job you'd hand buddy.</p>
+  <form id="apply-form" novalidate>
+    <h1>give buddy a seat.</h1>
+    <p class="lede">tell us about your team. we're letting teams in a few at a time.</p>
+
+    <div class="field">
+      <label for="email">work email</label>
+      <input id="email" name="email" type="email" required maxlength="254" autocomplete="email" inputmode="email" autocapitalize="none" spellcheck="false" placeholder="you@company.com" aria-describedby="email-error">
+      <p class="field-error" id="email-error" hidden></p>
     </div>
 
-    <div class="side">
-      <form id="apply-form" novalidate>
-        <div class="field">
-          <label for="email">work email</label>
-          <input id="email" name="email" type="email" required maxlength="254" autocomplete="email" inputmode="email" autocapitalize="none" spellcheck="false" placeholder="you@company.com" aria-describedby="email-error">
-          <p class="field-error" id="email-error" hidden></p>
-        </div>
-
-        <div class="field">
-          <label for="team_size">how many people would work with buddy?</label>
-          <!-- core members.TEAM_SIZES, value for value; the server refuses anything else. -->
-          <select id="team_size" name="team_size" required aria-describedby="team_size-error">
-            <option value="">select a size</option>
-            <option value="just me">just me</option>
-            <option value="2-5">2-5</option>
-            <option value="6-15">6-15</option>
-            <option value="16-50">16-50</option>
-            <option value="51+">51+</option>
-          </select>
-          <p class="field-error" id="team_size-error" hidden></p>
-        </div>
-
-        <div class="field">
-          <label for="first_job">what's the first job you'd hand buddy?</label>
-          <textarea id="first_job" name="first_job" required maxlength="400" rows="3" autocomplete="off" placeholder="for example: chase missing invoices across email and slack, then prepare a weekly summary." aria-describedby="first_job-hint first_job-error"></textarea>
-          <p class="hint" id="first_job-hint">up to 400 characters.</p>
-          <p class="field-error" id="first_job-error" hidden></p>
-        </div>
-
-        <div class="field">
-          <label for="team_name">company or team name <span class="optional">(optional)</span></label>
-          <input id="team_name" name="team_name" type="text" maxlength="120" autocomplete="organization" placeholder="your team">
-        </div>
-
-        <p class="form-error" id="form-error" role="alert" hidden></p>
-        <button type="submit" id="submit">request team access →</button>
-        <p class="sr-only" id="pending" aria-live="polite"></p>
-      </form>
-
-      <section id="received" hidden aria-labelledby="received-title">
-        <p class="eyebrow">request received</p>
-        <h2 id="received-title" tabindex="-1">you're on the list.</h2>
-        <p>we've received your request for <b id="sent-email"></b>. we're reviewing teams in small groups and will email you if a spot opens up.</p>
-        <p><a href="/">back to buddy</a></p>
-      </section>
+    <div class="field">
+      <label for="team_size">team size</label>
+      <!-- core members.TEAM_SIZES, value for value; the server refuses anything else. -->
+      <select id="team_size" name="team_size" required aria-describedby="team_size-error">
+        <option value="">select a size</option>
+        <option value="just me">just me</option>
+        <option value="2-5">2-5</option>
+        <option value="6-15">6-15</option>
+        <option value="16-50">16-50</option>
+        <option value="51+">51+</option>
+      </select>
+      <p class="field-error" id="team_size-error" hidden></p>
     </div>
-  </div>
+
+    <div class="field">
+      <label for="first_job">what do you want buddy's help with?</label>
+      <textarea id="first_job" name="first_job" required maxlength="400" rows="3" autocomplete="off" aria-describedby="first_job-error"></textarea>
+      <p class="field-error" id="first_job-error" hidden></p>
+    </div>
+
+    <div class="field">
+      <label for="team_name">company or team name</label>
+      <input id="team_name" name="team_name" type="text" required maxlength="120" autocomplete="organization" aria-describedby="team_name-error">
+      <p class="field-error" id="team_name-error" hidden></p>
+    </div>
+
+    <button type="submit" id="submit">request access</button>
+    <p class="form-error" id="form-error" role="alert" hidden></p>
+    <p class="sr-only" id="pending" aria-live="polite"></p>
+  </form>
+
+  <section id="received" hidden aria-labelledby="received-title">
+    <h2 id="received-title" tabindex="-1">you're on the list.</h2>
+    <p class="lede">we'll email <b id="sent-email"></b> when a spot opens.</p>
+    <p><a href="/">back to buddy</a></p>
+  </section>
 </main>
 
 <footer class="foot">
-  <span>research preview</span>
+  <span>© 2026 Buddy Intelligence LLC</span>
+  <span class="grow"></span>
   <a href="/#privacy">privacy</a>
   <a href="/#terms">terms</a>
+  <a href="mailto:trybuddynow@gmail.com">contact us</a>
 </footer>
 
 <script src="/waitlist/waitlist.js"></script>

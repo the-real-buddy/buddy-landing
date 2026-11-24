@@ -34,12 +34,11 @@
   }
 
   function read() {
-    const name = field("team_name").value.trim();
     return {
       email: field("email").value.trim(),
       team_size: field("team_size").value,
       first_job: field("first_job").value.trim(),
-      team_name: name || null,
+      team_name: field("team_name").value.trim(),
     };
   }
 
@@ -48,8 +47,9 @@
     const wrong = [];
     const mark = (name, message) => { setFieldError(name, message); if (message) wrong.push(name); };
     mark("email", !body.email ? "enter your work email." : body.email.length > 254 || !EMAIL.test(body.email) ? "that email doesn't look right." : "");
-    mark("team_size", TEAM_SIZES.includes(body.team_size) ? "" : "choose how many people would work with buddy.");
-    mark("first_job", !body.first_job ? "tell us the first job you'd hand buddy." : [...body.first_job].length > 400 ? "keep it to 400 characters." : "");
+    mark("team_size", TEAM_SIZES.includes(body.team_size) ? "" : "choose a size.");
+    mark("first_job", !body.first_job ? "this one is needed." : [...body.first_job].length > 400 ? "keep it to 400 characters." : "");
+    mark("team_name", body.team_name ? "" : "enter your company or team name.");
     return wrong[0] || null;
   }
 
@@ -62,10 +62,10 @@
 
   // What the person is told for each way a request can fail; never the server's own words.
   function failure(status) {
-    if (status === 429) return "too many requests from here just now. wait a minute, then try again.";
-    if (status === 400 || status === 422) return "something in the form doesn't look right. check your email and the first job, then try again.";
-    if (status === null) return "we couldn't reach buddy. check your connection and try again.";
-    return "we couldn't take your request just now. please try again in a moment.";
+    if (status === 429) return "too many requests. try again in a minute.";
+    if (status === 400 || status === 422) return "check the form and try again.";
+    if (status === null) return "couldn't reach buddy. check your connection.";
+    return "couldn't take that just now. try again.";
   }
 
   async function send(body) {
@@ -121,7 +121,7 @@
   });
 
   // A field's own message clears as soon as it is edited.
-  for (const name of ["email", "team_size", "first_job"]) {
+  for (const name of ["email", "team_size", "first_job", "team_name"]) {
     field(name).addEventListener("input", () => setFieldError(name, ""));
   }
 })();
