@@ -22,7 +22,7 @@ deployed**: check core's own status before pointing people here.
 
 1. The homepage's "request access" opens `/waitlist`.
 2. The person gives a work email, team size, the first job they'd hand
-   buddy and, optionally, a company or team name. The page posts them to
+   buddy and a company or team name. The page posts them to
    `/api/waitlist` on its own origin.
 3. Vercel rewrites that request to core's public `POST /waitlist`, which
    records one request per address and answers `204` with no body, for a
@@ -42,15 +42,15 @@ stores anything in the browser.
 ### The backend contract
 
 From core's `harness_module/members.py` (`request_access`, `TEAM_SIZES`)
-and `harness_module/api.py` (`POST /waitlist`) on core PR78's baseline
-`96c1cd10`, inspected 2026-11-19 (not a claim about main or production):
+and `harness_module/api.py` (`POST /waitlist`) on core PR #127's head
+`92f9fe05`, inspected 2026-11-27 (not a claim about main or production):
 
 - `POST /waitlist`, JSON `{"email", "team_size", "first_job", "team_name"}`, no session.
 - `email`: required; core trims, lowercases and needs `[^\s@]+@[^\s@]+\.[^\s@]+`.
   The page also caps it at 254 characters.
 - `team_size`: exactly one of `just me`, `2-5`, `6-15`, `16-50`, `51+`.
 - `first_job`: 1 to 400 characters after trimming.
-- `team_name`: optional (`null` when empty); core keeps at most 120 characters, the page's own limit.
+- `team_name`: required; core trims it, refuses an empty one with `400`, and keeps at most 120 characters, the page's own limit.
 - `204` on success; `400` on a refused field; `429` when rate limited;
   errors are `{"code", "message", "retryable"}`, which the page never shows.
 
@@ -134,7 +134,8 @@ real app host, so don't use it to submit the form.
 
 ## Local end-to-end check (synthetic)
 
-buddy-core's `scripts/e2e_local/flows.py` serves this repo's files on 127.0.0.1 and stands
+buddy-core PR #78's `scripts/e2e_local/flows.py` (branch `feat/the-44-waitlist-admit`; core
+PR #127 dropped it) serves this repo's files on 127.0.0.1 and stands
 in for the `/api/waitlist` rewrite by forwarding it to a local core, then drives the form
 in headless Chromium (receipt, repeat, and the mail outcomes core records). It proves the
 page against core's real `POST /waitlist`; it does not prove the Vercel rewrite or the
