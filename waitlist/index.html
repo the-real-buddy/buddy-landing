@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The page's own policy, so it holds wherever the file is served; vercel.json adds frame-ancestors, which a meta tag can't. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'none'">
+<meta name="referrer" content="no-referrer">
+<title>request access · buddy</title>
+<meta name="description" content="buddy is in research preview. tell us about your team and the first job you'd hand buddy.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/buddy-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="/waitlist/waitlist.css" rel="stylesheet">
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <a class="mark" href="/" aria-label="buddy home"><span class="glyph">b<i></i></span><span class="word">buddy</span></a>
+    <span class="preview">research preview</span>
+    <a class="signin" href="https://app.trybuddynow.com/app/">sign in</a>
+  </div>
+</header>
+
+<main id="apply">
+  <form id="apply-form" method="post" novalidate>
+    <h1>give buddy a seat.</h1>
+    <p class="lede">tell us about your team. we're letting teams in a few at a time.</p>
+
+    <div class="field">
+      <label for="email">work email</label>
+      <input id="email" name="email" type="email" required maxlength="254" autocomplete="email" inputmode="email" autocapitalize="none" spellcheck="false" placeholder="you@company.com" aria-describedby="email-error">
+      <p class="field-error" id="email-error" hidden></p>
+    </div>
+
+    <div class="field">
+      <label for="team_size">team size</label>
+      <!-- core members.TEAM_SIZES, value for value; the server refuses anything else. -->
+      <select id="team_size" name="team_size" required aria-describedby="team_size-error">
+        <option value="">select a size</option>
+        <option value="just me">just me</option>
+        <option value="2-5">2-5</option>
+        <option value="6-15">6-15</option>
+        <option value="16-50">16-50</option>
+        <option value="51+">51+</option>
+      </select>
+      <p class="field-error" id="team_size-error" hidden></p>
+    </div>
+
+    <div class="field">
+      <label for="first_job">what do you want buddy's help with?</label>
+      <textarea id="first_job" name="first_job" required maxlength="400" rows="3" autocomplete="off" aria-describedby="first_job-error"></textarea>
+      <p class="field-error" id="first_job-error" hidden></p>
+    </div>
+
+    <div class="field">
+      <label for="team_name">company or team name</label>
+      <input id="team_name" name="team_name" type="text" required maxlength="120" autocomplete="organization" aria-describedby="team_name-error">
+      <p class="field-error" id="team_name-error" hidden></p>
+    </div>
+
+    <button type="submit" id="submit">request access</button>
+    <p class="form-error" id="form-error" role="alert" hidden></p>
+    <p class="sr-only" id="pending" aria-live="polite"></p>
+  </form>
+
+  <section id="received" hidden aria-labelledby="received-title">
+    <h2 id="received-title" tabindex="-1">you're on the list.</h2>
+    <p class="lede">we'll email <b id="sent-email"></b> when a spot opens.</p>
+    <p><a href="/">back to buddy</a></p>
+  </section>
+</main>
+
+<footer class="foot">
+  <span>© 2026 Buddy Intelligence LLC</span>
+  <span class="grow"></span>
+  <a href="/#privacy">privacy</a>
+  <a href="/#terms">terms</a>
+  <a href="mailto:trybuddynow@gmail.com">contact us</a>
+</footer>
+
+<script src="/waitlist/waitlist.js"></script>
+</body>
+</html>
